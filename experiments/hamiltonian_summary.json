@@ -1,0 +1,11 @@
+{
+  "h": 0.1,
+  "N": 1000,
+  "T": 100.0,
+  "exact_energy": 0.5,
+  "euler_final_energy": 10479.577818906859,
+  "verlet_final_energy": 0.4997239159394073,
+  "euler_energy_relative_drift": 20958.155637813717,
+  "verlet_max_energy_abs_error": 0.0012499952806779846,
+  "verlet_max_modified_energy_abs_drift": 1.27675647831893e-15
+}
