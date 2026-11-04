@@ -17,6 +17,7 @@
         {
             "name": "biber",
             "command": "biber",
+            "env": {"LC_ALL": "C"},
             "args": [
                 "--output-directory=%OUTDIR%",
                 "%DOCFILE%"
