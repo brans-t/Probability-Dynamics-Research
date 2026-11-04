@@ -1,48 +1,61 @@
-# Source-to-Manuscript Mapping
+# 原题映射与 PDF 导航
 
-The source is the supplied [Student Assessment Exercise](StudentAssessmentExercise_unlocked.pdf). The current manuscript is [paper/main.tex](../paper/main.tex), its bibliography is [paper/ref.bib](../paper/ref.bib), and the compiled PDF is `paper/Tmp/main.pdf`.
+原题：[Student Assessment Exercise](StudentAssessmentExercise_unlocked.pdf)。
+文稿：[main.tex](../paper/main.tex)；参考文献：[ref.bib](../paper/ref.bib)；编译输出：`paper/Tmp/main.pdf`。
 
-The manuscript has one numbered chapter and five sections. Its **Source Index and Direct Links** is near the end, after the detailed assessment-to-chapter table and before References. Original project/item numbers below are not manuscript section numbers. There are 37 index entries: item 9.4 has separate analytic and numerical links.
+目录之后的 **Source Index and Direct Links** 提供 45 个原题入口，名称和页码均可点击，包含 Project 11 的全部 13 题。
+**Supplementary Index and Direct Links** 另有 7 个 HNN 附录入口。原题编号与论文章节编号彼此独立。
+主章含五节，另有独立 HNN 附录；附录的计算协议是研究计划，不是已有实验结果。
 
-| Original source | Integrated as | Current location and LaTeX target |
-|---|---|---|
-| 8, main task | Markov generator theorem, detailed balance and entropy dissipation | §1.4; `src:p8main` |
-| 8.1 | Worked analysis of the centered scheme and its boundary limitations | §1.4; `src:p8q1` |
-| 9.1 | Scalar integrating factor and matrix variation of constants | §1.2; `src:p9q1` |
-| 9.2 | Composition, inverse and time reversal of flows | §1.2; `src:p9q2` |
-| 9.3 | Variational equation and noncommuting-matrix correction | §1.2; `src:p9q3` |
-| 9.4 | Liouville–Jacobi determinant theorem | §1.2; `src:p9q4` |
-| 9.4, numerics | Euler / higher-order Jacobian analysis | §1.2; `src:p9q4discrete`; experiment in §1.5 |
-| 9.5 | Transported volume identity | §1.2; `src:p9q5` |
-| 9.6 | Minimum weighted kinetic-action path and velocity nonuniqueness | §1.2; `src:p9q6` |
-| 9.7 | Continuity equation | §1.2; `src:p9q7` |
-| 9.8 | Density change of variables | §1.2; `src:p9q8` |
-| 9.9 | Material derivative and transport theorem | §1.2; `src:p9q9` |
-| 9.10 | Differential entropy balance | §1.2; `src:p9q10` |
-| 9.11 | Score dynamics, Hessian extension and long-time counterexample | §1.2; `src:p9q11` |
-| 9.12 | Relative-entropy rate with sign check | §1.2; `src:p9q12` |
-| 9.13 | First variation of transported KL | §1.4; `src:p9q13` |
-| 9.14 | Quantile / triangular transport and sample-only limitations | §1.4; `src:p9q14` |
-| 9.15 | Formal kinetic optimality system for a specified terminal functional | §1.4; `src:p9q15` |
-| 10.1 | Hamilton equations | §1.2 Hamiltonian application; `src:p10q1` |
-| 10.2 | Conservation of autonomous Hamiltonian energy | §1.2; `src:p10q2` |
-| 10.3 | Reversed curves versus momentum-reflected trajectories | §1.2; `src:p10q3` |
-| 10.4 | Symplecticity and phase-volume preservation | §1.2; `src:p10q4` |
-| 11.1 | Nonnegativity of KL | §1.2; `src:p11q1` |
-| 11.5 | Gibbs variational identity | §1.2; `src:p11q5` |
-| 11.6 | Donsker–Varadhan representation | §1.2; `src:p11q6` |
-| 11.7 | KL disintegration and data processing | §1.2; `src:p11q7` |
-| 11.8 | Stein integration-by-parts identity | §1.2; `src:p11q8` |
-| 12.1 | Gaussian conditional law on a hyperplane | §1.3; `src:p12q1` |
-| 12.2 | Noisy conditioning and the sharp-level limit | §1.3; `src:p12q2` |
-| 12.3 | Coarea and projected free energy | §1.3; `src:p12q3` |
-| 12.4 | Conditional mean force and geometric correction | §1.3; `src:p12q4` |
-| 13.1 | Total covariance and coordinate-selection discussion | §1.3; `src:p13q1` |
-| 13.2 | Itô formula under projection | §1.3; `src:p13q2` |
-| 13.3 | Matching time marginals under existence / uniqueness assumptions | §1.3; `src:p13q3` |
-| 14.1 | Gaussian interpolant single- and two-time statistics | §1.4; `src:p14q1` |
-| 14.2 | Conditional interpolation velocity | §1.4; `src:p14q2` |
-| 14.3 | Conditional score identity | §1.4; `src:p14q3` |
+以下表格对应 [source_index.tsv](source_index.tsv)，以 `main.tex` 中的 `\sourceindexrow` 为依据；运行 `python scripts/check_project.py` 可核对三者与目标标签。
+
+| Project | Item | Placement | LaTeX target |
+|---|---|---|---|
+| 8 | Main task | Positive and mass-conserving Markov semidiscretization | `src:p8main` |
+| 8 | 1 | Centered-difference scheme and its limitations | `src:p8q1` |
+| 9 | 1 | Affine ODE and variation of constants | `src:p9q1` |
+| 9 | 2 | Composition, inverse, and time-reversal of flows | `src:p9q2` |
+| 9 | 3 | Variational matrix and noncommuting-matrix correction | `src:p9q3` |
+| 9 | 4 | Liouville--Jacobi determinant theorem | `src:p9q4` |
+| 9 | 4 (numerics) | Euler/RK4 Jacobian error and convergence order | `src:p9q4discrete` |
+| 9 | 5 | Volume transport and Reynolds-type identity | `src:p9q5` |
+| 9 | 6 | Minimum-energy path and optimal velocity | `src:p9q6` |
+| 9 | 7 | Pushforward dynamics and continuity equation | `src:p9q7` |
+| 9 | 8 | Density change-of-variables formula | `src:p9q8` |
+| 9 | 9 | Material derivative and transport theorem | `src:p9q9` |
+| 9 | 10 | Differential-entropy evolution | `src:p9q10` |
+| 9 | 11 | Score evolution and Hessian extension | `src:p9q11` |
+| 9 | 12 | Relative-entropy evolution for two flows | `src:p9q12` |
+| 9 | 13 | First variation of transported KL divergence | `src:p9q13` |
+| 9 | 14 | Transport from a Gaussian to a target law | `src:p9q14` |
+| 9 | 15 | Measure-valued kinetic optimal-control problem | `src:p9q15` |
+| 10 | 1 | Hamilton equations from the mechanical Hamiltonian | `src:p10q1` |
+| 10 | 2 | Energy conservation along trajectories | `src:p10q2` |
+| 10 | 3 | Time reversal and momentum reflection | `src:p10q3` |
+| 10 | 4 | Symplecticity and preservation of phase volume | `src:p10q4` |
+| 11 | 1 | Nonnegativity of relative entropy | `src:p11q1` |
+| 11 | 2 | KL asymmetry and unequal-variance Gaussians | `src:p11q2` |
+| 11 | 3 | Truncated Gaussian: KL curve and quadratic constrained minimum | `src:p11q3` |
+| 11 | 4 | Joint convexity, separate convexity, and Bregman structure | `src:p11q4` |
+| 11 | 5 | Gibbs variational identity and exponential tilt | `src:p11q5` |
+| 11 | 6 | Donsker--Varadhan dual representation | `src:p11q6` |
+| 11 | 7 | Chain rule for relative entropy | `src:p11q7` |
+| 11 | 8 | Stein identity and its operator | `src:p11q8` |
+| 11 | 9 | $f$-divergence, joint convexity, and NWJ variational form | `src:p11q9` |
+| 11 | 10 | Exponential Fenchel dual and finite-state saddle proof | `src:p11q10` |
+| 11 | 11 | Shift optimization recovering Donsker--Varadhan | `src:p11q11` |
+| 11 | 12 | Logistic classification and density-ratio optimality | `src:p11q12` |
+| 11 | 13 | Reward-guided measure optimization and mean-field tilt | `src:p11q13` |
+| 12 | 1 | Gaussian conditional distribution | `src:p12q1` |
+| 12 | 2 | Noisy conditioning and level-set approximation | `src:p12q2` |
+| 12 | 3 | Coarea formula and effective free energy | `src:p12q3` |
+| 12 | 4 | Conditional mean-force formula | `src:p12q4` |
+| 13 | 1 | Conditional-variance identity and reaction coordinates | `src:p13q1` |
+| 13 | 2 | It\^o equation for a collective variable | `src:p13q2` |
+| 13 | 3 | Markovian matching of time marginals | `src:p13q3` |
+| 14 | 1 | Gaussian stochastic-interpolant statistics | `src:p14q1` |
+| 14 | 2 | Conditional interpolant velocity field | `src:p14q2` |
+| 14 | 3 | Conditional-score identity | `src:p14q3` |
 
 ## Not conflating claims
 

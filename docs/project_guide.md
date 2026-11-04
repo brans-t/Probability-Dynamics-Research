@@ -28,13 +28,38 @@
 
 ## 建议阅读顺序
 
+### 当前目录分组
+
+主要 subsection 从 24 个整合为 14 个。五个主 section 保留，目录显示到 subsection；推导步骤保留为正文内的小标题。
+
+| 主节 | 原 subsection 数 | 现 subsection 数 | 分组依据 |
+|---|---:|---:|---|
+| 1.1 基础对象 | 6 | 3 | 状态与可观测量 → 概率律 → 变换及其对偶作用；研究路线作为节末总结 |
+| 1.2 动力学与概率输运 | 7 | 4 | 状态流几何、可观测量/概率演化、Hamiltonian 应用、熵与自由能 |
+| 1.3 条件概率与有效动力学 | 2 | 2 | 条件几何与动态投影是两个清楚区分的层次，保留 |
+| 1.4 学习流与离散近似 | 5 | 3 | 速度场及条件回归、输运映射的变分构造、保概率离散化 |
+| 1.5 OU 算例 | 4 | 2 | 精确模型及闭合诊断，与数值/学习验证分开 |
+
+1.2 的合并关系为：
+
+| 现标题 | 原内容 | 在论证中的角色 |
+|---|---|---|
+| 1.2.1 State flows and their geometry | 原 1.2.1–1.2.2 | 先构造流，再研究线性化、Jacobian、体积与数值误差 |
+| 1.2.2 Observable evolution and probability transport | 原 1.2.3–1.2.4 | 同一状态流在函数与测度上的对偶作用；生成元连接弱前向方程 |
+| 1.2.3 Hamiltonian dynamics: a geometric application | 原 1.2.5 | 流几何的物理应用，明确不是熵理论的额外前提 |
+| 1.2.4 Entropy, variational principles, and free energy | 原 1.2.6–1.2.7 | 概率律的函数泛函、凸对偶及统计/热力学应用 |
+
+熵部分内部也按概念重新归组：Stein 恒等式放在 score 之后；两种密度的 KL 演化和 KL 链式法则放在 KL 定义之后；Gibbs、Donsker–Varadhan、`f`-divergence 与 minimax 归入凸对偶；密度比估计、分布优化及热力学自由能分别作为应用。公式、定理、证明、习题、Notice 和图表的内容均保留。`equation` 中的 `label` 继续位于结束环境的上一行。
+
+### 阅读路线
+
 1. **先看模型和结论。** 读第 1.5 节的 OU 平衡、时间依赖条件均值、相关函数反例，再看现有实验数据。明确项目需要解释的现象。
 2. **补上动力学语言。** 读第 1.1–1.2 节，理解推前与对偶、非自治流、矩阵基本解和 Jacobian。Hamiltonian 应用展示保体积、辛性和数值能量误差之间的关系。
 3. **理解降维为何需要条件概率。** 读第 1.3 节：Gaussian 条件律 → coarea → 平均力 → Itô 投影 → 带适定性前提的边缘匹配。
 4. **再读学习与离散化。** 读第 1.4 节，区分条件速度、score、推前 KL 变分与保概率 Markov 离散化。
-5. **按原题回查。** 使用[题目映射](source_mapping.md)及正文末尾的可点击索引；原题编号不是正文节号。
+5. **按原题回查。** 使用[题目映射](source_mapping.md)及目录后的可点击索引；原题编号不是正文节号。
 
-熵与 KL 的内容目前属于第 1.2 节内的段落，有效动力学属于第 1.3 节内的段落，保结构数值方法属于第 1.4 节内的段落。部分 LaTeX 标签仍使用历史前缀 `ch:`，其实际引用位置以正文为准。
+熵与 KL、有效动力学、保结构数值方法现分别位于对应主 section 下的独立 subsection。正文引用使用与层级一致的 `sec:`/`subsec:` 标签；旧 `ch:` 标签作为兼容别名保留在正确的编号与锚点上。
 
 ## 代码职责与参数
 
@@ -46,6 +71,7 @@
 | [test_ou.py](../tests/test_ou.py) | 平衡条件结构、动态矩匹配、相关性反例、回归漂移 | 基础库的 4 个测试 |
 | [run_benchmarks.py](../experiments/run_benchmarks.py) | 矩阵 ODE、OU 协方差、仿射/神经回归、Markov 半离散化 | 1.2、1.4、1.5 |
 | [hamiltonian_benchmark.py](../experiments/hamiltonian_benchmark.py) | 谐振子的显式 Euler 与 velocity Verlet | 1.2 的 Hamiltonian 应用 |
+| [project11_kl_benchmarks.py](../experiments/project11_kl_benchmarks.py) | 截断标准正态的精确 KL 曲线、边界最优值核对 | 1.2 的 Project 11.3 |
 
 基础库中的势能为
 
@@ -57,20 +83,21 @@ K=\begin{pmatrix}a+c\kappa^2&-c\kappa\\-c\kappa&c\end{pmatrix}.
 
 `CoupledOU` 的默认参数是 `(a,c,kappa,beta)=(1,2,1.5,1.5)`。正文及综合实验使用 `(0.8,1.7,1.1,1)`，非平衡初始均值为 `(1,-0.8)`，协方差为 `diag(0.12,0.25)`。比较两套实现时必须显式传入后一组参数。
 
-基础库命名 Hessian 矩阵为 `H`，正文和综合实验命名为 `K`，表达的是同一个矩阵。两个实验脚本目前直接实现相应公式，没有调用基础库；减少重复实现是后续维护任务。
+基础库命名 Hessian 矩阵为 `H`，正文和综合实验命名为 `K`，表达的是同一个矩阵。三个实验脚本目前直接实现相应公式，没有调用基础库；减少重复实现是后续维护任务。
 
 ## 数据与图的来源
 
 | 结果 | 保存数据 | 图文件名（位于 `paper/figures/`） |
 |---|---|---|
-| Euler / RK4 行列式收敛 | [jacobian_convergence.csv](../experiments/jacobian_convergence.csv)、[results.json](../experiments/results.json) | `jacobian_convergence.pdf/.png` |
-| OU 平衡时间协方差反例 | [results.json](../experiments/results.json) 的 `OU_Cfull_t1`、`OU_Cclosure_t1`；曲线由解析公式生成 | `ou_correlation.pdf/.png` |
-| 神经条件回归 | [conditional_regression.csv](../experiments/conditional_regression.csv) | `conditional_regression.pdf/.png` |
-| 仿射 Gaussian 基线 | [affine_regression.csv](../experiments/affine_regression.csv) | 与神经结果在正文表格中对照 |
-| Markov 质量、正性和 KL | [markov_semidiscrete.csv](../experiments/markov_semidiscrete.csv) | 正文表格；当前无独立图 |
-| Hamiltonian 能量和相轨迹 | [hamiltonian_energy.csv](../experiments/hamiltonian_energy.csv)、[hamiltonian_summary.json](../experiments/hamiltonian_summary.json) | `hamiltonian_energy.pdf/.png`、`hamiltonian_phase.pdf/.png` |
+| Euler / RK4 行列式收敛 | [jacobian_convergence.csv](../results/benchmarks/jacobian_convergence.csv)、[results.json](../results/benchmarks/results.json) | `jacobian_convergence.pdf` |
+| OU 平衡时间协方差反例 | [results.json](../results/benchmarks/results.json) 的 `OU_Cfull_t1`、`OU_Cclosure_t1`；曲线由解析公式生成 | `ou_correlation.pdf` |
+| 神经条件回归 | [conditional_regression.csv](../results/benchmarks/conditional_regression.csv) | `conditional_regression.pdf` |
+| 仿射 Gaussian 基线 | [affine_regression.csv](../results/benchmarks/affine_regression.csv) | 与神经结果在正文表格中对照 |
+| Markov 质量、正性和 KL | [markov_semidiscrete.csv](../results/benchmarks/markov_semidiscrete.csv) | 正文表格；当前无独立图 |
+| Hamiltonian 能量和相轨迹 | [hamiltonian_energy.csv](../results/benchmarks/hamiltonian_energy.csv)、[hamiltonian_summary.json](../results/benchmarks/hamiltonian_summary.json) | `hamiltonian_energy.pdf`、`hamiltonian_phase.pdf` |
+| 截断正态 KL 与约束目标 | [project11_truncated_gaussian_kl.csv](../results/benchmarks/project11_truncated_gaussian_kl.csv) | `project11_truncated_gaussian_kl.pdf` |
 
-[reproduction.log](../experiments/reproduction.log) 保存了历史运行的 JSON 输出，没有依赖版本、命令时间或机器配置，不能单独作为完整复现环境记录。脚本没有保存神经网络权重、训练曲线或完整采样数据。
+综合实验摘要统一保存在 `results/benchmarks/results.json`；原 `reproduction.log` 的 JSON 与其一致，已删除重复副本。脚本没有保存神经网络权重、训练曲线或完整采样数据。
 
 ## 已有结果如何解读
 
@@ -80,27 +107,79 @@ K=\begin{pmatrix}a+c\kappa^2&-c\kappa\\-c\kappa&c\end{pmatrix}.
 - **Gaussian 结构是有用的回归基线。** 现有神经 RMSE 为 `0.07427` / `0.09911`，仿射 RMSE 为 `0.07414` / `0.03552`，对应训练量 512 / 4096。两种模型使用相同测试集，但脚本分别抽取训练集；这不是同一训练样本上的配对比较，也不是多种子结论。
 - **数值结构检查有明确范围。** Markov 数据验证了记录时刻的质量、正性及 KL 趋势；当前脚本没有执行空间网格加密研究，不能据此声称已经验证空间收敛阶。
 
-## 验证状态（2026-11-03）
+## 本次整理的验证
 
-本次整理只对下列可由本地文件和执行结果支持的项目给出状态；不将既有结果标为重新训练所得。
-
-| 核对项 | 状态 |
-|---|---|
-| OU 基础库 | 现有 4 个 pytest 测试通过；使用 `src` 导入路径运行 |
-| Hamiltonian 实验 | 在临时副本中运行完整脚本，1001 行 CSV 与摘要均与保存结果一致；确认图片写入 `paper/figures/` |
-| 非神经数值部分 | 在隔离目录执行综合脚本中的矩阵 ODE、OU 和 Markov 源码段；重算结果与保存值一致，并核对基础库在显式参数下给出相同 OU 矩阵、协方差与时间协方差 |
-| CSV / JSON 对应关系 | 4 份综合实验 CSV 与 `results.json` 对应一致；历史 `reproduction.log` 中的 JSON 与该结果一致 |
-| 文献键、原题链接与编译 | 7 个引用键都有文献记录；37 个索引目标标签均存在且已列入映射文档；5 张正文图存在；README 所列 `latexmk` 命令成功生成 51 页 PDF，无未定义引用或空参考文献警告 |
-| 文档和配置 | 本地 Markdown 路径与锚点检查通过；Python 语法、TOML 及 VS Code 编译配置解析通过 |
-| 神经网络完整重训 | 未执行；本次测试环境缺少 PyTorch，另一现有 PyTorch 环境缺少 SciPy，没有找到可直接运行完整管线的单一环境 |
-| 数学证明和外部参考文献 | 已整理正文陈述、限定条件及本地映射；未逐条完成独立证明审查或外部文献元数据核验 |
-
-上述执行使用 Python 3.13.9、NumPy 2.3.5、SciPy 1.16.3、Matplotlib 3.10.6；pytest 版本为 8.4.2。这是本次基础测试与非神经核对环境，不能当作历史神经结果的训练环境。原有论文数据未被这些隔离重跑覆盖。可编辑安装所用的元数据已核对，本次没有执行新的依赖下载或环境安装。
-
-编译还保留 `Underfull \hbox`、可断行盒子收缩及重复页锚点 `@page.i` 警告。它们属于后续排版和 PDF 导航检查事项；本次通过的是构建与引用解析检查，并非完整逐页视觉验收。
+整理前的完整文件快照位于本地 `build/reorganization/before.zip`；该目录不纳入版本控制。
+当前文稿的原题索引有 45 项，覆盖 Project 11 的全部 13 题；HNN 附录另有 7 个导航目标。
+本轮数学审查前的快照另存于 `build/manuscript-audit/before.zip`。数学修订、全局符号、编号体系、独立公式规范及完整神经复跑的差异见 [manuscript_audit.md](manuscript_audit.md)；使用 `scripts/check_manuscript_audit.py` 核对来源与内容保留。原有纯排版逐字比较不能用来判断经授权的数学修订是否正确。
+目录整理及 2026-11-03 的历史验证记录保留于 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 后续工作顺序
 
 先完善复现记录：在一个环境中安装完整依赖，记录版本与运行命令，保存神经网络权重和多种子误差。再统一代码中的 OU 参数与重复公式，为矩阵 ODE、Hamiltonian 和 Markov 实验补充独立检查。随后执行非线性双阱研究，并报告时间步、采样误差、相关时间和首次通过统计的不确定性。
 
-双阱势的平衡自由能在正文中已有解析表达式，但其非平衡条件漂移与完整投影过程的转移统计仍需数值研究。更远期的主题见[研究模块](future_research_modules.md)。
+双阱势的平衡自由能在正文中已有解析表达式，但其非平衡条件漂移与完整投影过程的转移统计仍需数值研究。更远期的主题见[后续研究计划](roadmap.md)。
+
+## Current scope and acceptance criteria
+
+### Mathematical backbone
+
+\(X_t\to\mathcal L,\mathcal L^*\to\rho_t\to\nu_t=\xi_\#\rho_t\to\mathbb E[\mathcal L(\varphi\circ\xi)\mid\xi(X_t)=z]\to(b_t,a_t)\to\) Markovian marginal projection. At equilibrium, disintegration of the Gibbs measure produces free energy \(F(z)\) and mean force. For gradient diffusions, relative entropy to Gibbs is a Lyapunov function. A probability-flow velocity converts a Fokker–Planck evolution into a continuity equation when density and coefficients are sufficiently regular.
+
+### Current coverage
+
+| Area | Material currently present | Remaining validation or extension |
+|---|---|---|
+| State / observable / measure language | Section 1.1 definitions and duality | Independent mathematical review |
+| Deterministic transport and information identities | Project 9.1–9.15; Project 11.1–11.13 in §§1.2 and 1.4 | Review hypotheses; distinguish formal kinetic stationarity from an optimizer theorem |
+| Hamiltonian application | Project 10.1–10.4, oscillator formulas, Euler / Verlet data and two figures in §1.2 | Broader potentials and step-size studies |
+| Conditional geometry and effective dynamics | Project 12.1–12.4 and 13.1–13.3 in §1.3 | Review regularity, integrability and forward-equation well-posedness assumptions |
+| Learned flow construction | Project 14.1–14.3 and a finite-sample conditional-regression experiment | Multi-seed training, saved models, dynamical validation |
+| Numerical probability evolution | Project 8 generator / centered-scheme analysis, mass / positivity / KL data | Spatial refinement and an independent fine-grid reference |
+| Coupled OU model | Exact Gaussian moments, projected drift, correlation counterexample, affine and neural regression | Unify experiment and library implementations; expand tests |
+| Nonlinear double well | Analytic equilibrium free energy and a research protocol | Numerical experiment remains unexecuted |
+
+The presence of a proof in the manuscript is recorded as manuscript coverage, not as independent verification of all mathematical claims. Existing Python tests cover the reusable OU core, not every area above.
+
+### Next priorities
+
+1. Establish and record one complete experiment environment, including PyTorch and SciPy; preserve code version, dependency versions and run outputs.
+2. Add multiple seeds and uncertainty summaries to the conditional-regression comparison. The current neural error is not monotone in training size.
+3. Reduce repeated OU formulas across the library and experiment script, with explicit shared parameters and checks for new numerical components.
+4. Execute the nonlinear double-well benchmark. Validate known equilibrium free energy separately from nonstationary drift, correlations and transition statistics.
+5. Develop specialized later modules only after selecting a concrete question; see [future research modules](roadmap.md).
+
+### Proof checklist
+
+- Specify stochastic basis, Brownian dimensions, coefficient regularity and growth conditions.
+- Justify existence of the diffusion, any invariant measure, and differentiability/integrability exchanges.
+- Use \(\mathcal L\) for observables and \(\mathcal L^*\) for distributions.
+- Distinguish pushforward measure from a process with a Markov property.
+- State precisely which boundary conditions give flux conservation.
+- For mimicking, require sufficient conditions for weak solutions and uniqueness of the induced Fokker–Planck problem; the weak identity by itself does not ensure existence or uniqueness.
+- For AI, compare conditional-mean regression to exact or high-accuracy estimators, and track probability error separately from trajectory error.
+
+### Numerical checks
+
+- Strong/weak convergence of the integrator as relevant; discrete mass conservation and positivity.
+- Exact Gaussian time-marginal baselines before nonlinear models.
+- Mean, covariance, stationary two-time covariance, and distributional distances.
+- Initial states both at equilibrium and out of equilibrium.
+- Error sources split by sampling, function approximation, time discretization, and model reduction.
+
+### Deliverable format
+
+`paper/main.tex` 保留全部文稿内容；`paper/preamble.tex` 集中字体、公式间距、定理环境与页面设置。
+`paper/ref.bib` 保存参考文献，`paper/figures/` 保存文稿实际使用的 PDF 图。
+`src/` 与 `tests/` 保存基础库和测试；`experiments/` 只保存实验源码，数据统一位于 `results/benchmarks/`。
+编译产物位于 `paper/Tmp/`，本地整理快照及视觉检查位于 `build/reorganization/`，均被 Git 忽略。
+运行命令统一见 [reproduction.md](reproduction.md)。
+
+## Project 11: mathematical qualifications
+
+
+- Project 11.3's optimum `b=0` assumes the original constraint `b >= 0` and potential `U(x)=alpha*x^2/2` with `alpha>0`.
+- Project 11.6 proves both Fenchel conjugacy directions, and distinguishes bounded tests from unrestricted log ratios.
+- Project 11.9 gives a fully explicit proof under positivity/integrability hypotheses, explaining the boundary/singular-measure qualification.
+- Project 11.10 derives the minimax formula in a finite positive-state setting by finding a saddle point, rather than invoking Sion's theorem on noncompact function spaces without verifying its hypotheses.
+- Project 11.13 proves existence and uniqueness under specific regularity hypotheses and then derives the mean-field exponential self-consistency formula under further positivity/differentiability conditions.

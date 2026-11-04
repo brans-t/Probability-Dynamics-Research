@@ -1,0 +1,183 @@
+% Shared typography, theorem environments, notation, and navigation.
+% All statement types share the theorem counter, reset at each chapter.
+% Boxed definitions use that same counter; no independent defn counter exists.
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{Tinos}}
+\IfFontExistsTF{Consolas}{\setmonofont{Consolas}[Scale=0.80]}{\setmonofont{DejaVu Sans Mono}[Scale=0.80]}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[bottom]{footmisc}
+\usepackage{fancyhdr}
+
+\usepackage[dvipsnames, svgnames]{xcolor}
+\usepackage{pifont}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{etoolbox}
+
+\usepackage{ifthen}
+\usepackage{hyperref}
+\usepackage[backend=biber,style=alphabetic,sorting=nyt]{biblatex}
+\addbibresource{ref.bib}
+\AtBeginBibliography{\sloppy}
+\usepackage{url}
+\usepackage{float}
+\usepackage{appendix}
+\usepackage{animate}
+\usepackage{tikz}
+
+\definecolor{greenshade}{rgb}{0.9, 1, 0.9}
+\definecolor{green}{rgb}{0.2, 0.6, 0.2}
+\definecolor{axmBack}{rgb}{0.95, 0.95, 1}
+\definecolor{axmFrame}{rgb}{0.5, 0.5, 1}
+\definecolor{axmTitle}{rgb}{0.2, 0.2, 0.6}
+\definecolor{lightblue}{rgb}{0.8, 0.9, 1}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{lightyellow}{rgb}{1, 0.98, 0.9}
+\definecolor{lightcyan}{rgb}{0.9, 1, 1}
+\definecolor{SkyBlue}{rgb}{0.2,0.6,1}
+\definecolor{lightcyanq}{RGB}{220, 245, 240}
+
+\newtheoremstyle{mythm}
+  {\topsep}{\topsep}{\itshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mythm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{axiom}[theorem]{Axiom}
+
+\newtheoremstyle{mydef}
+  {\topsep}{\topsep}{\upshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mydef}
+
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\renewenvironment{proof}{\indent\textcolor{SkyBlue}{\textbf{Proof.}}\;}{\qed\par}
+\newenvironment{solution}{\indent\textcolor{SkyBlue}{\textbf{Solution.}}\;}{\qed\par}
+
+\newtcolorbox[use counter=theorem, number within=chapter]{definition}[1][]{
+  enhanced, breakable,
+  colback=greenshade, colframe=green, arc=3mm,
+  title={\textbf{Definition \thetcbcounter\ifstrempty{#1}{}{ (#1)}}},
+  coltitle=black, fonttitle=\bfseries
+}
+
+\newtcolorbox[auto counter, number within=chapter]{axiombox}[1][]{
+  enhanced, breakable,
+  colback=axmBack, colframe=axmFrame, arc=3mm,
+  title={\textbf{Axiom \thetcbcounter\ #1}},
+  coltitle=axmTitle, fonttitle=\bfseries,
+}
+
+\newtcolorbox{Notice}[1][Notice]{
+  colback=lightblue, colframe=black, arc=3mm,
+  title={\textbf{#1}}, coltitle=white, fonttitle=\bfseries
+}
+
+\newtcolorbox{Proof}{
+  colback=lightgray, colframe=black, arc=3mm,
+  title={\textbf{Proof}}, coltitle=black, fonttitle=\bfseries
+}
+
+\newtcolorbox{Derivation}[1][]{
+  enhanced, breakable,
+  colback=lightyellow, colframe=black, arc=3mm,
+  title={\textbf{Derivation}}, coltitle=white, fonttitle=\bfseries,
+  boxsep=2mm, #1
+}
+
+\newtcolorbox{examplebox}[1][Example]{
+  colback=lightcyan, colframe=black, arc=3mm,
+  title={\textbf{#1}}, coltitle=black, fonttitle=\bfseries
+}
+
+\newtcolorbox{Question}[1][]{
+  enhanced, breakable, colback=lightcyanq, colframe=black, arc=3mm,
+  title={\textbf{Question}}, coltitle=white, fonttitle=\bfseries, boxsep=2mm, #1
+}
+
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {%
+    \begin{center}
+      \refstepcounter{algorithm}%
+      \hrule height.8pt depth0pt \kern4pt%
+      \parskip 0pt
+      \renewcommand{\caption}[2][\relax]{%
+        {\raggedright\textbf{\fname@algorithm~\thealgorithm: ##2}\par}%
+        \ifx\relax##1\relax
+          \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+        \else
+          \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+        \fi
+        \kern2pt\hrule\kern2pt
+     }
+  }
+  {%
+     \kern2pt\hrule\relax%
+   \end{center}
+  }
+\makeatother
+
+\providecommand{\listofalgorithms}{\listof{algorithm}{List of Algorithms}}
+
+% English manuscript additions: cross-referenced source annotations.
+\usepackage{longtable}
+\usepackage{array}
+\geometry{left=29mm,right=27mm,top=28mm,bottom=28mm}
+\setstretch{1.13}
+% Show the thematic groups in the contents; local derivation headings stay in the text.
+\setcounter{tocdepth}{2}
+\setlength{\emergencystretch}{3em}
+\hypersetup{hypertexnames=false,colorlinks=true,linkcolor=MidnightBlue,urlcolor=RoyalBlue,
+  pdftitle={Probability Dynamics Lab: Stochastic Dynamics, Coarse-Graining, and Learned Probability Flows},
+  pdfauthor={Research working notes}}
+\theoremstyle{mydef}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{assumption}[theorem]{Assumption}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\Law}{\operatorname{Law}}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\sourcecredit}[2]{\par\smallskip\noindent{\footnotesize\itshape\textcolor{MidnightBlue}{Original exercise:} \emph{Student Assessment Exercise}\,\cite{assessment}, Project~#1, item~#2 (adapted).}\par\nobreak\smallskip\nobreak}
+\newcommand{\sourcelink}[3]{\hyperref[#3]{Project #1 -- #2} & \hyperref[#3]{\pageref*{#3}}\\}
+\newcommand{\sourceindexrow}[4]{\hyperref[#3]{\textcolor{MidnightBlue}{Project~#1 -- #2}} & \hyperref[#3]{\textcolor{MidnightBlue}{\pageref*{#3}}} & #4\\}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize Probability Dynamics Lab}
+\fancyhead[R]{\footnotesize \nouppercase{\rightmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+
+% Display mathematics: keep text-size symbols and allow gentle page breaks.
+\setlength{\jot}{5pt}
+\allowdisplaybreaks[1]
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{10pt plus 3pt minus 3pt}%
+  \setlength{\belowdisplayskip}{10pt plus 3pt minus 3pt}%
+  \setlength{\abovedisplayshortskip}{4pt plus 2pt}%
+  \setlength{\belowdisplayshortskip}{8pt plus 2pt minus 2pt}%
+}

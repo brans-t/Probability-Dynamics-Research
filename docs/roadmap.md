@@ -2,7 +2,7 @@
 
 **Purpose:** Explain the mathematical object, the principal method, the potential failure, and a concrete next step without claiming to have solved the original question. The local source is [StudentAssessmentExercise_unlocked.pdf](StudentAssessmentExercise_unlocked.pdf). These notes are study plans, not submitted proofs or an independent audit of suspected source errors.
 
-Project 10 items 1–4 are now incorporated in Chapter 1 with a Hamiltonian oscillator experiment; they are no longer a wholly deferred project. Projects 8, 9 and selected items of 11–14 are mapped in [source_mapping.md](source_mapping.md). Unmapped items within those projects are not implicitly claimed solved.
+Project 10 items 1–4 are now incorporated in Chapter 1 with a Hamiltonian oscillator experiment; they are no longer a wholly deferred project. Projects 8, 9, all items 1–13 of Project 11, and selected items of 12–14 are mapped in [source_mapping.md](source_mapping.md). Unmapped items within those projects are not implicitly claimed solved.
 
 | Project | 30-second research explanation | What is not yet established | Next method / study priority |
 |---|---|---|---|
@@ -27,3 +27,16 @@ Project 10 items 1–4 are now incorporated in Chapter 1 with a Hamiltonian osci
 5. State the specific unresolved derivation and the text/paper or theorem you would study next.
 
 Do not present an unfinished chapter as solved. It is better to say "I can derive the generator and identify the appropriate boundary-value problem; I have not yet justified the asymptotic matching" than to claim a proof without handling boundary layers.
+
+## Possible future thematic chapters (not drafted)
+
+| Research module | Original assessment projects | Intended research questions |
+|---|---|---|
+| Stochastic processes and nonequilibrium statistical physics | P4 WKB/Kramers; P5 McKean--Vlasov; P6 Colored Noise; P16 Jarzynski Equality | Rare events, interacting-particle and mean-field limits, homogenization, work relations |
+| Stochastic analysis and probability dynamics | P7 Foundations; P15 Feynman--Kac; P17 Diffusion Bridge / Doob transform | Semigroups and generators, score identities, conditional diffusions, changes of measure |
+| Geometric and variational dynamics | P10 Hamiltonian Flow (deeper extension); P18 Wasserstein Gradient Flow | Extend the existing Hamiltonian application to broader geometric integration; develop metric gradient flows and variational formulations |
+| Numerical analysis and scientific machine learning | P1 Numerical PDE; P2 PINN Failure; P3 High-dimensional Committor Learning | Convergence, counterexamples to empirical residual minimization, committor approximation and possible operator-learning extensions |
+
+These later chapters are **planning only**. Project 10 items 1–4 and the harmonic-oscillator benchmark are already present in Chapter 1; their deeper extension, rather than their first introduction, belongs here. The references to JKO in Chapter 1 provide context for free-energy dissipation and do not constitute a completed solution of Project 18. No completion of the other deferred projects is implied.
+
+The nonlinear double-well study is a near-term benchmark extension within the current theme. Its equilibrium free energy is derived in Chapter 1, but the proposed nonstationary simulations and transition-statistics comparison have not been executed.

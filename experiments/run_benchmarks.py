@@ -1,22 +1,13 @@
-"""Chapter 1 experiments; run from the repository root with full experiment dependencies.
-
-Tables are saved in experiments/ and manuscript figures in paper/figures/.
-Running this script overwrites its previously generated results.
-"""
+"""Reproducible Chapter 1 experiments. Python 3.11; NumPy, SciPy, Matplotlib, PyTorch."""
 import csv, json, os
-from pathlib import Path
 import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.linalg import expm
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import torch
-from torch import nn
 
-ROOT=Path(__file__).resolve().parents[1]
-FIG=ROOT/'paper'/'figures'; FIG.mkdir(parents=True, exist_ok=True)
-OUT=ROOT/'experiments'
+from _paths import FIGURES as FIG, RESULTS as OUT
 SEED=20261102
 rng=np.random.default_rng(SEED)
 
@@ -49,7 +40,7 @@ fig,ax=plt.subplots(figsize=(6.1,4.2));
 for method in ('Euler','RK4'):
     ax.loglog([r['h'] for r in det_rows],[r[f'{method}_error'] for r in det_rows],'-o',label=method)
 ax.set_xlabel('Step size h'); ax.set_ylabel('Absolute error in det U(1,0)');ax.set_title('Jacobian determinant convergence');ax.legend();ax.grid(True,alpha=.25,which='both')
-fig.tight_layout();fig.savefig(FIG/'jacobian_convergence.pdf');fig.savefig(FIG/'jacobian_convergence.png',dpi=160);plt.close(fig)
+fig.tight_layout();fig.savefig(FIG/'jacobian_convergence.pdf');plt.close(fig)
 
 def integralA(): return np.array([[-.25,1.5],[-.45,.10]])
 false_error=np.linalg.norm(Uref-expm(integralA()),ord='fro')
@@ -66,9 +57,11 @@ fig,ax=plt.subplots(figsize=(6.1,4.2))
 ax.plot(ts,Cfull,label='Microscopic 2D OU projected on X',lw=2)
 ax.plot(ts,Cclosure,'--',label='Equilibrium Markov closure',lw=2)
 ax.set_xlabel('Time lag t');ax.set_ylabel('Stationary covariance C(t)');ax.set_title('Equal marginals, different temporal correlations')
-ax.legend();ax.grid(True,alpha=.25);fig.tight_layout();fig.savefig(FIG/'ou_correlation.pdf');fig.savefig(FIG/'ou_correlation.png',dpi=160);plt.close(fig)
+ax.legend();ax.grid(True,alpha=.25);fig.tight_layout();fig.savefig(FIG/'ou_correlation.pdf');plt.close(fig)
 
 # 3. Conditional drift regression: fixed-time Gaussian slices, held-out true conditional-mean target.
+import torch
+from torch import nn
 torch.manual_seed(SEED)
 torch.set_num_threads(2)
 m0=np.array([1.,-.8]);S0=np.diag([.12,.25]);times=np.array([.25,.5,1.,2.])
@@ -79,7 +72,7 @@ for t in times:
     params.append((m,S,g_slope,g_intercept))
 
 def sample(n):
-    # randomly allocate samples across the four time slices, then shuffle
+    # evenly allocate per time, shuffle
     ids=rng.integers(0,len(times),size=n)
     Z=np.zeros((n,2));Y=np.zeros((n,1));Tgt=np.zeros((n,1))
     for j,(m,S,k,b) in enumerate(params):
@@ -146,7 +139,7 @@ ax.scatter(Ztest[inds,1],preds[4096][inds],s=8,alpha=.45,label='Neural predictio
 ax.plot(xg,k*xg+b,lw=2,color='black',label='Exact conditional mean')
 ax.set_xlabel('Collective variable x');ax.set_ylabel('E[Y | X=x, t=1]')
 ax.set_title('Learning a conditional coefficient for the projected dynamics')
-ax.legend();ax.grid(True,alpha=.25);fig.tight_layout();fig.savefig(FIG/'conditional_regression.pdf');fig.savefig(FIG/'conditional_regression.png',dpi=160);plt.close(fig)
+ax.legend();ax.grid(True,alpha=.25);fig.tight_layout();fig.savefig(FIG/'conditional_regression.pdf');plt.close(fig)
 
 # 4. Semidiscrete continuous-time Markov approximation: exactly stochastic (mass/positive) under exp(Q t).
 from scipy.sparse import diags

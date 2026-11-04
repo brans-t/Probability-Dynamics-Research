@@ -22,7 +22,7 @@ python -m venv .venv
 python -m pip install -e ".[dev,experiments]"
 ```
 
-另一种安装方式是 `python -m pip install -r requirements.txt`，它安装完整实验所需依赖，但不安装本地 `probflow` 包及 pytest；需要运行测试时再执行 `python -m pip install -e ".[dev]"`。
+另一种安装方式是 `python -m pip install -r requirements.txt`，它通过 `pyproject.toml` 安装本地包与完整实验依赖；需要运行测试时再执行 `python -m pip install -e ".[dev]"`。
 
 完整实验使用 CPU 上的 PyTorch 网络，不要求 CUDA。检查依赖是否在**同一个解释器**下可导入：
 
@@ -48,24 +48,27 @@ python -m pytest -q
 ## 运行实验
 
 ```bash
+python experiments/project11_kl_benchmarks.py
 python experiments/hamiltonian_benchmark.py
 python experiments/run_benchmarks.py
 ```
 
 脚本根据自身位置确定仓库根目录，不依赖启动时的当前目录。上面的相对脚本路径需要从仓库根目录调用。
 
-| 脚本 | 生成的数据（`experiments/`） | 生成的图（`paper/figures/`） |
+| 脚本 | 生成的数据（`results/benchmarks/`） | 生成的图（`paper/figures/`） |
 |---|---|---|
-| `hamiltonian_benchmark.py` | `hamiltonian_energy.csv`、`hamiltonian_summary.json` | `hamiltonian_energy`、`hamiltonian_phase`，各含 PDF/PNG |
-| `run_benchmarks.py` | `jacobian_convergence.csv`、`conditional_regression.csv`、`affine_regression.csv`、`markov_semidiscrete.csv`、`results.json` | `jacobian_convergence`、`ou_correlation`、`conditional_regression`，各含 PDF/PNG |
+| `hamiltonian_benchmark.py` | `hamiltonian_energy.csv`、`hamiltonian_summary.json` | `hamiltonian_energy`、`hamiltonian_phase`，PDF |
+| `project11_kl_benchmarks.py` | `project11_truncated_gaussian_kl.csv` | `project11_truncated_gaussian_kl.pdf` |
+| `run_benchmarks.py` | `jacobian_convergence.csv`、`conditional_regression.csv`、`affine_regression.csv`、`markov_semidiscrete.csv`、`results.json` | `jacobian_convergence`、`ou_correlation`、`conditional_regression`，PDF |
 
-重跑会覆盖这些结果。历史文件 `experiments/reproduction.log` 不会自动更新；保存新日志时使用新文件名，例如 PowerShell 中：
+重跑会覆盖对应的 CSV/JSON 与 PDF 图。三份脚本共用 `experiments/_paths.py` 中的输出位置，不再生成根目录 `figures/` 或 PNG 副本。
+历史 `reproduction.log` 与综合摘要相同，已删除重复文件。需要保存新日志时可运行：
 
 ```powershell
-python experiments/run_benchmarks.py > experiments/run_benchmarks.local.log
+python experiments/run_benchmarks.py > results/benchmarks/run_benchmarks.local.log
 ```
 
-两种脚本使用 Matplotlib 的 `Agg` 后端，不弹出图形窗口。综合脚本在写入结果之前导入 PyTorch，缺少该依赖时会提前报错。
+三种脚本使用 Matplotlib 的 `Agg` 后端。综合脚本需要 PyTorch，Project 11 与 Hamiltonian 脚本无需 PyTorch。
 
 ### 综合实验参数
 
@@ -84,9 +87,21 @@ python experiments/run_benchmarks.py > experiments/run_benchmarks.local.log
 
 ## 编译文稿
 
-输入是 [main.tex](../paper/main.tex)、[ref.bib](../paper/ref.bib) 和 `paper/figures/` 中的 5 张 PDF 图。仓库已保存这些图，因此阅读和编译已有结果不要求先运行神经训练。
+输入是 [main.tex](../paper/main.tex)、[ref.bib](../paper/ref.bib)、共享排版配置 [preamble.tex](../paper/preamble.tex) 和 `paper/figures/` 中的 6 张 PDF 图。仓库已保存这些图，因此阅读和编译已有结果不要求先运行神经训练。
 
-推荐从仓库根目录运行：
+从仓库根目录一键编译：
+
+```powershell
+.\build.ps1
+```
+
+macOS / Linux / Git Bash：
+
+```bash
+bash build.sh
+```
+
+两种入口均生成 `paper/Tmp/main.pdf`，参考文献由 Biber 处理。也可直接运行：
 
 ```bash
 latexmk -cd -xelatex -outdir=Tmp -synctex=1 -interaction=nonstopmode -halt-on-error paper/main.tex
@@ -114,7 +129,7 @@ Pop-Location
 
 在 VS Code 打开整个仓库根目录，安装 LaTeX Workshop 后打开 `paper/main.tex`，执行 Build LaTeX project。项目的 [.vscode/settings.json](../.vscode/settings.json) 将默认 recipe 设为 `XeLaTeX -> Biber -> XeLaTeX x2`，输出目录为 `%DIR%/Tmp`。
 
-字体优先使用 Times New Roman 和 Consolas；缺少时尝试 Tinos、DejaVu Sans Mono。还需安装文稿中使用的宏包，包含 `amsmath`、`amsthm`、`tikz`、`tcolorbox`、`biblatex` 等。
+正文字体优先 Times New Roman，缺少时使用 Tinos；等宽字体优先 Consolas，缺少时使用 DejaVu Sans Mono。还需安装文稿中使用的宏包，包含 `amsmath`、`amsthm`、`tikz`、`tcolorbox`、`biblatex` 等。
 
 ## 常见问题
 
@@ -131,4 +146,23 @@ Pop-Location
 
 保留代码版本、Python 与依赖版本、命令、seed、生成数据和对应图片。可运行 `python -m pip freeze` 导出当前环境清单；它描述这次环境，不等于仓库已经提供跨平台锁文件。区分条件均值 RMSE、漂移 RMSE 和对噪声标签的 RMSE，勿混用指标。
 
-本次整理的实际执行范围见[验证记录](project_guide.md#验证状态2026-11-03)。
+## 项目结构与内容核对
+
+```bash
+python scripts/check_project.py
+```
+
+本轮审查前快照存在时，编译 PDF 后还可核对来源、编号、保留素材及实际跳转目标：
+
+```bash
+python scripts/check_manuscript_audit.py --baseline build/manuscript-audit/before.zip
+```
+
+可选的精确代数检查：
+
+```bash
+python -m pip install -e ".[audit]"
+python scripts/check_math_identities.py
+```
+
+本轮实际执行了三个实验脚本，包括神经网络训练。原始 `results/benchmarks/` 和论文图没有覆盖；本轮单独的环境与比较记录位于 `results/audit-2026-11-04/`。512 样本神经误差吻合至约 `2.3e-8`，4096 样本神经误差从原记录 `0.09911` 变为本次 `0.09316`，尚未建立逐位复现。完整范围见 [数学与复现审查报告](manuscript_audit.md)，历史整理见 [整理记录](CHANGELOG.md)。

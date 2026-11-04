@@ -1,5 +1,2 @@
-# Full experiment dependencies; for editable installation and tests, see README.md.
-numpy>=1.24
-scipy>=1.11
-matplotlib>=3.7
-torch
+# Full experiment dependencies are maintained in pyproject.toml.
+-e .[experiments]

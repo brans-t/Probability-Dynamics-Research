@@ -1,0 +1,193 @@
+{
+  "date": "2026-11-04",
+  "seed": 20261102,
+  "scope": "Isolated execution of all three supplied experiment scripts; canonical results and figures preserved.",
+  "environment": {
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "matplotlib": "3.10.9",
+    "torch": "2.11.0+cu128"
+  },
+  "interpreter": "D:/App/Anaconda/envs/vae/python.exe",
+  "additional_scipy_path": "D:/App/Anaconda/envs/manimgl/Lib/site-packages",
+  "environment_note": "SciPy from an existing second CPython 3.11 environment was appended only to the subprocess module search path; no installation or permanent environment change.",
+  "source_sha256": {
+    "experiments/hamiltonian_benchmark.py": "a600a8d8681a4ef4ba34c1685d7cbd6dc0421590c5c9a0ac15ae5c8dd7bd35f9",
+    "experiments/project11_kl_benchmarks.py": "839d05693f5e8ad8631b13d3db43149f0c5cb87620d52e0d91263b5d35db6113",
+    "experiments/run_benchmarks.py": "e9fe505d1b0d18d79612ea050318b9e7c209c906f4696a127be21aad0bca9259",
+    "experiments/_paths.py": "cf6ec557ad68fa25f27fbbe077aae3ce2f0afc5ed5c34405ca3dd0af2bda8d57"
+  },
+  "saved_neural": [
+    {
+      "train_samples": 512,
+      "test_samples": 12000,
+      "conditional_mean_RMSE": 0.0742657482624054,
+      "projected_drift_RMSE": 0.13887694478034973,
+      "noisy_Y_RMSE": 0.7106022834777832
+    },
+    {
+      "train_samples": 4096,
+      "test_samples": 12000,
+      "conditional_mean_RMSE": 0.09911353886127472,
+      "projected_drift_RMSE": 0.18534231185913086,
+      "noisy_Y_RMSE": 0.7131978869438171
+    }
+  ],
+  "audit_neural": [
+    {
+      "train_samples": 512,
+      "test_samples": 12000,
+      "conditional_mean_RMSE": 0.07426577061414719,
+      "projected_drift_RMSE": 0.1388769894838333,
+      "noisy_Y_RMSE": 0.7106022834777832
+    },
+    {
+      "train_samples": 4096,
+      "test_samples": 12000,
+      "conditional_mean_RMSE": 0.09315841645002365,
+      "projected_drift_RMSE": 0.17420624196529388,
+      "noisy_Y_RMSE": 0.7123973965644836
+    }
+  ],
+  "saved_affine": [
+    {
+      "train_samples": 512,
+      "conditional_mean_RMSE": 0.0741411361577627,
+      "projected_drift_RMSE": 0.13864392461501626
+    },
+    {
+      "train_samples": 4096,
+      "conditional_mean_RMSE": 0.0355184908281084,
+      "projected_drift_RMSE": 0.06641957784856271
+    }
+  ],
+  "audit_affine": [
+    {
+      "train_samples": 512,
+      "conditional_mean_RMSE": 0.07414113615776259,
+      "projected_drift_RMSE": 0.13864392461501604
+    },
+    {
+      "train_samples": 4096,
+      "conditional_mean_RMSE": 0.03551849082810851,
+      "projected_drift_RMSE": 0.06641957784856292
+    }
+  ],
+  "deterministic": {
+    "matrix_exponential_false_frobenius_error": {
+      "saved": 0.0992651875625569,
+      "audit": 0.09926518756255669
+    },
+    "A_commutator_frobenius_norm": {
+      "saved": 1.3242073100538299,
+      "audit": 1.3242073100538299
+    },
+    "OU_Cfull_t1": {
+      "saved": 0.7980082187771009,
+      "audit": 0.7980082187771009
+    },
+    "OU_Cclosure_t1": {
+      "saved": 0.5616612051465273,
+      "audit": 0.5616612051465273
+    }
+  },
+  "markov": {
+    "saved": [
+      {
+        "time": 0.0,
+        "mass": 1.0,
+        "minimum_cell_mass": 1.5452848294318586e-21,
+        "KL_to_pi": 2.1444026270035095
+      },
+      {
+        "time": 0.015,
+        "mass": 1.0000000000000024,
+        "minimum_cell_mass": 2.620139629228186e-07,
+        "KL_to_pi": 1.4722504899574487
+      },
+      {
+        "time": 0.05,
+        "mass": 0.9999999999999863,
+        "minimum_cell_mass": 0.0007026256152575741,
+        "KL_to_pi": 0.8267802499316071
+      },
+      {
+        "time": 0.2,
+        "mass": 0.999999999999981,
+        "minimum_cell_mass": 0.0034790681180316184,
+        "KL_to_pi": 0.0774115424212494
+      },
+      {
+        "time": 0.5,
+        "mass": 0.9999999999998676,
+        "minimum_cell_mass": 0.001639855173220985,
+        "KL_to_pi": 0.0006104967719216266
+      }
+    ],
+    "audit": [
+      {
+        "time": 0.0,
+        "mass": 1.0,
+        "minimum_cell_mass": 1.5452848294318586e-21,
+        "KL_to_pi": 2.14440262700351
+      },
+      {
+        "time": 0.015,
+        "mass": 1.0000000000000022,
+        "minimum_cell_mass": 2.6201396292281876e-07,
+        "KL_to_pi": 1.4722504899574484
+      },
+      {
+        "time": 0.05,
+        "mass": 0.9999999999999855,
+        "minimum_cell_mass": 0.0007026256152575749,
+        "KL_to_pi": 0.8267802499316053
+      },
+      {
+        "time": 0.2,
+        "mass": 0.9999999999999816,
+        "minimum_cell_mass": 0.0034790681180316145,
+        "KL_to_pi": 0.07741154242124912
+      },
+      {
+        "time": 0.5,
+        "mass": 0.9999999999998755,
+        "minimum_cell_mass": 0.0016398551732209885,
+        "KL_to_pi": 0.0006104967719297264
+      }
+    ]
+  },
+  "interpretation": "Neural errors differ; exact reproduction of the saved neural run is not established. Its original frozen environment is unavailable. No unique cause of the discrepancy is inferred.",
+  "numeric_csv_comparisons": [
+    {
+      "file": "affine_regression.csv",
+      "rows": 2,
+      "max_absolute_delta": 2.220446049250313e-16
+    },
+    {
+      "file": "hamiltonian_energy.csv",
+      "rows": 1001,
+      "max_absolute_delta": 0.0
+    },
+    {
+      "file": "jacobian_convergence.csv",
+      "rows": 5,
+      "max_absolute_delta": 0.0
+    },
+    {
+      "file": "markov_semidiscrete.csv",
+      "rows": 5,
+      "max_absolute_delta": 8.099749169987458e-15
+    },
+    {
+      "file": "project11_truncated_gaussian_kl.csv",
+      "rows": 701,
+      "max_absolute_delta": 3.552713678800501e-15
+    }
+  ],
+  "hamiltonian_summary": "exact match",
+  "observed_convergence_orders": {
+    "Euler": 1.016845201902523,
+    "RK4": 3.911702037708239
+  }
+}
