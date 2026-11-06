@@ -28,6 +28,10 @@
         {
             "name": "XeLaTeX -> Biber -> XeLaTeX x2",
             "tools": ["xelatex", "biber", "xelatex", "xelatex"]
+        },
+        {
+            "name": "XeLaTeX x2 (Beamer)",
+            "tools": ["xelatex", "xelatex"]
         }
     ]
 }

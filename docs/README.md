@@ -77,8 +77,9 @@ before the subsequent code reorganization.
 
 The five main sections cover state/observable/probability language, deterministic
 transport and entropy, conditional/effective dynamics, learned flows and numerical
-structure, and a coupled OU benchmark. The separate HNN appendix discusses
-canonical equivalence, representation transfer, and a proposed test protocol.
+structure, and a coupled OU benchmark. HNN transfer is retained only as a short
+prospective paragraph beside the Hamiltonian application; its former appendix
+and supplementary navigation have been removed.
 
 Section 1.2 follows four themes: state-flow geometry; observable and probability
 transport; Hamiltonian mechanics as an application; entropy, variational principles,
@@ -88,8 +89,10 @@ contains 14 subsections, grouped as 3/4/2/3/2 across its five sections.
 The [original assessment](StudentAssessmentExercise_unlocked.pdf) and
 [machine-readable source index](source_index.tsv) preserve Project/item provenance.
 The manuscript's Source Index provides 45 clickable entries, including all 13
-Project 11 items; its Supplementary Index provides seven HNN navigation entries.
-Source numbers are independent of manuscript section numbers.
+Project 11 items. It is the single question-to-location table. Source numbers
+are independent of manuscript section numbers. A linked entry need not be an
+unrestricted solution: the [current review](manuscript-review-2026-11-06.md)
+records original PDF pages, answer scope, corrections, and remaining gaps.
 The assessment has no inferred author or publication year.
 
 The prior review addressed flow existence/differentiability, noncommuting
@@ -101,14 +104,17 @@ The [statement review](../results/audit-2026-11-04/statement_review.csv) records
 numbers refer to the reviewed manuscript; it is not a formal proof certificate.
 
 General ODE existence, uniqueness, continuation, and flow-regularity proofs
-are collected in Appendix B. The main text states their assumptions and
+are collected in Appendix A. The main text states their assumptions and
 links to those proofs before solving Project 9.1. Its worked solution is
 not repeated in a separate appendix derivation.
 
-The manuscript keeps the assessment as its main thread. Redundant supplemental
-worked examples and exercises have been removed; four orange "Later thought"
-panels retain short pending follow-up ideas and their links to source problems.
-Source identifiers, the bibliography, and canonical figures/data are preserved.
+The manuscript keeps the assessment as its main thread. The linear ODE answer
+retains the algebraic interpretation and a complete variation-of-constants
+derivation, with repeated explanations and diagrams removed. Three orange
+"Later thought" panels retain the HNN idea, conditional geometry, and a nonlinear
+OU extension. Previously proposed checks already covered by the experiments
+are no longer labeled pending. Source identifiers and canonical figures/data
+are preserved; the assessment bibliography entry now uses its actual filename.
 The historical statement-review counts and line numbers above describe the
 earlier reviewed version, rather than the current shortened manuscript.
 Within each numbered `equation`, the label remains immediately before
@@ -135,10 +141,10 @@ python -m pip install -e ".[audit]"
 python scripts/check_math_identities.py
 ```
 
-The 26 exact algebra checks supplement mathematical review; they do not validate
-all proofs. The optional `--baseline ZIP` modes on the checkers are for historical
+The exact algebra checks supplement mathematical review; they do not validate
+all proofs. Some historical checks concern the removed HNN discussion. The optional `--baseline ZIP` modes on the checkers are for historical
 snapshots and deliberately require protected source/data files to remain
-byte-identical. They are not appropriate for validating a source refactor.
+byte-identical. They are not appropriate for validating an editorial or mathematical revision.
 
 VS Code's LaTeX Workshop recipe is configured in
 [settings.json](../.vscode/settings.json). Use XeLaTeX because the manuscript uses

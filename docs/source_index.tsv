@@ -1,6 +1,6 @@
 project	item	label	placement
-8	Main task	src:p8main	Positive and mass-conserving Markov semidiscretization
-8	1	src:p8q1	Centered-difference scheme and its limitations
+8	Main task	src:p8main	Boundary diagnosis and corrected no-flux Markov scheme
+8	1	src:p8q1	Printed ghost-cell stencil: positivity and mass failure
 9	1	src:p9q1	Affine ODE and variation of constants
 9	2	src:p9q2	Composition, inverse, and time-reversal of flows
 9	3	src:p9q3	Variational matrix and noncommuting-matrix correction
@@ -12,7 +12,7 @@ project	item	label	placement
 9	8	src:p9q8	Density change-of-variables formula
 9	9	src:p9q9	Material derivative and transport theorem
 9	10	src:p9q10	Differential-entropy evolution
-9	11	src:p9q11	Score evolution and Hessian extension
+9	11	src:p9q11	Score, Hessian, and long-time counterexamples
 9	12	src:p9q12	Relative-entropy evolution for two flows
 9	13	src:p9q13	First variation of transported KL divergence
 9	14	src:p9q14	Transport from a Gaussian to a target law
@@ -29,7 +29,7 @@ project	item	label	placement
 11	6	src:p11q6	Donsker--Varadhan dual representation
 11	7	src:p11q7	Chain rule for relative entropy
 11	8	src:p11q8	Stein identity and its operator
-11	9	src:p11q9	$f$-divergence, joint convexity, and NWJ variational form
+11	9	src:p11q9	$f$-divergence and NWJ form under attainment hypotheses
 11	10	src:p11q10	Exponential Fenchel dual and finite-state saddle proof
 11	11	src:p11q11	Shift optimization recovering Donsker--Varadhan
 11	12	src:p11q12	Logistic classification and density-ratio optimality
@@ -38,7 +38,7 @@ project	item	label	placement
 12	2	src:p12q2	Noisy conditioning and level-set approximation
 12	3	src:p12q3	Coarea formula and effective free energy
 12	4	src:p12q4	Conditional mean-force formula
-13	1	src:p13q1	Conditional-variance identity and reaction coordinates
+13	1	src:p13q1	Total covariance and criterion-dependent coordinate choice
 13	2	src:p13q2	It\^o equation for a collective variable
 13	3	src:p13q3	Markovian matching of time marginals
 14	1	src:p14q1	Gaussian stochastic-interpolant statistics

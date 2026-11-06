@@ -1,0 +1,32 @@
+% Style adapted from the user-provided output/presentations/main.tex.
+\usetheme{Madrid}
+\usefonttheme{serif}
+
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\definecolor{accent}{RGB}{55,55,180}
+\definecolor{diagramblue}{RGB}{48,103,166}
+\definecolor{diagramred}{RGB}{178,65,56}
+\definecolor{diagramgreen}{RGB}{47,128,92}
+\definecolor{softgray}{RGB}{118,118,118}
+\definecolor{lightgray}{RGB}{224,224,224}
+
+\setbeamercolor{structure}{fg=accent}
+\setbeamercolor{frametitle}{fg=white,bg=accent}
+\setbeamercolor{title}{fg=white,bg=accent}
+\setbeamercolor{palette primary}{fg=white,bg=accent}
+\setbeamercolor{palette secondary}{fg=white,bg=accent!88!black}
+\setbeamercolor{palette tertiary}{fg=white,bg=accent!74!black}
+\setbeamercolor{palette quaternary}{fg=white,bg=accent!62!black}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=0.68cm,text margin right=0.68cm}
+
+\newcommand{\eyebrow}[1]{%
+  {\color{accent}\bfseries #1}\par
+  \vspace{0.04cm}{\color{lightgray}\rule{\linewidth}{0.45pt}}\vspace{0.10cm}}
+\newcommand{\keyterm}[1]{\textcolor{accent}{\bfseries #1}}
+\newcommand{\dd}{\,\mathrm d}

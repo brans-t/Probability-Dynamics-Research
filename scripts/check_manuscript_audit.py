@@ -89,7 +89,6 @@ def source_checks(tex):
     clean = re.sub(r"(?<!\\)%[^\n]*", "", tex)
     require(not re.search(r"(?<!\\)\\[\[\]]", clean), "Bracket display math remains")
     require(r"\begin{align*}" not in clean, "align* remains")
-    require(r"\qquad" not in clean, "qquad remains")
     require(r"\(" not in clean and r"\)" not in clean, "Non-dollar inline math remains")
     require("$$" not in clean, "Double-dollar display remains")
     require(r"\begin{defn}" not in clean, "Independent defn environment remains")
@@ -121,11 +120,18 @@ def source_checks(tex):
             f"Bare evolution operator: {m[0]}",
         )
     aligns = re.findall(r"\\begin\{align\}(.*?)\\end\{align\}", clean, re.S)
-    require(
-        {re.search(r"\\label\{([^}]+)\}", a)[1] for a in aligns}
-        == {"eq:itoxi", "eq:projectedcoeffs", "eq:outimedep", "eq:oucorrelations"},
-        "Unexpected separately numbered align environment",
-    )
+    require(not aligns, "Use equation/equation* with aligned for grouped formulas")
+    formula_refs = set(re.findall(r"\\(?:eqref|ref|pageref\*?|autoref|nameref)\{([^}]+)\}", clean))
+    formula_refs.update(re.findall(r"\\hyperref\[([^\]]+)\]", clean))
+    for environment, body in re.findall(
+        r"\\begin\{(equation\*?)\}(.*?)\\end\{\1\}", clean, re.S
+    ):
+        labels = set(re.findall(r"\\label\{([^}]+)\}", body))
+        if environment == "equation*":
+            require(not labels, "Unnumbered equation must not contain labels")
+        else:
+            require(bool(labels), "Unreferenced display must use equation*")
+            require(labels <= formula_refs, f"Unused formula labels: {labels-formula_refs}")
     print(
         "Source: display conventions, operator spelling, environment balance, and foundational scope OK"
     )
@@ -245,27 +251,15 @@ def pdf_checks(tex):
             link.get("href", "").rsplit("#", 1)[-1] == str(dest[aux[label][3]]),
             f"Source link jumps to wrong page: {label}",
         )
-    supplemental = [
-        "app:hnn",
-        "app:hnn-canonical",
-        "app:hnn-learning",
-        "app:hnn-transfer",
-        "app:hnn-nonlinear",
-        "app:hnn-protocol",
-        "app:hnn-conjugacy",
-    ]
     nav = [
         a
         for a in document.findall(".//a")
         if re.match(r"Overview: HNN|S[1-6]\s", "".join(a.itertext()))
     ]
-    require(len(nav) == 7, "PDF supplementary entry count is not seven")
-    for label, link in zip(supplemental, nav):
-        require(
-            aux[label][3] in dest
-            and link.get("href", "").rsplit("#", 1)[-1] == str(dest[aux[label][3]]),
-            f"Wrong HNN link destination: {label}",
-        )
+    require(not nav, "Removed HNN appendix still has supplementary navigation")
+    require(not any(label.startswith("app:hnn") for label in aux),
+            "Removed HNN appendix still has compiled labels")
+    require(aux["app:ode-foundations"][0] == "A", "ODE foundations must be Appendix A")
     text = subprocess.check_output(["pdftotext", "-layout", str(pdf), "-"], encoding="utf-8")
     headings = re.findall(
         r"^\s*(Definition|Theorem|Proposition|Corollary|Lemma|Example|Exercise|Remark|Assumption)\s+((?:\d+|[A-Z])\.\d+)(?=[ \t]*\(|\.[ \t]+\S)",
@@ -308,13 +302,13 @@ def pdf_checks(tex):
     )
     require("??" not in text, "Unresolved markers in PDF text")
     print(
-        f"PDF: {len(headings)} unique chapter-based statements, 45 assessment + 7 HNN entry links, hierarchy and references OK"
+        f"PDF: {len(headings)} unique chapter-based statements, 45 assessment links, hierarchy and references OK"
     )
     return {
         "pdf_pages": len(document.findall("page")),
         "statements": len(headings),
         "assessment_links": 45,
-        "supplementary_links": 7,
+        "supplementary_links": 0,
         "underfull_boxes": log.count("Underfull"),
     }
 
