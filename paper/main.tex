@@ -70,6 +70,15 @@ to the \emph{original assessment PDF} \cite{assessment}, not to this manuscript.
 An unnumbered project task is listed as ``Main task.'' The separate entry
 for Project~9, item~4 (numerics) leads to its discrete-time analysis.
 
+Shaded \emph{Problem} and \emph{Exercise} panels identify task statements.
+Orange \emph{Later thought} panels contain optional pending ideas, not
+additional solved source problems.
+Theorem, proposition, corollary, and lemma statements use the same blue panels;
+their proofs follow outside the panels.
+Green \textbf{Solution} headings and a terminal
+\textcolor{ForestGreen}{$\blacklozenge$} mark worked answers;
+proofs retain their \textbf{Proof} heading and $\square$.
+
 \begingroup
 \small
 \setlength{\tabcolsep}{4pt}
@@ -175,42 +184,33 @@ questions in the source assessment portfolio.
 \label{sec:physical-mathematical-setting}
 
 \subsection{States, measurable structure, and observables}
-Consider $N$ classical particles in three spatial dimensions. A microscopic
-configuration, including positions and momenta, is represented by
+Consider $N$ classical particles in three spatial dimensions. A microscopic configuration, including positions and momenta,
+is represented by
 \begin{equation*}
- x=(q_1,\ldots,q_N,p_1,\ldots,p_N)\in V=\mathbb R^{6N}.
+    x=(q_1,\ldots,q_N,p_1,\ldots,p_N)\in V=\mathbb R^{6N}.
 \end{equation*}
-The equations of motion determine the trajectory of a given configuration.
-Physical predictions, however, usually concern functions of that configuration.
-For example, a Hamiltonian $H(x)$ assigns an energy to a state, while
+The equations of motion determine the trajectory of a given configuration. Physical predictions, however, usually concern
+functions of that configuration. For example, a Hamiltonian $H(x)$ assigns an energy to a state, while
 \begin{equation*}
- f_\varphi(x)=\sum_{i=1}^N\varphi(q_i)
+    f_\varphi(x)=\sum_{i=1}^N\varphi(q_i)
 \end{equation*}
-measures a spatially weighted particle number for a prescribed probe
-$\varphi$. Such functions are \emph{observables}. If the preparation of the
-system does not specify a unique initial configuration, a probability law
-instead describes how likely different configurations are. The three objects
-we must therefore distinguish are a \emph{state} $x$, an \emph{observable}
+measures a spatially weighted particle number for a prescribed probe $\varphi$. Such functions are \emph{observables}. If
+the preparation of the system does not specify a unique initial configuration, a probability law instead describes how likely
+different configurations are. The three objects we must therefore distinguish are a \emph{state} $x$, an \emph{observable}
 $f$, and a \emph{probability law} $\mu$.
 
-The distinction is more than terminology. A dynamical rule moves states;
-the same rule changes the values of observables and transports probability
-laws. We will construct these induced actions rather than postulate three
-unrelated evolution equations. This is useful both in statistical physics,
-where microscopic trajectories give rise to ensemble predictions, and in
-machine learning, where learned flows act on samples but are evaluated by
-statistics of their resulting distributions.
+The distinction is more than terminology. A dynamical rule moves states; the same rule changes the values of observables
+and transports probability laws. We will construct these induced actions rather than postulate three unrelated evolution
+equations. This is useful both in statistical physics, where microscopic trajectories give rise to ensemble predictions,
+and in machine learning, where learned flows act on samples but are evaluated by statistics of their resulting distributions.
 
 \paragraph{States and linear structure.}
-A \emph{state space} is the set of admissible physical states, equipped
-with the structures required by the question under study. Throughout the
-finite-dimensional foundation we use a single symbol $V=\mathbb R^d$:
-it is both the physical state space and the real vector space on which
-linear operations are defined. In the particle example, $d=6N$.
-Other systems need not have a vector-space state space; a fixed-length
-spin, for instance, lies on the sphere $S^2=\{x\in\mathbb R^3:|x|=1\}$.
-When a general measurable space or a nonlinear state space is needed later,
-we introduce it explicitly as $E$ rather than use $E$ as another name for $V$.
+A \emph{state space} is the set of admissible physical states, equipped with the structures required by the question under
+study. Throughout the finite-dimensional foundation we use a single symbol $V=\mathbb R^d$: it is both the physical state
+space and the real vector space on which linear operations are defined. In the particle example, $d=6N$. Other systems need
+not have a vector-space state space; a fixed-length spin, for instance, lies on the sphere $S^2=\{x\in\mathbb R^3:|x|=1\}$.
+When a general measurable space or a nonlinear state space is needed later, we introduce it explicitly as $E$ rather than
+use $E$ as another name for $V$.
 
 \begin{definition}[Linear endomorphisms]
 Let $V=\mathbb R^d$ be the real vector space of states, with its usual addition and scalar multiplication. A map $A:V\to V$
@@ -279,9 +279,7 @@ under complements and countable unions. They also imply that
 $\varnothing\in\mathcal S$ and that $\mathcal S$ is closed
 under countable intersections, since
 \begin{equation*}
-    \bigcap_{n=1}^{\infty}A_n
-    =
-    V\setminus
+    \bigcap_{n=1}^{\infty}A_n = V\setminus
     \left(
         \bigcup_{n=1}^{\infty}(V\setminus A_n)
     \right).
@@ -291,15 +289,33 @@ represent events to which probabilities may be assigned.
 The measurable structure specifies which events are admissible;
 it does not itself assign probabilities.
 
-For $V=\mathbb R^d$, an open ball is
-$B_r(x)=\{y\in V:|y-x|<r\}$, where $r>0$.
-A set $O\subseteq V$ is \emph{open} if every $x\in O$ belongs to
-some ball $B_r(x)\subseteq O$. These Euclidean open sets provide
-the minimal additional structure needed for the Borel construction.
+For the continuous dynamics considered here, we also need a notion of
+neighborhoods: when do states approach one another, and what does it mean for an observable or a state
+transformation to be continuous? A \emph{topology} supplies the neighborhood
+structure underlying these notions of convergence and continuity.
+This structure is used to describe continuous trajectories and flow maps;
+later, bounded continuous observables also serve as tests for weak
+convergence of probability laws.
 
-\begin{definition}[Borel $\sigma$-algebra]
-Let $V=\mathbb R^d$, and let $\mathcal O(V)$ denote the
-collection of all open subsets of $V$.
+On $V=\mathbb R^d$, we use the topology induced by the Euclidean distance.
+Generating a $\sigma$-algebra from the open sets then connects this
+topological structure to measurable events, so that probability laws
+can be studied together with continuous observables and dynamics.
+
+\begin{definition}[Euclidean open sets and Borel $\sigma$-algebra]
+Let $V=\mathbb R^d$ with its Euclidean distance. For $x\in V$ and $r>0$,
+the \emph{open ball} centered at $x$ with radius $r$ is
+\begin{equation*}
+    B_r(x):=\{y\in V:|y-x|<r\}.
+\end{equation*}
+The collection of \emph{open subsets} of $V$ is
+\begin{equation*}
+    \mathcal O(V):=
+    \left\{
+        O\subseteq V: \forall x\in O,\ \exists r>0:\ B_r(x)\subseteq O
+    \right\}.
+\end{equation*}
+This collection is the \emph{Euclidean topology} on $V$.
 The \emph{Borel $\sigma$-algebra} on $V$ is
 \begin{equation*}
     \mathcal B(V):=\sigma(\mathcal O(V)),
@@ -320,138 +336,110 @@ Having specified which subsets of $V$ are measurable,
 we must next determine which functions preserve this structure.
 
 \begin{definition}[Measurable maps and observables]
-Let $(V,\mathcal S)$ and $(Y,\mathcal G)$ be measurable spaces.
-A map $F:V\to Y$ is called \emph{measurable} if
+Let $(V,\mathcal S)$ and $(Y,\mathcal G)$ be measurable spaces. A map $F:V\to Y$ is called \emph{measurable} if $\forall B\in\mathcal G$,
+$F^{-1}(B)\in\mathcal S$, where
 \begin{equation*}
-    F^{-1}(B)\in\mathcal S
-    \quad\text{for every }B\in\mathcal G,
+    F^{-1}(B) := \{x\in V:F(x)\in B\}
 \end{equation*}
-where
-\begin{equation*}
-    F^{-1}(B)
-    :=
-    \{x\in V:F(x)\in B\}
-\end{equation*}
-denotes the inverse image of $B$ under $F$.
-
-A real-valued observable on $V$ is a Borel measurable
-function
+denotes the inverse image of $B$ under $F$. A real-valued observable on $V$ is a Borel measurable function
 \begin{equation*}
     f:V\to\mathbb R,
 \end{equation*}
-where both $V$ and $\mathbb R$ are equipped with their
-Borel $\sigma$-algebras.
+where both $V$ and $\mathbb R$ are equipped with their Borel $\sigma$-algebras.
 \end{definition}
 
-Measurability ensures that conditions imposed on observable
-values determine measurable events in the state space.
-For example, for any $a\in\mathbb R$,
+Measurability ensures that conditions imposed on observable values determine measurable events in the state space. For
+example, $\forall a\in\mathbb R$,
 \begin{equation*}
-    \{x\in V:f(x)\leq a\}
-    =
-    f^{-1}((-\infty,a])
-    \in\mathcal B(V).
+    \{x\in V:f(x)\leq a\} = f^{-1}((-\infty,a]) \in\mathcal B(V).
 \end{equation*}
-
-It also guarantees compatibility with state transformations.
-If $F:V\to V$ and $f:V\to\mathbb R$ are Borel measurable,
+It also guarantees compatibility with state transformations. If $F:V\to V$ and $f:V\to\mathbb R$ are Borel measurable,
 then their composition is Borel measurable, since
 \begin{equation*}
-    (f\circ F)^{-1}(B)
-    =
-    F^{-1}(f^{-1}(B))
-    \in\mathcal B(V)
+    (f\circ F)^{-1}(B) = F^{-1}(f^{-1}(B)) \in\mathcal B(V)
 \end{equation*}
-for every $B\in\mathcal B(\mathbb R)$.
-Thus, composing an observable with a measurable state
-transformation produces another measurable observable.
-In particular, every continuous state transformation is
-Borel measurable.
+for every $B\in\mathcal B(\mathbb R)$. Thus, composing an observable with a measurable state transformation produces another
+measurable observable. In particular, every continuous state transformation is Borel measurable.
 
-We now introduce a convenient algebraic space of observables.
-Although physical observables need not be bounded,
-bounded observables provide a natural class that is closed
-under the basic pointwise operations.
+We now introduce a convenient algebraic space of observables. Although physical observables need not be bounded, bounded
+observables provide a natural class that is closed under the basic pointwise operations.
 
 \begin{definition}[Algebra of observables]
-Let $V=\mathbb R^d$ with its Borel $\sigma$-algebra.
-Define
+Let $V=\mathbb R^d$ with its Borel $\sigma$-algebra. Define
 \begin{equation*}
-    \mathcal A:=B_b(V)
-    =
-    \left\{
-        f:V\to\mathbb R:
-        f\text{ is Borel measurable and bounded}
-    \right\}.
+    \begin{aligned}
+        \mathcal A &:= B_b(V) \\
+        & =
+        \left\{
+            f:V\to\mathbb R:
+                \bigl(\forall B\in\mathcal B(\mathbb R), f^{-1}(B)\in\mathcal B(V)\bigr)
+                \land\bigl(\sup_{x\in V}|f(x)|<\infty\bigr)
+        \right\}.
+    \end{aligned}
 \end{equation*}
-For $f,g\in\mathcal A$ and $a\in\mathbb R$, define
-the pointwise operations
+
+For $f,g\in\mathcal A$ and $a\in\mathbb R$, define the pointwise operations
 \begin{equation*}
-\begin{aligned}
-    (f+g)(x)&=f(x)+g(x),\\
-    (af)(x)&=af(x),\\
-    (fg)(x)&=f(x)g(x).
-\end{aligned}
+    \begin{aligned}
+        (f+g)(x)&=f(x)+g(x),\\
+        (af)(x)&=af(x),\\
+        (fg)(x)&=f(x)g(x).
+    \end{aligned}
 \end{equation*}
-These operations preserve boundedness and Borel
-measurability. Consequently, $\mathcal A$ is a
-\emph{commutative unital algebra} over $\mathbb R$,
-with multiplicative identity
+These operations preserve boundedness and Borel measurability. Consequently, $\mathcal A$ is a \emph{commutative unital algebra}
+over $\mathbb R$, with multiplicative identity
 \begin{equation*}
-    \mathbf 1(x)=1
-    \quad\text{for every }x\in V.
+    \mathbf 1(x)=1,\quad\forall x\in V.
 \end{equation*}
 \end{definition}
 
-The multiplication in $\mathcal A$ is pointwise
-multiplication of functions, whereas multiplication in
-$\operatorname{End}(V)$ is composition of linear maps.
-These are distinct algebraic operations on different
-mathematical objects.
+The multiplication in $\mathcal A$ is pointwise multiplication of functions, whereas multiplication in $\operatorname{End}(V)$
+is composition of linear maps. These are distinct algebraic operations on different mathematical objects.
 
-The boundedness restriction in $\mathcal A$ is a
-mathematical convenience, not a physical requirement.
-Important observables, such as a Hamiltonian $H(x)$
-or $|x|^2$, may be unbounded and therefore need not
-belong to $\mathcal A$. Such observables remain
-measurable functions and can be used in statistical
-expressions whenever the required integrability
-conditions are satisfied.
+The boundedness restriction in $\mathcal A$ is a mathematical convenience, not a physical requirement. Important observables,
+such as a Hamiltonian $H(x)$ or $|x|^2$, may be unbounded and therefore need not belong to $\mathcal A$. Such observables
+remain measurable functions and can be used in statistical expressions whenever the required integrability conditions are
+satisfied.
 
 The space $\mathcal A$ also admits the supremum norm
 \begin{equation*}
-    \|f\|_\infty
-    :=
-    \sup_{x\in V}|f(x)|.
+    \|f\|_\infty := \sup_{x\in V}|f(x)|.
 \end{equation*}
-The completeness of this normed algebra will be used when discussing
-operator domains in the next section.
+The completeness of this normed algebra will be used when discussing operator domains in the next section.
 
 \subsection{Probability laws and integration}
-The microscopic state may be fixed but unknown, or random because of the
-preparation protocol. The distinction between a sample space and a physical
-state space makes this precise.
+A microscopic system is characterized by a state belonging to a physical state space $V$. However, the actual microscopic
+state need not be completely determined by the information available to us. In some situations, the system occupies a
+definite but unknown state, and a probabilistic description represents our uncertainty about its value. In other situations,
+a preparation protocol may produce different microscopic states across repeated realizations, even when the same macroscopic
+conditions are imposed. The resulting variability can also be described probabilistically. These two situations have
+different physical interpretations: the former concerns incomplete knowledge of a state, whereas the latter concerns the
+statistical variability of a preparation procedure. Nevertheless, both can be represented mathematically by probability
+measures on the physical state space.
+
+To formulate this description precisely, we distinguish the sample space $\Omega$, whose elements represent possible
+outcomes of an experiment or an uncertainty model, from the physical state space $V$, whose elements represent the possible
+microscopic configurations of the system. A random state associates each outcome in the sample space with a corresponding
+physical state. By assigning probabilities to events in the sample space, we can consequently determine the probabilities
+of measurable events in $V$. Thus, the Borel measurable structure $(V,\mathcal B(V))$ introduced earlier provides the
+natural setting for describing statistical properties of microscopic states, while the sample space provides a general
+representation of the underlying uncertainty.
 
 \begin{definition}[Probability space, random state, and law]
-A probability space is a triple $(\Omega,\mathcal F,\mathbb P)$, where
-$\mathcal F$ is a $\sigma$-algebra on $\Omega$ and $\mathbb P$ is a
-countably additive map $\mathbb P:\mathcal F\to[0,1]$ with
-$\mathbb P(\Omega)=1$. An
-$V$-valued random state is a measurable map
+A probability space is a triple $(\Omega,\mathcal F,\mathbb P)$, where $\mathcal F$ is a $\sigma$-algebra on $\Omega$ and
+$\mathbb P$ is a countably additive map $\mathbb P:\mathcal F\to[0,1]$ with $\mathbb P(\Omega)=1$. An $V$-valued random
+state is a measurable map
 \begin{equation*}
- X:(\Omega,\mathcal F)\longrightarrow(V,\mathcal B(V)).
+    X:(\Omega,\mathcal F)\longrightarrow(V,\mathcal B(V)).
 \end{equation*}
-Its law $\mu=\operatorname{Law}(X)$ is the Borel probability measure on
-$V$ defined by $\mu(B)=\mathbb P(X\in B)$. Write $\mathcal P(V)$ for the
-set of all Borel probability measures on $V$.
+Its law $\mu=\operatorname{Law}(X)$ is the Borel probability measure on $V$ defined by $\mu(B)=\mathbb P(X\in B)$. Write
+$\mathcal P(V)$ for the set of all Borel probability measures on $V$.
 \end{definition}
 
-For every $f\in\mathcal A$, the expectation of $f(X)$ depends only on its
-law:
+For every $f\in\mathcal A$, the expectation of $f(X)$ depends only on its law:
 \begin{equation}
- \mathbb E[f(X)]=\int_V f(x)\,\mu(\dd x)
- =:\langle f,\mu\rangle.
-\label{eq:law-observable}
+    \mathbb E[f(X)]=\int_V f(x)\,\mu(\dd x) =:\langle f,\mu\rangle.
+    \label{eq:law-observable}
 \end{equation}
 The bracket is an \emph{integration pairing}. It is linear in the
 observable and extends to a bilinear pairing if probabilities are replaced
@@ -462,67 +450,101 @@ $\mu$ is absolutely continuous with respect to Lebesgue measure do we
 write $\mu(\dd x)=\rho(x)\,\dd x$.
 
 \subsection{Transformations, duality, and evolution}
-Let $F:V\to V$ be Borel measurable. For a state $x$, the transformed state
-is $F(x)$. An observable $f$ evaluated after the transformation becomes
-$f(F(x))$. If $X$ has law $\mu$, then $F(X)$ also has a well-defined law.
-These observations give two canonical constructions.
+
+A physical system may undergo a transformation that changes its
+microscopic state. Such a transformation can be represented by a
+map $F:V\to V$, where $V$ is the physical state space introduced
+earlier. If the system initially occupies a state $x\in V$,
+its transformed state is $F(x)$. The transformation need not be
+linear or invertible. At this stage, we require only that $F$
+be Borel measurable, ensuring that the inverse image of every
+Borel set is again Borel measurable.
+
+A transformation of states also induces a transformation of
+observables. Suppose $f:V\to\mathbb R$ is a Borel measurable
+observable. Its value after the state transformation is
+$f(F(x))$. Rather than first transforming the state and then
+evaluating $f$, we may equivalently evaluate the composite
+function $f\circ F$ at the original state $x$. Thus, while
+$F$ maps states forward in $V$, it induces an action on
+observables through composition. This distinction is important:
+the transformation of states and the induced transformation of
+observables act on different mathematical objects, even though
+they describe the same physical operation.
+
+When the microscopic state is described statistically, the
+transformation must also determine how its probability law
+changes. Let $\mu$ be a Borel probability measure on $V$.
+For any Borel set $B\subseteq V$, the transformed state belongs
+to $B$ precisely when the original state belongs to its
+inverse image $F^{-1}(B)$. Consequently, the probability
+assigned to $B$ after the transformation is determined by
+the original probability measure evaluated on $F^{-1}(B)$.
+If the initial state is represented by a random state $X$
+with law $\mu$, the transformed random state $F\circ X$
+therefore has a well-defined probability law.
+
+We are thus led to two complementary constructions: one
+acts on observables by composition with the state
+transformation, while the other acts on probability measures
+by transporting their mass through the same transformation.
+These constructions are not independent. They are related
+by the requirement that averaging an observable after
+transforming the states gives the same result as averaging
+the original observable with respect to the transformed
+probability law, whenever the relevant integrals are defined.
+This compatibility provides the foundation for
+observable--measure duality and, subsequently, for the
+operator description of dynamical evolution.
 
 \begin{definition}[Composition operator and pushforward measure]
-For a Borel measurable $F:V\to V$, its composition (Koopman)
-operator is the linear map $\mathsf U_F:\mathcal A\to\mathcal A$, defined by
+For a Borel measurable $F:V\to V$, its composition (Koopman) operator is the linear map $\mathsf U_F:\mathcal A\to\mathcal A$,
+defined by
 \begin{equation*}
- (\mathsf U_Ff)(x):=f(F(x)),\quad f\in\mathcal A,
+    (\mathsf U_Ff)(x):=f(F(x)),\quad f\in\mathcal A,
 \end{equation*}
 and its pushforward map $\mathsf T_F:\mathcal P(V)\to\mathcal P(V)$ by
 \begin{equation}
- \mathsf T_F\mu:=F_\#\mu,\quad
- (F_\#\mu)(B):=\mu(F^{-1}(B)),\quad B\in\mathcal B(V).
+    \mathsf T_F\mu:=F_\#\mu,\quad (F_\#\mu)(B):=\mu(F^{-1}(B)),\quad B\in\mathcal B(V).
 \label{eq:pushforward}
 \end{equation}
-For a measurable map $\xi:V\to Z$ into another measurable state space
-$Z$, the same definition gives $\xi_\#\mu\in\mathcal P(Z)$;
+For a measurable map $\xi:V\to Z$ into another measurable state space $Z$, the same definition gives $\xi_\#\mu\in\mathcal P(Z)$;
 here $\mathcal P(Z)$ uses the specified sigma-algebra of $Z$.
 \end{definition}
 
 \begin{theorem}[Observable--measure duality]\label{thm:observable-measure-duality}
-On $(V,\mathcal B(V))$, let $F:V\to V$ be Borel measurable. Then $\mathsf U_F$ is a
-positive, unital algebra homomorphism on $B_b(V)$ and
-$\|\mathsf U_Ff\|_\infty\leq\|f\|_\infty$. For every $f\in B_b(V)$ and
-$\mu\in\mathcal P(V)$,
+On $(V,\mathcal B(V))$, let $F:V\to V$ be Borel measurable. Then $\mathsf U_F$ is a positive, unital algebra homomorphism
+on $B_b(V)$ and $\|\mathsf U_Ff\|_\infty\leq\|f\|_\infty$. For every $f\in B_b(V)$ and $\mu\in\mathcal P(V)$,
 \begin{equation}
- \boxed{\langle \mathsf U_Ff,\mu\rangle=\langle f,\mathsf T_F\mu\rangle.}
-\label{eq:observable-measure-duality}
+    \boxed{\langle \mathsf U_Ff,\mu\rangle=\langle f,\mathsf T_F\mu\rangle.}
+    \label{eq:observable-measure-duality}
 \end{equation}
 Moreover, for measurable $F,G:V\to V$,
 \begin{equation}
- \mathsf U_F\mathsf U_G=\mathsf U_{G\circ F},\quad \mathsf T_G\mathsf T_F=\mathsf T_{G\circ F}.
-\label{eq:operator-composition}
+    \mathsf U_F\mathsf U_G=\mathsf U_{G\circ F},\quad \mathsf T_G\mathsf T_F=\mathsf T_{G\circ F}.
+    \label{eq:operator-composition}
 \end{equation}
 \end{theorem}
+
 \begin{proof}
 Linearity and preservation of products follow by evaluating at $x$:
 \begin{equation*}
-\begin{aligned}
- \mathsf U_F(af+bg)(x)&=af(F(x))+bg(F(x)),\\
- \mathsf U_F(fg)(x)&=f(F(x))g(F(x)).
-\end{aligned}
+    \begin{aligned}
+        \mathsf U_F(af+bg)(x)&=af(F(x))+bg(F(x)),\\
+        \mathsf U_F(fg)(x)&=f(F(x))g(F(x)).
+    \end{aligned}
 \end{equation*}
-Positivity, preservation of the constant function $\mathbf1$, and the
-supremum-norm bound follow from the same definition. For an indicator
-$f=\mathbf1_B$, the defining identity of the pushforward reads
+Positivity, preservation of the constant function $\mathbf1$, and the supremum-norm bound follow from the same definition.
+For an indicator $f=\mathbf1_B$, the defining identity of the pushforward reads
 \begin{equation*}
- \int_V\mathbf1_B(y)\,(F_\#\mu)(\dd y)
- =\mu(F^{-1}(B))
- =\int_V\mathbf1_B(F(x))\,\mu(\dd x).
+    \int_V\mathbf1_B(y)\,(F_\#\mu)(\dd y)
+    =\mu(F^{-1}(B))
+    =\int_V\mathbf1_B(F(x))\,\mu(\dd x).
 \end{equation*}
-Linearity proves this for simple functions. Monotone approximation and the
-monotone convergence theorem extend it to nonnegative measurable
-functions, and taking positive and negative parts proves
-\eqref{eq:observable-measure-duality} for bounded real observables.
-Finally,
-$\mathsf U_F\mathsf U_Gf=f\circ G\circ F$ and
-$(G_\#F_\#\mu)(B)=\mu(F^{-1}(G^{-1}(B)))$, proving
-\eqref{eq:operator-composition}.
+Linearity proves this for simple functions. Monotone approximation and the monotone convergence theorem extend it to
+nonnegative measurable functions, and taking positive and negative parts proves \eqref{eq:observable-measure-duality} for
+bounded real observables. Finally, $\mathsf U_F\mathsf U_Gf=f\circ G\circ F$ and $(G_\#F_\#\mu)(B)=\mu(F^{-1}(G^{-1}(B)))$,
+proving \eqref{eq:operator-composition}.
 \end{proof}
 
 The theorem is the central bridge between the algebraic and statistical
@@ -546,13 +568,12 @@ satisfy
 Define $\mathsf U_{s,t}:=\mathsf U_{\Phi_{s,t}}:\mathcal A\to\mathcal A$ and
 $\mathsf T_{s,t}:=\mathsf T_{\Phi_{s,t}}:\mathcal P(V)\to\mathcal P(V)$. The preceding theorem immediately yields
 \begin{equation}
-\begin{aligned}
- \mathsf U_{s,r}\mathsf U_{r,t}&=\mathsf U_{s,t},\quad
- \mathsf T_{r,t}\mathsf T_{s,r}=\mathsf T_{s,t},\\
- \langle \mathsf U_{s,t}f,\mu_s\rangle
- &=\langle f,\mathsf T_{s,t}\mu_s\rangle.
-\end{aligned}
-\label{eq:flow-operator-duality-intro}
+    \begin{aligned}
+        \mathsf U_{s,r}\mathsf U_{r,t} = \mathsf U_{s,t}, &\quad
+        \mathsf T_{r,t}\mathsf T_{s,r}=\mathsf T_{s,t},\\
+        \langle \mathsf U_{s,t}f,\mu_s\rangle &=\langle f,\mathsf T_{s,t}\mu_s\rangle.
+    \end{aligned}
+    \label{eq:flow-operator-duality-intro}
 \end{equation}
 The order of the composition operators is reversed because an observable
 at time $t$ is pulled back to the initial state, whereas a probability
@@ -569,16 +590,12 @@ describe an \emph{ensemble of initial conditions}, not to define the
 underlying deterministic equation.
 
 \paragraph{Research route and source map.}
-We have built a chain of constructions: a physical configuration is an
-element of a state space; observables are functions on that space;
-probability laws assign their expectations; and every measurable state
-transformation induces compatible actions on observables and laws. The
-central question for the remainder of this chapter is how far this
-exact structure persists under dynamical evolution, coarse-graining,
-and approximation.
+We have built a chain of constructions: a physical configuration is an element of a state space; observables are functions
+on that space; probability laws assign their expectations; and every measurable state transformation induces compatible
+actions on observables and laws. The central question for the remainder of this chapter is how far this exact structure
+persists under dynamical evolution, coarse-graining, and approximation.
 
-The selected assessment problems are organized by their mathematical
-roles, rather than their original numerical order \cite{assessment}:
+The selected assessment problems are organized by their mathematical roles, rather than their original numerical order \cite{assessment}:
 \begin{center}
 \small
 \begin{tabular}{@{}>{\raggedright\arraybackslash}p{25mm}>{\raggedright\arraybackslash}p{47mm}>{\raggedright\arraybackslash}p{63mm}@{}}
@@ -596,328 +613,1019 @@ Project 8 & Probability-preserving discretization & Positivity and mass-conservi
 \end{tabular}
 \end{center}
 
-We begin next with the ODE initial-value problem. Its solution, when it
-exists uniquely, supplies the flow map from which the observable and
-probability evolutions described here follow. Numerical solvers and
-learned models will later be assessed not only by trajectory or
-prediction error but also by their consistency with the underlying
-probability and dynamical structures.
+We begin next with the ODE initial-value problem. Its solution, when it exists uniquely, supplies the flow map from which
+the observable and probability evolutions described here follow. Numerical solvers and learned models will later be assessed
+not only by trajectory or prediction error but also by their consistency with the underlying probability and dynamical
+structures.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Dynamical Flows and Probability Transport}
-\label{sec:flows-transport}\label{ch:foundations}
-The main construction proceeds from state trajectories to their induced
-actions on observables and probability laws, then to functionals of those
-laws. The first two subsections develop this construction. Hamiltonian
-mechanics provides a geometric application of the flow results, rather
-than an additional prerequisite for the entropy theory that follows.
+\label{sec:flows-transport}
 
+The main construction proceeds from state trajectories to their induced actions on observables and probability laws, then
+to functionals of those laws. The first two subsections develop this construction. Hamiltonian mechanics provides a geometric
+application of the flow results, rather than an additional prerequisite for the entropy theory that follows.
+
+%=======================================================================================================================
 \subsection{State flows and their geometry}
-We first construct the flow, then linearize it to understand Jacobians,
-volume change, and numerical approximation.
 
-\subsubsection{ODE solutions and two-time flows}
-We work on the Euclidean state space $V=\mathbb R^d$.
-Let $v:[0,T]\times V\to V$ be continuous, with jointly continuous
-spatial derivative $D_xv_t(x)$, and globally Lipschitz in $x$ uniformly
-on $[0,T]$. The derivative $D_xv_t$ is a linear endomorphism of $V$,
-represented by its Jacobian matrix in a chosen basis; $I_d$ is the
-identity matrix. Under these hypotheses, the results proved below
-construct solutions of the initial-value problem
+A central question in dynamical systems is how a prescribed local law of motion determines the evolution of states and
+the geometry of the state space. A time-dependent vector field specifies the instantaneous velocity at each state, while
+its associated flow map describes the finite-time evolution of initial conditions. Establishing this map requires the
+existence and uniqueness of ODE solutions, which also provide the basis for its composition and invertibility properties.
+
+Beyond individual trajectories, the flow acts on neighborhoods and regions of the state space, producing deformations that
+can be characterized mathematically. We first solve an ODE initial-value problem, then construct the two-time flow and
+establish its basic properties. We then
+linearize the flow with respect to initial conditions, obtaining the variational equation for its Jacobian matrix. The
+Jacobian determinant quantifies local volume changes, while the divergence of the vector field determines the instantaneous
+rate of volume expansion or contraction. These relations lead naturally to the evolution of transported domains and provide
+a basis for examining how numerical discretizations approximate the geometry of continuous flows.
+
+Together, these results establish the deterministic framework needed to study the transport of observables and probability
+distributions in subsequent sections.
+
+\subsubsection{ODE initial-value problems}
+We work on the Euclidean state space $V=\mathbb R^d$. For a continuous
+velocity field $v$, the initial-value problem asks for a differentiable
+curve $t\mapsto x_t\in V$ satisfying
 \begin{equation}
- \dot x_t=v_t(x_t),\quad x_s=x,
-\label{eq:flowode}
+    \dot x_t=v_t(x_t),\quad x_s=x,
+    \label{eq:flowode}
 \end{equation}
-for every initial time $s\in[0,T]$. We allow both $t\ge s$ and $t<s$,
-using backward solutions of the same equation. The resulting two-time
-flow $\Phi_{s,t}:V\to V$ is a $C^1$ diffeomorphism with inverse
-$\Phi_{t,s}$, as established below. For a nonautonomous vector field, the maps $\Phi_{0,t}$
-are generally \emph{not} a one-parameter semigroup.
+where $s$ and $x$ are prescribed. The conditions below justify using
+a unique trajectory before we solve the first source problem.
 
-
-
-\paragraph{The ODE initial-value problem as an integral fixed point.}
-The equation $\dot x_t=v_t(x_t)$ is not yet a map from initial states to
-final states: it is a differential constraint on an unknown curve. Its
-integral form, valid for any continuously differentiable solution, is
+Equivalently, a solution satisfies the integral equation
 \begin{equation}
  x_t=x+\int_s^t v_r(x_r)\dd r.
 \label{eq:integral-ivp}
 \end{equation}
-Conversely, a continuous curve satisfying \eqref{eq:integral-ivp} is
-continuously differentiable whenever $v$ is continuous, by the
-fundamental theorem of calculus. Thus solving the ODE is equivalent to
-finding a fixed point of an integral operator on a space of curves.
+The equivalence and the existence--uniqueness proof are supplied in
+Appendix~\ref{app:picard-proof}.
 
-\begin{theorem}[Local existence and uniqueness by Picard iteration]
+\begin{theorem}[Conditions for ODE existence and uniqueness]
 \label{thm:picard-detailed}
-Let $I$ be an open time interval. Suppose $v:I\times V\to V$ is
-continuous and locally Lipschitz in its spatial variable, locally
-uniformly in time. For each $(s,x)\in
-I\times\R^d$ there exists an interval $J$ containing $s$ and a
-unique $C^1$ solution of \eqref{eq:integral-ivp} on $J$. If in addition
-$v$ is globally Lipschitz with constant $L$ uniformly on a compact
-time interval $[0,T]$, the solution exists uniquely on $[0,T]$.
+Let $I$ be an open time interval and let $v:I\times V\to V$ be
+continuous and locally Lipschitz in the state variable, locally uniformly
+in time. Each initial condition $x_s=x$ admits a unique local $C^1$
+solution. If $[0,T]\subset I$, $s\in[0,T]$, and $v$ is globally
+Lipschitz in the state variable uniformly on $[0,T]$, the solution
+extends uniquely to that whole interval.
 \end{theorem}
-\begin{proof}
-Choose a closed ball $B_R(x)$ and an interval $[s-h,s+h]\subset I$
-on which $\|v(t,y)\|\le M$ and
-$\|v(t,y)-v(t,z)\|\le L\|y-z\|$ for $y,z\in B_R(x)$.
-Take $h>0$ small enough that $hM\le R$ and $hL<1$. On the
-complete metric space
-\begin{equation*}
-\mathcal C=\{\gamma\in C([s-h,s+h];\R^d):
-\gamma(t)\in B_R(x)\ \text{for all }t\},\quad
-\|\gamma\|_\infty=\sup_t\|\gamma(t)\|,
-\end{equation*}
-Here $B_R(x)$ is closed, so $\mathcal C$ is a closed subset of the
-Banach space of continuous curves with the uniform metric
-$d(\gamma,\eta)=\|\gamma-\eta\|_\infty$; this proves completeness.
-Consider the map
-\begin{equation*}
-(\mathcal T\gamma)(t)=x+\int_s^t v(r,\gamma(r))\dd r.
-\end{equation*}
-The estimate $\|(\mathcal T\gamma)(t)-x\|\le hM\le R$ shows
-that $\mathcal T$ maps $\mathcal C$ into itself. Moreover,
-\begin{equation*}
-\|\mathcal T\gamma-\mathcal T\eta\|_\infty
-\le hL\|\gamma-\eta\|_\infty.
-\end{equation*}
-It is therefore a contraction. Starting from the constant curve
-$\gamma_0(t)=x$, the \emph{Picard iterates}
-\begin{equation*}
-\gamma_{n+1}(t)=x+\int_s^t v(r,\gamma_n(r))\dd r
-\end{equation*}
-converge uniformly to the unique fixed point. The equivalence of the
-integral and differential formulations gives the desired solution.
-Every other solution with the same initial value stays in the chosen
-ball on a sufficiently short interval, where the contraction gives
-uniqueness. Repeating at the first possible separation time, or applying
-Gronwall's inequality on common compact subintervals, gives uniqueness
-throughout the overlap of any two solution intervals. Under a uniform global Lipschitz
-condition, $\|v(t,y)\|\le C+L\|y\|$, where
-$C=\sup_{t\in[0,T]}\|v(t,0)\|$. Gronwall's inequality yields,
-for $t\ge s$,
-\begin{equation*}
-\|x_t\|\le(\|x\|+C(t-s))e^{L(t-s)}.
-\end{equation*}
-For $t<s$, the same estimate applies after reversing the time variable,
-with $t-s$ replaced by $s-t$. If a maximal solution ended at an interior
-finite time, this bound would keep it in a compact ball. Continuity of
-$v$ then bounds its derivative there, so the curve has a limit at that
-time and the local theorem extends it, a contradiction. Thus the
-solution exists on all of $[0,T]$. At an endpoint of a closed time
-interval the local construction is one-sided.
-\end{proof}
 
-The iterative formula is more than a proof device: it constructs the
-trajectory by repeatedly integrating the velocity evaluated along the
-previous approximation. For example, for $\dot x=-\gamma x$ and
-$\gamma_0(t)=x$, the first three iterates are
+(Proof in Appendix~\ref{app:picard-proof}.)
+
+Local uniqueness concerns an initial-value problem; existence on a whole
+time interval additionally requires a continuation condition.
+
+%---------------------------------------------------------- 9-1 --------------------------------------------------------
+\subsubsection{A linear inhomogeneous initial-value problem}
+
+\begin{example}[Solution of a time-dependent linear inhomogeneous ODE]
+\label{ex:linear-inhomogeneous}
+\label{src:p9q1}
+\sourcecredit{9}{1}
+
+\begin{Question}
+\noindent\textbf{Problem.}
+
+Let $V=\mathbb{R}^d$ be a finite-dimensional real vector space,
+and let $I\subseteq\mathbb{R}$ be a time interval. Suppose
+that $A:I\to\operatorname{End}(V)$ and $B:I\to V$ are
+continuous functions. Consider the time-dependent affine
+vector field
+\begin{equation*}
+    v_t(y)=A(t)y+B(t), \quad y\in V.
+\end{equation*}
+For a prescribed initial time $s\in I$ and initial state
+$x\in V$, consider the initial-value problem
+\begin{equation*}
+    \left\{
+        \begin{aligned}
+            \dot{x}_t &= A(t)x_t+B(t),\\
+            x_s &= x.
+        \end{aligned}
+    \right.
+\end{equation*}
+Prove that this initial-value problem admits a unique
+solution $x_t$ on $I$, and derive an explicit representation
+of the solution in terms of the given functions $A(t)$,
+$B(t)$, and the initial state $x$.
+
+\footnote{In particular, construct the evolution operator
+associated with the homogeneous system and use it to obtain
+the solution of the inhomogeneous equation. Justify the
+construction of the evolution operator and verify that
+the resulting expression satisfies both the differential
+equation and the initial condition.}
+\end{Question}
+
+\begin{solution}
+
+Let $V=\mathbb R^d$ be the state space. We consider the
+initial-value problem
+\begin{equation*}
+    \begin{cases}
+        \dot{x}_t=A(t)x_t+B(t),\\
+        x_s=x.
+    \end{cases}
+\end{equation*}
+where
+\begin{equation*}
+    A:I\to\operatorname{End}(V), \quad
+    B:I\to V
+\end{equation*}
+are continuous on a time interval $I$ containing $s$.
+The operator $A(t)$ describes the linear dependence of
+the velocity on the current state, while $B(t)$ represents
+a state-independent forcing term.
+
+The assumptions also ensure existence and uniqueness
+throughout $I$. Fix a norm on $V$ and the induced operator
+norm on $\operatorname{End}(V)$. Let $J\subset I$ be any
+compact subinterval containing $s$. By continuity, there
+are finite constants
+\begin{equation*}
+    M_A:=\sup_{t\in J}\|A(t)\|,
+    \quad
+    M_B:=\sup_{t\in J}\|B(t)\|.
+\end{equation*}
+Thus, for $t\in J$ and $y,z\in V$,
+\begin{equation*}
+    \|A(t)y+B(t)-\bigl(A(t)z+B(t)\bigr)\|
+    =\|A(t)(y-z)\|
+    \leq M_A\|y-z\|.
+\end{equation*}
+Moreover,
+\begin{equation*}
+    \|A(t)y+B(t)\|
+    \leq M_A\|y\|+M_B.
+\end{equation*}
+The vector field is therefore globally Lipschitz in the
+state, uniformly on $J$, and satisfies a linear-growth bound.
+The existence, uniqueness, and continuation result established
+in Theorem~\ref{thm:picard-detailed} gives a unique solution
+on each such $J$. Every time in $I$ lies in a compact
+subinterval containing $s$, and uniqueness makes the
+corresponding solutions agree on overlaps. They therefore
+define a unique trajectory on all of $I$.
+
+Since the unknown $x_t$ describes the evolution of a state
+vector over time, the object to be determined is a trajectory
+rather than a single element of $V$. We therefore introduce
+the trajectory space
+\begin{equation*}
+    \mathcal X=C^1(I,V), \quad
+    \mathcal Y=C(I,V).
+\end{equation*}
+Here, $\mathcal X$ consists of continuously differentiable
+$V$-valued trajectories, while $\mathcal Y$ consists of
+continuous $V$-valued functions. Both inherit their
+vector-space structures from $V$, with addition and scalar
+multiplication defined pointwise.
+
+To express the differential equation in this functional
+framework, we introduce the differentiation operator
+\begin{equation*}
+    D:\mathcal X\to\mathcal Y, \quad
+    (D\gamma)(t)=\dot{\gamma}(t),
+\end{equation*}
+and the operator induced by the time-dependent family
+$A(t)$:
+\begin{equation*}
+    \mathcal A:\mathcal X\to\mathcal Y, \quad
+    (\mathcal A\gamma)(t)=A(t)\gamma(t).
+\end{equation*}
+Both are linear maps, and the given continuous forcing
+term satisfies $B\in\mathcal Y$. Defining
+$\mathcal L:=D-\mathcal A$, the differential equation
+can be written as an equation for the entire trajectory:
+\begin{equation}
+    \boxed{
+        \mathcal L\gamma=B, \quad \gamma(s)=x.
+    }
+    \label{eq:linear-operator-problem}
+\end{equation}
+Here, $\mathcal L\gamma=B$ means that
+\begin{equation*}
+    \dot{\gamma}(t)-A(t)\gamma(t)=B(t)
+\end{equation*}
+for every $t\in I$. Thus, the operator equation is simply
+the trajectory-space formulation of the original ODE,
+supplemented by its initial-value constraint.
+
+\paragraph{1. The homogeneous equation.}
+
+To solve the inhomogeneous equation, we first consider
+the associated homogeneous equation\footnote{Equivalently,
+$\dot{\eta}(t)=A(t)\eta(t),\ \eta(s)=v$, where
+$v\in V$ is arbitrary.}:
+\begin{equation*}
+    \left\{
+    \begin{aligned}
+        \mathcal L\eta &= 0,\\
+        \eta(s) &= v.
+    \end{aligned}
+    \right.
+\end{equation*}
+
+Allowing the initial vector $v$ to vary, all solutions
+of the homogeneous differential equation form the kernel
+of $\mathcal L$:
+\begin{equation}
+    \mathcal H:=\ker\mathcal L =
+        \left\{
+            \eta\in\mathcal X:
+            \mathcal L\eta=0
+        \right\}.
+    \label{eq:homogeneous-solution-space}
+\end{equation}
+Since $\mathcal L$ is linear, $\mathcal H$ is a linear
+subspace of the trajectory space $\mathcal X$.
+
+To understand the structure of $\mathcal H$, we seek
+to relate each complete homogeneous trajectory to the
+state it occupies at a fixed time. This is natural because
+the initial-value problem says that a homogeneous trajectory
+is uniquely determined by its value at any prescribed time.
+The resulting correspondence will identify the trajectory
+space $\mathcal H$ with the finite-dimensional state space
+$V$, without requiring us to construct a basis of trajectories
+directly.
+
+\begin{enumerate}
+
+    \item \textit{Evaluation at an arbitrary time $t$.}
+
+    For each $t\in I$, define the evaluation map
+    \begin{equation*}
+        E_t:\mathcal H\to V,\quad
+        E_t(\eta)=\eta(t).
+    \end{equation*}
+    Evaluation is linear directly from pointwise operations
+    on trajectories:
+    \begin{equation*}
+        E_t(a\eta+b\xi)
+        =aE_t(\eta)+bE_t(\xi),
+        \quad a,b\in\mathbb R.
+    \end{equation*}
+
+    Applying the same existence result with $t$ as the
+    initial time, every prescribed state $v\in V$ determines
+    a homogeneous solution on $I$, so $E_t$ is surjective.
+    Uniqueness makes it injective: two homogeneous trajectories
+    agreeing at time $t$ must coincide throughout $I$.
+    Thus $E_t$ is a linear isomorphism for every $t\in I$.
+
+    \item \textit{The inverse solution map and the dimension
+    of the solution space.}
+
+    For each $t\in I$, define the solution map as the inverse
+    of evaluation:
+    \begin{equation*}
+        S_t:=E_t^{-1}:V\to\mathcal H.
+    \end{equation*}
+    The output $S_t(v)$ is the unique complete homogeneous
+    trajectory whose value at time $t$ is $v$.
+
+\end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,every node/.style={font=\small}]
+    \node[font=\small\itshape] at (4.1,1.65)
+        {Fixed reference time $t\in I$};
+
+    \node[draw=MidnightBlue!65!white,
+        fill=MidnightBlue!3!white,
+        rounded corners=2pt,
+        minimum width=3.6cm,
+        minimum height=1.7cm,
+        align=center] (trajectories) at (0,0)
+        {Homogeneous solution space\\[3pt]
+         $\mathcal H$\\[3pt]
+         Complete trajectory $\eta(\cdot)$};
+
+    \node[draw=ForestGreen!65!white,
+        fill=ForestGreen!4!white,
+        rounded corners=2pt,
+        minimum width=3.6cm,
+        minimum height=1.7cm,
+        align=center] (states) at (8.2,0)
+        {State space\\[3pt]
+         $V=\mathbb R^d$\\[3pt]
+         State $v=\eta(t)$};
+
+    \draw[->,thick,MidnightBlue]
+        ([yshift=5mm]trajectories.east)
+        -- node[above,align=center]
+            {$E_t:\eta\mapsto\eta(t)$\\
+             Evaluate at time $t$}
+        ([yshift=5mm]states.west);
+
+    \draw[->,thick,ForestGreen]
+        ([yshift=-5mm]states.west)
+        -- node[below,align=center]
+            {$S_t:v\mapsto S_t(v)$\\
+             Recover the complete trajectory}
+        ([yshift=-5mm]trajectories.east);
+\end{tikzpicture}
+\end{center}
+
+The inverse identities are
+$E_t\circ S_t=I_V$ and $S_t\circ E_t=I_{\mathcal H}$.
+Since $E_t$ is a linear isomorphism, its inverse $S_t$
+is linear as well:
+\begin{equation*}
+    S_t(av+bw)=aS_t(v)+bS_t(w),
+    \quad v,w\in V.
+\end{equation*}
+This also expresses the superposition principle for
+homogeneous solutions. In particular,
+\begin{equation}
+    \mathcal H\cong V,\quad
+    \dim\mathcal H=d.
+    \label{eq:homogeneous-isomorphism}
+\end{equation}
+Although the ambient trajectory space $\mathcal X$
+is generally infinite-dimensional, its homogeneous
+solution subspace has exactly $d$ degrees of freedom,
+parameterized by the initial vector.
+
+For a fixed initial time $s\in I$, first use $S_s$
+to associate the initial state with its unique homogeneous
+trajectory, and then use $E_t$ to evaluate that trajectory
+at time $t$:
+\begin{equation*}
+    V \xrightarrow{\ S_s\ } \mathcal H
+    \xrightarrow{\ E_t\ } V.
+\end{equation*}
+This composition defines the homogeneous evolution operator
+\begin{equation*}
+    U(t,s):=E_t\circ S_s
+    \in\operatorname{End}(V).
+\end{equation*}
+Thus every homogeneous trajectory $\eta\in\mathcal H$
+satisfies
+\begin{equation*}
+    \eta(t)=U(t,s)\eta(s),
+    \quad t,s\in I.
+\end{equation*}
+In particular, $U(s,s)=I_V$.
+
+For fixed $s$ and any $v\in V$, the trajectory
+$t\mapsto U(t,s)v$ is precisely the homogeneous solution
+whose value at time $s$ is $v$. It therefore satisfies
+\begin{equation}
+    \partial_1 U(t,s)=A(t)U(t,s),
+    \quad U(s,s)=I_V.
+    \label{eq:fundamental-U}
+\end{equation}
+Here $\partial_1$ and $\partial_2$ denote differentiation
+with respect to the first and second time arguments,
+respectively. The equation is an identity in
+$\operatorname{End}(V)$: it follows because the corresponding
+vector identity holds for every $v\in V$. Thus
+$U(t,s)$ describes the finite-time evolution generated
+by the instantaneous linear dynamics $A(t)$.
+
+The uniqueness of homogeneous solutions also gives
+the composition law. For any $v\in V$, the two trajectories
+$t\mapsto U(t,r)U(r,s)v$ and $t\mapsto U(t,s)v$
+solve the same homogeneous equation and have the same
+value $U(r,s)v$ at time $r$. Uniqueness therefore implies
+\begin{equation*}
+    U(t,r)U(r,s)=U(t,s),
+    \quad r,s,t\in I.
+\end{equation*}
+
+Taking the intermediate time to be either endpoint gives
+\begin{equation*}
+    U(t,s)U(s,t)=U(t,t)=I_V,
+\end{equation*}
+and
+\begin{equation*}
+    U(s,t)U(t,s)=U(s,s)=I_V.
+\end{equation*}
+Consequently,
+\begin{equation*}
+    U(t,s)^{-1}=U(s,t),
+    \quad U(t,s)\in GL(V).
+\end{equation*}
+
+Thus the homogeneous evolution is not merely a linear
+endomorphism of $V$, but an invertible linear transformation.
+The construction and algebraic properties of $U$ are
+discussed further in Appendices~\ref{app:linear-fundamental}
+and \ref{app:linear-identities}. Its time-ordered
+representation for noncommuting $A(t)$ is developed
+in Appendix~\ref{app:linear-exponentials}.
+
+\paragraph{2. The inhomogeneous equation.}
+
+Now consider the inhomogeneous equation
+\begin{equation*}
+    \mathcal L\gamma=B.
+\end{equation*}
+
+We already know that the homogeneous solution space
+is $\mathcal H=\ker\mathcal L$. Suppose that we have
+found one particular solution $\gamma_p$ satisfying
+\begin{equation*}
+    \mathcal L\gamma_p=B.
+\end{equation*}
+
+If $\gamma$ is any other solution, then
+\begin{equation*}
+    \begin{aligned}
+        \mathcal L(\gamma-\gamma_p)
+        &=\mathcal L\gamma-\mathcal L\gamma_p\\
+        &=B-B\\
+        &=0,
+    \end{aligned}
+\end{equation*}
+so $\gamma-\gamma_p\in\mathcal H$.
+
+Conversely, for every $\eta\in\mathcal H$, linearity gives
+\begin{equation*}
+    \begin{aligned}
+        \mathcal L(\gamma_p+\eta)
+        &=\mathcal L\gamma_p+\mathcal L\eta\\
+        &=B.
+    \end{aligned}
+\end{equation*}
+
+Therefore all solutions of the inhomogeneous equation form
+\begin{equation}
+    \boxed{
+        \mathcal S_B=\gamma_p+\mathcal H.
+    }
+    \label{eq:affine-solution-space}
+\end{equation}
+This is an affine subspace of $\mathcal X$, obtained
+by translating the homogeneous solution space $\mathcal H$
+by $\gamma_p$. Having determined this algebraic structure,
+it remains to construct one particular solution.
+
+\textit{Constructing the particular solution.}
+
+To simplify the construction, choose the particular
+solution with zero initial value:
+\begin{equation*}
+    \begin{cases}
+        \dot\gamma_p(t)=A(t)\gamma_p(t)+B(t),\\
+        \gamma_p(s)=0.
+    \end{cases}
+\end{equation*}
+Its existence and uniqueness follow from
+Theorem~\ref{thm:picard-detailed}. The linear term
+$A(t)\gamma_p(t)$ is governed by the same operator
+$A(t)$ as in the homogeneous system, whose evolution
+is described by $U(t,s)$; $B(t)$ is the additional forcing.
+
+To construct this particular solution, we use the homogeneous
+evolution operator established above. For each fixed pair
+of times, $U(t,s)$ is a linear map from the entire state
+space $V$ to itself. Its inverse $U(s,t)$ is therefore
+also defined on all of $V$. Since $\gamma_p(t)\in V$,
+we may apply $U(s,t)$ to $\gamma_p(t)$, even though
+$\gamma_p$ itself solves the inhomogeneous equation.
+
+We introduce the auxiliary trajectory component
+\begin{equation}
+    c(t)=U(s,t)\gamma_p(t).
+    \label{eq:variation-substitution}
+\end{equation}
+Equivalently, by the inverse identity,
+\begin{equation*}
+    \gamma_p(t)=U(t,s)c(t).
+\end{equation*}
+This is a time-dependent change of representation
+relative to the homogeneous evolution; it does not assume
+that $\gamma_p$ itself follows the homogeneous dynamics.
+
+To determine the evolution of $c(t)$, we first note that
+for fixed $s$, the map $t\mapsto U(t,s)$ is continuously
+differentiable and takes values in $GL(V)$. Since inversion
+is a smooth operation on $GL(V)$, its inverse
+$t\mapsto U(s,t)$ is also continuously differentiable.
+
+We can therefore differentiate the inverse identity
+$U(s,t)U(t,s)=I_V$ with respect to $t$. Using
+\eqref{eq:fundamental-U}, we obtain
+\begin{equation*}
+    \begin{aligned}
+        0
+        &=
+        \frac{\partial}{\partial t}
+        \bigl(U(s,t)U(t,s)\bigr)\\
+        &=
+        \partial_2U(s,t)\,U(t,s)
+        +U(s,t)\partial_1U(t,s).
+    \end{aligned}
+\end{equation*}
+Right-multiplying by $U(s,t)$ and using
+$U(t,s)U(s,t)=I_V$ gives
+\begin{equation*}
+    \partial_2U(s,t)
+    =-U(s,t)A(t).
+\end{equation*}
+
+The product rule applied to
+\eqref{eq:variation-substitution}, together with
+$\dot\gamma_p(t)=A(t)\gamma_p(t)+B(t)$, now yields
+\begin{equation*}
+    \begin{aligned}
+        \dot c(t)
+        &=
+        -U(s,t)A(t)\gamma_p(t)
+        +U(s,t)\dot\gamma_p(t)\\
+        &=
+        -U(s,t)A(t)\gamma_p(t)
+        +U(s,t)\bigl(A(t)\gamma_p(t)+B(t)\bigr)\\
+        &=U(s,t)B(t).
+    \end{aligned}
+\end{equation*}
+
+The homogeneous terms cancel exactly, leaving only
+the forcing term in the transformed coordinates.
+Since $\gamma_p(s)=0$ and $U(s,s)=I_V$, we have
+$c(s)=0$. Integrating from $s$ to $t$ gives
+\begin{equation*}
+    c(t)=\int_s^t U(s,\tau)B(\tau)\,\dd\tau.
+\end{equation*}
+
+Transforming back to the original coordinates and using
+the composition law
+$U(t,s)U(s,\tau)=U(t,\tau)$, we obtain
+\begin{equation*}
+    \begin{aligned}
+        \gamma_p(t)
+        &=
+        U(t,s)\int_s^t U(s,\tau)B(\tau)\,\dd\tau\\
+        &=
+        \int_s^t U(t,s)U(s,\tau)B(\tau)\,\dd\tau\\
+        &=
+        \int_s^t U(t,\tau)B(\tau)\,\dd\tau.
+    \end{aligned}
+\end{equation*}
+
+Hence the zero-initial-value particular solution is
+\begin{equation}
+    \boxed{
+        \gamma_p(t)=
+        \int_s^t U(t,\tau)B(\tau)\,\dd\tau.
+    }
+    \label{eq:particular-solution}
+\end{equation}
+
+The homogeneous trajectory with initial state $x$ is
+\begin{equation*}
+    \eta_x(t):=U(t,s)x.
+\end{equation*}
+Adding it to the particular solution gives
+\begin{equation*}
+    x_t=\eta_x(t)+\gamma_p(t).
+\end{equation*}
+Therefore,
+\begin{equation}
+    \boxed{
+        x_t=U(t,s)x+
+        \int_s^t U(t,\tau)B(\tau)\,\dd\tau.
+    }
+    \label{eq:variation-constants}
+\end{equation}
+This is the variation-of-constants formula.
+
+To verify the result directly, first note that
+$U(s,s)=I_V$ and the integral vanishes at $t=s$.
+Therefore,
+\begin{equation*}
+    x_s=U(s,s)x=x.
+\end{equation*}
+
+Since $B$ is continuous and $U(t,\tau)$ is continuously
+differentiable in its first time argument, the Leibniz
+integral rule and \eqref{eq:fundamental-U} give
+\begin{equation*}
+    \begin{aligned}
+        \dot{x}_t
+        &=
+        A(t)U(t,s)x
+        +\underbrace{U(t,t)B(t)}_{=B(t)}\\
+        &\quad+
+        \int_s^t
+        A(t)U(t,\tau)B(\tau)\,\dd\tau\\
+        &=
+        A(t)\left[
+            U(t,s)x+
+            \int_s^tU(t,\tau)B(\tau)\,\dd\tau
+        \right]+B(t)\\
+        &=A(t)x_t+B(t).
+    \end{aligned}
+\end{equation*}
+Thus the expression satisfies both the differential
+equation and its initial condition. By uniqueness,
+it is the required solution.
+
+The solution has a natural algebraic interpretation.
+For fixed $s,t\in I$, its dependence on the initial state
+is given by
+\begin{equation*}
+    x\longmapsto U(t,s)x+\gamma_p(t).
+\end{equation*}
+The chosen $\gamma_p$ depends on the reference time $s$
+through $\gamma_p(s)=0$, but is independent of $x$.
+Since $U(t,s)$ is invertible, this is an invertible
+affine transformation of the state space.
+
+The homogeneous equation generates linear transformations
+of $V$, while the forcing introduces a time-dependent
+translation. Correspondingly, the homogeneous solutions
+form a vector space, whereas the solutions of the
+inhomogeneous equation with fixed forcing form an affine
+space modeled on that homogeneous solution space.
+
+We can make this geometric structure more explicit
+within the trajectory space. Extend evaluation from
+$\mathcal H$ to the ambient trajectory space by defining
+\begin{equation*}
+    \widetilde E_s:\mathcal X\to V,
+    \quad
+    \widetilde E_s(\gamma)=\gamma(s),
+\end{equation*}
+whose restriction to $\mathcal H$ is $E_s$. Define
+its kernel by
+\begin{equation*}
+    \mathcal K_s:=\ker\widetilde E_s
+    =
+    \left\{
+        \gamma\in\mathcal X:
+        \gamma(s)=0
+    \right\}.
+\end{equation*}
+Thus, $\mathcal K_s$ consists of all trajectories
+that vanish at the initial time.
+
+For any $\gamma\in\mathcal X$, the trajectory
+\begin{equation*}
+    \eta(t)=U(t,s)\gamma(s)
+\end{equation*}
+is homogeneous and has the same initial value as
+$\gamma$. Therefore,
+\begin{equation*}
+    \gamma-\eta\in\mathcal K_s.
+\end{equation*}
+Moreover, a homogeneous trajectory that vanishes
+at $s$ must vanish identically. Hence
+\begin{equation*}
+    \mathcal H\cap\mathcal K_s=\{0\}.
+\end{equation*}
+
+We consequently obtain the direct-sum decomposition
+\begin{equation}
+    \boxed{
+        \mathcal X=\mathcal H\oplus\mathcal K_s.
+    }
+    \label{eq:trajectory-direct-sum}
+\end{equation}
+
+Recall the chosen particular solution $\gamma_p$,
+with $\gamma_p(s)=0$, and the homogeneous trajectory
+$\eta_x(t)=U(t,s)x$ associated with the prescribed
+initial state $x$.
+
+The inhomogeneous solution set is
+\begin{equation*}
+    \mathcal S_B=\gamma_p+\mathcal H,
+\end{equation*}
+while the set of all trajectories satisfying the
+initial-value constraint is
+\begin{equation*}
+    \mathcal X_{s,x}
+    :=
+    \left\{
+        \gamma\in\mathcal X:\gamma(s)=x
+    \right\}
+    =
+    \eta_x+\mathcal K_s.
+\end{equation*}
+
+The trajectory $\gamma_p+\eta_x$ belongs to both sets:
+it solves the inhomogeneous equation and has initial
+value $x$. To see that it is the only element of the
+intersection, suppose
+\begin{equation*}
+    \gamma=\gamma_p+\eta=\eta_x+k,
+\end{equation*}
+where $\eta\in\mathcal H$ and $k\in\mathcal K_s$.
+Then
+\begin{equation*}
+    \eta-\eta_x=k-\gamma_p.
+\end{equation*}
+The left-hand side belongs to $\mathcal H$, while the
+right-hand side belongs to $\mathcal K_s$, because
+$\gamma_p(s)=0$. Since
+$\mathcal H\cap\mathcal K_s=\{0\}$, both sides must
+vanish. Thus $\eta=\eta_x$ and
+$\gamma=\gamma_p+\eta_x$. Therefore the intersection
+is exactly
+\begin{equation}
+    \boxed{
+        \mathcal S_B\cap\mathcal X_{s,x}
+        =
+        \left\{
+            \gamma_p+\eta_x
+        \right\}.
+    }
+    \label{eq:affine-intersection}
+\end{equation}
+
+Denote this selected trajectory by
+$\gamma_x=\gamma_p+\eta_x$, so that
+$\gamma_x(t)=x_t$.
+
+The following diagram illustrates this geometry in
+a two-dimensional schematic slice of the trajectory
+space. The horizontal and vertical directions represent
+the complementary subspaces $\mathcal H$ and
+$\mathcal K_s$, respectively. They are not assumed
+to be orthogonal.
+
+\begin{center}
+\begin{tikzpicture}[
+    >=Stealth,
+    scale=0.95,
+    every node/.style={font=\small}
+]
+    \coordinate (O) at (0,0);
+    \coordinate (P) at (0,2.0);
+    \coordinate (Q) at (3.4,0);
+    \coordinate (R) at (3.4,2.0);
+
+    \draw[->,thick]
+        (-0.65,0)--(5.5,0)
+        node[right] {$\mathcal H$};
+
+    \draw[->,thick]
+        (0,-0.55)--(0,3.45)
+        node[above] {$\mathcal K_s$};
+
+    \draw[very thick,orange!85!black]
+        (-0.4,2.0)--(5.0,2.0)
+        node[right] {$\mathcal S_B=\gamma_p+\mathcal H$};
+
+    \draw[very thick,violet!80!black]
+        (3.4,-0.4)--(3.4,3.2)
+        node[above] {$\mathcal X_{s,x}=\eta_x+\mathcal K_s$};
+
+    \draw[dashed,gray]
+        (P)--(R)--(Q);
+
+    \draw[->,very thick,teal!80!black]
+        (O)--(P)
+        node[midway,left] {$\gamma_p$};
+
+    \draw[->,very thick,blue!80!black]
+        (O)--(Q)
+        node[midway,below] {$\eta_x$};
+
+    \fill (O) circle (2pt);
+    \node[below left] at (O) {$0$};
+
+    \fill (R) circle (2.5pt);
+    \node[above right] at (R)
+        {$\gamma_x=\gamma_p+\eta_x$};
+\end{tikzpicture}
+\end{center}
+
+The homogeneous solution space determines the directions
+of the inhomogeneous solution set, while the particular
+solution determines its affine displacement. The
+initial-value constraint selects exactly one trajectory
+from this affine family.
+
+\end{solution}
+
+\paragraph{A concrete special case: Newton's law of cooling.}
+
+We now illustrate the preceding construction with a
+simple physical example. Consider a body whose
+temperature $T(t)$ relaxes toward a constant ambient
+temperature $T_{\mathrm{env}}$. Under the lumped-temperature
+approximation and a constant heat-transfer coefficient,
+Newton's law of cooling takes the form
+\begin{equation*}
+    \dot T(t)
+    =
+    -\lambda\bigl(T(t)-T_{\mathrm{env}}\bigr),
+    \quad
+    T(0)=T_0,
+\end{equation*}
+where $\lambda>0$ is the relaxation rate and $t\geq 0$.
+
+Rearranging the equation,
+\begin{equation*}
+    \dot T(t)
+    =
+    -\lambda T(t)+\lambda T_{\mathrm{env}}.
+\end{equation*}
+This is a special case of the original problem with
+\begin{equation*}
+    V=\mathbb R,
+    \quad
+    A(t)=-\lambda,
+    \quad
+    B(t)=\lambda T_{\mathrm{env}},
+\end{equation*}
+where we identify $\operatorname{End}(\mathbb R)$
+with $\mathbb R$ through scalar multiplication.
+
+Since $A(t)$ is constant, the evolution operator is
+simply
+\begin{equation*}
+    U(t,s)=e^{-\lambda(t-s)}.
+\end{equation*}
+
+The homogeneous contribution associated with the
+initial temperature is
+\begin{equation*}
+    \eta_{T_0}(t)=U(t,0)T_0=T_0e^{-\lambda t}.
+\end{equation*}
+
+For this illustration the reference time is $s=0$.
+The zero-initial-value particular solution is
 \begin{equation*}
 \begin{aligned}
-\gamma_1(t)&=x(1-\gamma t),\\
-\gamma_2(t)&=x\left(1-\gamma t+\frac{\gamma^2t^2}{2}\right),\\
-\gamma_3(t)&=x\left(1-\gamma t+\frac{\gamma^2t^2}{2}
--\frac{\gamma^3t^3}{6}\right),
+    \gamma_p(t)
+    &=
+    \int_0^tU(t,\tau)B\,\dd\tau\\
+    &=
+    \lambda T_{\mathrm{env}}
+    \int_0^t e^{-\lambda(t-\tau)}\dd\tau\\
+    &=
+    T_{\mathrm{env}}
+    \left(1-e^{-\lambda t}\right).
 \end{aligned}
 \end{equation*}
-for $s=0$. Their limit $xe^{-\gamma t}$ is the exact solution.
-Thus the exponential solution itself appears as the limit of a
-well-defined iteration in a Banach space, rather than as an
-unmotivated guess.
 
-A distinction between local and global solvability is essential. For
-$\dot x=x^2$ with $x_0>0$, separation of variables gives
-$x_t=x_0/(1-tx_0)$, which diverges at $t=1/x_0$. Hence a smooth vector
-field need not generate a globally defined flow on all of $\R^d$.
+Adding the homogeneous and particular contributions,
+we obtain
+\begin{equation}
+    \boxed{
+        T(t)
+        =
+        T_0e^{-\lambda t}
+        +
+        T_{\mathrm{env}}
+        \left(1-e^{-\lambda t}\right).
+    }
+    \label{eq:newton-cooling-decomposition}
+\end{equation}
+Equivalently,
+\begin{equation*}
+    T(t)
+    =
+    T_{\mathrm{env}}
+    +
+    (T_0-T_{\mathrm{env}})e^{-\lambda t}.
+\end{equation*}
 
+For a concrete illustration, choose
+\begin{equation*}
+    T_0=80\,^\circ\mathrm C,
+    \quad
+    T_{\mathrm{env}}=20\,^\circ\mathrm C,
+    \quad
+    \lambda=0.5\,\mathrm{min}^{-1}.
+\end{equation*}
+Then
+\begin{equation*}
+    \eta_{T_0}(t)=80e^{-0.5t},
+    \quad
+    \gamma_p(t)=20(1-e^{-0.5t}),
+\end{equation*}
+and the complete trajectory is
+\begin{equation}
+    \boxed{
+        T(t)=20+60e^{-0.5t}.
+    }
+    \label{eq:newton-cooling-explicit}
+\end{equation}
+
+The following plot displays the homogeneous contribution,
+the zero-initial-value particular solution, and their sum.
+The horizontal dashed line indicates the ambient
+equilibrium temperature.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.86\textwidth,
+    height=7cm,
+    xlabel={$t\;(\mathrm{min})$},
+    ylabel={Temperature ($^\circ\mathrm C$)},
+    xmin=0,
+    xmax=10,
+    ymin=0,
+    ymax=85,
+    samples=200,
+    domain=0:10,
+    axis lines=left,
+    grid=major,
+    legend style={
+        at={(0.98,0.98)},
+        anchor=north east,
+        draw=none,
+        fill=white,
+        fill opacity=0.9,
+        text opacity=1
+    }
+]
+    \addplot[blue,thick]
+        {80*exp(-0.5*x)};
+    \addlegendentry{$\eta_{T_0}(t)=80e^{-0.5t}$}
+
+    \addplot[teal!80!black,thick]
+        {20*(1-exp(-0.5*x))};
+    \addlegendentry{$\gamma_p(t)=20(1-e^{-0.5t})$}
+
+    \addplot[orange!90!black,very thick]
+        {20+60*exp(-0.5*x)};
+    \addlegendentry{$T(t)=20+60e^{-0.5t}$}
+
+    \addplot[black,dashed,thick]
+        coordinates {(0,20)(10,20)};
+    \addlegendentry{$T_{\mathrm{env}}=20$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+The homogeneous contribution describes the decay of
+the initial-state contribution, whereas the particular
+solution describes the accumulated effect of the
+ambient-temperature forcing. Their sum gives the actual
+temperature trajectory, which approaches
+$T_{\mathrm{env}}$ as $t\to+\infty$.
+
+This example demonstrates that the affine-shift
+construction is directly applicable to physical
+relaxation processes. The decomposition is not merely
+a formal manipulation: it separates the contribution
+of the initial state from the accumulated response
+to external driving.
+
+\end{example}
+
+
+
+\subsubsection{Two-time flows and variational matrices}
+We now return to a general vector field $v:[0,T]\times V\to V$, assumed continuous, with jointly continuous spatial derivative
+$D_xv_t(x)$, and globally Lipschitz in $x$ uniformly on $[0,T]$. The derivative is a linear endomorphism of $V$,
+represented by its Jacobian matrix in a chosen basis. For each $s,t\in[0,T]$, define $\Phi_{s,t}(x)$ to be the value at
+time $t$ of the solution of \eqref{eq:flowode} with $x_s=x$. Both $t\ge s$ and $t<s$ are allowed. The next theorem establishes
+composition and invertibility; for a nonautonomous field, $\Phi_{0,t}$ is generally not a one-parameter semigroup.
 
 \begin{theorem}[Existence, composition, and reversibility of the flow]
 \label{thm:flow-group}
 \sourcecredit{9}{2}\phantomsection\label{src:p9q2}
-Assume $v:[0,T]\times V\to V$ has the continuous spatial derivative
-and uniform global Lipschitz bound specified above. For any
-$s,t\in[0,T]$ and $x\in V$, including $t<s$, there is a unique
-solution $\Phi_{s,t}(x)$ of $\dot x_r=v_r(x_r)$, $x_s=x$. For every
-$r,s,t\in[0,T]$, without an ordering restriction, it satisfies
-\begin{equation}
-\Phi_{s,s}=\mathrm{id},\quad
-\Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t},\quad
-\Phi_{s,t}^{-1}=\Phi_{t,s}.
-\label{eq:flow-composition}
-\end{equation}
-If $v_t=v$ is autonomous and the solutions extend to all real times,
-$\phi_t:=\Phi_{0,t}$ defines a one-parameter group:
-$\phi_{t+r}=\phi_t\circ\phi_r$ and $\phi_{-t}=\phi_t^{-1}$.
-For $y_t=x_{T-t}$, $0\le t\le T$, the reversed trajectory solves
-\begin{equation}
-\dot y_t=-v_{T-t}(y_t),\quad y_0=x_T.
-\label{eq:time-reversal}
-\end{equation}
+
+Let $V=\mathbb R^d$ and suppose that $v:[0,T]\times V\to V$ is continuous, has a jointly continuous spatial derivative
+$D_xv_t(x)$, and is globally Lipschitz in $x$, uniformly on $[0,T]$.
+
+Then the following statements hold:
+\begin{enumerate}
+    \item \textbf{Well-defined flow.} By Theorem~\ref{thm:picard-detailed}, the two-time flow
+        $\Phi_{s,t}:V\to V$ is well-defined for every $s,t\in[0,T]$, including $t<s$.
+
+    \item \textbf{Composition and invertibility.} For every $r,s,t\in[0,T]$, without any ordering restriction, the flow
+        satisfies
+        \begin{equation*}
+            \Phi_{s,s}=\mathrm{id}_V,\quad
+            \Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t},\quad
+            \Phi_{s,t}^{-1}=\Phi_{t,s}.
+        \end{equation*}
+        Moreover, each $\Phi_{s,t}:V\to V$ is a $C^1$ diffeomorphism.
+
+    \item \textbf{Autonomous flows.} If, in addition, $v_t=v$ is autonomous and its solutions extend to all real times,
+        then $\phi_t:=\Phi_{0,t}$ defines a one-parameter group satisfying
+        \begin{equation*}
+            \phi_{t+r}=\phi_t\circ\phi_r, \quad \phi_{-t}=\phi_t^{-1}.
+        \end{equation*}
+
+    \item \textbf{Time reversal.} For any solution $x_t$ on $[0,T]$, the time-reversed trajectory
+        \begin{equation*}
+            y_t=x_{T-t}, \quad 0\le t\le T,
+        \end{equation*}
+        satisfies $\dot y_t=-v_{T-t}(y_t),\ y_0=x_T$.
+\end{enumerate}
 \end{theorem}
-\begin{proof}
-Picard--Lindel\"of's theorem gives local existence and uniqueness;
-uniform global Lipschitz continuity on the compact time interval gives
-global extension by a standard growth estimate. The two maps
-$\Phi_{r,t}(\Phi_{s,r}(x))$ and $\Phi_{s,t}(x)$ solve the same initial-value
-problem from time $r$, so uniqueness yields composition. Solving the
-same trajectory backward gives
-$\Phi_{t,s}\circ\Phi_{s,t}=\operatorname{id}_V$ and
-$\Phi_{s,t}\circ\Phi_{t,s}=\operatorname{id}_V$. To justify spatial differentiability without assuming it, fix $x$ and
-let $A_r=D_xv_r(\Phi_{s,r}(x))$. Picard iteration for the linear equation
-$M_t=I+\int_s^t A_rM_r\dd r$ defines a candidate derivative.
-For $e_t=\Phi_{s,t}(x+\eta)-\Phi_{s,t}(x)$, Gronwall gives
-$\sup_t|e_t|\le C|\eta|$. Uniform continuity of $D_xv$ on the
-compact trajectory tube implies
-\begin{equation*}
- v_r(\Phi_{s,r}(x)+e_r)-v_r(\Phi_{s,r}(x))-A_re_r
- =o(|\eta|)
-\end{equation*}
-uniformly in $r$ on the fixed time interval. Subtracting the integral
-equation for $M_t\eta$ from that for $e_t$ and applying Gronwall again
-gives $\sup_t|e_t-M_t\eta|=o(|\eta|)$.
-The same estimates and continuous dependence of the linear equation on
-its coefficients make $M_t$ continuous in $x$. This proves $C^1$
-dependence and the variational equation, with the backward-time case
-handled by time reversal. Autonomy provides time
-translation invariance, so composition reduces to addition of elapsed
-times. Finally the chain rule gives
-$\dot y_t=-\dot x_{T-t}=-v_{T-t}(y_t)$.
-\end{proof}
 
-
-\subsubsection{Fundamental and variational matrices}
-\sourcecredit{9}{1}\phantomsection\label{src:p9q1}
-To see why the fundamental matrix is the correct object, begin with
-a scalar nonautonomous equation $\dot x_t=a(t)x_t+b(t)$.
-Let $A_s(t)=\int_s^t a(r)\dd r$ and multiply the equation by the
-integrating factor $e^{-A_s(t)}$. The product rule gives
-\begin{equation*}
-\frac{\dd}{\dd t}\left(e^{-A_s(t)}x_t\right)
-=e^{-A_s(t)}\bigl(\dot x_t-a(t)x_t\bigr)
-=e^{-A_s(t)}b(t).
-\end{equation*}
-Integration between $s$ and $t$ and multiplication by $e^{A_s(t)}$
-yield the exact expression
-\begin{equation}
-x_t=e^{\int_s^t a(r)\dd r}x_s
-+\int_s^t\exp\left(\int_u^t a(r)\dd r\right)b(u)\dd u.
-\label{eq:scalar-variation}
-\end{equation}
-The corresponding matrix-valued formula needs care because $A(t_1)A(t_2)$
-need not equal $A(t_2)A(t_1)$. We therefore construct the fundamental
-matrix as the \emph{solution} of a matrix IVP, not by assuming that
-an ordinary exponential still works.
-
-For the vector equation $\dot x_t=A(t)x_t+b(t)$, the velocity at each
-fixed time is an \emph{affine map}: a map of the form $x\mapsto Ax+b$
-with $A\in\operatorname{End}(V)$ and $b\in V$. The vector $b$ adds a
-translation to the linear part $Ax$. Such a map is linear precisely
-when $b=0$, since its value at the origin is $b$.
-
-
-\begin{theorem}[Linear and affine fundamental solution]
-\label{thm:affine-flow}
-Let $A:[0,T]\to M_d(\mathbb R)$ and $b:[0,T]\to\mathbb R^d$ be
-continuous. There exists a unique matrix evolution $U(t,s)$ satisfying
-\begin{equation}
-\partial_t U(t,s)=A(t)U(t,s),\quad U(s,s)=I.
-\label{eq:fundamental-U}
-\end{equation}
-It is invertible, $U(t,s)U(s,r)=U(t,r)$, and the affine ODE
-$\dot x_t=A(t)x_t+b(t)$ has the solution
-\begin{equation}
-\boxed{x_t=U(t,s)x_s+\int_s^t U(t,\tau)b(\tau)\,\dd\tau.}
-\label{eq:variation-constants}
-\end{equation}
-When the matrices $A(r)$ commute at all times, the fundamental matrix is
-$\exp(\int_s^t A(r)\,\dd r)$. Otherwise, it is represented by the
-chronologically ordered Dyson--Peano series.
-\end{theorem}
-\begin{proof}
-Each column $u_j(t)=U(t,s)e_j$ solves the vector IVP
-$\dot u_j=A(t)u_j$, $u_j(s)=e_j$; the preceding theorem guarantees
-existence and uniqueness. The integral equation for the full matrix is
-\begin{equation}
-U(t,s)=I+\int_s^t A(r)U(r,s)\dd r.
-\label{eq:matrix-volterra}
-\end{equation}
-Substitute the right side into itself repeatedly. For $t\ge s$ this
-produces the \emph{Peano--Baker series}
-\begin{equation}
-\begin{split}
-U(t,s)=I+&\int_s^t A(t_1)\dd t_1\\
-&+\int_s^t\int_s^{t_1}A(t_1)A(t_2)\dd t_2\dd t_1\\
-&+\sum_{n=3}^\infty\int_{s\le t_n\le\cdots\le t_1\le t}
- A(t_1)\cdots A(t_n)\dd t_n\cdots\dd t_1.
-\end{split}
-\label{eq:peano-baker}
-\end{equation}
-If $\|A(t)\|\le M$, the norm of the $n$th integral is at most
-$M^n(t-s)^n/n!$ because the ordered integration simplex has volume
-$(t-s)^n/n!$. Hence the series converges uniformly on compact time
-intervals. The differentiated $n$th term is bounded by
-$M^n(t-s)^{n-1}/(n-1)!$ for $n\ge1$, giving uniform convergence
-of the derivative series on compact intervals as well. Hence the series
-can be differentiated term by term and solves
-\eqref{eq:matrix-volterra}. In general \emph{the ordering of factors
-cannot be removed}.
-
-The composition identity $U(t,r)U(r,s)=U(t,s)$ follows because both
-sides solve the same IVP in $t$ and have the same value at $t=r$.
-All initial and terminal times are permitted by the global IVP theorem.
-In the identity $U(a,b)U(b,c)=U(a,c)$, choose
-$(a,b,c)=(s,t,s)$ to obtain $U(s,t)U(t,s)=I$, and choose
-$(a,b,c)=(t,s,t)$ to obtain $U(t,s)U(s,t)=I$.
-Thus $U(t,s)$ is invertible with inverse $U(s,t)$.
-Differentiating $U(t,s)^{-1}U(t,s)=I$ shows that its inverse satisfies
-$\partial_tU(t,s)^{-1}=-U(t,s)^{-1}A(t)$.
-
-For the inhomogeneous equation write $x_t=U(t,s)c(t)$ with an
-unknown vector $c(t)$. Differentiating gives
-\begin{equation*}
-\dot x_t=A(t)U(t,s)c(t)+U(t,s)\dot c(t).
-\end{equation*}
-Comparison with $\dot x_t=A(t)x_t+b(t)$ shows that
-$U(t,s)\dot c(t)=b(t)$, hence
-$\dot c(t)=U(t,s)^{-1}b(t)=U(s,t)b(t)$. Integrating,
-\begin{equation*}
-c(t)=x_s+\int_s^t U(s,r)b(r)\dd r.
-\end{equation*}
-Multiplying by $U(t,s)$ and using
-$U(t,s)U(s,r)=U(t,r)$ yields
-\begin{equation*}
- x_t=U(t,s)x_s+\int_s^t U(t,r)b(r)\dd r.
-\end{equation*}
-This is the \emph{variation-of-constants formula}; its two terms
-separate transport of the initial data from the accumulated forcing.
-For fixed $s,t$, the first term is linear in $x_s$ and the second is
-independent of $x_s$, so the solution map is affine.
-If $[A(t),A(r)]=0$ for all $r,t$, the ordered products may be symmetrized,
-so the series sums to $\exp(\int_s^tA(r)\dd r)$. Without this
-commutation hypothesis the latter is not generally a solution.
-\end{proof}
-
-
-\begin{example}[A nontrivial two-dimensional affine flow]
-Take constant coefficients
-\begin{equation*}
- A=\begin{pmatrix}-\alpha&0\\0&-\delta\end{pmatrix},
- \quad b=\begin{pmatrix}\alpha q_*\\\delta p_*\end{pmatrix},
- \quad \alpha,\delta>0.
-\end{equation*}
-Then $U(t,s)=\operatorname{diag}(e^{-\alpha(t-s)},e^{-\delta(t-s)})$.
-Computing the integral in \eqref{eq:variation-constants} componentwise
-returns
-\begin{equation*}
-q_t=q_*+(q_s-q_*)e^{-\alpha(t-s)},\quad
-p_t=p_*+(p_s-p_*)e^{-\delta(t-s)}.
-\end{equation*}
-The stable point is $b$'s balance with $A$, namely $(q_*,p_*)$, and
-each coordinate relaxes at its own rate. Here the matrix exponential is
-legitimate because $A$ is constant. For noncommuting $A(t)$ the
-Peano--Baker representation replaces this simple formula.
-\end{example}
+(Proof in Appendix~\ref{app:flow-proof}.)
+Uniqueness links the trajectories at an intermediate time; it is the
+same principle behind the composition identity for the homogeneous
+matrix $U$ in Example~\ref{ex:linear-inhomogeneous}. Differentiating
+the resulting trajectories leads to the next source problem.
 
 
 \begin{proposition}[Dual evolution of observables and measures]
@@ -956,6 +1664,7 @@ The solution is the time-ordered fundamental matrix. In general,
  M_{s,t}\neq\exp\left(\int_s^t Dv_r(\Phi_{s,r}(x))\dd r\right).
 \end{equation*}
 \end{proposition}
+
 \begin{proof}
 Differentiate the integral equation
 $\Phi_{s,t}(x)=x+\int_s^t v_r(\Phi_{s,r}(x))\dd r$ with respect to $x$.
@@ -970,6 +1679,14 @@ ordinary exponential. That identity is false for generic time-dependent,
 noncommuting Jacobian matrices. The differential equation itself is correct;
 the determinant identity below remains valid without commutativity.
 \end{Notice}
+
+\begin{futurethought}{Composition and time ordering}
+\textbf{To revisit.} Connect Projects~9.1--9.3 by testing composition for
+a time-dependent linear system against an unordered exponential.
+\textbf{Idea.} Solve two consecutive constant-matrix intervals and compare
+the ordered matrix product with the exponential of their sum.
+\textbf{Status: pending; no additional worked exercise here.}
+\end{futurethought}
 
 \begin{theorem}[Liouville--Jacobi formula]
 \label{thm:jacobian}
@@ -992,9 +1709,9 @@ Integrate and use $\det M_{s,s}=1$.
 \end{proof}
 
 
-
 \subsubsection{Numerical flow Jacobians}
 \sourcecredit{9}{4 (Euler and higher-order solvers)}\phantomsection\label{src:p9q4discrete}
+\begin{solution}
 For a step size $h=(T-s)/K$ and $t_k=s+kh$, the forward Euler map is
 $V_k(x)=x+h v(t_k,x)$. Its derivative is exactly
 $DV_k(x)=I+hDv(t_k,x)$. Therefore, writing
@@ -1043,6 +1760,7 @@ step has fourth-order Jacobian convergence; applying the simple
 Euler factor $I+hDv$ after an RK4 state step would not generally do so.
 The results are checked against an exact divergence integral in the
 computer experiment of Section~\ref{sec:benchmark}.
+\end{solution}
 
 
 \subsubsection{Volume transport and minimum action}
@@ -1083,12 +1801,15 @@ identity.
 \begin{example}[Minimum weighted kinetic action between two states]
 \label{ex:weightedaction}\label{src:p9q6}
 \sourcecredit{9}{6}
+\begin{Question}
 Let $w:[0,1]\to(0,\infty)$ be continuous, and consider all
 absolutely continuous paths $\gamma$ with $\gamma(0)=y$ and
 $\gamma(1)=z$. Minimize
 \begin{equation*}
 I[\gamma]=\int_0^1\frac{|\dot\gamma(t)|^2}{w(t)}\dd t.
 \end{equation*}
+\end{Question}
+\begin{solution}
 By the Cauchy--Schwarz inequality, since
 $z-y=\int_0^1\dot\gamma(t)\dd t$,
 \begin{equation*}
@@ -1113,8 +1834,8 @@ does not determine a unique spatial velocity field away from that
 trajectory. If the intended functional instead uses
 $\int_0^1 w(t)|v_t(\Phi_t(y))|^2\dd t$, the same argument applies
 with $w$ replaced by $1/w$.
+\end{solution}
 \end{example}
-
 
 
 \subsection{Observable evolution and probability transport}
@@ -1181,8 +1902,10 @@ A norm-generator on a chosen invariant Banach space $\mathcal X$
 has domain
 \begin{equation*}
  D(\mathcal L_t)=\left\{f\in\mathcal X:
- \lim_{h\downarrow0}\frac{\mathsf U_{t,t+h}f-f}{h}
- \text{ exists in }\mathcal X\right\}.
+ \exists g\in\mathcal X,
+ \lim_{h\downarrow0}
+ \left\|\frac{\mathsf U_{t,t+h}f-f}{h}-g\right\|_{\mathcal X}=0
+ \right\}.
 \end{equation*}
 This norm-domain definition is distinct from the pointwise or locally
 uniform differential expression on smooth test functions.
@@ -1313,39 +2036,6 @@ Use the ordinary chain rule on $F(t,\Phi_{0,t}(x))$ and integrate against
 $\rho_0$. Equivalently, integrate \eqref{eq:continuity} by parts.
 \end{proof}
 
-\medskip\noindent\textbf{Exercises and checks}\par
-\begin{exercise}[Autonomous versus nonautonomous flow]
-Explain precisely why $\Phi_{s,t}=\Phi_{r,t}\circ\Phi_{s,r}$ does not
-imply $\Phi_{0,t+r}=\Phi_{0,t}\circ\Phi_{0,r}$ for arbitrary time-dependent
-$v$. Construct a two-dimensional piecewise-smooth family of noncommuting
-matrices to test the false exponential formula in Project 9 -- 3.
-\end{exercise}
-\begin{solution}
-For the scalar nonautonomous vector field $v_t(x)=t$, the flow is
-$\Phi_{0,t}(x)=x+t^2/2$, while
-$\Phi_{0,t+r}(x)=x+(t+r)^2/2\neq x+(t^2+r^2)/2$ for $tr\neq0$.
-For an exact piecewise-constant counterexample, take
-\begin{equation*}
- A_1=\begin{pmatrix}0&1\\0&0\end{pmatrix},\quad
- A_2=\begin{pmatrix}0&0\\1&0\end{pmatrix},\quad
- A(t)=\begin{cases}A_1,&0\le t<1,\\A_2,&1\le t\le2.\end{cases}
-\end{equation*}
-Solving on each interval and joining continuously is legitimate for this
-piecewise-continuous linear equation. Since $A_1^2=A_2^2=0$,
-\begin{equation*}
- \begin{aligned}
- U(2,0)&=e^{A_2}e^{A_1}
-       =\begin{pmatrix}1&1\\1&2\end{pmatrix},\\
- e^{\int_0^2 A(t)\dd t}&=e^{A_1+A_2}
-       =\begin{pmatrix}\cosh1&\sinh1\\\sinh1&\cosh1\end{pmatrix}.
- \end{aligned}
-\end{equation*}
-The matrices are unequal, proving the failure directly, rather than
-inferring it solely from a nonzero commutator. The smooth matrix family
-in \eqref{eq:matrix-benchmark} supplies a separate numerical check;
-its computed discrepancy is reported with Table~\ref{tab:jacexp}.
-\end{solution}
-
 
 \subsection{Hamiltonian dynamics: a geometric application}
 \label{subsec:hamiltonian-application}\label{sec:hamiltonian-application}
@@ -1356,6 +2046,7 @@ $z=(q,p)\in\R^{2d}$, and consider the Hamiltonian
 \begin{equation*}
 H(q,p)=\frac12|p|^2+V(q),\quad V\in C^2(\R^d).
 \end{equation*}
+\begin{solution}
 With the constant matrix
 $J=\bigl(\begin{smallmatrix}0&I_d\\-I_d&0\end{smallmatrix}\bigr)$,
 the Hamiltonian vector field is $v(z)=J\nabla H(z)$.
@@ -1369,6 +2060,7 @@ Consequently, Hamilton's equations are
 or equivalently $\ddot q_t=-\nabla V(q_t)$. The kinetic energy
 accounts for the first equation, and the potential force for the
 second; no stochastic interpretation is involved.
+\end{solution}
 
 \begin{theorem}[Energy conservation, symplecticity, and Liouville's theorem]
 \label{thm:hamiltonian-properties}
@@ -1444,9 +2136,13 @@ alone is not the conventional physical time-reversal operation.
 
 \begin{example}[Harmonic oscillator: exact solution and a symplectic scheme]
 \label{ex:harmonic-scheme}
+\leavevmode\par\nobreak
+\begin{Question}
 Take $V(q)=\frac12\omega^2q^2$, $\omega>0$, in one dimension.
 The system $\dot q=p$, $\dot p=-\omega^2q$ is linear with
 $A=\bigl(\begin{smallmatrix}0&1\\-\omega^2&0\end{smallmatrix}\bigr)$.
+\end{Question}
+\begin{solution}
 Because $A^2=-\omega^2I$, its exponential can be evaluated by
 separating the even and odd powers:
 \begin{equation}
@@ -1493,8 +2189,8 @@ on bounded oscillatory orbits. Explicit Euler, whose step matrix
 $I+hA$ has determinant $1+\omega^2h^2>1$, is not symplectic and
 generically produces secular energy growth; the executed comparison
 appears in Section~\ref{sec:benchmark}.
+\end{solution}
 \end{example}
-
 
 
 \medskip\noindent\textbf{Executed Hamiltonian experiment (Project 10): symplectic versus Euler evolution.}\par
@@ -1617,26 +2313,6 @@ asymptotic stability or integrability argument. In the linear Gaussian
 example below, these quantities can be computed from the covariance matrix.
 
 
-\begin{example}[Long-time score need not converge]
-For the one-dimensional contractive flow $\dot x_t=-\lambda x_t$
-with $\lambda>0$ and $X_0\sim\mathcal N(0,\sigma_0^2)$,
-$X_t=e^{-\lambda t}X_0$ and
-$\operatorname{Law}(X_t)=\mathcal N(0,\sigma_0^2e^{-2\lambda t})$;
-write $\rho_t$ for its Lebesgue density. Therefore
-\begin{equation}
-\begin{aligned}
- s_t(X_t)&=-\frac{X_t}{\sigma_0^2e^{-2\lambda t}}
- =-\frac{e^{\lambda t}X_0}{\sigma_0^2},\\
- \mathscr S(\rho_t)&=\mathscr S(\rho_0)-\lambda t.
-\end{aligned}
-\label{eq:score-longtime}
-\end{equation}
-For any $X_0\neq0$ the Lagrangian score grows exponentially in magnitude,
-even though the deterministic trajectories converge to the stable fixed
-point. Global stability of the state dynamics is therefore not a
-bounded-score theorem.
-\end{example}
-
 \begin{proposition}[Stein's integration-by-parts identity]
 \label{prop:stein}
 \sourcecredit{11}{8}\phantomsection\label{src:p11q8}
@@ -1753,10 +2429,9 @@ $r_X(x)=\int r(x,y)\nu(\dd y\mid x)$, a version of
 $\dd\mu_X/\dd\nu_X$. On $\{r_X>0\}$, define
 $\mu(\dd y\mid x)=r(x,y)\nu(\dd y\mid x)/r_X(x)$;
 elsewhere choose any probability kernel. This identifies a conditional
-version for $\mu$ and yields the factorization
+version for $\mu$ and yields, $\mu$-almost everywhere, the factorization
 \begin{equation*}
- r(x,y)=r_X(x)\frac{\dd\mu(\cdot\mid x)}{\dd\nu(\cdot\mid x)}(y)
- \quad\text{for }\mu\text{-almost every }(x,y).
+ r(x,y)=r_X(x)\frac{\dd\mu(\cdot\mid x)}{\dd\nu(\cdot\mid x)}(y).
 \end{equation*}
 Taking logarithms and integrating gives the displayed sum. This remains
 valid for infinite entropy: the negative part of each log-density ratio
@@ -1812,6 +2487,7 @@ argument in a dynamical convergence claim.
 \begin{example}[Truncated Gaussian: an exactly solvable KL optimization]
 \label{ex:truncated-gaussian-kl}
 \sourcecredit{11}{3}\phantomsection\label{src:p11q3}
+\begin{Question}
 Let $Z\sim\mathcal N(0,1)$ with density
 $\varphi(x)=(2\pi)^{-1/2}e^{-x^2/2}$, and put
 \begin{equation*}
@@ -1819,6 +2495,8 @@ $\varphi(x)=(2\pi)^{-1/2}e^{-x^2/2}$, and put
  \quad
  \mu_b:=\operatorname{Law}(Z\mid Z>b),\quad b\in\R.
 \end{equation*}
+\end{Question}
+\begin{solution}
 The conditional density with respect to Lebesgue measure is
 \begin{equation}
  p_b(x)=\frac{\mathbf1_{\{x>b\}}\varphi(x)}{\bar\Phi(b)}.
@@ -1841,14 +2519,17 @@ In particular, the KL divergence increases strictly with the threshold:
 The normalized Gaussian upper tail is therefore both an exact example
 of conditioning on an event and a nontrivial entropy cost.
 
-\smallskip
-\noindent\textbf{Quadratic energy and constrained optimization.}
+\end{solution}
+
+\begin{Question}[Quadratic energy and constrained optimization]
 Let $U(x)=\alpha x^2/2$ with $\alpha>0$, and consider
 \begin{equation}
  J_\alpha(b):=\KL(\mu_b\Vert\nu)
              +\int U(x)\,\mu_b(\dd x),\quad b\ge0.
 \label{eq:truncated-normal-objective}
 \end{equation}
+\end{Question}
+\begin{solution}
 Integration by parts, using $\varphi'(x)=-x\varphi(x)$,
 yields the exact second moment
 \begin{equation}
@@ -1908,6 +2589,7 @@ $\bar\Phi(b)\sim\varphi(b)/b$, hence
 The entropy cost of an increasingly rare conditioning event
 therefore diverges. This example makes clear that conditioning
 and reweighting a probability law can have an explicit information cost.
+\end{solution}
 \end{example}
 
 \begin{theorem}[Joint and separate convexity of relative entropy]
@@ -2234,8 +2916,12 @@ is needed under this stated attainment hypothesis.
 \end{proof}
 
 \begin{example}[KL as an $f$-divergence]
-The choice $f(r)=r\log r$ gives
-$D_f(P\Vert Q)=\KL(P\Vert Q)$, because $\int r\dd Q=1$.
+\leavevmode\par\nobreak
+\begin{Question}
+Take $f(r)=r\log r$.
+\end{Question}
+\begin{solution}
+Then $D_f(P\Vert Q)=\KL(P\Vert Q)$, because $\int r\dd Q=1$.
 Directly differentiate $ur-r\log r$ with respect to $r>0$:
 $u-(1+\log r)=0$, hence $r=e^{u-1}$. Its second derivative
 $-1/r$ is strictly negative, so this critical point is the
@@ -2256,6 +2942,7 @@ This is the KL instance of the Nguyen--Wainwright--Jordan
 variational construction appearing in the assessment source.
 Its difference from the Donsker--Varadhan formula is addressed
 explicitly below.
+\end{solution}
 \end{example}
 
 \begin{theorem}[An exponential Fenchel dual for KL]
@@ -2597,57 +3284,6 @@ Exponentiate and normalize to obtain
 follows from $\int r_*\dd\nu=1$.
 \end{proof}
 
-\begin{example}[A self-consistent nonlinear reward]
-Let $r,a:E\to\R$ be bounded continuous functions, and take
-$\kappa\ge0$. Define
-\begin{equation}
- \mathcal R(\mu)=\int r(x)\,\mu(\dd x)
- -\frac\kappa2\left(\int a(x)\,\mu(\dd x)\right)^2.
-\label{eq:quadratic-mean-reward}
-\end{equation}
-Because the map $z\mapsto-\kappa z^2/2$ is concave,
-$\mathcal R$ is concave; boundedness and continuity of $r,a$
-make it bounded and weakly continuous. Its functional derivative
-in zero-mass directions is
-\begin{equation*}
- \frac{\delta\mathcal R}{\delta\mu}(x;\mu)
- =r(x)-\kappa m_\mu a(x),
- \quad m_\mu:=\int a\dd\mu.
-\end{equation*}
-The unique maximizer is characterized by the fixed-point pair
-\begin{equation}
-\begin{aligned}
- \mu_*(\dd x)&=\frac{e^{r(x)-\kappa m_*a(x)}}
- {\int e^{r(y)-\kappa m_*a(y)}\nu(\dd y)}\nu(\dd x),
- \\
- m_*&=\int a(x)\mu_*(\dd x).
-\end{aligned}
-\label{eq:mean-field-reward-example}
-\end{equation}
-To justify this formula without assuming interior positivity in
-advance, let $\nu_m$ be the normalized tilt in the first line and put
-$T(m)=\int a\dd\nu_m$. On
-$[a_-,a_+]$, where $a_-=\inf a$ and $a_+=\sup a$, the map $T$ is
-continuous, takes values in that interval, and satisfies
-$T'(m)=-\kappa\operatorname{Var}_{\nu_m}(a)\le0$.
-Thus $m-T(m)$ is strictly increasing and has opposite weak signs
-at the endpoints, so it has a unique zero $m_*$. If $a_-=a_+$,
-the zero is simply that common value. The resulting tilt is strictly
-positive relative to $\nu$ because $r$ and $a$ are bounded.
-Writing $m_\mu=\int a\dd\mu$, a direct expansion gives
-\begin{equation*}
- \mathcal R(\nu_{m_*})-\KL(\nu_{m_*}\Vert\nu)
- -\mathcal R(\mu)+\KL(\mu\Vert\nu)
- =\KL(\mu\Vert\nu_{m_*})+\frac\kappa2(m_\mu-m_*)^2\ge0.
-\end{equation*}
-This proves global optimality and uniqueness, as well as the
-self-consistency formula. When $\kappa=0$,
-it reduces to the ordinary Gibbs tilt from
-Theorem~\ref{thm:gibbsvar} with $U=-r$.
-This is an exact mean-field structure, not a claim that a
-generative neural model trained on finitely many samples
-solves the self-consistency equation.
-\end{example}
 
 \begin{Notice}[Completeness and mathematical status of Project 11]
 The original thirteen items now have explicit source labels and
@@ -2772,8 +3408,11 @@ Lebesgue density on $\R^n$.
 \begin{example}[Gaussian conditional law for a coordinate average]
 \label{ex:gaussianconditional}
 \sourcecredit{12}{1}\phantomsection\label{src:p12q1}
+\begin{Question}
 Let $X\sim\mathcal N(0,I_n)$ and
-$\xi(X)=n^{-1}\sum_{j=1}^nX_j=:Z$. Then
+$\xi(X)=n^{-1}\sum_{j=1}^nX_j=:Z$.
+\end{Question}
+\begin{solution}
 \begin{equation}
 \begin{aligned}
  Z&\sim\mathcal N(0,n^{-1}),\\
@@ -2784,18 +3423,18 @@ $\xi(X)=n^{-1}\sum_{j=1}^nX_j=:Z$. Then
 \end{equation}
 The second Gaussian is \emph{degenerate} and supported on
 $\{x:\mathbf 1^\top x=nz\}$.
-\end{example}
-\begin{proof}
 Decompose $X$ into its orthogonal projections on
 $\operatorname{span}\{\mathbf1\}$ and its orthogonal complement:
 $X=Z\mathbf1+(I-n^{-1}\mathbf1\mathbf1^\top)X$. The two components are
 independent jointly Gaussian vectors. Their means and covariances yield
 \eqref{eq:gaussianconditional}.
-\end{proof}
+\end{solution}
+\end{example}
 
 
 \subsubsection{Noisy conditioning and the sharp-level limit}
 \sourcecredit{12}{2}\phantomsection\label{src:p12q2}
+\begin{solution}
 The geometry of conditioning on a sharp level set can be obtained as
 a limit of ordinary, everywhere-defined Gaussian posteriors.
 Let $X\sim\mathcal N(0,I_n)$, define
@@ -2838,6 +3477,7 @@ After establishing the coarea formula below, we state a precise sufficient
 condition and prove the corresponding weak limit. This explains the formal
 notation $\delta(\xi(x)-z)\dd x$ and why its interpretation involves a
 coarea Jacobian rather than ambient Lebesgue measure on the level set.
+\end{solution}
 
 
 \subsubsection{Coarea representation of the marginal density}
@@ -2962,64 +3602,15 @@ Disintegration identifies $-\partial_{z_i}\log p_\xi$ as the conditional
 expectation in brackets. Multiplication by $\beta^{-1}$ gives the result.
 \end{proof}
 
-\medskip\noindent\textbf{Exercises and conceptual tests}\par
-\begin{exercise}[Conditional geometry and normalization]
-For a non-injective coordinate $\xi$, explain why the conditional
-probability $\mu_z$ is naturally supported on a manifold, and why
-writing $\mu(\xi(x)=z)$ as a point probability is misleading for
-continuous laws. Verify the factors $Z$ and $J_\xi$ in
-\eqref{eq:conditionalsurface}.
-\end{exercise}
-\begin{solution}
-When $D\xi$ has rank $m<n$, the regular level-set theorem identifies
-$\Sigma_z=\xi^{-1}(z)$ locally as a smooth submanifold of dimension
-$n-m$. The conditional law is supported on that manifold for
-$\nu$-almost every $z$. If $\nu$ has a Lebesgue density then
-$\mathbb P(\xi(X)=z)=0$ for each fixed $z$; therefore the conditional
-law must be understood through disintegration rather than as a naive
-ratio of probabilities of two zero-probability events.
+\begin{futurethought}{Geometry and conditional drift}
+\textbf{To revisit.} Connect Projects~12.3--12.4 with Project~13.1:
+for a nonlinear coordinate, track the normalization and geometric terms
+from conditional laws to the mean force.
+\textbf{Idea.} Start with a regular two-dimensional coordinate and compare
+\eqref{eq:conditionalsurface} with \eqref{eq:meanforce}.
+\textbf{Status: pending; no worked solution here.}
+\end{futurethought}
 
-For a test function $g$ of the reduced variable, coarea gives
-\begin{equation*}
-\begin{aligned}
-\mathbb E[g(\xi(X))]
-&=\frac1Z\int_{\R^n}g(\xi(x))e^{-\beta U(x)}\dd x\\
-&=\frac1Z\int_{\R^m}g(z)
-\int_{\Sigma_z}\frac{e^{-\beta U(x)}}{J_\xi(x)}
-\dd\mathcal H^{n-m}(x)\dd z.
-\end{aligned}
-\end{equation*}
-Thus $p_\xi(z)=Z^{-1}\int_{\Sigma_z}e^{-\beta U}/J_\xi
-\dd\mathcal H^{n-m}$. For $p_\xi(z)>0$, the candidate conditional law
-\eqref{eq:conditionalsurface} has mass
-\begin{equation*}
-\int_{\Sigma_z}\mu_z(\dd x)=
-\frac{1}{Zp_\xi(z)}\int_{\Sigma_z}
-\frac{e^{-\beta U(x)}}{J_\xi(x)}\dd\mathcal H^{n-m}(x)=1.
-\end{equation*}
-The factor $Z$ originates in normalization of the original Gibbs
-measure, whereas $J_\xi^{-1}$ arises from the geometry of slicing
-Lebesgue volume into level sets. These are independent operations.
-\end{solution}
-
-\begin{exercise}[Mean force is not generally microscopic force]
-Choose a nonlinear reaction coordinate with nonconstant $G(x)$.
-Use \eqref{eq:meanforce} to identify the geometrical correction
-$-\beta^{-1}\nabla\cdot B_i$. Discuss which terms would be lost by
-approximating $\partial_{z_i}F$ with a single microscopic force sample.
-\end{exercise}
-\begin{solution}
-For $\xi(x,y)=x+y^2$, the Gram scalar is $G=1+4y^2$ and
-$B=(1,2y)/(1+4y^2)$. Hence
-\begin{equation*}
-\nabla\cdot B=\frac{2(1-4y^2)}{(1+4y^2)^2},
-\end{equation*}
-which is generically nonzero. The mean force includes both the
-conditional average of $B\cdot\nabla U$ and the entropic/geometrical
-term $-\beta^{-1}\E[\nabla\cdot B\mid\xi=z]$.
-A force at one representative microscopic point contains neither the
-conditional average nor the correct surface-volume contribution.
-\end{solution}
 
 \subsection{Effective dynamics and the limits of Markovian closure}
 \label{subsec:effective}\label{ch:effective}
@@ -3047,54 +3638,29 @@ The mixed terms vanish after conditioning on $Z$. Expand the outer
 product and take expectations.
 \end{proof}
 
-\begin{remark}
-Principal component analysis minimizes mean-square reconstruction
-error among orthogonal linear projections for any centered
-square-integrable vector, hence in particular for a Gaussian vector,
-under the usual rank constraint.
-The coordinate of largest equilibrium variance need not be the best
-\emph{dynamical} reaction coordinate, since rare transitions and slow
-time scales need not align with maximal variance.
+\begin{remark}[The two coordinate-choice illustrations in Project 13.1]
+For a centered nondegenerate Gaussian $X$ with covariance $\Sigma$,
+take $Z=u^\top X$ with $\|u\|=1$. The conditional reconstruction error is
+\begin{equation*}
+\begin{aligned}
+ \E[X\mid Z]&=\frac{\Sigma u}{u^\top\Sigma u}Z,\\
+ \E\|X-\E[X\mid Z]\|^2
+ &=\operatorname{tr}\Sigma-
+   \frac{u^\top\Sigma^2u}{u^\top\Sigma u}.
+\end{aligned}
+\end{equation*}
+Since $u^\top\Sigma^2u\le\lambda_{\max}(\Sigma)u^\top\Sigma u$,
+a top eigenvector minimizes this error. For the second source
+illustration, $V(x_1,x_2)=(x_1^2-1)^2/4+x_2^2/2$, the coordinate
+$\xi(x)=x_1$ resolves inter-well transitions, while $x_2$ is harmonic.
+Calling a projection optimal still requires a criterion: static
+reconstruction and preservation of slow dynamics are different objectives.
 \end{remark}
 
-\medskip\noindent\textbf{Exercises}\par
-\begin{exercise}[Choosing a physically meaningful coordinate]
-For a centered Gaussian equilibrium law, formulate the constrained
-rank-one projection problem that leads to the leading eigenvector of
-the covariance. Then consider
-$V(x_1,x_2)=\frac14(x_1^2-1)^2+\frac12x_2^2$:
-compare a variance-based criterion with the kinetic importance of $x_1$
-for inter-well transitions. State what additional dynamical criterion
-would be needed to call a coordinate ``optimal.''
-\end{exercise}
-\begin{solution}
-For a centered $X$ with covariance $\Sigma$ and a unit vector $u$,
-minimizing the mean-square rank-one reconstruction error is equivalent to
-\begin{equation*}
-\min_{\|u\|=1}\E\|X-uu^\top X\|^2
-=\operatorname{tr}\Sigma-\max_{\|u\|=1}u^\top\Sigma u.
-\end{equation*}
-The Rayleigh quotient is maximized by a top eigenvector of $\Sigma$.
-For a centered nondegenerate Gaussian $X$, the actual conditional-mean
-decoder for a scalar linear coordinate $Z=u^\top X$ is
-\begin{equation*}
- \begin{aligned}
- \mathbb E[X\mid Z]&=\frac{\Sigma u}{u^\top\Sigma u}\,Z,\\
- \mathbb E|X-\mathbb E[X\mid Z]|^2
- &=\operatorname{tr}\Sigma-\frac{u^\top\Sigma^2u}{u^\top\Sigma u}.
- \end{aligned}
-\end{equation*}
-The bound $u^\top\Sigma^2u\le\lambda_{\max}(\Sigma)u^\top\Sigma u$
-shows that this conditional reconstruction criterion also selects a top
-eigenvector. It distinguishes a general conditional decoder from the
-orthogonal decoder $uu^\top X$, while explaining their agreement at the
-Gaussian optimum. For the double well, transitions between the two metastable basins
-necessarily involve the $x_1$ coordinate, whereas $x_2$ relaxes
-harmonically. Thus variance maximization is a static reconstruction
-criterion; a dynamically appropriate coordinate must additionally
-resolve the slow transition mode, for example through a committor
-or a transfer-operator timescale criterion.
-\end{solution}
+Conditional regression supplies the instantaneous predictor in Project~13.1.
+Project~13.2 now identifies the dynamics of the chosen coordinate through
+It\^o calculus.
+
 
 \subsubsection{The exact projected semimartingale equation}
 For the scalar projection, write $d$ for the ambient dimension
@@ -3258,9 +3824,12 @@ path $t\mapsto\Law(I_t)$ and the velocity required to transport it.
 \begin{example}[Exact Gaussian interpolation: single and two-time laws]
 \label{ex:gaussian-interpolants}
 \sourcecredit{14}{1}\phantomsection\label{src:p14q1}
+\begin{Question}
 Assume $X_0$ and $X_1$ are independent standard Gaussian vectors in
-$\R^d$. Then
-$I_t=\alpha_tX_0+\lambda_tX_1$ is centered Gaussian, and independence
+$\R^d$.
+\end{Question}
+\begin{solution}
+Then $I_t=\alpha_tX_0+\lambda_tX_1$ is centered Gaussian, and independence
 makes the covariance calculation explicit:
 \begin{equation}
 \begin{aligned}
@@ -3277,6 +3846,7 @@ we find $I_t\sim\mathcal N(0,[(1-t)^2+t^2]I_d)$, which is narrower
 at $t=1/2$ than at either endpoint. Thus even an interpolation between
 identical endpoint marginals need not have constant intermediate
 marginals, and the coupling is mathematically consequential.
+\end{solution}
 \end{example}
 
 
@@ -3396,52 +3966,15 @@ mathematically identical to the population optimum: finite samples,
 representation restrictions, and optimization errors introduce additional
 approximation layers.
 
-\medskip\noindent\textbf{Exercises and research tasks}\par
 
-
-\begin{exercise}[Same marginal flow, different path statistics]
-Construct a stationary one-dimensional diffusion and a deterministic
-current-velocity flow with identical one-time densities. Compare their
-quadratic variations and two-time correlations. Explain why no
-comparison based exclusively on $\rho_t$ can detect the discrepancy.
-\end{exercise}
-\begin{solution}
-Fix $\gamma>0$. Consider the stationary Ornstein--Uhlenbeck diffusion
-\begin{equation*}
-\dd X_t=-\gamma X_t\dd t+\sqrt{2\gamma}\dd W_t,
-\quad X_0\sim\mathcal N(0,1),
-\end{equation*}
-with the initial state independent of the driving Brownian motion.
-Its invariant density is the standard Gaussian $\rho(x)$, so
-$\rho_t=\rho$ at every $t$. Its probability current is
-$J=-\gamma x\rho-\gamma\rho'$. Since $\rho'=-x\rho$, this
-current vanishes, and the associated deterministic current velocity
-$v=J/\rho$ is identically zero.
-
-Let $Y_0\sim\mathcal N(0,1)$ and define the deterministic flow
-$Y_t=\Phi_t(Y_0)=Y_0$, where $\Phi_t(x)=x$ solves $\dot y=0$.
-Both processes therefore have the same law $\mathcal N(0,1)$ at
-each fixed time. Their path statistics differ sharply:
-\begin{equation*}
-\begin{aligned}
-[X]_t&=2\gamma t, & [Y]_t&=0,\\
-\mathbb E[X_sX_t]&=e^{-\gamma|t-s|}, &
-\mathbb E[Y_sY_t]&=1.
-\end{aligned}
-\end{equation*}
-The OU covariance follows by solving the linear SDE for $t\ge s$:
-\begin{equation*}
-X_t=e^{-\gamma(t-s)}X_s+
-\sqrt{2\gamma}\int_s^te^{-\gamma(t-r)}\dd W_r.
-\end{equation*}
-The stochastic integral is independent of $X_s$ with mean zero, hence
-\begin{equation*}
-\mathbb E[X_sX_t]=e^{-\gamma(t-s)}\mathbb E[X_s^2].
-\end{equation*}
-In contrast the deterministic process is constant along each path.
-Thus matching all one-time densities cannot establish either equal
-quadratic variation or equal two-time correlations.
-\end{solution}
+\begin{futurethought}{Marginals versus temporal statistics}
+\textbf{To revisit.} Relate Project~13.3 to Projects~14.1--14.2:
+compare a stationary diffusion with its deterministic probability-current
+velocity, using two-time correlations as well as one-time laws.
+\textbf{Idea.} Use the OU benchmark below and
+\eqref{eq:marginalmatch} to separate marginal matching from path statistics.
+\textbf{Status: pending; no worked solution here.}
+\end{futurethought}
 
 
 \subsection{Variational construction of transport maps}
@@ -3515,10 +4048,13 @@ representations.
 \begin{example}[Constructing a transport toward a tilted Gaussian law]
 \label{ex:target-transport}
 \sourcecredit{9}{14}\phantomsection\label{src:p9q14}
+\begin{Question}
 Let $\rho_0$ denote the standard Gaussian density in one dimension,
 let $h\ge0$ be measurable, and assume
 $0<Z_h=\int h(x)\rho_0(x)\dd x<\infty$.
 The desired density is $\rho_h(x)=h(x)\rho_0(x)/Z_h$.
+\end{Question}
+\begin{solution}
 With cumulative distribution functions
 \begin{equation*}
 F_0(x)=\int_{-\infty}^x\rho_0(u)\dd u,
@@ -3582,6 +4118,7 @@ finite training samples do not identify a unique exact population
 transport. Validations should use independent samples and report
 both distributional discrepancies and dynamical quantities relevant
 to the intended application.
+\end{solution}
 \end{example}
 
 \begin{proposition}[Formal optimality system for a kinetic-action flow]
@@ -3646,27 +4183,6 @@ constant gauge may be chosen to make this constant zero. These are necessary fir
 they do not by themselves prove existence, uniqueness, or global
 optimality of a smooth solution.
 \end{proof}
-
-\begin{example}[Explicit solution for one particle with quadratic terminal cost]
-To illustrate the terminal optimality condition, restrict to a
-single deterministic path with $\gamma(0)=y$ and minimize
-\begin{equation*}
-\frac12\int_0^1|\dot\gamma(t)|^2\dd t
-+\frac\kappa2|\gamma(1)-z_*|^2,\quad\kappa>0.
-\end{equation*}
-For fixed endpoint $z_1$, Cauchy--Schwarz gives the minimizing
-straight line $\gamma(t)=y+t(z_1-y)$, whose cost is
-$\frac12|z_1-y|^2+\frac\kappa2|z_1-z_*|^2$.
-Differentiation with respect to $z_1$ gives
-$(z_1-y)+\kappa(z_1-z_*)=0$, so
-\begin{equation*}
-z_1=\frac{y+\kappa z_*}{1+\kappa},\quad
-\gamma_*(t)=y+\frac{t\kappa}{1+\kappa}(z_*-y).
-\end{equation*}
-This makes the role of the terminal functional explicit: the path
-does not in general reach $z_*$ exactly, but balances kinetic cost
-against the specified terminal penalty.
-\end{example}
 
 
 \subsection{Structure-preserving numerical probability evolution}
@@ -3948,76 +4464,14 @@ and a Gaussian affine baseline.
 \end{algorithmic}
 \end{breakablealgorithm}
 
-\medskip\noindent\textbf{Exercises and falsifiable predictions}\par
-\begin{exercise}[Non-equilibrium conditional drift]
-Choose a nonstationary Gaussian initial law and evaluate the time dependence
-in \eqref{eq:ouconditional}. Check whether the time-independent
-free-energy drift $-az$ still matches the one-time marginals. If it fails,
-identify which equilibrium assumption has been used incorrectly.
-\end{exercise}
-\begin{solution}
-Take the initial law used in the experiment below:
-$m_0=(1,-0.8)^\top$ and
-$\Sigma_0=\operatorname{diag}(0.12,0.25)$.
-Then $g_0(z)=\E[Y_0\mid X_0=z]=-0.8$, and the exact initial
-conditional drift is
-$ b(0,z)=-(a+c\kappa^2)z-0.8c\kappa$, not $-az$.
-Since the two drifts generate different first derivatives of the
-same initial marginal law in general, they cannot produce equal
-one-time distributions for every sufficiently small positive time.
-The error is replacing a conditional law at time $t$ by its
-\emph{equilibrium} conditional law without the process being at equilibrium.
-\end{solution}
-\begin{exercise}[Nonlinear double-well extension]
-Replace \eqref{eq:ouV} with
-$V(x,y)=\frac14(x^2-1)^2+\frac c2(y-\kappa x)^2$.
-Study conditional drift learning, estimated free energy, correlation
-times, and transition statistics. Explain which quantities lack an
-analytic benchmark and how independent numerical references will be built.
-\emph{Status: planned extension.}
-\end{exercise}
-\begin{solution}\textit{Analytic structure and numerical research protocol.}
-Write $U_{\mathrm{dw}}(x)=\frac14(x^2-1)^2$. At equilibrium,
-\begin{equation*}
-\pi(x,y)\propto e^{-\beta U_{\mathrm{dw}}(x)}
- e^{-\beta c(y-\kappa x)^2/2}.
-\end{equation*}
-The conditional $Y\mid X=x$ is exactly
-$\mathcal N(\kappa x,(\beta c)^{-1})$. Integrating over $y$ gives
-$\pi_X(x)\propto e^{-\beta U_{\mathrm{dw}}(x)}$, hence the projected
-equilibrium free energy is \emph{known analytically}:
-\begin{equation*}
-F(x)=U_{\mathrm{dw}}(x)+\mathrm{const},\quad
-F'(x)=x(x^2-1).
-\end{equation*}
-The $x$-component of the microscopic drift is
-$-U_{\mathrm{dw}}'(x)+c\kappa(y-\kappa x)$; its equilibrium
-conditional average is therefore $-U_{\mathrm{dw}}'(x)$.
-The corresponding stationary Markov closure is
-\begin{equation*}
-\dd\bar X_t=-\bar X_t(\bar X_t^2-1)\dd t
-+\sqrt{2\beta^{-1}}\dd B_t.
-\end{equation*}
-This closure reproduces the stationary $X$-marginal, but it need not
-reproduce the projected microscopic process's autocorrelation or
-inter-well transition-time distribution. At nonstationary times the
-conditional law $\operatorname{Law}(Y_t\mid X_t=x)$ generally differs
-from the equilibrium Gaussian, so the exact conditional drift and its
-transition statistics require additional calculation.
 
-A reproducible extension should (i) simulate the full two-dimensional
-Langevin system with a time-step refinement study, (ii) estimate the
-conditional drift using held-out joint samples, (iii) validate the
-free-energy estimate against the analytic $U_{\mathrm{dw}}$, and
-(iv) compare autocorrelations and first-passage distributions against
-independent fine-step microscopic simulations, including uncertainty
-intervals across trajectories. The exact equilibrium density is an
-analytic benchmark; the full projected transition statistics are not
-claimed to have a simple closed formula here. This protocol is a
-specified research task, \emph{not} an executed nonlinear experiment.
-\end{solution}
-
-
+\begin{futurethought}{A nonlinear extension of the OU benchmark}
+\textbf{To revisit.} Replace the quadratic $x$-potential by a double well
+and compare conditional drift learning with temporal observables.
+\textbf{Idea.} Separate analytic equilibrium checks from transition statistics
+that require independent microscopic simulations and time-step refinement.
+\textbf{Status: planned extension; not solved or simulated here.}
+\end{futurethought}
 
 
 \medskip\noindent\textbf{Executed numerical experiment I: noncommutative flow Jacobians.}\par
@@ -4163,7 +4617,8 @@ analyzed centered alternative originate in Project~8. Two source statements requ
 careful correction: a noncommuting time-dependent Jacobian is
 \emph{not} given by an ordinary exponential, and the KL-rate sign in
 Project~9--12 is positive for the continuity convention used here.
-The physical and AI exercises are placed adjacent to their models.
+Source applications are placed adjacent to their models; optional
+follow-up ideas are marked as pending in orange panels.
 
 \medskip\noindent\textbf{Reproducibility and interpretation.}\par
 The reproducibility material delivered with this chapter consists of
@@ -4192,8 +4647,8 @@ research problem, not an unreported experiment.
 \toprule
 Source & Main mathematical object & Final disposition\\\midrule\endfirsthead
 \toprule Source & Main mathematical object & Final disposition\\\midrule\endhead
-9.1 & Affine ODE and variation of constants & Section~\ref{sec:flows-transport}: complete worked derivation and matrix theorem\\
-9.2 & Composition, inverse, reversal & Section~\ref{sec:flows-transport}: flow theorem and proof\\
+9.1 & Affine ODE and variation of constants & Example~\ref{ex:linear-inhomogeneous}; general ODE foundations and matrix details in Appendix~\ref{app:ode-foundations}\\
+9.2 & Composition, inverse, reversal & Section~\ref{sec:flows-transport}: flow properties; proof in Appendix~\ref{app:flow-proof}\\
 9.3 & Variational matrix equation & Section~\ref{sec:flows-transport}: corrected noncommutative result\\
 9.4 & Jacobian and numerical convergence & Section~\ref{sec:flows-transport}: theorem and discrete error derivation; Section~\ref{sec:benchmark}: experiment\\
 9.5 & Volume of a transported domain & Section~\ref{sec:flows-transport}: corollary and change-of-variable proof\\
@@ -4224,7 +4679,6 @@ probability flows. In Project~9.15 the terminal functional must be
 specified to determine an optimizer. In Project~13.3 equality of
 marginals is conditional on well-posedness of the forward equation;
 it does not establish equality of path laws.
-
 
 
 \clearpage
@@ -4473,6 +4927,576 @@ of intertwining error, and careful out-of-distribution tests.
 This is a prospective scientific question rather than a
 new theorem or a verified HNN transfer result.
 
+
+\clearpage
+\chapter{ODE Foundations and Linear Evolution}
+\label{app:ode-foundations}\label{app:linear-ode}
+This appendix collects the supporting ODE arguments used throughout
+Project~9. The source problems and their links remain in the main text;
+in particular, Example~\ref{ex:linear-inhomogeneous} contains the
+variation-of-constants calculation itself.
+
+\section{Existence, Uniqueness, and Continuation}
+\label{app:picard-proof}
+\paragraph{Integral formulation.}
+For a continuous velocity $v$, a $C^1$ solution of
+$\dot x_t=v(t,x_t)$ with $x_s=x$ satisfies
+\eqref{eq:integral-ivp} by componentwise integration of its derivative.
+Conversely, a continuous curve satisfying that integral equation has
+continuous integrand, so the fundamental theorem of calculus makes it
+$C^1$ and recovers the differential equation and initial condition.
+The lower limit $s$ incorporates the initial value; $t$ is the variable
+endpoint, while the integration variable is a dummy variable.
+For $t<s$ use the oriented integral $\int_s^t=-\int_t^s$.
+
+We prove Theorem~\ref{thm:picard-detailed}.
+\begin{proof}
+Choose a closed ball $\overline B_R(x)$ and an interval $[s-h,s+h]\subset I$
+on which $\|v(t,y)\|\le M$ and
+$\|v(t,y)-v(t,z)\|\le L\|y-z\|$ for $y,z\in \overline B_R(x)$.
+Take $h>0$ small enough that $hM\le R$ and $hL<1$. On the
+complete metric space
+\begin{equation*}
+\begin{aligned}
+\mathcal C&=\{\gamma\in C([s-h,s+h];\R^d):
+\forall t\in[s-h,s+h],\ \gamma(t)\in \overline B_R(x)\},\\
+\|\gamma\|_\infty&=\sup_{t\in[s-h,s+h]}\|\gamma(t)\|,
+\end{aligned}
+\end{equation*}
+Here $\overline B_R(x)$ is closed, so $\mathcal C$ is a closed subset of the
+Banach space of continuous curves with the uniform metric
+$d(\gamma,\eta)=\|\gamma-\eta\|_\infty$; this proves completeness.
+Consider the map
+\begin{equation*}
+(\mathcal T\gamma)(t)=x+\int_s^t v(r,\gamma(r))\dd r.
+\end{equation*}
+The estimate $\|(\mathcal T\gamma)(t)-x\|\le hM\le R$ shows
+that $\mathcal T$ maps $\mathcal C$ into itself. Moreover,
+\begin{equation*}
+\|\mathcal T\gamma-\mathcal T\eta\|_\infty
+\le hL\|\gamma-\eta\|_\infty.
+\end{equation*}
+It is therefore a contraction. Starting from the constant curve
+$\gamma_0(t)=x$, the \emph{Picard iterates}
+\begin{equation*}
+\gamma_{n+1}(t)=x+\int_s^t v(r,\gamma_n(r))\dd r
+\end{equation*}
+converge uniformly to the unique fixed point. The equivalence of the
+integral and differential formulations gives the desired solution.
+Every other solution with the same initial value stays in the chosen
+ball on a sufficiently short interval, where the contraction gives
+uniqueness. Repeating at the first possible separation time, or applying
+Gronwall's inequality on common compact subintervals, gives uniqueness
+throughout the overlap of any two solution intervals. Under a uniform global Lipschitz
+condition, $\|v(t,y)\|\le C+L\|y\|$, where
+$C=\sup_{t\in[0,T]}\|v(t,0)\|$. Gronwall's inequality yields,
+for $t\ge s$,
+\begin{equation*}
+\|x_t\|\le(\|x\|+C(t-s))e^{L(t-s)}.
+\end{equation*}
+For $t<s$, the same estimate applies after reversing the time variable,
+with $t-s$ replaced by $s-t$. If a maximal solution ended at an interior
+finite time, this bound would keep it in a compact ball. Continuity of
+$v$ then bounds its derivative there, so the curve has a limit at that
+time and the local theorem extends it, a contradiction. Thus the
+solution exists on all of $[0,T]$. At an endpoint of a closed time
+interval the local construction is one-sided.
+\end{proof}
+
+The same continuation argument applies on any compact time interval
+containing the initial time. If the global spatial Lipschitz constant
+is uniform on each compact time interval but may depend on that interval,
+the corresponding solutions agree on overlaps by uniqueness and patch
+to a solution on the entire given time interval. No single constant
+uniform over an unbounded time interval is required.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Composition, Reversibility, and Differentiable Dependence}
+\label{app:flow-proof}
+
+\begin{proof}
+By Theorem~\ref{thm:picard-detailed}, each initial condition determines a unique solution
+on $[0,T]$, including evolution to times earlier than the initial time.
+The existence, uniqueness, and continuation arguments are given in
+Appendix~\ref{app:picard-proof}. We use this result to construct the flow and establish its properties.
+
+\paragraph{1. Construction of the flow and its algebraic properties.}
+
+We first formulate the flow in terms of the solution set.
+Let
+\begin{equation*}
+    \mathcal S_v :=
+        \left\{
+            \eta\in C^1([0,T],V): \dot\eta_t=v_t(\eta_t)
+        \right\}.
+\end{equation*}
+For each $r\in[0,T]$, define the evaluation map
+\begin{equation*}
+    E_r:\mathcal S_v\to V, \quad E_r(\eta):=\eta_r.
+\end{equation*}
+
+By global existence, every initial state $x\in V$
+determines a solution on $[0,T]$, so $E_r$ is surjective.
+By uniqueness, two solutions agreeing at time $r$ must
+coincide throughout the interval, so $E_r$ is injective.
+Hence $E_r$ is a bijection.
+
+We can therefore define the two-time flow by
+\begin{equation*}
+    \boxed{
+        \Phi_{s,t}:=E_t\circ E_s^{-1}.
+    }
+\end{equation*}
+In other words, $E_s^{-1}$ assigns to an initial state its
+unique solution trajectory, while $E_t$ evaluates that
+trajectory at time $t$.
+
+The identity, composition, and reversibility properties
+now follow directly from the algebra of maps. First,
+\begin{equation*}
+    \Phi_{s,s}
+    =E_s\circ E_s^{-1}
+    =\operatorname{id}_V.
+\end{equation*}
+For any $r,s,t\in[0,T]$,
+\begin{equation*}
+\begin{aligned}
+    \Phi_{r,t}\circ\Phi_{s,r}
+    &=
+    (E_t\circ E_r^{-1})
+    \circ(E_r\circ E_s^{-1})\\
+    &=
+    E_t\circ E_s^{-1}\\
+    &=\Phi_{s,t}.
+\end{aligned}
+\end{equation*}
+Similarly, taking the inverse of the defining composition,
+\begin{equation*}
+\begin{aligned}
+    \Phi_{s,t}^{-1}
+    &=(E_t\circ E_s^{-1})^{-1}\\
+    &=E_s\circ E_t^{-1}\\
+    &=\Phi_{t,s}.
+\end{aligned}
+\end{equation*}
+Thus every $\Phi_{s,t}$ is a bijection, with
+\begin{equation*}
+    \boxed{
+        \Phi_{s,s}=\operatorname{id}_V,\quad
+        \Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t},\quad
+        \Phi_{s,t}^{-1}=\Phi_{t,s}.
+    }
+\end{equation*}
+
+\paragraph{2. Differentiability with respect to the initial state.}
+
+The preceding construction establishes the algebraic
+properties of the flow. To show that it is a $C^1$
+diffeomorphism, we must additionally establish its
+differentiability with respect to the initial state.
+
+Fix $s\in[0,T]$ and $x\in V$, and write
+\begin{equation*}
+    \xi_t:=\Phi_{s,t}(x).
+\end{equation*}
+The candidate derivative is determined by the
+linear variational equation
+\begin{equation*}
+    \begin{cases}
+        \displaystyle
+        \partial_t J_{s,t}(x)
+        =D_xv_t(\xi_t)J_{s,t}(x),\\
+        J_{s,s}(x)=I_V.
+    \end{cases}
+\end{equation*}
+Since $D_xv_t(\xi_t)$ is continuous in time, this
+linear matrix equation has a unique solution on
+$[0,T]$, including both forward and backward times.
+
+We now verify that $J_{s,t}(x)$ is indeed the derivative
+of the flow. For $h\in V$, define
+\begin{equation*}
+    e_t(h)
+    :=
+    \Phi_{s,t}(x+h)-\Phi_{s,t}(x).
+\end{equation*}
+The integral equations for the two trajectories and
+the global Lipschitz condition, with uniform constant $L$, imply, by Gronwall's
+inequality,
+\begin{equation*}
+    \sup_{t\in[0,T]}\|e_t(h)\|
+    \leq e^{LT}\|h\|.
+\end{equation*}
+
+Set
+\begin{equation*}
+    A_x(t):=D_xv_t(\xi_t).
+\end{equation*}
+The continuity of $D_xv$ implies uniform continuity
+on every compact neighborhood of the reference
+trajectory $\{(t,\xi_t):t\in[0,T]\}$. Consequently,
+the first-order Taylor remainder
+\begin{equation*}
+\begin{aligned}
+    R_t(h):={}&
+    v_t(\xi_t+e_t(h))-v_t(\xi_t)\\
+    &-A_x(t)e_t(h)
+\end{aligned}
+\end{equation*}
+satisfies
+\begin{equation*}
+    \sup_{t\in[0,T]}\|R_t(h)\|
+    =o(\|h\|).
+\end{equation*}
+
+Subtracting the integral equation for the reference
+trajectory from that of the perturbed trajectory gives
+\begin{equation*}
+    e_t(h)
+    =
+    h+\int_s^t
+    \bigl[A_x(r)e_r(h)+R_r(h)\bigr]\,\dd r.
+\end{equation*}
+On the other hand, the variational equation gives
+\begin{equation*}
+    J_{s,t}(x)h
+    =
+    h+\int_s^t A_x(r)J_{s,r}(x)h\,\dd r.
+\end{equation*}
+Subtracting these two relations yields
+\begin{equation*}
+\begin{aligned}
+    e_t(h)-J_{s,t}(x)h
+    &=
+    \int_s^t A_x(r)
+    \bigl[e_r(h)-J_{s,r}(x)h\bigr]\,\dd r\\
+    &\quad+
+    \int_s^t R_r(h)\,\dd r.
+\end{aligned}
+\end{equation*}
+Since $A_x$ is bounded on $[0,T]$, another application
+of Gronwall's inequality, in both time directions,
+gives
+\begin{equation*}
+    \sup_{t\in[0,T]}
+    \|e_t(h)-J_{s,t}(x)h\|
+    =o(\|h\|).
+\end{equation*}
+Therefore,
+\begin{equation*}
+    \boxed{
+        D_x\Phi_{s,t}(x)=J_{s,t}(x).
+    }
+\end{equation*}
+
+Moreover, continuous dependence of solutions on their
+coefficients, together with the continuous dependence
+of $\Phi_{s,t}(x)$ on $x$ and the joint continuity of
+$D_xv$, implies that $J_{s,t}(x)$ varies continuously
+with $x$. Hence $\Phi_{s,t}$ is continuously
+differentiable with respect to the initial state.
+
+Since the same argument applies with $s$ and $t$
+interchanged, both $\Phi_{s,t}$ and its inverse
+$\Phi_{t,s}$ are $C^1$. Thus
+\begin{equation*}
+    \boxed{
+        \Phi_{s,t}\in\operatorname{Diff}^1(V).
+    }
+\end{equation*}
+
+\paragraph{3. Autonomous flows and the one-parameter group.}
+
+Suppose now that $v_t=v$ is autonomous and that
+solutions exist for all real times. Define
+\begin{equation*}
+    \phi_t:=\Phi_{0,t}.
+\end{equation*}
+For any initial time $s$, the trajectory
+$\tau\mapsto\Phi_{s,s+\tau}(x)$ satisfies
+\begin{equation*}
+    \frac{\dd}{\dd\tau}
+    \Phi_{s,s+\tau}(x)
+    =
+    v\bigl(\Phi_{s,s+\tau}(x)\bigr),
+    \quad
+    \Phi_{s,s}(x)=x.
+\end{equation*}
+By autonomy and uniqueness, it coincides with
+$\phi_\tau(x)$. Therefore,
+\begin{equation*}
+    \Phi_{s,t}=\phi_{t-s}.
+\end{equation*}
+
+The composition law then becomes
+\begin{equation*}
+\begin{aligned}
+    \phi_{t+r}
+    &=\Phi_{0,t+r}\\
+    &=\Phi_{r,t+r}\circ\Phi_{0,r}\\
+    &=\phi_t\circ\phi_r.
+\end{aligned}
+\end{equation*}
+In particular, setting $r=-t$ gives
+\begin{equation*}
+    \boxed{
+        \phi_{-t}=\phi_t^{-1}.
+    }
+\end{equation*}
+Thus the autonomous flow defines a one-parameter
+group of $C^1$ diffeomorphisms of $V$.
+
+\paragraph{4. Time reversal.}
+
+Finally, let $x_t$ be any solution on $[0,T]$ and
+define the reversed trajectory
+\begin{equation*}
+    y_t:=x_{T-t}.
+\end{equation*}
+By the chain rule,
+\begin{equation*}
+\begin{aligned}
+    \dot y_t
+    &=-\dot x_{T-t}\\
+    &=-v_{T-t}(x_{T-t})\\
+    &=-v_{T-t}(y_t).
+\end{aligned}
+\end{equation*}
+Moreover, $y_0=x_T$. Hence the reversed trajectory
+satisfies
+\begin{equation*}
+    \boxed{
+        \begin{cases}
+            \dot y_t=-v_{T-t}(y_t),\\
+            y_0=x_T.
+        \end{cases}
+    }
+\end{equation*}
+Equivalently, if $\widetilde\Phi_{s,t}$ denotes the
+flow of the reversed vector field
+$\widetilde v_t=-v_{T-t}$, then
+\begin{equation*}
+    \widetilde\Phi_{s,t}
+    =
+    \Phi_{T-s,T-t}.
+\end{equation*}
+
+This completes the proof.
+\end{proof}
+
+
+\section{Construction and Completeness of the Fundamental Matrix}
+
+\label{app:linear-fundamental}
+Let $A:I\to\mathbb R^{d\times d}$ be continuous on a time interval $I$.
+Consider the homogeneous system $\dot y_t=A(t)y_t$. Use the Euclidean
+vector norm and its induced matrix norm. Let
+$e_1,\ldots,e_d$ be the standard basis of $\mathbb R^d$.
+Theorem~\ref{thm:picard-detailed}, applied on compact time intervals,
+provides the column solutions $u_j$ on $I$ such that
+\begin{equation*}
+ \dot u_j(t)=A(t)u_j(t),\quad u_j(s)=e_j.
+\end{equation*}
+Define the normalized fundamental matrix by its columns:
+\begin{equation*}
+ U(t,s)=\begin{pmatrix}u_1(t)&\cdots&u_d(t)\end{pmatrix}.
+\end{equation*}
+Its initial columns and their differential equations give
+\begin{equation}
+    \partial_tU(t,s)=A(t)U(t,s),\quad U(s,s)=I_d.
+    \label{eq:fundamental-U-appendix}
+\end{equation}
+Columnwise uniqueness also proves uniqueness of this matrix initial-value problem.
+
+\begin{theorem}[Fundamental matrix]
+\label{thm:affine-flow}
+The normalized fundamental matrix $U(t,s)$ is invertible for all
+$s,t\in I$. Every homogeneous solution is $y_t=U(t,s)y_s$, and
+$U(t,r)U(r,s)=U(t,s)$ with $U(t,s)^{-1}=U(s,t)$.
+\end{theorem}
+\begin{proof}
+We prove completeness and invertibility here; the algebraic identities
+are established in the next section.
+For constant scalars $c_1,\ldots,c_d$, linearity implies
+\begin{equation*}
+ \frac{\dd}{\dd t}\sum_{j=1}^d c_ju_j(t)
+ =A(t)\sum_{j=1}^d c_ju_j(t).
+\end{equation*}
+This is the superposition principle for homogeneous solutions.
+Given any homogeneous solution $y_t$, linear algebra writes its
+initial vector uniquely as $y_s=\sum_j c_je_j$. The curve
+$\sum_j c_ju_j(t)=U(t,s)y_s$ solves the same equation and has
+the same initial value. ODE uniqueness, rather than linear algebra
+alone, now forces it to equal $y_t$ at every time.
+In particular, evaluation at $s$ is a linear bijection between
+the vector space of homogeneous solutions and $\mathbb R^d$.
+Its inverse sends $c$ to the solution $U(\cdot,s)c$; thus the
+solution space has dimension $d$ and the $d$ column solutions
+form a basis.
+
+To prove independence at an arbitrary time $t_0\in I$, suppose
+$U(t_0,s)c=0$. The solution $z_t=U(t,s)c$ then has zero value
+at $t_0$. Uniqueness with initial time $t_0$, in both time
+directions, makes it the zero solution throughout $I$.
+At $s$ this gives $c=0$. Hence $U(t_0,s)$ has trivial kernel,
+and a square matrix with trivial kernel is invertible.
+This proves that the columns remain independent at every time,
+without assuming an inverse or a composition identity in advance.
+The remaining assertions follow from Appendix~\ref{app:linear-identities}.
+\end{proof}
+
+\section{Algebraic Identities for the Evolution Matrix}
+\label{app:linear-identities}
+Fix any $r,s\in I$. As functions of $t$, the matrices
+$F(t)=U(t,r)U(r,s)$ and $G(t)=U(t,s)$ satisfy
+$F'=A(t)F$ and $G'=A(t)G$. At $t=r$ both equal $U(r,s)$.
+Columnwise uniqueness with initial time $r$ therefore yields
+\begin{equation*}
+ U(t,r)U(r,s)=U(t,s).
+\end{equation*}
+No ordering of the three times is needed, since the solutions exist
+on all of $I$. Taking the terminal time equal to $s$, and then
+interchanging $s$ and $t$, gives
+\begin{equation*}
+ U(s,t)U(t,s)=I_d,\quad U(t,s)U(s,t)=I_d.
+\end{equation*}
+Consequently $U(t,s)^{-1}=U(s,t)$, consistently with the independent
+kernel argument above. In particular,
+\begin{equation*}
+ U(t,s)U(\tau,s)^{-1}=U(t,s)U(s,\tau)=U(t,\tau).
+\end{equation*}
+These are identities for the linear homogeneous evolution matrix.
+They do not rely on properties of a general state flow.
+
+For later differentiation under the integral, joint continuity
+can be checked directly: for a fixed $a\in I$,
+$U(t,\tau)=U(t,a)U(\tau,a)^{-1}$. Both factors are continuous
+in their respective variables, since inversion is continuous on
+invertible matrices. Thus $U(t,\tau)$ and
+$\partial_tU(t,\tau)=A(t)U(t,\tau)$ are jointly continuous.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrix Exponentials and Time Ordering}
+\label{app:linear-exponentials}
+The fundamental matrix packages all homogeneous initial vectors
+into one matrix: it avoids solving a new system for each $y_s$.
+Its definition as an initial-value problem always applies;
+an ordinary matrix exponential is an additional representation
+requiring suitable coefficients.
+
+\paragraph{Constant matrix.}
+For $A(t)=A$, the power series
+\begin{equation*}
+ E(t)=e^{A(t-s)}=\sum_{n=0}^\infty\frac{(t-s)^nA^n}{n!}
+\end{equation*}
+and its derivative series converge uniformly on compact time
+intervals by comparison with scalar exponential series in $\|A\|$.
+Termwise differentiation gives $E'=AE$ and $E(s)=I_d$.
+Uniqueness of \eqref{eq:fundamental-U-appendix} proves
+$U(t,s)=e^{A(t-s)}$.
+
+\paragraph{Pairwise commuting coefficients.}
+Assume $A(t)A(r)=A(r)A(t)$ for all $r,t\in I$ and put
+$H(t)=\int_s^t A(\tau)\dd\tau$. Then $H'=A(t)$ and
+$H(t)A(t)=A(t)H(t)$, by integrating the commutation relation.
+The product rule, before using commutativity, reads
+\begin{equation*}
+ \frac{\dd}{\dd t}H(t)^n
+ =\sum_{k=0}^{n-1}H(t)^k A(t)H(t)^{n-1-k}.
+\end{equation*}
+Commutativity makes this $nA(t)H(t)^{n-1}$. On a compact
+interval, $\|H\|$ and $\|A\|$ are bounded, so both the
+exponential series and its derivative series converge uniformly.
+It follows that
+\begin{equation*}
+ \frac{\dd}{\dd t}e^{H(t)}=A(t)e^{H(t)},\quad e^{H(s)}=I_d,
+ \quad U(t,s)=\exp\left(\int_s^t A(\tau)\dd\tau\right).
+\end{equation*}
+For noncommuting coefficients the terms in the product-rule sum
+cannot in general be combined. Thus differentiating $e^{H(t)}$
+does not in general give $A(t)e^{H(t)}$; time dependence alone
+does not justify the ordinary exponential formula.
+
+\paragraph{Peano--Baker series from the integral equation.}
+Integrating \eqref{eq:fundamental-U-appendix} gives
+\begin{equation}
+ U(t,s)=I_d+\int_s^t A(r)U(r,s)\dd r.
+\label{eq:matrix-volterra}
+\end{equation}
+Set $P_0(t,s)=I_d$ and recursively define
+\begin{equation*}
+ P_n(t,s)=\int_s^t A(t_1)P_{n-1}(t_1,s)\dd t_1,\quad n\ge1.
+\end{equation*}
+For $t\ge s$, repeated substitution yields
+\begin{equation}
+\begin{split}
+ U(t,s)=I_d+&\int_s^t A(t_1)\dd t_1\\
+ &+\int_s^t\int_s^{t_1}A(t_1)A(t_2)\dd t_2\dd t_1\\
+ &+\sum_{n=3}^\infty\int_{s\le t_n\le\cdots\le t_1\le t}
+ A(t_1)\cdots A(t_n)\dd t_n\cdots\dd t_1.
+\end{split}
+\label{eq:peano-baker}
+\end{equation}
+To justify the series, take a compact $K\subset I$ containing $s$
+and put $M=\max_K\|A(t)\|$. Induction in the recursive integral
+gives, in either time direction,
+\begin{equation*}
+ \|P_n(t,s)\|\le\frac{M^n|t-s|^n}{n!},\quad t\in K.
+\end{equation*}
+In forward time, the factor $|t-s|^n/n!$ is the volume of the
+ordered integration simplex. In backward time the same bound
+follows by taking absolute values in each oriented integral.
+The scalar exponential series therefore proves absolute uniform
+convergence of $S(t,s)=\sum_{n=0}^\infty P_n(t,s)$ on $K$.
+Passing its uniformly convergent sum through the integral gives
+$S=I_d+\int_s^t A(r)S(r,s)\dd r$. The fundamental theorem of
+calculus gives $\partial_tS=A(t)S$ and $S(s,s)=I_d$, so uniqueness
+identifies $S=U$. Equivalently,
+$\partial_tP_n=A(t)P_{n-1}$ and
+\begin{equation*}
+ \|\partial_tP_n(t,s)\|
+ \le\frac{M^n|t-s|^{n-1}}{(n-1)!},\quad n\ge1,
+\end{equation*}
+which also justifies termwise differentiation on $K$.
+
+This construction is exactly Picard iteration of
+\eqref{eq:matrix-volterra}: starting with $U_0=I_d$,
+$U_{m+1}=I_d+\int_s^t A(r)U_m(r,s)\dd r$ gives
+$U_m=\sum_{n=0}^m P_n$. Thus the ordered series records the
+successive matrix Picard iterates, rather than a new existence principle.
+
+\paragraph{Meaning of the time-ordered exponential.}
+For forward time, the notation
+\begin{equation*}
+ U(t,s)=\mathcal T\exp\left(\int_s^t A(\tau)\dd\tau\right),\quad t\ge s,
+\end{equation*}
+denotes precisely the Peano--Baker series. The symbol $\mathcal T$
+places later-time matrices on the left: at second order the product
+is $A(t_1)A(t_2)$ for $t_1\ge t_2$, so the earlier contribution
+acts first on a column vector. Equivalently, the $n$th term is
+\begin{equation*}
+ P_n(t,s)=\frac1{n!}\int_{[s,t]^n}
+ \mathcal T\bigl[A(t_1)\cdots A(t_n)\bigr]
+ \dd t_1\cdots\dd t_n.
+\end{equation*}
+The cube splits into $n!$ ordered simplices, apart from boundaries
+of zero volume. Sorting the factors makes all these integrals equal,
+which explains the factor $1/n!$. With commuting coefficients the
+ordering can be removed, and the cube integral is $H(t)^n$;
+without commutativity this simplification is unavailable.
+
+For $t<s$, use the same recursive oriented integrals for $P_n$
+or the already proved identity $U(t,s)=U(s,t)^{-1}$.
+In that direction the nested products place earlier physical times
+on the left (reverse chronological ordering), with a sign $(-1)^n$
+in the $n$th term after reorienting the integrals. The forward
+$\mathcal T$ convention above should therefore not be read as
+unchanged chronological ordering for a backward interval.
+
+The solution required by the source question remains
+\eqref{eq:variation-constants}; the ordered exponential specifies
+its homogeneous matrix when the coefficients do not commute.
+Return to Example~\ref{ex:linear-inhomogeneous} for the concise worked solution.
 
 \clearpage
 \printbibliography[heading=bibintoc,title={References}]

@@ -100,8 +100,17 @@ The [statement review](../results/audit-2026-11-04/statement_review.csv) records
 72 numbered statements and eight Notices under their stated scope. Its line
 numbers refer to the reviewed manuscript; it is not a formal proof certificate.
 
-All mathematical content, equation labels, bibliography, source identifiers,
-and canonical figures/data are preserved during the project cleanup.
+General ODE existence, uniqueness, continuation, and flow-regularity proofs
+are collected in Appendix B. The main text states their assumptions and
+links to those proofs before solving Project 9.1. Its worked solution is
+not repeated in a separate appendix derivation.
+
+The manuscript keeps the assessment as its main thread. Redundant supplemental
+worked examples and exercises have been removed; four orange "Later thought"
+panels retain short pending follow-up ideas and their links to source problems.
+Source identifiers, the bibliography, and canonical figures/data are preserved.
+The historical statement-review counts and line numbers above describe the
+earlier reviewed version, rather than the current shortened manuscript.
 Within each numbered `equation`, the label remains immediately before
 `\\end{equation}`.
 

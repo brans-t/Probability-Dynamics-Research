@@ -96,7 +96,7 @@ def source_checks(tex):
     for equation in re.findall(r"\\begin\{equation\}(.*?)\\end\{equation\}", clean, re.S):
         if r"\label{" in equation:
             require(
-                re.fullmatch(r"(?:\\label\{[^}]+\}\s*)+", equation.strip().splitlines()[-1]),
+                re.fullmatch(r"(?:\\label\{[^}]+\}\s*)+", equation.strip().splitlines()[-1].strip()),
                 "Equation labels must be on the final line before the environment ends",
             )
     stack = []
@@ -268,14 +268,32 @@ def pdf_checks(tex):
         )
     text = subprocess.check_output(["pdftotext", "-layout", str(pdf), "-"], encoding="utf-8")
     headings = re.findall(
-        r"^\s*(Definition|Theorem|Proposition|Corollary|Example|Exercise|Remark)\s+(1\.\d+)(?=[ \t]*\(|\.[ \t]+\S)",
+        r"^\s*(Definition|Theorem|Proposition|Corollary|Lemma|Example|Exercise|Remark|Assumption)\s+((?:\d+|[A-Z])\.\d+)(?=[ \t]*\(|\.[ \t]+\S)",
         text,
         re.M,
     )
-    expected_statements = sum(
-        tex.count("\\begin{" + env + "}") for env in STATEMENTS if env != "Notice"
+    # Statement counters reset at each numbered chapter, including appendices.
+    # Read the chapter order from the source instead of assuming chapter 1.
+    statement_envs = "|".join(env for env in STATEMENTS if env != "Notice")
+    tokens = re.finditer(
+        r"\\appendix\b|\\chapter\{|\\begin\{(" + statement_envs + r")\}",
+        re.sub(r"(?<!\\)%[^\n]*", "", tex),
     )
-    expected_numbers = {f"1.{i}" for i in range(1, expected_statements + 1)}
+    appendix = False
+    chapter = 0
+    statement = 0
+    expected_numbers = set()
+    for token in tokens:
+        if token[0] == r"\appendix":
+            appendix = True
+            chapter = 0
+        elif token[0] == r"\chapter{":
+            chapter += 1
+            statement = 0
+        else:
+            statement += 1
+            prefix = chr(ord("A") + chapter - 1) if appendix else str(chapter)
+            expected_numbers.add(f"{prefix}.{statement}")
     counts = Counter(number for _, number in headings)
     require(
         set(counts) == expected_numbers and all(n == 1 for n in counts.values()),

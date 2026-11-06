@@ -18,6 +18,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{placeins}
+\usepackage{needspace}
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage[bottom]{footmisc}
@@ -42,6 +43,9 @@
 \usepackage{appendix}
 \usepackage{animate}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \definecolor{greenshade}{rgb}{0.9, 1, 0.9}
 \definecolor{green}{rgb}{0.2, 0.6, 0.2}
@@ -70,9 +74,23 @@
 
 \newtheorem{example}[theorem]{Example}
 \newtheorem{remark}[theorem]{Remark}
+% Keep a worked-example heading with its source note and short problem panel.
+\BeforeBeginEnvironment{example}{\par\Needspace{12\baselineskip}}
 
-\renewenvironment{proof}{\indent\textcolor{SkyBlue}{\textbf{Proof.}}\;}{\qed\par}
-\newenvironment{solution}{\indent\textcolor{SkyBlue}{\textbf{Solution.}}\;}{\qed\par}
+\renewenvironment{proof}{%
+  \par\widowpenalty=10000\displaywidowpenalty=10000
+  \indent\textcolor{SkyBlue}{\textbf{Proof.}}\;
+}{\qed\par}
+% Worked answers have a green heading and a diamond; proofs retain their square.
+\newenvironment{solution}{%
+  \par\medskip\noindent\textcolor{ForestGreen}{\textbf{Solution.}}\par
+  \nobreak\smallskip\noindent\ignorespaces
+}{%
+  \begingroup
+    \renewcommand{\qedsymbol}{\textcolor{ForestGreen}{\ensuremath{\blacklozenge}}}%
+    \qed
+  \endgroup\par\medskip
+}
 
 \newtcolorbox[use counter=theorem, number within=chapter]{definition}[1][]{
   enhanced, breakable,
@@ -111,8 +129,20 @@
 }
 
 \newtcolorbox{Question}[1][]{
-  enhanced, breakable, colback=lightcyanq, colframe=black, arc=3mm,
-  title={\textbf{Question}}, coltitle=white, fonttitle=\bfseries, boxsep=2mm, #1
+  enhanced, colback=MidnightBlue!3!white,
+  colframe=MidnightBlue!65!white, boxrule=0.4pt, leftrule=2pt, arc=1mm,
+  title={Problem\ifstrempty{#1}{}{ --- #1}}, coltitle=white,
+  fonttitle=\bfseries, left=7pt, right=7pt, top=5pt, bottom=5pt,
+  before skip=8pt, after skip=8pt,
+}
+
+% Optional follow-up ideas are explicitly pending, separate from source answers.
+\newtcolorbox{futurethought}[1]{%
+  enhanced, breakable, colback=Orange!6!white,
+  colframe=BurntOrange!85!black, boxrule=0.4pt, leftrule=2pt, arc=1mm,
+  title={Later thought --- #1}, coltitle=white, fonttitle=\bfseries,
+  left=7pt, right=7pt, top=5pt, bottom=5pt,
+  before skip=8pt, after skip=8pt,
 }
 
 \makeatletter
@@ -154,6 +184,25 @@
 \theoremstyle{mydef}
 \newtheorem{exercise}[theorem]{Exercise}
 \newtheorem{assumption}[theorem]{Assumption}
+\tcolorboxenvironment{exercise}{%
+  enhanced, colback=MidnightBlue!3!white,
+  colframe=MidnightBlue!65!white, boxrule=0.4pt, leftrule=2pt, arc=1mm,
+  left=7pt, right=7pt, top=5pt, bottom=5pt,
+  before skip=8pt, after skip=8pt,
+}
+% Proof problems use the same blue panel, enclosing only the statement.
+% The theorem counters and the separate Proof environment are unchanged.
+\tcbset{proofstatement/.style={%
+  enhanced, breakable, colback=MidnightBlue!3!white,
+  lines before break=6,
+  colframe=MidnightBlue!65!white, boxrule=0.4pt, leftrule=2pt, arc=1mm,
+  left=7pt, right=7pt, top=5pt, bottom=5pt,
+  before skip=8pt, after skip=8pt,
+}}
+\tcolorboxenvironment{theorem}{proofstatement}
+\tcolorboxenvironment{proposition}{proofstatement}
+\tcolorboxenvironment{corollary}{proofstatement}
+\tcolorboxenvironment{lemma}{proofstatement}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Pp}{\mathbb{P}}
@@ -161,7 +210,17 @@
 \newcommand{\KL}{D_{\mathrm{KL}}}
 \newcommand{\dd}{\,\mathrm{d}}
 \newcommand{\supp}{\operatorname{supp}}
-\newcommand{\sourcecredit}[2]{\par\smallskip\noindent{\footnotesize\itshape\textcolor{MidnightBlue}{Original exercise:} \emph{Student Assessment Exercise}\,\cite{assessment}, Project~#1, item~#2 (adapted).}\par\nobreak\smallskip\nobreak}
+\newcommand{\sourcecredit}[2]{%
+  \leavevmode\par\nobreak\smallskip
+  \begin{tcolorbox}[enhanced,breakable,colback=BrickRed!4!white,
+    colframe=BrickRed,boxrule=0pt,leftrule=2pt,sharp corners,
+    left=6pt,right=6pt,top=3pt,bottom=3pt,
+    before skip=0pt,after skip=4pt,fontupper=\footnotesize\normalfont]
+    \textcolor{BrickRed}{\textbf{Source exercise: Project~#1, item~#2.}}
+    \emph{Student Assessment Exercise}\,\cite{assessment} (adapted).
+  \end{tcolorbox}%
+  \nobreak\noindent\ignorespaces
+}
 \newcommand{\sourcelink}[3]{\hyperref[#3]{Project #1 -- #2} & \hyperref[#3]{\pageref*{#3}}\\}
 \newcommand{\sourceindexrow}[4]{\hyperref[#3]{\textcolor{MidnightBlue}{Project~#1 -- #2}} & \hyperref[#3]{\textcolor{MidnightBlue}{\pageref*{#3}}} & #4\\}
 \pagestyle{fancy}
