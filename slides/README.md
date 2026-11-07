@@ -18,11 +18,14 @@ python scripts/build_slides.py
 ```
 
 The script runs XeLaTeX twice and writes the PDF to
-`output/presentations/project9_exercise1.pdf`. Intermediate files stay in
-`build/beamer-project9-1/`. Biber is not needed for this slide deck.
+`output/slides/project9_exercise1.pdf`. Intermediate files also stay in
+`output/slides/`. Biber is not needed for this slide deck.
 
 In VS Code LaTeX Workshop, select the **XeLaTeX x2 (Beamer)** recipe for this
 source. Use **XeLaTeX -> Biber -> XeLaTeX x2** for `paper/main.tex`.
+The workspace settings also route compilation using the source's
+`% !TeX program` comment to `output/slides/`. The manuscript uses
+`output/paper/`. These settings apply only to this project.
 
 For the standalone LaTeX source ZIP, extract all files into one folder and run
 `xelatex project9_exercise1.tex` twice in that folder. Keep `template_style.tex`

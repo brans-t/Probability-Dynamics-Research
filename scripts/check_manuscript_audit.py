@@ -52,7 +52,7 @@ def groups(text):
 
 
 def labels_from_aux():
-    aux = (ROOT / "paper/Tmp/main.aux").read_text(encoding="utf-8")
+    aux = (ROOT / "output/paper/main.aux").read_text(encoding="utf-8")
     result = {}
     for line in aux.splitlines():
         if line.startswith("\\newlabel{"):
@@ -202,7 +202,7 @@ def preservation(tex, baseline):
 
 
 def pdf_checks(tex):
-    pdf = ROOT / "paper/Tmp/main.pdf"
+    pdf = ROOT / "output/paper/main.pdf"
     aux = labels_from_aux()
     destinations = subprocess.check_output(
         ["pdfinfo", "-dests", str(pdf)], encoding="utf-8", errors="replace"
@@ -293,7 +293,7 @@ def pdf_checks(tex):
         set(counts) == expected_numbers and all(n == 1 for n in counts.values()),
         f"Statement numbers not unique/complete: missing={expected_numbers-set(counts)}, duplicates={[k for k,v in counts.items() if v>1]}",
     )
-    log = (ROOT / "paper/Tmp/main.log").read_text(errors="replace")
+    log = (ROOT / "output/paper/main.log").read_text(errors="replace")
     require(
         not re.search(
             r"Overfull|undefined|LaTeX Warning:|multiply defined|Missing character:", log

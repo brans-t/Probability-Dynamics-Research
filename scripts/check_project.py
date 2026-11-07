@@ -13,6 +13,7 @@ import hashlib
 from pathlib import Path
 import re
 import runpy
+import struct
 import sys
 import zipfile
 
@@ -60,8 +61,27 @@ def check_manuscript():
     require(len(figures) == 6, "Expected six manuscript figures")
     for figure in figures:
         require((ROOT / "paper" / figure).is_file(), f"Missing figure: {figure}")
+    animation_frames = []
+    animations = re.findall(
+        r"\\animategraphics\s*(?:\[[^\]]*\])?\s*\{(\d+)\}\s*\{([^}]+)\}\s*\{(\d+)\}\s*\{(\d+)\}",
+        tex,
+    )
+    for fps, prefix, first, last in animations:
+        require(int(fps) > 0 and int(first) <= int(last), "Invalid animation frame range")
+        dimensions = set()
+        for number in range(int(first), int(last) + 1):
+            frame = f"{prefix}{number}.png"
+            frame_path = ROOT / "paper" / frame
+            require(frame_path.is_file(), f"Missing animation frame: {frame}")
+            with frame_path.open("rb") as image:
+                header = image.read(24)
+            require(header[:8] == b"\x89PNG\r\n\x1a\n" and len(header) == 24, f"Invalid PNG: {frame}")
+            dimensions.add(struct.unpack(">II", header[16:24]))
+            animation_frames.append(frame)
+        require(len(dimensions) == 1, f"Inconsistent animation dimensions: {prefix}")
     require(
-        {p.name for p in (ROOT / "paper/figures").iterdir()} == {Path(p).name for p in figures},
+        {p.relative_to(ROOT / "paper").as_posix() for p in (ROOT / "paper/figures").rglob("*") if p.is_file()}
+        == set(figures + animation_frames),
         "Unreferenced or missing files in paper/figures",
     )
     bib = (ROOT / "paper/ref.bib").read_text(encoding="utf-8")
@@ -73,7 +93,8 @@ def check_manuscript():
     require(r"\input{preamble}" in tex, "Shared preamble not included")
     require(r"\addbibresource{ref.bib}" in preamble, "Bibliography path changed")
     print(
-        f"Manuscript: {len(labels)} labels, {len(rows)} source links, {len(figures)} figures, {len(cited)} citation keys OK"
+        f"Manuscript: {len(labels)} labels, {len(rows)} source links, {len(figures)} figures, "
+        f"{len(animation_frames)} animation frames, {len(cited)} citation keys OK"
     )
     return tex
 

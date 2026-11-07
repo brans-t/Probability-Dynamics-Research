@@ -1214,7 +1214,23 @@ to external driving.
 We now return to a general vector field $v:[0,T]\times V\to V$, assumed continuous, with jointly continuous spatial derivative
 $D_xv_t(x)$, and globally Lipschitz in $x$ uniformly on $[0,T]$. The derivative is a linear endomorphism of $V$,
 represented by its Jacobian matrix in a chosen basis. For each $s,t\in[0,T]$, define $\Phi_{s,t}(x)$ to be the value at
-time $t$ of the solution of \eqref{eq:flowode} with $x_s=x$. Both $t\ge s$ and $t<s$ are allowed. The next theorem establishes
+time $t$ of the solution of \eqref{eq:flowode} with $x_s=x$. Both $t\ge s$ and $t<s$ are allowed.
+
+Fixing the initial time $s$ and initial state $x$, write $x_t$ for this solution, so that $\Phi_{s,t}(x)=x_t$.
+Differentiating with respect to the terminal time $t$ and using \eqref{eq:flowode} gives
+\begin{equation}
+    \partial_t\Phi_{s,t}(x)=\dot x_t=v_t(x_t)=v_t(\Phi_{s,t}(x)),
+    \qquad \Phi_{s,s}(x)=x_s=x.
+    \label{eq:flow-dynamics}
+\end{equation}
+Here $\partial_t$ differentiates only the terminal time, with $s$ and $x$ held fixed; at $t=0,T$, it is understood
+one-sided. Equation~\eqref{eq:flow-dynamics} is the original ODE expressed in terms of the flow, rather than an additional
+dynamical assumption: the ODE describes a single trajectory, while the flow organizes these trajectories into a family of
+maps indexed by the initial and terminal times. For the homogeneous linear field $v_t(y)=A(t)y$, we have
+$\Phi_{s,t}(x)=U(t,s)x$, so \eqref{eq:flow-dynamics} reduces to the evolution-operator equation
+$\partial_t U(t,s)=A(t)U(t,s)$ established in \eqref{eq:fundamental-U}.
+
+The next theorem establishes
 composition and invertibility; for a nonautonomous field, $\Phi_{0,t}$ is generally not a one-parameter semigroup.
 
 \begin{theorem}[Existence, composition, and reversibility of the flow]
@@ -1232,10 +1248,10 @@ Then the following statements hold:
     \item \textbf{Composition and invertibility.} For every $r,s,t\in[0,T]$, without any ordering restriction, the flow
         satisfies
         \begin{equation*}
-\Phi_{s,s}=\mathrm{id}_V,\quad
+            \Phi_{s,s}=\mathrm{id}_V,\quad
             \Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t},\quad
             \Phi_{s,t}^{-1}=\Phi_{t,s}.
-\end{equation*}
+        \end{equation*}
         Moreover, each $\Phi_{s,t}:V\to V$ is a $C^1$ diffeomorphism.
 
     \item \textbf{Autonomous flows.} If, in addition, $v_t=v$ is autonomous\footnote{An autonomous dynamical system is one
@@ -1261,56 +1277,335 @@ the resulting trajectories leads to the next source problem.
 The constructed flow now satisfies the observable--measure identities \eqref{eq:flow-operator-duality-intro}; no separate 
 duality proof is needed.
 
-\begin{proposition}[Variational equation and noncommutative evolution]
+Having established the existence, uniqueness, and algebraic properties of the flow, we now examine how its evolution depends 
+on the initial state. In particular, the derivative of the flow with respect to the initial condition describes the evolution 
+of infinitesimal perturbations, while its determinant characterizes the corresponding local volume change. These quantities 
+satisfy the following evolution equations.
+
+\begin{proposition}[Variational equation and Jacobian evolution]
 \label{prop:variational}
-\sourcecredit{9}{3}\phantomsection\label{src:p9q3}
-For $M_{s,t}(x)=D_x\Phi_{s,t}(x)$,
-\begin{equation}
-    \partial_tM_{s,t}=Dv_t(\Phi_{s,t}(x))M_{s,t},\quad M_{s,s}=I.
-    \label{eq:variational}
-\end{equation}
-The solution is the time-ordered fundamental matrix. In general,
-\begin{equation*}
-    M_{s,t}\neq\exp\left(\int_s^t Dv_r(\Phi_{s,r}(x))\dd r\right).
-\end{equation*}
+\sourcecredit{9}{3--4}\phantomsection\label{src:p9q3}
+
+Let $v:I\times V\to V$ be continuous in time and continuously differentiable in space, and let $\Phi_{s,t}$ be its flow.
+
+Prove the following properties:
+\begin{itemize}
+    \item \textbf{Jacobian matrix.}
+        For each $s,t\in I$, the Jacobian matrix of the flow,
+        \begin{equation*}
+            M_{s,t}(x):=D_x\Phi_{s,t}(x)\in GL(V),
+        \end{equation*}
+        satisfies
+        \begin{equation}
+            \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x),
+            \quad M_{s,s}(x)=I_d.
+            \label{eq:variational}
+        \end{equation}
+
+    \item \textbf{Jacobian determinant.}
+        The determinant of the Jacobian matrix satisfies
+        \begin{equation}
+            \det M_{s,t}(x) =
+            \exp\left(
+                \int_s^t \operatorname{div}v_r(\Phi_{s,r}(x)) \,\dd r
+            \right).
+            \label{eq:jacobian-determinant}
+        \end{equation}
+\end{itemize}
 \end{proposition}
 
 \begin{proof}
-Differentiate the integral equation $\Phi_{s,t}(x)=x+\int_s^t v_r(\Phi_{s,r}(x))\dd r$ with respect to $x$.
-The resulting linear matrix ODE is \eqref{eq:variational}. An ordinary
-exponential solves this ODE if the relevant coefficient matrices commute;
-without commutativity, products must retain their chronological order.
+Fix $s\in I$ and $x\in V$. By \eqref{eq:flow-dynamics}, the flow satisfies
+\begin{equation*}
+    \partial_t\Phi_{s,t}(x)
+    =v_t(\Phi_{s,t}(x)),
+    \qquad \Phi_{s,s}(x)=x.
+\end{equation*}
+
+\paragraph{1. Variational equation.}
+By the continuous differentiability of the vector field in the state variable, the flow is differentiable with respect to 
+its initial state. Differentiating the flow equation \eqref{eq:flow-dynamics} with respect to $x$ and applying the chain 
+rule gives
+\begin{equation*}
+    \partial_t D_x\Phi_{s,t}(x) = Dv_t(\Phi_{s,t}(x))D_x\Phi_{s,t}(x).
+\end{equation*}
+By the definition $M_{s,t}(x):=D_x\Phi_{s,t}(x)$, we obtain
+\begin{equation*}
+    \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x).
+\end{equation*}
+Since $\Phi_{s,s}=\operatorname{id}_V$, its derivative is the identity operator:
+\begin{equation*}
+    M_{s,s}(x) = D_x\Phi_{s,s}(x) = D_{\operatorname{id}_V}(x) = I_d.
+\end{equation*}
+Thus, we obtain the matrix initial-value problem \eqref{eq:variational}
+\begin{equation*}
+    \begin{cases}
+        \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x),\\
+        M_{s,s}(x)=I_d.
+    \end{cases}
+\end{equation*}
+
+\paragraph{2. Noncommutative matrix evolution.}
+
+For the fixed initial state $x$, define
+\begin{equation*}
+    A(t):=Dv_t(\Phi_{s,t}(x)).
+\end{equation*}
+The variational equation becomes the linear matrix initial-value problem
+\begin{equation*}
+    \dot M(t)=A(t)M(t), \quad M(s)=I_d.
+\end{equation*}
+Its equivalent integral equation is
+\begin{equation*}
+    M(t)=I_d+\int_s^t A(r)M(r)\,\dd r.
+\end{equation*}
+Successive substitution gives the Peano--Baker series
+\begin{equation*}
+    M(t) = I_d+\int_s^t A(r_1)\,\dd r_1 + \int_s^t\int_s^{r_1} A(r_1)A(r_2)\,\dd r_2\,\dd r_1 + \cdots.
+\end{equation*}
+
+The matrix products retain their chronological order. Since matrices at different times need not commute, this series 
+generally cannot be reduced to an ordinary matrix exponential.It is represented by the time-ordered exponential
+\begin{equation*}
+    M_{s,t}(x) = \mathcal T \exp
+    \left( 
+        \int_s^t Dv_r(\Phi_{s,r}(x))\,\dd r
+    \right).
+\end{equation*}
+If the coefficient matrices commute pairwise at different times, the time ordering is unnecessary, and the ordinary exponential 
+representation follows.
+
+\paragraph{3. Jacobian determinant.}
+
+The flow composition and inverse identities imply
+\begin{equation*}
+    \Phi_{t,s}\circ\Phi_{s,t} = \operatorname{id}_V.
+\end{equation*}
+Differentiating with respect to the initial state $x$ and applying the chain rule gives
+\begin{equation*}
+    D\Phi_{t,s}(\Phi_{s,t}(x))M_{s,t}(x)=I_d.
+\end{equation*}
+Since $M_{s,t}(x)$ is a square matrix, the existence of a left inverse implies that it is invertible. We can therefore apply 
+Jacobi's formula to differentiate its determinant:
+\begin{equation*}
+    \partial_t\det M_{s,t}(x) = \det M_{s,t}(x)\operatorname{tr}
+        \left(
+            M_{s,t}(x)^{-1}\partial_t M_{s,t}(x)
+        \right).
+\end{equation*}
+
+Recall that the variational equation established above is
+\begin{equation*}
+    \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x).
+\end{equation*}
+Substituting this equation into Jacobi's formula and using the cyclic property of the trace, we obtain
+\begin{equation*}
+    \begin{aligned}
+        \partial_t\det M_{s,t}(x) &= \det M_{s,t}(x) \operatorname{tr}
+            \left(
+                M_{s,t}(x)^{-1} Dv_t(\Phi_{s,t}(x)) M_{s,t}(x)
+            \right)\\
+        &= \det M_{s,t}(x) \operatorname{tr}
+            \left(
+                Dv_t(\Phi_{s,t}(x))
+            \right)\\
+        &= \det M_{s,t}(x) \nabla\!\cdot v_t(\Phi_{s,t}(x)).
+    \end{aligned}
+\end{equation*}
+Thus, the Jacobian determinant satisfies the scalar initial-value problem
+\begin{equation*}
+    \begin{cases}
+        \displaystyle
+        \partial_t\det M_{s,t}(x) = \nabla\!\cdot v_t(\Phi_{s,t}(x))
+        \det M_{s,t}(x),\\[6pt]
+        \det M_{s,s}(x)=\det I_d=1.
+    \end{cases}
+\end{equation*}
+Solving this scalar linear differential equation yields
+\begin{equation*}
+    \det M_{s,t}(x) =
+    \exp\left(
+        \int_s^t \nabla\!\cdot v_r(\Phi_{s,r}(x))\,\dd r
+    \right)>0.
+\end{equation*}
+This establishes the Liouville--Jacobi formula. Substituting the variational equation yields
+\begin{equation*}
+    \partial_t\det M_{s,t} = \det M_{s,t} \operatorname{tr}
+        \left(
+            M_{s,t}^{-1} Dv_t(\Phi_{s,t}(x)) M_{s,t}
+        \right).
+\end{equation*}
+By the cyclic invariance of the trace,
+\begin{equation*}
+    \operatorname{tr}(M^{-1}AM) = \operatorname{tr}(A).
+\end{equation*}
+Since $\operatorname{div}v_t(y) = \operatorname{tr}(Dv_t(y))$, we obtain
+\begin{equation*}
+    \partial_t\det M_{s,t}(x) = \operatorname{div}v_t(\Phi_{s,t}(x)) \det M_{s,t}(x).
+\end{equation*}
+This is a scalar linear differential equation. Together with the initial condition
+\begin{equation*}
+    \det M_{s,s}(x)=1,
+\end{equation*}
+its unique solution is
+\begin{equation*}
+    \det M_{s,t}(x) =
+    \exp\left(
+        \int_s^t \operatorname{div}v_r(\Phi_{s,r}(x)) \,\dd r
+    \right).
+\end{equation*}
+
+Thus, \eqref{eq:jacobian-determinant} gives an ordinary exponential representation even when the Jacobian matrices at 
+different times do not commute.
 \end{proof}
 
-\begin{Notice}[Correction to the original source: Project 9 -- 3]
-The assessment writes the solution of the matrix variational equation as an
-ordinary exponential. That identity is false for generic time-dependent,
-noncommuting Jacobian matrices. The differential equation itself is correct;
-the determinant identity below remains valid without commutativity.
-\end{Notice}
 
 \begin{theorem}[Liouville--Jacobi formula]
 \label{thm:jacobian}
 \sourcecredit{9}{4}\phantomsection\label{src:p9q4}
+
 Under the preceding flow assumptions,
 \begin{equation*}
-\det D\Phi_{s,t}(x)
- =\exp\left(\int_s^t\nabla\!\cdot v_r(\Phi_{s,r}(x))\dd r\right)>0.
+    \det D\Phi_{s,t}(x) = \exp\left(\int_s^t\nabla\!\cdot v_r(\Phi_{s,r}(x))\dd r\right)>0.
 \end{equation*}
 \end{theorem}
+
 \begin{proof}
-Set $M=M_{s,t}$. Invertibility follows from the inverse flow.
-Its determinant is continuous, never zero, and initially one, so it stays
-positive; taking its logarithm is legitimate. Jacobi's identity and \eqref{eq:variational} imply
-$\frac{\dd}{\dd t}\log\det M
-=\operatorname{tr}(M^{-1}Dv_t(\Phi_{s,t})M)
-=\operatorname{tr}(Dv_t(\Phi_{s,t}))$.
-Integrate and use $\det M_{s,s}=1$.
+The identity is \eqref{eq:jacobian-determinant} from Proposition~\ref{prop:variational}, with $M_{s,t}(x)=D_x\Phi_{s,t}(x)$. 
+Strict positivity follows from the exponential representation.
 \end{proof}
 
+\subsubsection{An explicit example of volume deformation}
+\begin{example}
+\label{ex:nonlinear-volume-deformation}
+Consider the autonomous system
+\begin{equation*}
+    \begin{cases}
+        \dot x_t=0.2x_t,\\
+        \dot y_t=0.1y_t+0.3x_t^2,
+    \end{cases}
+    \qquad (x(0),y(0))=(x_0,y_0).
+\end{equation*}
+The second equation couples the $y$-motion nonlinearly to the $x$-coordinate.
+The velocity field is smooth but is not globally Lipschitz on $\R^2$ because of its quadratic term.
+The explicit solution below nevertheless exists for every real time and defines a smooth complete flow.
+Thus this example verifies the identity of Theorem~\ref{thm:jacobian} for this explicitly constructed flow,
+without asserting the global Lipschitz hypothesis used to guarantee existence in the preceding results.
+
+The first equation gives $x_t=e^{0.2t}x_0$. Substitution into the second equation and multiplication by
+the integrating factor $e^{-0.1t}$ yield
+\begin{equation*}
+    \frac{\dd}{\dd t}\bigl(e^{-0.1t}y_t\bigr)=0.3x_0^2e^{0.3t},
+    \qquad e^{-0.1t}y_t-y_0=x_0^2(e^{0.3t}-1).
+\end{equation*}
+Consequently $y_t=e^{0.1t}y_0+x_0^2(e^{0.4t}-e^{0.1t})$, and the flow map is
+\begin{equation*}
+    \Phi_{0,t}(x_0,y_0)=
+    \begin{pmatrix}
+        e^{0.2t}x_0\\
+        e^{0.1t}y_0+x_0^2(e^{0.4t}-e^{0.1t})
+    \end{pmatrix}.
+\end{equation*}
+Differentiating with respect to the initial state $(x_0,y_0)$ gives
+\begin{equation*}
+    D_{(x_0,y_0)}\Phi_{0,t}(x_0,y_0)=
+    \begin{pmatrix}
+        e^{0.2t}&0\\
+        2x_0(e^{0.4t}-e^{0.1t})&e^{0.1t}
+    \end{pmatrix},
+    \qquad \boxed{\det D\Phi_{0,t}(x_0,y_0)=e^{0.3t}.}
+\end{equation*}
+For the velocity field and its divergence, we have
+\begin{equation*}
+    v(x,y)=\begin{pmatrix}0.2x\\0.1y+0.3x^2\end{pmatrix},
+    \qquad \nabla\cdot v=
+    \frac{\partial(0.2x)}{\partial x}
+    +\frac{\partial(0.1y+0.3x^2)}{\partial y}=0.3.
+\end{equation*}
+The divergence integral therefore gives
+\begin{equation*}
+    \begin{aligned}
+        \det D\Phi_{0,t}(x_0,y_0)
+        &=\exp\left(\int_0^t\nabla\cdot v(\Phi_{0,r}(x_0,y_0))\dd r\right)\\
+        &=e^{0.3t},
+    \end{aligned}
+\end{equation*}
+in exact agreement with the direct determinant calculation.
+
+Take the initial rectangle $R=[-1,1]\times[-0.7,0.7]$, whose area is $|R|=2.8$.
+Since the flow is invertible, the change-of-variables formula gives
+\begin{equation*}
+    \begin{aligned}
+        |\Phi_{0,t}(R)|
+        &=\int_R\bigl|\det D\Phi_{0,t}(x_0,y_0)\bigr|\dd x_0\dd y_0\\
+        &=2.8e^{0.3t}.
+    \end{aligned}
+\end{equation*}
+In particular, at $t=1.5$,
+\begin{equation*}
+    \det D\Phi_{0,1.5}(x_0,y_0)=e^{0.45}\approx1.568312,
+    \qquad |\Phi_{0,1.5}(R)|\approx4.391274.
+\end{equation*}
+The area has therefore increased by approximately $56.83\%$.
+Figure~\ref{fig:liouville-jacobi-animation} visualizes this evolution from $t=0$ to $t=1.5$ using 61 frames.
+
+\begin{figure}[htbp]
+    \centering
+    \animategraphics[
+        width=0.95\linewidth,
+        autoplay,
+        loop,
+        controls,
+        poster=first
+    ]{20}{figures/flow_deformation/flow_frame_}{0}{60}
+    \caption{Nonlinear deformation of the initial rectangle under $\Phi_{0,t}$.
+    The Jacobian determinant is $e^{0.3t}$, in agreement with the Liouville--Jacobi formula.
+    The first frame is the static preview.}
+    \label{fig:liouville-jacobi-animation}
+\end{figure}
+\FloatBarrier
+
+The initially rectangular grid stretches and bends under the flow: the nonlinear term $0.3x^2$ changes its shape,
+while the divergence determines the instantaneous relative rate of local area change.
+Because $\nabla\cdot v=0.3$ is independent of position, every initial point has the same local area multiplier $e^{0.3t}$,
+even though the deformation depends nonlinearly on position. Shape change and area change are distinct features of the flow.
+The animation controls require a PDF viewer supporting embedded PDF animations; other viewers display the static first frame.
+\end{example}
 
 \subsubsection{Numerical flow Jacobians}
 \sourcecredit{9}{4 (Euler and higher-order solvers)}\phantomsection\label{src:p9q4discrete}
+
+\begin{Question}[Numerical validation]
+To validate the convergence orders, consider the scalar initial-value problem
+\begin{equation*}
+    \dot{x}_t=x_t, \quad x_0=1, \quad t\in[0,1].
+\end{equation*}
+Its exact flow is $\Phi_{0,t}(x)=e^t x$, and hence the exact Jacobian determinant at $t=1$ is
+\begin{equation*}
+    J_1=\det(D\Phi_{0,1}(x_0))=e.
+\end{equation*}
+
+Implement the forward Euler method and the classical fourth-order Runge--Kutta (RK4) method with step size $h=1/K$. For 
+Euler, the discrete flow Jacobian determinant is
+\begin{equation*}
+    \widehat J_K^{\mathrm{Euler}}=(1+h)^K.
+\end{equation*}
+For RK4, the one-step amplification factor is
+\begin{equation*}
+    R_4(h)=1+h+\frac{h^2}{2} + \frac{h^3}{6}+\frac{h^4}{24},
+\end{equation*}
+so that
+\begin{equation*}
+    \widehat J_K^{\mathrm{RK4}}=R_4(h)^K.
+\end{equation*}
+Compute the absolute errors
+\begin{equation*}
+    E(h)=|\widehat J_K-e|
+\end{equation*}
+for a sequence of decreasing step sizes. Plot the errors against $h$ on a log--log scale and estimate the convergence orders. 
+Verify that Euler exhibits first-order convergence, whereas RK4 exhibits fourth-order convergence.
+\end{Question}
+
 \begin{solution}
 For a step size $h=(T-s)/K$ and $t_k=s+kh$, the forward Euler map is
 $V_k(x)=x+h v(t_k,x)$. Its derivative is exactly
@@ -1355,9 +1650,41 @@ and the requisite smoothness and stability assumptions hold.
 In particular a properly differentiated fourth-order Runge--Kutta
 step has fourth-order Jacobian convergence; applying the simple
 Euler factor $I+hDv$ after an RK4 state step would not generally do so.
-The results are checked against an exact divergence integral in the
-computer experiment of Section~\ref{sec:benchmark}.
+The following experiment checks these convergence orders against an exact divergence integral.
 \end{solution}
+
+\medskip\noindent\textbf{Numerical validation: noncommutative flow Jacobians.}\par
+The matrix-valued velocity field $v_t(x)=A(t)x$, with
+\begin{equation*}
+A(t)=\begin{pmatrix}-.25&1+t\\-.6+.3t&.10\end{pmatrix},\quad
+0\le t\le1,
+\end{equation*}
+provides a test of the matrix-evolution theorem. Its trace is $-.15$,
+so Liouville's formula gives $\det U(1,0)=e^{-.15}$ independently of
+whether $A(t)$ commutes at different times. The commutator
+$[A(0),A(1)]$ is nonzero. A high-accuracy \texttt{solve\_ivp} calculation
+of $U(1,0)$ can therefore also be compared with the generally incorrect
+ordinary exponential $\exp(\int_0^1A(t)\,\dd t)$.
+
+\begin{table}[htbp]\centering\small
+\caption{Absolute determinant error for the same matrix ODE, evaluated at $t=1$.
+The reference is $e^{-.15}$. Values come from the executable experiment file.}
+\label{tab:jacexp}
+\begin{tabular}{@{}rrr@{}}\toprule
+$h$&Euler error&RK4 error\\\midrule
+$0.125000$ & $6.954e-02$ & $3.771e-07$ \\
+$0.062500$ & $3.393e-02$ & $2.730e-08$ \\
+$0.031250$ & $1.674e-02$ & $1.821e-09$ \\
+$0.015625$ & $8.313e-03$ & $1.174e-10$ \\
+$0.007812$ & $4.142e-03$ & $7.447e-12$ \\
+\bottomrule\end{tabular}\end{table}
+\begin{figure}[htbp]\centering
+\includegraphics[width=.82\linewidth]{figures/jacobian_convergence.pdf}
+\caption{Log--log comparison of first-order forward Euler and fourth-order
+Runge--Kutta determinant errors.}\label{fig:jacexp}
+\end{figure}
+The computed matrix commutator has Frobenius norm $1.32421$ and the discrepancy between the true fundamental matrix and the unordered exponential is $0.09927$. The Euler and RK4 errors in Table~\ref{tab:jacexp} exhibit the predicted orders.
+\FloatBarrier
 
 
 \subsubsection{Volume transport and minimum action}
@@ -3932,6 +4259,31 @@ mass, (ii) convergence of the semidiscrete solution under mesh refinement,
 reference. A low loss on finitely many collocation points, by itself, is not
 a proof of a global density approximation.
 
+\medskip\noindent\textbf{Executed Markov semidiscretization check.}\par
+On $[0,1]$, use $D=1/2$, $V(x)=2(x-0.3)^2+0.7x$, and 60 finite-volume
+cells. The continuous-time generator from \eqref{eq:markovrates} is
+propagated by a matrix-exponential action; time is not discretized.
+The initial cell-mass vector is proportional to
+$\exp[-((x_i-.75)/.11)^2]$. Total mass, minimum cell mass, and
+discrete relative entropy provide numerical checks of the analytic invariants:
+\begin{table}[htbp]\centering\small
+\caption{Computed conservation, positivity, and equilibrium relative entropy.}
+\label{tab:markov-validation}
+\begin{tabular}{@{}rrr@{}}\toprule
+$t$ & $\min_i m_i(t)$ & $\KL(m_t\Vert\pi)$\\\midrule
+0.000 & 1.5453e-21 & 2.144403 \\
+0.015 & 2.6201e-07 & 1.472250 \\
+0.050 & 7.0263e-04 & 0.826780 \\
+0.200 & 3.4791e-03 & 0.077412 \\
+0.500 & 1.6399e-03 & 0.000610 \\
+\bottomrule\end{tabular}\end{table}
+The largest absolute mass discrepancy in these reported time points is
+below $2\times10^{-13}$, consistent with roundoff. Entropy decreases,
+as required by the exact semidiscrete dissipation identity
+\eqref{eq:discreteent}. This fixed-grid check does not establish spatial
+convergence to the PDE; mesh refinement remains to be carried out.
+\FloatBarrier
+
 \section{A Coupled OU Benchmark: Exact, Numerical, and AI Results}
 \label{sec:benchmark}\label{ch:benchmark}
 \subsection{Exact OU dynamics and closure diagnostics}
@@ -4079,7 +4431,6 @@ and a Gaussian affine baseline.
 \State Form $\widehat b(t,x)=-(a+c\kappa^2)x+c\kappa g_\theta(t,x)$
 \State Evaluate learned conditional mean and drift on an independent test set
 \State Compute exact stationary correlations for microscopic and reduced models
-\State Compare numerical matrix flows and probability-preserving semidiscretization
 \end{algorithmic}
 \end{breakablealgorithm}
 
@@ -4093,40 +4444,7 @@ that require independent microscopic simulations and time-step refinement.
 \end{futurethought}
 
 
-\medskip\noindent\textbf{Executed numerical experiment I: noncommutative flow Jacobians.}\par
-The matrix-valued velocity field $v_t(x)=A(t)x$, with
-\begin{equation*}
-A(t)=\begin{pmatrix}-.25&1+t\\-.6+.3t&.10\end{pmatrix},\quad
-0\le t\le1,
-\end{equation*}
-provides a test of the matrix-evolution theorem. Its trace is $-.15$,
-so Liouville's formula gives $\det U(1,0)=e^{-.15}$ independently of
-whether $A(t)$ commutes at different times. The commutator
-$[A(0),A(1)]$ is nonzero. A high-accuracy \texttt{solve\_ivp} calculation
-of $U(1,0)$ can therefore also be compared with the generally incorrect
-ordinary exponential $\exp(\int_0^1A(t)\,\dd t)$.
-
-\begin{table}[htbp]\centering\small
-\caption{Absolute determinant error for the same matrix ODE, evaluated at $t=1$.
-The reference is $e^{-.15}$. Values come from the executable experiment file.}
-\label{tab:jacexp}
-\begin{tabular}{@{}rrr@{}}\toprule
-$h$&Euler error&RK4 error\\\midrule
-$0.125000$ & $6.954e-02$ & $3.771e-07$ \\
-$0.062500$ & $3.393e-02$ & $2.730e-08$ \\
-$0.031250$ & $1.674e-02$ & $1.821e-09$ \\
-$0.015625$ & $8.313e-03$ & $1.174e-10$ \\
-$0.007812$ & $4.142e-03$ & $7.447e-12$ \\
-\bottomrule\end{tabular}\end{table}
-\begin{figure}[htbp]\centering
-\includegraphics[width=.82\linewidth]{figures/jacobian_convergence.pdf}
-\caption{Log--log comparison of first-order forward Euler and fourth-order
-Runge--Kutta determinant errors.}\label{fig:jacexp}
-\end{figure}
-The computed matrix commutator has Frobenius norm $1.32421$ and the discrepancy between the true fundamental matrix and the unordered exponential is $0.09927$. The Euler and RK4 errors in Table~\ref{tab:jacexp} exhibit the predicted orders.
-
-
-\medskip\noindent\textbf{Executed numerical experiment II: identical marginals do not fix time correlations.}\par
+\medskip\noindent\textbf{Executed numerical experiment: identical marginals do not fix time correlations.}\par
 For the coupled OU model take $(a,c,\kappa,\beta)=(0.8,1.7,1.1,1)$.
 The equilibrium $X$-marginal has variance $(\beta a)^{-1}=1.25$ in
 both the microscopic model and the Markov closure. The two time
@@ -4198,37 +4516,14 @@ is inferred. The comparison and environment record are saved separately
 in \path{results/audit-2026-11-04/}; the original data and figure are
 unchanged.
 
-\medskip\noindent\textbf{Executed Markov semidiscretization check.}\par
-On $[0,1]$, use $D=1/2$, $V(x)=2(x-0.3)^2+0.7x$, and 60 finite-volume
-cells. The continuous-time generator from \eqref{eq:markovrates} is
-propagated by a matrix-exponential action; time is not discretized.
-The initial cell-mass vector is proportional to
-$\exp[-((x_i-.75)/.11)^2]$. Total mass, minimum cell mass, and
-discrete relative entropy provide numerical checks of the analytic invariants:
-\begin{table}[htbp]\centering\small
-\caption{Computed conservation, positivity, and equilibrium relative entropy.}
-\label{tab:markov-validation}
-\begin{tabular}{@{}rrr@{}}\toprule
-$t$ & $\min_i m_i(t)$ & $\KL(m_t\Vert\pi)$\\\midrule
-0.000 & 1.5453e-21 & 2.144403 \\
-0.015 & 2.6201e-07 & 1.472250 \\
-0.050 & 7.0263e-04 & 0.826780 \\
-0.200 & 3.4791e-03 & 0.077412 \\
-0.500 & 1.6399e-03 & 0.000610 \\
-\bottomrule\end{tabular}\end{table}
-The largest absolute mass discrepancy in these reported time points is
-below $2\times10^{-13}$, consistent with roundoff. Entropy decreases,
-as required by the exact semidiscrete dissipation identity
-\eqref{eq:discreteent}. This fixed-grid check does not establish spatial
-convergence to the PDE; mesh refinement remains to be carried out.
-
 \begin{Notice}[Reproducible experiments]
 \raggedright
 Run \texttt{python experiments/run\_benchmarks.py},
 \texttt{python experiments/hamiltonian\_benchmark.py}, and
 \texttt{python experiments/project11\_kl\_benchmarks.py} after installing
 \texttt{numpy}, \texttt{scipy}, \texttt{matplotlib}, and \texttt{torch}.
-These scripts write the PDF figures and CSV/JSON tables used above.
+These scripts write the PDF figures and CSV/JSON tables used in the local
+numerical validations and the OU benchmark.
 The seed, matrix parameters, initial laws, optimization settings, and
 reference formulas are contained in the corresponding source files.
 \end{Notice}
@@ -4378,6 +4673,8 @@ We can therefore define the two-time flow by
 \end{equation*}
 In other words, $E_s^{-1}$ assigns to an initial state its unique solution trajectory, while $E_t$ evaluates that trajectory 
 at time $t$.
+Thus, writing $x_\cdot=E_s^{-1}(x)$, we recover $\Phi_{s,t}(x)=x_t$, whose terminal-time evolution and initial condition
+are given by \eqref{eq:flow-dynamics}.
 
 The identity, composition, and reversibility properties now follow directly from the algebra of maps. First,
 \begin{equation*}

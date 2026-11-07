@@ -1,6 +1,14 @@
 {
-    "latex-workshop.latex.outDir": "%DIR%/Tmp",
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/output/%RELATIVE_DIR%",
     "latex-workshop.latex.recipe.default": "first",
+    "latex-workshop.latex.magic.args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-output-directory=%OUTDIR%",
+        "%DOC%"
+    ],
     "latex-workshop.latex.tools": [
         {
             "name": "xelatex",
@@ -19,6 +27,7 @@
             "command": "biber",
             "env": {"LC_ALL": "C"},
             "args": [
+                "--input-directory=%OUTDIR%",
                 "--output-directory=%OUTDIR%",
                 "%DOCFILE%"
             ]

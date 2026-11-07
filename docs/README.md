@@ -149,7 +149,24 @@ byte-identical. They are not appropriate for validating an editorial or mathemat
 VS Code's LaTeX Workshop recipe is configured in
 [settings.json](../.vscode/settings.json). Use XeLaTeX because the manuscript uses
 `fontspec`; bibliography processing uses Biber. Build outputs and local snapshots
-are ignored under `paper/Tmp/` and `build/`.
+are ignored under `output/paper/`, `output/slides/`, and `build/`.
+The manuscript and slide build scripts use the same directories as the
+workspace settings; global VS Code settings are not changed.
+
+The Liouville--Jacobi example embeds the 61 supplied PNG frames,
+stored in `paper/figures/flow_deformation/`,
+using `animategraphics` at 20 FPS. A PDF viewer supporting embedded PDF
+animations is needed for playback; the first frame remains the static preview.
+To regenerate the frames and an optional GIF without changing the originals, run:
+
+```bash
+python scripts/flow_deformation_source.py
+```
+
+The generator writes to `output/flow_deformation/`; use `--output-dir PATH`
+to choose another destination, or `--skip-gif` to generate only the frames.
+It requires NumPy, Matplotlib, and Pillow. The GIF is a separate preview;
+the manuscript embeds the PNG sequence directly.
 
 Remaining research includes multi-seed uncertainty estimates, saved neural models,
 nonlinear double-well dynamics, HNN transfer experiments, and spatial refinement.
