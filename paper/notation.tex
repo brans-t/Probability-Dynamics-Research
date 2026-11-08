@@ -1,0 +1,257 @@
+% BEGIN GLOBAL NOTATION
+\chapter*{Notation and Conventions}
+\addcontentsline{toc}{chapter}{Notation and Conventions}
+\markboth{Notation and Conventions}{Notation and Conventions}
+\phantomsection\label{ch:notation}
+The tables distinguish mathematical objects by type and scope. Global entries apply throughout unless a local definition explicitly qualifies them; topic-specific entries belong to the indicated construction. They are an index to the definitions and hypotheses in the text, not additional existence, regularity, or convergence assumptions.
+
+In these notes, hats usually indicate numerical approximations or statistical estimates, bars usually identify defined reduced models, and tildes usually indicate transformations or modified objects. These are common conventions within this manuscript, not universal rules. Every exception is defined locally. A change of model, a sample from an exact law, and a time-discretization error are distinct operations.
+
+\section*{Global Notation}
+\Needspace{12\baselineskip}
+\subsection*{States, time, and approximation}
+\begingroup
+\small
+\setstretch{1.0}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{90mm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape States, time, and approximation (continued)}\\[3pt]
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$V=\mathbb R^d$ & State space & The full Euclidean state space; $d$ is its dimension. A general measurable state space is written $(E,\mathcal S)$.\\[3pt]
+$\mathcal Z=\mathbb R^m$ & Reduced space & The range of a collective variable $\xi:V\to\mathcal Z$, with $m\le d$ when reduction is intended.\\[3pt]
+$x,\ x_0$ & States & A generic deterministic state and a prescribed initial state. The fixed initial time is stated locally.\\[3pt]
+$x_t,\ x_{t_k}$ & Exact states & The exact trajectory and its value at a grid point: $x_t=\Phi_{0,t}(x_0)$ when the initial time is zero.\\[3pt]
+$X_t,\ Z_t$ & Random states & A full random state and the projected process $Z_t=\xi(X_t)$. Random initial conditions do not turn an ODE into an SDE.\\[3pt]
+$x^i,\ X_t^i$ & Components & Coordinate indices are superscripts; vectors are columns. Parenthesized superscripts $x^{(\ell)}$ instead label sample realizations.\\[3pt]
+$s,t,r,\tau$ & Continuous times & Usually $s$ is the initial time and $t$ the terminal time; integration variables are local dummy variables.\\[3pt]
+$T,\ K,\ h,\ t_k$ & Time mesh & On $[0,T]$, $h=T/K$ and $t_k=kh$. From an initial time $s$ to $T$, use $h=(T-s)/K$ and $t_k=s+kh$.\\[3pt]
+$N_x,\ \Delta x,\ x_i$ & Spatial mesh & The cell count, cell width, and spatial cell centers. Spatial and temporal refinement parameters are distinct.\\[3pt]
+$N_{\mathrm{samp}}$ & Sample count & The number of observations or samples; it is neither a time-step count nor a spatial cell count.\\[3pt]
+$\widehat x_k$ & ODE approximation & A numerical state at time $t_k$, with $\widehat x_0=x_0$ when the initial datum is represented exactly.\\[3pt]
+$\widehat X_k$ & SDE approximation & A time-discrete approximation to a random state. A pathwise error comparison with $X_{t_k}$ requires a specified common coupling.\\[3pt]
+$e_k$ & State error & $e_k:=\widehat x_k-x_{t_k}$. Its norm is a scalar error; the vector itself is not an error magnitude.\\[3pt]
+$\widehat{\cdot},\ \overline{\cdot},\ \widetilde{\cdot}$ & Common decorations & In these notes, usually an approximation/estimate, a defined reduced model, and a transformation/modification, respectively. These are local conventions, not universal rules; exceptions are defined where used.\\[3pt]
+\end{longtable}
+% These uncaptioned reference tables do not consume scientific table numbers.
+\addtocounter{table}{-1}
+\endgroup
+
+\Needspace{12\baselineskip}
+\subsection*{Flows, derivatives, and evolution}
+\begingroup
+\small
+\setstretch{1.0}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{90mm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape Flows, derivatives, and evolution (continued)}\\[3pt]
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$v_t(x)$ & Velocity field & $v_t(x):=v(t,x)$, with $\dot x_t=v_t(x_t)$. It is an instantaneous field, not a finite-time state map.\\[3pt]
+$\Phi_{s,t},\ \phi_t$ & Exact flow maps & $\Phi_{s,t}$ maps a state at $s$ to its value at $t$. In a specified autonomous complete system, $\phi_t:=\Phi_{0,t}$.\\[3pt]
+$A_t,\ U(t,s)$ & Linear evolution & $\partial_tU(t,s)=A_tU(t,s)$ and $U(s,s)=I_d$. The traditional matrix notation puts terminal time first: $\Phi_{s,t}(x)=U(t,s)x$ in the homogeneous linear case.\\[3pt]
+$D_xF(x)$ & State derivative & The derivative matrix, with entries $\partial F^i/\partial x^j$. The subscript $x$ may be omitted when the differentiated variable is unambiguous.\\[3pt]
+$M_{s,t}(x)$ & Flow derivative & $M_{s,t}(x):=D_x\Phi_{s,t}(x)$ is a square matrix. Write $M_t:=M_{0,t}$ only after fixing the initial time and state.\\[3pt]
+$J_{s,t}(x)$ & Flow determinant & $J_{s,t}(x):=\det M_{s,t}(x)$ is a scalar. It is positive under the stated smooth-flow assumptions; $J_t:=J_{0,t}$ is an explicit abbreviation.\\[3pt]
+$V_k(x)$ & Euler map & $V_k(x)=x+hv_{t_k}(x)$ and $\widehat x_{k+1}=V_k(\widehat x_k)$. Capital $V_k$ and lowercase $v_t$ have different meanings.\\[3pt]
+$\widehat\Phi_{h,k}$ & Numerical flow & For Euler, $V_{k-1}\circ\cdots\circ V_0$, from the initial state to $t_k$. Other methods carry a method label when compared.\\[3pt]
+$\widehat M_{h,k},\ \widehat J_{h,k}$ & Numerical derivatives & The derivative of the numerical flow and its determinant, with the initial-state argument retained where needed. Integrating a variational system gives this derivative only when the updates are consistent.\\[3pt]
+$\operatorname{id}_V,\ I_d$ & Identities & The identity state map and the $d\times d$ identity matrix. An omitted dimension must be unambiguous.\\[3pt]
+$\mathcal A=B_b(V)$ & Observable algebra & Bounded Borel measurable real functions, with pointwise algebra operations and supremum norm; unbounded observables require their own integrability conditions.\\[3pt]
+$\mathsf U_F,\ \mathsf U_{s,t}$ & Koopman operators & $\mathsf U_Ff=f\circ F$ and $\mathsf U_{s,t}f=f\circ\Phi_{s,t}$. These act on observables and reverse the order of state-map composition.\\[3pt]
+$\mathsf T_F,\ \mathsf T_{s,t}$ & Law transport & $\mathsf T_F\mu=F_\#\mu$ and $\mathsf T_{s,t}\mu=(\Phi_{s,t})_\#\mu$. These act on measures, not on state vectors.\\[3pt]
+$\mathsf K_{s,t}$ & Transition kernel & $\mathsf K_{s,t}(x,\dd y)$ is a Markov probability kernel. The typeface distinguishes it from the time-step count $K$.\\[3pt]
+$\mathsf P_{s,t}$ & Markov operator & $\mathsf P_{s,t}f(x)=\int f(y)\mathsf K_{s,t}(x,\dd y)$. For a deterministic flow it equals $\mathsf U_{s,t}$.\\[3pt]
+$\mathcal L_t$ & Generator & An infinitesimal operator on observables. Its domain and limit topology are specified locally; its differential expression depends on the underlying dynamics.\\[3pt]
+$\mathscr X_{\mathrm{obs}}$ & Observable space & A selected invariant Banach space for a norm-generator; it is not the trajectory space $\mathcal X$ used in the linear ODE example.\\[3pt]
+\end{longtable}
+% These uncaptioned reference tables do not consume scientific table numbers.
+\addtocounter{table}{-1}
+\endgroup
+
+\Needspace{12\baselineskip}
+\subsection*{Probability, analysis, and errors}
+\begingroup
+\small
+\setstretch{1.0}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{90mm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape Probability, analysis, and errors (continued)}\\[3pt]
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$(\Omega,\mathcal F,\mathbb P)$ & Probability space & The sample space, its sigma-algebra, and its probability measure. A moving physical region is instead written $\mathcal D_t$.\\[3pt]
+$\mu_t,\ \nu_t$ & Probability laws & When full and reduced states are compared, $\mu_t=\operatorname{Law}(X_t)$ and $\nu_t=\operatorname{Law}(Z_t)$.\\[3pt]
+$\rho_t,\ p_{\xi,t}$ & Densities & Only when the laws are absolutely continuous: $\mu_t(\dd x)=\rho_t(x)\dd x$ and $\nu_t(\dd z)=p_{\xi,t}(z)\dd z$. Static marginals may be written $p_\xi$.\\[3pt]
+$\pi,\ \rho_{\mathrm{eq}}$ & Equilibrium law & $\pi$ denotes an invariant probability law where established; if it has a density, $\pi(\dd x)=\rho_{\mathrm{eq}}(x)\dd x$. Invariance is a model-dependent conclusion.\\[3pt]
+$\mathbb E_\mu,\ \operatorname{Law}$ & Expectations and laws & Expectation under a specified law and the law of a random variable. The expectation subscript may be omitted on a fixed probability space.\\[3pt]
+$\langle f,\mu\rangle$ & Integration pairing & $\int f\,\dd\mu$, distinct from the Euclidean inner product $x^\top y=x\cdot y$.\\[3pt]
+$\|x\|,\ \|A\|$ & Default norms & Euclidean vector norm and its induced matrix norm. Function-space norms carry an explicit subscript, such as $\|f\|_\infty$.\\[3pt]
+$\|A\|_{\mathrm F},\ |a|$ & Other magnitudes & Frobenius matrix norm and scalar absolute value. For a measurable region, $|\mathcal D|$ denotes its Lebesgue volume.\\[3pt]
+$\nabla,\ \nabla^2,\ \Delta$ & Spatial derivatives & The column gradient, Hessian matrix, and Laplacian. For a vector field, $\operatorname{div}v=\nabla\cdot v$.\\[3pt]
+$\dd,\ \partial_t,\ \delta$ & Differential symbols & Integration/SDE differential, time partial derivative, and a defined variation. A dot denotes an ordinary time derivative.\\[3pt]
+$\mu_n\xrightarrow{\mathrm w}\mu$ & Weak convergence of laws & On the declared topological space: convergence of integrals of all bounded continuous test functions. It does not mean function-space weak convergence.\\[3pt]
+$f_n\rightharpoonup f$ & Function-space weak limit & Weak convergence in an explicitly named Banach or Hilbert space, tested against its continuous dual. No such convergence is inferred from law convergence alone.\\[3pt]
+$\Longrightarrow$ & Logical implication & Reserved here for logical implication; it is not the notation for either of the preceding limits.\\[3pt]
+$\ll,\ \sim$ & Measure relations & $\mu\ll\nu$ means absolute continuity; $P\sim Q$ means mutual absolute continuity, whereas $X\sim\mu$ specifies a distribution. Scalar asymptotic equivalence is defined in its own context.\\[3pt]
+$\delta_x,\ \mathbf1_A,\ \#$ & Measure operations & A Dirac probability law, an indicator, and pushforward. A formal Dirac-delta density on a level set is interpreted under integration.\\[3pt]
+$O(h^p),\ o(h^p)$ & Asymptotic orders & The limit parameter and fixed data are stated. A uniform bound identifies the variables excluded from its constant; order notation is not the name of a particular remainder.\\[3pt]
+$C,\ L_x,\ L_t$ & Estimate constants & Constants are local unless identified explicitly. Their sources, parameter dependence, and uniformity are stated at first use; a reused letter does not assert an unchanged numerical value.\\[3pt]
+\end{longtable}
+% These uncaptioned reference tables do not consume scientific table numbers.
+\addtocounter{table}{-1}
+\endgroup
+
+\Needspace{14\baselineskip}
+\section*{Topic-specific Notation}
+\Needspace{12\baselineskip}
+\subsection*{Linear ODEs, geometry, and mechanics}
+\begingroup
+\small
+\setstretch{1.0}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{90mm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape Linear ODEs, geometry, and mechanics (continued)}\\[3pt]
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$b_t^{\mathrm{aff}}$ & Affine forcing & The continuous external term in $\dot x_t=A_tx_t+b_t^{\mathrm{aff}}$; see the linear inhomogeneous example.\\[3pt]
+$\mathcal X,\ \mathcal Y$ & Trajectory spaces & $C^1(I;V)$ and $C(I;V)$ in the affine ODE example. Generic path evaluation $\gamma(t)$ is the same value as $\gamma_t$.\\[3pt]
+$\mathsf{Mult}_A,\ \mathscr D_A$ & Trajectory operators & $\mathsf{Mult}_A\gamma(t)=A_t\gamma(t)$ and $\mathscr D_A=\partial_t-\mathsf{Mult}_A$. Neither is the observable algebra or generator.\\[3pt]
+$\mathcal H,\ E_t,\ S_t$ & Homogeneous solutions & $\mathcal H=\ker\mathscr D_A$; $E_t$ evaluates a homogeneous trajectory, and $S_t=E_t^{-1}$ supplies its complete solution. $S_t$ is not a Hessian.\\[3pt]
+$\gamma_{\mathrm p},\ \mathcal K_s$ & Affine geometry & The chosen zero-initial-value particular solution and the space of paths vanishing at $s$. The affine solution set and initial-value slice are defined in the example.\\[3pt]
+$T_t^{\mathrm{temp}}$ & Temperature & Temperature in the cooling example, with environment value $T_{\mathrm{env}}^{\mathrm{temp}}$ and relaxation rate $\lambda$. It is not the terminal time $T$.\\[3pt]
+$\mathcal D_t,\ \Theta_w(t)$ & Volume and weighted action & $\mathcal D_t=\Phi_{0,t}(\mathcal D_0)$ is a moving region. For the weighted-path problem only, $\Theta_w(t)=\int_0^t w_r^{-1}\dd r$.\\[3pt]
+$\mathcal V,\ H(q,p)$ & Potential and Hamiltonian & The potential is model-specific. The Hamiltonian and physical hypotheses are stated in each model; $\frac12\|p\|^2+\mathcal V(q)$ is used only for the unit-mass mechanical model in these notes.\\[3pt]
+$q,p,\ z=(q,p)$ & Canonical variables & In mechanics $q,p\in\mathbb R^n$ and $d=2n$. In the particle introduction, subscripts on $q_i,p_i\in\mathbb R^3$ label particles.\\[3pt]
+$\mathbb J_n,\ \nabla^2H(z_t)$ & Symplectic geometry & $\mathbb J_n$ is the standard $2n\times2n$ block matrix with upper-right block $I_n$ and lower-left block $-I_n$. The Hamiltonian Hessian is written directly.\\[3pt]
+$\widehat q_k,\ \widehat p_k$ & Numerical mechanics & Computed position and momentum, including a hatted half-step momentum in Verlet. $\widehat H_k=H(\widehat q_k,\widehat p_k)$ is the computed true energy.\\[3pt]
+$V_h,\ \widetilde H_h$ & Verlet quantities & The locally defined Verlet update matrix and its modified energy; the latter is not a numerical approximation to the state.\\[3pt]
+$\delta x,\ \Delta_t(\delta x)$ & Initial-data sensitivity & The vector perturbation and difference of two exact flow trajectories in the differentiability proof; distinct from numerical error $e_k$.\\[3pt]
+$\mathsf{Pic}_{s,x},\ \gamma^{[n]}$ & Picard construction & The local integral map and its iteration number $n$. The scalar local time radius is $\delta_{\mathrm{loc}}$; no numerical time mesh is involved.\\[3pt]
+$P_n(t,s),\ U^{[n]}(t,s)$ & Ordered series & A Peano--Baker term and a Picard partial sum. $B_A(t,s)=\int_s^t A_r\dd r$ is an integrated coefficient matrix, not a Hamiltonian.\\[3pt]
+$\mathcal T$ & Time ordering & The forward ordering places later-time matrices on the left; backward intervals use the explicitly stated reversed ordering.\\[3pt]
+\end{longtable}
+% These uncaptioned reference tables do not consume scientific table numbers.
+\addtocounter{table}{-1}
+\endgroup
+
+\Needspace{12\baselineskip}
+\subsection*{Entropy, convexity, and information}
+\begingroup
+\small
+\setstretch{1.0}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{90mm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape Entropy, convexity, and information (continued)}\\[3pt]
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$\mathscr S(\rho),\ \ell_t$ & Entropy and log density & $\mathscr S(\rho)=-\int\rho\log\rho\dd x$ when finite; $\ell_t=\log\rho_t$ requires positive density.\\[3pt]
+$s_t^\rho,\ H_t^\rho$ & Score and log Hessian & $s_t^\rho=\nabla\log\rho_t$ and $H_t^\rho=\nabla^2\ell_t$. Neither is a solution map or the Hamiltonian.\\[3pt]
+$\mathscr F(\rho),\ \beta$ & Free energy & The diffusion free-energy functional and inverse temperature, under the local potential, integrability, and boundary assumptions. This functional is not the sigma-algebra $\mathcal F$.\\[3pt]
+$P,Q,\ p,q$ & Information-theory laws & Locally, $P,Q$ are probability measures and $p,q$ their densities under a declared reference measure. These density symbols are not mechanical position and momentum.\\[3pt]
+$D_{\mathrm{KL}},\ D_f$ & Divergences & The directed relative entropy and the specified $f$-divergence. Density arguments are explicitly declared shorthand for measure arguments.\\[3pt]
+$r,\ f^*,\ \partial f$ & Convex duality & $r=\dd P/\dd Q$ is a density ratio; $f^*$ is the scalar convex conjugate and $\partial f$ its subdifferential. A star on an optimizer has a separate, locally stated role.\\[3pt]
+$\vartheta,\ m_{\mathrm{ref}}$ & Convex mixtures and base measure & The scalar mixing weight and the fixed reference measure. $\theta$ is instead used for model parameters.\\[3pt]
+$\mathscr H_{m_{\mathrm{ref}}}$ & Negative entropy & $\int p\log p\,\dd m_{\mathrm{ref}}$ on its declared density space; its Bregman representation is used only under the stated directional differentiability conditions.\\[3pt]
+$c,\ Z_c,\ \nu_c$ & Gibbs tilt & $Z_c=\int e^{-c}\dd\nu$ and $\nu_c=Z_c^{-1}e^{-c}\nu$. An abstract tilt cost equals $\beta\mathcal V$ only when that identification is specified.\\[3pt]
+$\Lambda_Q,\ \Psi_Q$ & Partition functionals & The log-exponential integral and exponential integral, respectively; their natural conjugate domains differ.\\[3pt]
+$\mathcal J_\alpha,\ m(b)$ & Truncated Gaussian example & The constrained objective and inverse Mills ratio; $b$ is a threshold, $\varphi$ the standard Gaussian density and $\bar\Phi$ its upper tail. The bar here does not denote a reduced dynamical model.\\[3pt]
+$\mathscr L_{\mathrm{log}},\ \mathcal R$ & Risk and reward & The logistic population risk and the concave measure-valued reward functional. Neither is the generator $\mathcal L_t$.\\[3pt]
+\end{longtable}
+% These uncaptioned reference tables do not consume scientific table numbers.
+\addtocounter{table}{-1}
+\endgroup
+
+\Needspace{12\baselineskip}
+\subsection*{Conditioning, learned transport, and numerics}
+\begingroup
+\small
+\setstretch{1.0}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{90mm}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\small\itshape Conditioning, learned transport, and numerics (continued)}\\[3pt]
+\toprule
+\textbf{Symbol} & \textbf{Mathematical object} & \textbf{Definition and convention}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$\mu_z,\ \mu_{t,z}$ & Conditional kernels & A static regular conditional law and a selected version of $\operatorname{Law}(X_t\mid\xi(X_t)=z)$. Null-set and geometric regularity qualifications are retained.\\[3pt]
+$\mathcal M_z,\ G_\xi$ & Level geometry & $\mathcal M_z=\{x:\xi(x)=z\}$ and $G_\xi=D\xi D\xi^\top$. Surface measure is $\mathcal H^{d-m}$ on this level set.\\[3pt]
+$J_\xi$ & Coarea factor & $\sqrt{\det G_\xi}$, positive under the stated full-rank assumption. It is not the square-flow derivative determinant $J_{s,t}$.\\[3pt]
+$F_\xi,\ B_i^\xi$ & Mean-force objects & $F_\xi=-\beta^{-1}\log p_\xi$ for the specified static Gibbs marginal. The lifting field satisfies $D\xi B_i^\xi=e_i$.\\[3pt]
+$Y_\sigma,\ \varphi_{\sigma,m}$ & Noisy observations & A noisy collective-variable observation and its Gaussian smoothing kernel. The observation noise parameter $\sigma$ is not a time index.\\[3pt]
+$W_t,\ B_t,\ d_W$ & Brownian motions & The full noise, a stated scalar reduced noise, and full noise dimension. Their coupling or independence is specified locally.\\[3pt]
+$b_t,\ \sigma_t,\ a_t$ & SDE coefficients & Full drift and noise matrix, or in the scalar projected model a conditional drift and conditional squared-gradient factor. Averaging a noise amplitude is not averaging its square.\\[3pt]
+$A_\xi,\ Z_t^0,\ \bar X_t$ & Projected models & The scalar projected drift before conditioning, the exact projected process, and a specified closure model. Matching marginals does not assert matching path laws.\\[3pt]
+$\boldsymbol j_t,\ v_t^{\mathrm{cur}}$ & Probability current & $v_t^{\mathrm{cur}}=\boldsymbol j_t/\rho_t$ only where $\rho_t>0$; no velocity is defined by this quotient at a zero of the density.\\[3pt]
+$\gamma,\ I_t,\ v_t^{\mathrm{int}}$ & Stochastic interpolation & In this subsection only, $\gamma$ is an endpoint coupling and $I_t=\alpha_tX_0+\lambda_tX_1$. The conditional interpolation velocity is defined almost everywhere under its time marginals.\\[3pt]
+$g_{\theta,t},\ \widehat\theta$ & Learning notation & The time-dependent parameterized family (equivalently the network interface $g_\theta(t,z)$) and fitted parameters. Write $\widehat g_t=g_{\widehat\theta,t}$ and $\widehat b_t$ for learned functions.\\[3pt]
+$F_{\mathrm{tr}},\ F_t^{\mathrm{tr}}$ & Transport maps & A quantile/triangular transport and its time interpolation. Coordinate components are $F_{\mathrm{tr}}^i$; CDFs $F_0,F_w$ and the weight function $w$ are defined in that example.\\[3pt]
+$\widehat\mu_{w,N_{\mathrm{samp}}}$ & Weighted empirical law & The normalized weighted sample measure; finite-sample approximation is not a smooth diffeomorphic image of a Gaussian.\\[3pt]
+$\psi_t,\ \mathcal E,\ \mathfrak L$ & Kinetic control & The scalar multiplier, terminal functional and Lagrangian of the formal stationarity system. $\psi_t$ is not the autonomous flow $\phi_t$.\\[3pt]
+$R_A^{\det},\ r_{\log}$ & Explicit remainders & The determinant-polynomial and scalar logarithmic remainders; their definitions and uniform estimates are in Appendix~\ref{app:euler-jacobian-estimates}.\\[3pt]
+$r_k^{\log},\ r_k^{\mathrm{quad}}$ & Stepwise remainders & The combined logarithmic remainder and interval quadrature remainder. State dependence is retained until evaluation at $\widehat x_k$.\\[3pt]
+$R_t^{\mathrm{lin}},\ B_{\mathrm{div}}$ & Differentiability and bounds & The initial-data Taylor remainder, distinct from determinant remainders; $B_{\mathrm{div}}$ bounds the divergence in the Euler argument.\\[3pt]
+$D_{\mathrm{diff}},\ q_{i\to j}^{\Delta x}$ & Spatial discretization & The scalar diffusion constant and outgoing transition rate from cell $i$ to cell $j$. Fixed-mesh formulas abbreviate the rate as $q_{i\to j}$.\\[3pt]
+$Q^{\Delta x},\ \pi_i^{\Delta x}$ & Finite-state evolution & The mass-column generator (columns sum to zero) and stationary cell masses. The backward matrix on observables is its transpose; fixed-mesh formulas may write $\pi_i$.\\[3pt]
+$m_i^{\Delta x}(t)$ & Semidiscrete mass & The exact continuous-time solution of the spatially discrete system, approximating a PDE cell mass. The local abbreviation is $m_i(t)$; a further time approximation would be $\widehat m_{k,i}^{\Delta x}$.\\[3pt]
+$A_{\mathrm{OU}},\ R_t$ & OU benchmark & The positive-definite matrix and full two-dimensional state in $\dd R_t=-A_{\mathrm{OU}}R_t\dd t+\sqrt{2\beta^{-1}}\dd W_t$. The drift sign is part of the model.\\[3pt]
+$m_t^{\mathrm{OU}},\ \Sigma_t$ & OU Gaussian statistics & The mean and covariance; $\Sigma_\infty$ is the established equilibrium covariance. The mean is distinct from the finite-volume mass vector.\\[3pt]
+$C_{\mathrm{full}},\ C_{\mathrm{closure}}$ & Time correlations & The locally defined stationary autocovariances; equality of one-time laws does not imply equality of these functions.\\[3pt]
+\end{longtable}
+% These uncaptioned reference tables do not consume scientific table numbers.
+\addtocounter{table}{-1}
+\endgroup
+
+The principal definitions are developed in Sections~\ref{sec:physical-mathematical-setting}, \ref{sec:flows-transport}, \ref{sec:conditional-dynamics}, \ref{sec:learnedflows}, and \ref{sec:benchmark}; the ODE constructions are detailed in Appendix~\ref{app:ode-foundations}. A new symbol should be defined at first use, assigned an object type and scope, and checked against these tables. Standard local notations such as mechanical $p,q$ and information-theory densities $p,q$ are retained only with their scope made explicit.
+% END GLOBAL NOTATION

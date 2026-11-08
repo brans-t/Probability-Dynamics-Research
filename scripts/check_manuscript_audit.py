@@ -15,7 +15,7 @@ import sys
 import xml.etree.ElementTree as ET
 import zipfile
 
-from check_project import ROOT, check_manuscript, check_repository, require
+from check_project import ROOT, check_manuscript, check_repository, expand_notation, require
 
 
 STATEMENTS = (
@@ -138,8 +138,30 @@ def source_checks(tex):
 
 
 def preservation(tex, baseline):
+    # The approved notation chapter adds only unnumbered reference tables.
+    # Exclude precisely that marked block when checking the original displays;
+    # all original statements, tables, labels, citations and assets stay checked.
+    core_tex = tex
+    notation_start = "% BEGIN GLOBAL NOTATION"
+    notation_end = "% END GLOBAL NOTATION"
+    if notation_start in tex or notation_end in tex:
+        require(tex.count(notation_start) == tex.count(notation_end) == 1,
+                "Notation chapter markers must be unique and paired")
+        first = tex.index(notation_start)
+        last = tex.index(notation_end, first) + len(notation_end)
+        notation = tex[first:last]
+        require(r"\chapter*{Notation and Conventions}" in notation,
+                "Notation block must be the unnumbered notation chapter")
+        require(not re.search(r"\\begin\{(?:equation|theorem|proof|table|figure)\}", notation),
+                "Notation block may not hide original scientific displays")
+        require(not re.search(r"\\(?:sourcecredit|sourceindexrow|cite)\{", notation),
+                "Notation block may not hide source identifiers or citations")
+        core_tex = tex[:first] + tex[last:]
     with zipfile.ZipFile(baseline) as archive:
-        old = archive.read("paper/main.tex").decode("utf-8")
+        old = expand_notation(
+            archive.read("paper/main.tex").decode("utf-8"),
+            lambda name: archive.read(name).decode("utf-8"),
+        )
         old_labels = set(re.findall(r"\\label\{([^}]+)\}", old))
         new_labels = set(re.findall(r"\\label\{([^}]+)\}", tex))
         require(old_labels <= new_labels, f"Original labels removed: {old_labels-new_labels}")
@@ -156,7 +178,7 @@ def preservation(tex, baseline):
             before = old.count("\\begin{" + env + "}")
             if env == "definition":
                 before += old.count(r"\begin{defn}")
-            require(before == tex.count("\\begin{" + env + "}"), f"Material count changed: {env}")
+            require(before == core_tex.count("\\begin{" + env + "}"), f"Material count changed: {env}")
         require(
             numbered_displays(old) == numbered_displays(tex),
             "Original numbered formula count changed",
@@ -164,7 +186,7 @@ def preservation(tex, baseline):
         for env in ["Notice", "figure", "table", "longtable"]:
             pattern = r"\\begin\{" + env + r"\}(?:\[([^\n]*)\])?"
             old_options = [m[1] for m in re.finditer(pattern, old)]
-            new_options = [m[1] for m in re.finditer(pattern, tex)]
+            new_options = [m[1] for m in re.finditer(pattern, core_tex)]
             # Thematic regrouping can move a Notice with its proposition.
             # Require the same complete collection instead of its old order.
             if env == "Notice":

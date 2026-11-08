@@ -38,8 +38,19 @@ def canonical_body(text):
     return re.sub(r"(?:\\clearpage){2,}", r"\\clearpage", body)
 
 
+def expand_notation(tex, read_text):
+    """Include the notation chapter in source and archive checks."""
+    directive = r"\input{notation}"
+    if directive not in tex:
+        return tex
+    require(tex.count(directive) == 1, "Expected one notation chapter include")
+    return tex.replace(directive, read_text("paper/notation.tex").rstrip("\r\n"))
+
+
 def check_manuscript():
-    tex = (ROOT / "paper/main.tex").read_text(encoding="utf-8")
+    main = (ROOT / "paper/main.tex").read_text(encoding="utf-8")
+    require(main.count(r"\input{notation}") == 1, "Separate notation chapter not included")
+    tex = expand_notation(main, lambda name: (ROOT / name).read_text(encoding="utf-8"))
     preamble = (ROOT / "paper/preamble.tex").read_text(encoding="utf-8")
     labels = re.findall(r"\\label\{([^}]+)\}", tex)
     require(len(labels) == len(set(labels)), "Duplicate manuscript labels")
@@ -79,9 +90,12 @@ def check_manuscript():
             dimensions.add(struct.unpack(">II", header[16:24]))
             animation_frames.append(frame)
         require(len(dimensions) == 1, f"Inconsistent animation dimensions: {prefix}")
+    # Retain the supplementary matrix-flow benchmark plot, omitted from the
+    # manuscript because the scalar experiment already illustrates convergence.
+    benchmark_figures = {"figures/jacobian_convergence.pdf"}
     require(
         {p.relative_to(ROOT / "paper").as_posix() for p in (ROOT / "paper/figures").rglob("*") if p.is_file()}
-        == set(figures + animation_frames),
+        == set(figures + animation_frames) | benchmark_figures,
         "Unreferenced or missing files in paper/figures",
     )
     bib = (ROOT / "paper/ref.bib").read_text(encoding="utf-8")
@@ -113,7 +127,7 @@ def check_repository():
     require(not list((ROOT / "experiments").glob("*.csv")), "CSV data remains in experiments")
     require(not list((ROOT / "experiments").glob("*.json")), "JSON data remains in experiments")
     require(
-        len(list((ROOT / "results/benchmarks").glob("*.csv"))) == 6, "Expected six saved CSV files"
+        len(list((ROOT / "results/benchmarks").glob("*.csv"))) == 7, "Expected seven saved CSV files"
     )
     require(
         len(list((ROOT / "results/benchmarks").glob("*.json"))) == 2,
@@ -128,7 +142,10 @@ def check_repository():
 
 def check_baseline(path, tex):
     with zipfile.ZipFile(path) as baseline:
-        old = baseline.read("paper/main.tex").decode("utf-8")
+        old = expand_notation(
+            baseline.read("paper/main.tex").decode("utf-8"),
+            lambda name: baseline.read(name).decode("utf-8"),
+        )
         require(
             canonical_body(old) == canonical_body(tex),
             "Manuscript body changed beyond the formatting allowlist",
