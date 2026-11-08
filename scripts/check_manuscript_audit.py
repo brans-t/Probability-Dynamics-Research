@@ -200,7 +200,6 @@ def preservation(tex, baseline):
                 ("results/benchmarks/", "paper/figures/", "src/", "tests/")
             ) or name in {
                 "paper/ref.bib",
-                "docs/StudentAssessmentExercise_unlocked.pdf",
                 "docs/source_index.tsv",
             }:
                 require(

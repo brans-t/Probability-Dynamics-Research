@@ -25,3 +25,6 @@ paper/*.fdb_latexmk
 paper/Tmp/
 results/validation/
 results/benchmarks/*.local.log
+
+# Local assessment source; do not publish to GitHub.
+/docs/StudentAssessmentExercise_unlocked.pdf

@@ -173,7 +173,6 @@ def check_baseline(path, tex):
                 or name
                 in {
                     "paper/ref.bib",
-                    "docs/StudentAssessmentExercise_unlocked.pdf",
                     "LICENSE",
                     "pyproject.toml",
                 }

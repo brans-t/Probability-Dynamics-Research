@@ -86,8 +86,9 @@ transport; Hamiltonian mechanics as an application; entropy, variational princip
 and free energy. Local derivation headings remain in the text. The main chapter
 contains 14 subsections, grouped as 3/4/2/3/2 across its five sections.
 
-The [original assessment](StudentAssessmentExercise_unlocked.pdf) and
-[machine-readable source index](source_index.tsv) preserve Project/item provenance.
+The original assessment is kept locally as `docs/StudentAssessmentExercise_unlocked.pdf`
+and is excluded from Git. The [machine-readable source index](source_index.tsv)
+preserves Project/item provenance in the repository.
 The manuscript's Source Index provides 45 clickable entries, including all 13
 Project 11 items. It is the single question-to-location table. Source numbers
 are independent of manuscript section numbers. A linked entry need not be an

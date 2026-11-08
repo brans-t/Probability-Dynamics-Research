@@ -1,6 +1,6 @@
 # 文章与题库核对记录（2026-11-06）
 
-核对对象：[文章源文件](../paper/main.tex)、[Student Assessment Exercise 原题库](StudentAssessmentExercise_unlocked.pdf)。题库共 33 页；本轮逐项对照文章已选的 Projects 8–14，重点查看原题第 11–27 页。下表页码均指题库 PDF 页码，正文位置使用稳定的 LaTeX 标签，最终页码见文章中的可点击 Source Index。
+核对对象：[文章源文件](../paper/main.tex)、本地 Student Assessment Exercise 原题库（`docs/StudentAssessmentExercise_unlocked.pdf`，不纳入 Git 仓库）。题库共 33 页；本轮逐项对照文章已选的 Projects 8–14，重点查看原题第 11–27 页。下表页码均指题库 PDF 页码，正文位置使用稳定的 LaTeX 标签，最终页码见文章中的可点击 Source Index。
 
 本轮由 Codex 辅助核对与修改，包含数学推导审阅、原 PDF 关键公式的图像核对、已有数据对照、编译和页面检查；不是形式化证明认证，也不代表作者已完成最终学术批准。本轮没有重新训练神经网络，没有新增实验结果。
 
