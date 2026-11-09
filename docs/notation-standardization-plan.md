@@ -6,7 +6,7 @@
 
 实施状态：已完成。最终前置符号表分 Global Notation 与 Topic-specific Notation 两层，共 99 个条目、6 张分组长表，位于 PDF 的 ii–ix 页；Introduction 位于 x 页。具体旧新映射、保留的局部约定及检查记录见 [实施报告](notation-standardization-report-2026-11-08.md)。以下保留经批准的规划依据。
 
-按后续文件整理要求，符号章现位于独立的 [paper/notation.tex](../paper/notation.tex)，由主文件 `\input{notation}` 引入，内容及位置不变。
+按后续修订要求，符号章保存在独立的 [paper/notation.tex](../paper/notation.tex)，由主文件 `\input{notation}` 引入，现移至正文及附录之后、参考文献之前。自定义乘法算子和 Picard 算子分别统一为 `\mathsf M_A` 和 `\mathscr P_{s,x}`；标准数学记号保留。下文的前置安排及页码为初次实施记录，以本段和当前源码为准。
 
 ## 一、总体规则及理由
 
@@ -29,7 +29,7 @@
 | `K` 同时为步数和 OU 矩阵，约 1940、4660 行 | `K` 固定为时间步数；OU 正定矩阵用 `A_{\mathrm{OU}}`，漂移仍写成 `-A_{\mathrm{OU}}R_t` | 避免在数值算法中把矩阵参数误读为步数；保留矩阵的正定性和原有负号 |
 | `h` 表示时间步长、空间格宽、重加权函数和初值扰动 | 分别用 `h`、`\Delta x`、`w(x)`、`\delta x` | 使误差估计中的极限参数及其量纲明确 |
 | `x_i` 同时表示空间分量、样本、格点 | 分量用 `x^i`，样本用 `x^{(\ell)}`，空间格点用 `x_i` | 消除同一数值公式里时间、坐标、样本编号之间的歧义；粒子编号另作局部说明 |
-| `\mathcal A` 是观测量代数，也是轨迹上的矩阵乘法算子，约 357、643 行 | 保留 `\mathcal A=B_b(V)`；乘法算子用 `\mathsf{Mult}_A` | 这两个对象连定义域和值域都不同，应分开命名 |
+| `\mathcal A` 是观测量代数，也是轨迹上的矩阵乘法算子，约 357、643 行 | 保留 `\mathcal A=B_b(V)`；乘法算子用 `\mathsf M_A` | 这两个对象连定义域和值域都不同，应分开命名 |
 | `\mathcal L` 是轨迹 ODE 算子、生成元、logistic 风险 | 生成元保留 `\mathcal L_t`；轨迹 ODE 算子用 `\mathscr D_A`；风险用 `\mathscr L_{\mathrm{log}}` | 区分“对轨迹作微分”“对观测量作演化”“给函数打分” |
 | `\mathcal X` 既是轨迹空间又是观测量 Banach 空间 | 轨迹空间保留 `\mathcal X`；观测量空间用 `\mathscr X_{\mathrm{obs}}` | 两类函数的自变量、值域及范数不同 |
 | `D` 同时为状态导数、时间微分算子、散度上界、扩散常数 | 状态导数保留 `D_x`；轨迹时间导数用 `\partial_t`；散度上界用 `B_{\mathrm{div}}`；扩散常数用 `D_{\mathrm{diff}}` | 防止在同一误差/PDE 推导中出现同形而异类的量 |
@@ -41,7 +41,7 @@
 | 附录 `e_t(h)` 是两条精确轨迹之差 | 改为 `\Delta_t(\delta x)` | `e_k` 专门表示数值状态误差；精确解的初值敏感性不是离散误差 |
 | `S_t` 同时为解算映射和 Hessian，`H(t)` 还表示积分矩阵 | 解算映射 `S_t` 保留局部定义；Hessian 使用带对象标记的记号；积分矩阵用 `B_A(t,s)` | 不让 Hamiltonian `H`、解算映射和二阶导数共享未经说明的名字 |
 | `\Omega` 是样本空间，也用于运动区域 `\Omega_t` | 样本空间保留 `\Omega`；运动区域用 `\mathcal D_t` | 将概率空间与物理积分区域分开 |
-| `\mathcal T` 既表示时间排序又表示 Picard 映射 | 时间排序保留 `\mathcal T`；Picard 映射用 `\mathsf{Pic}_{s,x}` | 两者在同一 ODE 附录中出现，运算性质不同 |
+| `\mathcal T` 既表示时间排序又表示 Picard 映射 | 时间排序保留 `\mathcal T`；Picard 映射用 `\mathscr P_{s,x}` | 两者在同一 ODE 附录中出现，运算性质不同 |
 | 传输例子中 `T_1` 既为时刻 1 的映射又为三角映射第一分量 | 传输映射用 `F_{\mathrm{tr}}`，时间插值用 `F_t^{\mathrm{tr}}`，分量用 `F_{\mathrm{tr}}^i` | 同一例子内也必须区分时间指标与坐标指标 |
 
 ## 三、拟固定的符号清单
@@ -180,7 +180,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 
 这些符号不提升为全文同一数学对象，但在符号表中标明位置和用途：
 
-- 线性 ODE：`\mathcal X=C^1(I;V)`、`\mathcal Y=C(I;V)`、`\mathsf{Mult}_A`、`\mathscr D_A:=\partial_t-\mathsf{Mult}_A`、`\mathcal H=\ker\mathscr D_A`、评价映射 `E_t`、逆解算映射 `S_t`、零初值空间 `\mathcal K_s`、特解 `\gamma_{\mathrm p}`、齐次轨迹 `\eta` 和仿射解集。路径可在函数空间评价处写 `\gamma(t)`，与动力学式中的 `\gamma_t` 明确为同一取值，不混用时间与迭代指标。
+- 线性 ODE：`\mathcal X=C^1(I;V)`、`\mathcal Y=C(I;V)`、`\mathsf M_A`、`\mathscr D_A:=\partial_t-\mathsf M_A`、`\mathcal H=\ker\mathscr D_A`、评价映射 `E_t`、逆解算映射 `S_t`、零初值空间 `\mathcal K_s`、特解 `\gamma_{\mathrm p}`、齐次轨迹 `\eta` 和仿射解集。路径可在函数空间评价处写 `\gamma(t)`，与动力学式中的 `\gamma_t` 明确为同一取值，不混用时间与迭代指标。
 - 冷却例子：温度用 `T_t^{\mathrm{temp}}`、环境温度 `T_{\mathrm{env}}^{\mathrm{temp}}`，与终止时间 T 分开；局部衰减率 `\lambda` 仍保留。
 - 最小加权作用量：权重 `w_t`、作用量 `I[\gamma]`、累积重参数 `\Theta_w(t):=\int_0^t w_r^{-1}\mathrm dr`；后者替换 W(t)，避免与 Brownian 记号混淆。
 - 截断 Gaussian：标准密度 `\varphi`、上尾 `\bar\Phi`、阈值 b、条件律 `\mu_b`、逆 Mills 比 `m(b)` 和 `\mathcal J_\alpha(b)`。阈值 b 不是 SDE 漂移函数，标出该例的作用域即可。
@@ -189,7 +189,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 - 有限体积：`D_{\mathrm{diff}}`、转移率 `q_{i\to j}^{\Delta x}`、质量列向量的生成矩阵 `Q^{\Delta x}`、边通量 `j_{i+1/2}^{\Delta x}`、平衡质量 `\pi_i^{\Delta x}`。矩阵约定固定为 `\dot m=Q^{\Delta x}m`，其列和为零；可观测量生成矩阵是转置，不暗中更换行列约定。
 - 半离散质量 `m_i^{\Delta x}(t)` 是有限维连续时间系统的精确解；上标标明空间近似。它与原 PDE 的精确单元积分不是恒等关系。若再数值积分该系统，才写 `\widehat m_{k,i}^{\Delta x}`。原题 ghost-cell 记号作为引文保留并给出本文对应记号，不篡改原题边界条件。
 - OU：完整二维过程 `R_t`、正定矩阵 `A_{\mathrm{OU}}`、均值 `m_t^{\mathrm{OU}}`、协方差 `\Sigma_t`、闭合模型 `\bar X_t`、条件函数 `g_t`、完整/闭合自协方差 `C_{\mathrm{full}},C_{\mathrm{closure}}`。均值不与有限体积质量向量 m 共享裸记号。
-- ODE 附录：局部存在时间半径用 `\delta_{\mathrm{loc}}`（避免被误读为随 t 变化的函数）；Picard 映射用 `\mathsf{Pic}_{s,x}`，迭代用 `\gamma^{[n]}`；Peano--Baker 项用 `P_n(t,s)`，部分和用 `U^{[n]}(t,s)`；积分系数矩阵用 `B_A(t,s):=\int_s^t A_r\mathrm dr`；排序符号 `\mathcal T` 保留原有前向/后向区别。
+- ODE 附录：局部存在时间半径用 `\delta_{\mathrm{loc}}`（避免被误读为随 t 变化的函数）；Picard 映射用 `\mathscr P_{s,x}`，迭代用 `\gamma^{[n]}`；Peano--Baker 项用 `P_n(t,s)`，部分和用 `U^{[n]}(t,s)`；积分系数矩阵用 `B_A(t,s):=\int_s^t A_r\mathrm dr`；排序符号 `\mathcal T` 保留原有前向/后向区别。
 
 ## 四、前置符号表的具体安排
 

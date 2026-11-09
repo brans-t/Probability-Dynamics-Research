@@ -2,7 +2,7 @@
 
 修改对象：[LaTeX 原稿](../paper/main.tex)。生成文件：[完整 PDF](../output/paper/main.pdf)。本轮依据 [批准后的方案](notation-standardization-plan.md) 及作者的八项补充要求实施。
 
-后续文件整理：符号章已单独保存为 [notation.tex](../paper/notation.tex)，主文件通过 `\input{notation}` 引入。拆分后的展开源码与拆分前完全一致；检查脚本同时读取该子文件及其交叉引用。
+后续文件整理及记号修订：符号章保存在 [notation.tex](../paper/notation.tex)，主文件通过 `\input{notation}` 引入，现位于正文及附录之后、参考文献之前。自定义乘法算子统一为 `\mathsf M_A`，Picard 算子统一为 `\mathscr P_{s,x}`，局部限制及其缩写为 `\mathscr P_\delta`、`\mathscr P`；正文、图示及符号表同步修改，标准数学记号保留。检查脚本同时读取符号子文件及其交叉引用。下文的前置安排及页码为初次实施记录，以本段和当前源码为准。
 
 ## 完成结果
 
@@ -29,8 +29,8 @@
 | 线性系数 `A(t)` | `A_t`；常矩阵 A 仍按其局部定义使用 |
 | 仿射外加项 `B(t)` | `b_t^{\mathrm{aff}}` |
 | 基本解矩阵 `U(t,s)` | 保留传统“终止、起始”顺序，表中明确与 `\Phi_{s,t}` 对应 |
-| 轨迹空间上的乘法算子 `\mathcal A` | `\mathsf{Mult}_A`；观测量代数仍为 `\mathcal A=B_b(V)` |
-| 轨迹 ODE 算子 `\mathcal L` | `\mathscr D_A=\partial_t-\mathsf{Mult}_A`；生成元保留 `\mathcal L_t` |
+| 轨迹空间上的乘法算子 `\mathcal A` | `\mathsf M_A`；观测量代数仍为 `\mathcal A=B_b(V)` |
+| 轨迹 ODE 算子 `\mathcal L` | `\mathscr D_A=\partial_t-\mathsf M_A`；生成元保留 `\mathcal L_t` |
 | 观测量 Banach 空间 `\mathcal X` | `\mathscr X_{\mathrm{obs}}`；轨迹空间保留 `\mathcal X` |
 | 物理势能 `V(x)`、条件几何势能 `U(x)` | `\mathcal V(x)`；状态空间保留 V |
 | 抽象 Gibbs 倾斜代价 U | c，及对应的 `Z_c,\nu_c`；不自动等同于物理势能 |
@@ -71,7 +71,7 @@
 | 附录参考轨迹 `\xi_t` | `x_t=\Phi_{s,t}(x)`，集体变量专用 `\xi` |
 | 附录初值扰动 h、精确轨迹差 `e_t(h)` | `\delta x`、`\Delta_t(\delta x)` |
 | 附录 Taylor 余项 `R_t(h)` | `R_t^{\mathrm{lin}}(\delta x)` |
-| Picard 时间半径 h、积分映射 `\mathcal T` | `\delta_{\mathrm{loc}}`、`\mathsf{Pic}_{s,x}`；时间排序保留 `\mathcal T` |
+| Picard 时间半径 h、积分映射 `\mathcal T` | `\delta_{\mathrm{loc}}`、`\mathscr P_{s,x}`；时间排序保留 `\mathcal T` |
 | Picard 序号 `\gamma_n,U_n` | `\gamma^{[n]},U^{[n]}`，不误读为时间步 |
 | 指数证明中的积分矩阵 `H(t)` | `B_A(t,s)`，不与 Hamiltonian 共用名称 |
 
