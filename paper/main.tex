@@ -402,10 +402,10 @@ $\mu(F^{-1}(B))$. The integration pairing relates these actions.
 Neither linearity nor invertibility of $F$ is needed.
 
 \begin{definition}[Composition operator and pushforward measure]
-For a Borel measurable $F:V\to V$, its composition (Koopman) operator is the linear map $\mathsf U_F:\mathcal A\to\mathcal A$,
+For a Borel measurable $F:V\to V$, its composition (Koopman) operator is the linear map $\mathcal{K}_F:\mathcal A\to\mathcal A$,
 defined by
 \begin{equation*}
-(\mathsf U_Ff)(x):=f(F(x)),\quad f\in\mathcal A,
+(\mathcal{K}_Ff)(x):=f(F(x)),\quad f\in\mathcal A,
 \end{equation*}
 and its pushforward map $\mathsf T_F:\mathcal P(V)\to\mathcal P(V)$ by
 \begin{equation*}
@@ -416,15 +416,15 @@ $\xi_\#\mu\in\mathcal P(\mathcal Z)$; here $\mathcal P(\mathcal Z)$ uses its spe
 \end{definition}
 
 \begin{theorem}[Observable--measure duality]\label{thm:observable-measure-duality}
-On $(V,\mathcal B(V))$, let $F:V\to V$ be Borel measurable. Then $\mathsf U_F$ is a positive, unital algebra homomorphism
-on $B_b(V)$ and $\|\mathsf U_Ff\|_\infty\leq\|f\|_\infty$. For every $f\in B_b(V)$ and $\mu\in\mathcal P(V)$,
+On $(V,\mathcal B(V))$, let $F:V\to V$ be Borel measurable. Then $\mathcal{K}_F$ is a positive, unital algebra homomorphism
+on $B_b(V)$ and $\|\mathcal{K}_Ff\|_\infty\leq\|f\|_\infty$. For every $f\in B_b(V)$ and $\mu\in\mathcal P(V)$,
 \begin{equation}
-    \boxed{\langle \mathsf U_Ff,\mu\rangle=\langle f,\mathsf T_F\mu\rangle.}
+    \boxed{\langle \mathcal{K}_Ff,\mu\rangle=\langle f,\mathsf T_F\mu\rangle.}
     \label{eq:observable-measure-duality}
 \end{equation}
 Moreover, for measurable $F,G:V\to V$,
 \begin{equation}
-    \mathsf U_F\mathsf U_G=\mathsf U_{G\circ F},\quad \mathsf T_G\mathsf T_F=\mathsf T_{G\circ F}.
+    \mathcal{K}_F\mathcal{K}_G=\mathcal{K}_{G\circ F},\quad \mathsf T_G\mathsf T_F=\mathsf T_{G\circ F}.
     \label{eq:operator-composition}
 \end{equation}
 \end{theorem}
@@ -433,8 +433,8 @@ Moreover, for measurable $F,G:V\to V$,
 Linearity and preservation of products follow by evaluating at $x$:
 \begin{equation*}
 \begin{aligned}
-        \mathsf U_F(af+bg)(x)&=af(F(x))+bg(F(x)),\\
-        \mathsf U_F(fg)(x)&=f(F(x))g(F(x)).
+        \mathcal{K}_F(af+bg)(x)&=af(F(x))+bg(F(x)),\\
+        \mathcal{K}_F(fg)(x)&=f(F(x))g(F(x)).
     \end{aligned}
 \end{equation*}
 Positivity, preservation of the constant function $\mathbf1$, and the supremum-norm bound follow from the same definition.
@@ -446,7 +446,7 @@ For an indicator $f=\mathbf1_B$, the defining identity of the pushforward reads
 \end{equation*}
 Linearity proves this for simple functions. Monotone approximation and the monotone convergence theorem extend it to nonnegative
 measurable functions, and taking positive and negative parts proves \eqref{eq:observable-measure-duality} for bounded real
-observables. Finally, $\mathsf U_F\mathsf U_Gf=f\circ G\circ F$ and $(G_\#F_\#\mu)(B)=\mu(F^{-1}(G^{-1}(B)))$, proving
+observables. Finally, $\mathcal{K}_F\mathcal{K}_Gf=f\circ G\circ F$ and $(G_\#F_\#\mu)(B)=\mu(F^{-1}(G^{-1}(B)))$, proving
 \eqref{eq:operator-composition}.
 \end{proof}
 
@@ -459,13 +459,13 @@ defined for $s\leq t$ and satisfy
 \begin{equation*}
     \Phi_{s,s}=\operatorname{id}_V, \quad \Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t} \quad (s\leq r\leq t).
 \end{equation*}
-Define $\mathsf U_{s,t}:=\mathsf U_{\Phi_{s,t}}:\mathcal A\to\mathcal A$ and $\mathsf T_{s,t}:=\mathsf T_{\Phi_{s,t}}:\mathcal P(V)\to\mathcal P(V)$.
+Define $\mathcal{K}_{s,t}:=\mathcal{K}_{\Phi_{s,t}}:\mathcal A\to\mathcal A$ and $\mathsf T_{s,t}:=\mathsf T_{\Phi_{s,t}}:\mathcal P(V)\to\mathcal P(V)$.
 The preceding theorem immediately yields
 \begin{equation}
     \begin{aligned}
-        \mathsf U_{s,r}\mathsf U_{r,t} = \mathsf U_{s,t}, &\quad
+        \mathcal{K}_{s,r}\mathcal{K}_{r,t} = \mathcal{K}_{s,t}, &\quad
         \mathsf T_{r,t}\mathsf T_{s,r}=\mathsf T_{s,t},\\
-        \langle \mathsf U_{s,t}f,\mu_s\rangle &=\langle f,\mathsf T_{s,t}\mu_s\rangle.
+        \langle \mathcal{K}_{s,t}f,\mu_s\rangle &=\langle f,\mathsf T_{s,t}\mu_s\rangle.
     \end{aligned}
     \label{eq:flow-operator-duality-intro}
 \end{equation}
@@ -505,7 +505,7 @@ the following topics and questions:
         \end{itemize}
 
     \item \emph{Evolution of observables and probability laws.}
-        Study the observable evolution operator $\mathsf U_{s,t}$, the law transport operator $\mathsf T_{s,t}$, and the
+        Study the observable evolution operator $\mathcal{K}_{s,t}$, the law transport operator $\mathsf T_{s,t}$, and the
         generator $\mathcal L_t$.
         \begin{itemize}
             \item How does the generator $\mathcal L_t$ relate to the velocity field $v_t$ and the flow $\Phi_{s,t}$?
@@ -534,12 +534,10 @@ the following topics and questions:
 %=======================================================================================================================
 \subsection{State flows and geometric properties}
 
-Consider a moving fluid whose motion is described by a time-dependent velocity field $v:I\times V\to V$, where $V$ denotes
-the spatial domain. At each time $t$ and position $x$, the vector $v_t(x)$ specifies the instantaneous velocity of the
-fluid at that location.
-
-A fluid element moving with the surrounding fluid follows the local velocity field. If $x_t$ denotes its position at time
-$t$, its motion is therefore governed by
+Consider a moving fluid whose motion is described by a time-dependent velocity field $v_t(x)$. At each time $t$ and position
+$x$, the vector $v_t(x)$ specifies the instantaneous velocity of the fluid at that location. A fluid element moving with
+the surrounding fluid follows the local velocity field. If $x_t$ denotes its position at time $t$, its motion is therefore
+governed by
 \begin{equation*}
     \dot x_t=v_t(x_t).
 \end{equation*}
@@ -563,10 +561,10 @@ Let $V=\mathbb R^d$, where $d\geq1$ is an integer, be the Euclidean state space,
 time-dependent velocity field specifies the fluid velocity $v(t,x)$ at each time $t$ and position $x$. We write it as the
 map
 \begin{equation*}
-    v: \mathbb{R} \times \mathbb{R}^{d} \to \mathbb{R}^{d}, \quad (t,x) \mapsto v(t,x),
+    v: \mathbb{R} \times \mathbb{R}^{d} \to \mathbb{R}^{d}, \quad (t,x) \mapsto v_t(x),
 \end{equation*}
 and assume that it is smooth and satisfies $v_t\in C_0(\mathbb R^d;\mathbb R^d)$, for all $t\in\mathbb R$. Given initial
-data $(s,x)\in \mathbb{R} \times \mathbb{R}^{d}$, the corresponding initial-value problem is to find a trajectory $x_t \cdot\in C^1(I,V)$
+data $(s,x)\in \mathbb{R} \times \mathbb{R}^{d}$, the corresponding initial-value problem is to find a trajectory $x_t\in C^1(I,V)$
 satisfying
 \begin{equation}
     \begin{cases}
@@ -1060,27 +1058,26 @@ determines its affine displacement. The initial-value constraint selects exactly
 \end{solution}
 \end{example}
 
+\begin{example}[A concrete special case: Newton's law of cooling]
 
-\begin{example}[A concrete special case: Newton's law of cooling.]
-
-We now illustrate the preceding construction with a simple physical example. Consider a body whose temperature $T_t^{\mathrm{temp}}$
-relaxes toward a constant ambient temperature $T_{\mathrm{env}}^{\mathrm{temp}}$. Under the lumped-temperature approximation
+We now illustrate the preceding construction with a simple physical example. Consider a body whose temperature $T_t$
+relaxes toward a constant ambient temperature $T_{\mathrm{env}}$. Under the lumped-temperature approximation
 and a constant heat-transfer coefficient, Newton's law of cooling takes the form
 \begin{equation*}
-    \dot T_t^{\mathrm{temp}} = -\lambda\bigl(T_t^{\mathrm{temp}}-T_{\mathrm{env}}^{\mathrm{temp}}\bigr), \quad
-    T_0^{\mathrm{temp}}=T_0^{\mathrm{temp}},
+    \dot T_t = -\lambda\bigl(T_t-T_{\mathrm{env}}\bigr), \quad
+    T_0=T_0,
 \end{equation*}
 where $\lambda>0$ is the relaxation rate and $t\geq 0$.
 
 Rearranging the equation,
 \begin{equation*}
-    \dot T_t^{\mathrm{temp}} = -\lambda T_t^{\mathrm{temp}}+\lambda T_{\mathrm{env}}^{\mathrm{temp}}.
+    \dot T_t = -\lambda T_t+\lambda T_{\mathrm{env}}.
 \end{equation*}
 This is a special case of the original problem with
 \begin{equation*}
     V=\mathbb R, \quad
     A_t=-\lambda, \quad
-    B_t=\lambda T_{\mathrm{env}}^{\mathrm{temp}},
+    B_t=\lambda T_{\mathrm{env}},
 \end{equation*}
 where we identify $\operatorname{End}(\mathbb R)$ with $\mathbb R$ through scalar multiplication.
 
@@ -1090,38 +1087,38 @@ Since $A_t$ is constant, the evolution operator is simply
 \end{equation*}
 The homogeneous contribution associated with theinitial temperature is
 \begin{equation*}
-    \eta_{T_0^{\mathrm{temp}}}(t)=U(t,0)T_0^{\mathrm{temp}}=T_0^{\mathrm{temp}}e^{-\lambda t}.
+    \eta_{T_0}(t)=U(t,0)T_0=T_0e^{-\lambda t}.
 \end{equation*}
 For this illustration the reference time is $s=0$. The zero-initial-value particular solution is
 \begin{equation*}
     \begin{aligned}
         \gamma_{\mathrm p}(t) &= \int_0^tU(t,\tau)B\,\dd\tau\\
-            &= \lambda T_{\mathrm{env}}^{\mathrm{temp}} \int_0^t e^{-\lambda(t-\tau)}\dd\tau\\
-            &= T_{\mathrm{env}}^{\mathrm{temp}} \left(1-e^{-\lambda t}\right).
+            &= \lambda T_{\mathrm{env}} \int_0^t e^{-\lambda(t-\tau)}\dd\tau\\
+            &= T_{\mathrm{env}} \left(1-e^{-\lambda t}\right).
     \end{aligned}
 \end{equation*}
 Adding the homogeneous and particular contributions, we obtain
 \begin{equation*}
-    T_t^{\mathrm{temp}} = T_0^{\mathrm{temp}}e^{-\lambda t} + T_{\mathrm{env}}^{\mathrm{temp}} \left(1-e^{-\lambda t}\right).
+    T_t = T_0e^{-\lambda t} + T_{\mathrm{env}} \left(1-e^{-\lambda t}\right).
 \end{equation*}
 Equivalently,
 \begin{equation*}
-    T_t^{\mathrm{temp}} = T_{\mathrm{env}}^{\mathrm{temp}} + (T_0^{\mathrm{temp}}-T_{\mathrm{env}}^{\mathrm{temp}})e^{-\lambda t}.
+    T_t = T_{\mathrm{env}} + (T_0-T_{\mathrm{env}})e^{-\lambda t}.
 \end{equation*}
 
 For a concrete illustration, choose
 \begin{equation*}
-    T_0^{\mathrm{temp}}=80\,^\circ\mathrm C, \quad
-    T_{\mathrm{env}}^{\mathrm{temp}}=20\,^\circ\mathrm C, \quad
+    T_0=80\,^\circ\mathrm C, \quad
+    T_{\mathrm{env}}=20\,^\circ\mathrm C, \quad
     \lambda=0.5\,\mathrm{min}^{-1}.
 \end{equation*}
 Then
 \begin{equation*}
-    \eta_{T_0^{\mathrm{temp}}}(t)=80e^{-0.5t}, \quad \gamma_{\mathrm p}(t)=20(1-e^{-0.5t}),
+    \eta_{T_0}(t)=80e^{-0.5t}, \quad \gamma_{\mathrm p}(t)=20(1-e^{-0.5t}),
 \end{equation*}
 and the complete trajectory is
 \begin{equation*}
-    T_t^{\mathrm{temp}}=20+60e^{-0.5t}.
+    T_t=20+60e^{-0.5t}.
 \end{equation*}
 The following plot displays the homogeneous contribution, the zero-initial-value particular solution, and their sum. The
 horizontal dashed line indicates the ambient equilibrium temperature.
@@ -1152,7 +1149,7 @@ horizontal dashed line indicates the ambient equilibrium temperature.
 ]
     \addplot[blue,thick]
         {80*exp(-0.5*x)};
-    \addlegendentry{$\eta_{T_0^{\mathrm{temp}}}(t)=80e^{-0.5t}$}
+    \addlegendentry{$\eta_{T_0}(t)=80e^{-0.5t}$}
 
     \addplot[teal!80!black,thick]
         {20*(1-exp(-0.5*x))};
@@ -1160,18 +1157,18 @@ horizontal dashed line indicates the ambient equilibrium temperature.
 
     \addplot[orange!90!black,very thick]
         {20+60*exp(-0.5*x)};
-    \addlegendentry{$T_t^{\mathrm{temp}}=20+60e^{-0.5t}$}
+    \addlegendentry{$T_t=20+60e^{-0.5t}$}
 
     \addplot[black,dashed,thick]
         coordinates {(0,20)(10,20)};
-    \addlegendentry{$T_{\mathrm{env}}^{\mathrm{temp}}=20$}
+    \addlegendentry{$T_{\mathrm{env}}=20$}
 \end{axis}
 \end{tikzpicture}
 \end{center}
 
 The homogeneous contribution describes the decay of the initial-state contribution, whereas the particular solution describes
 the accumulated effect of the ambient-temperature forcing. Their sum gives the actual temperature trajectory, which approaches
-$T_{\mathrm{env}}^{\mathrm{temp}}$ as $t\to+\infty$.
+$T_{\mathrm{env}}$ as $t\to+\infty$.
 
 This example demonstrates that the affine-shift construction is directly applicable to physical relaxation processes. The
 decomposition is not merely a formal manipulation: it separates the contribution of the initial state from the accumulated
@@ -1180,34 +1177,118 @@ response to external driving.
 
 %=======================================================================================================================
 \subsubsection{Two-time flows and variational matrices}
-We now return to the general velocity field under the standing assumptions of Section~\ref{subsubsec:ode-model}.
-Its spatial derivative is a linear endomorphism of $V$, represented by its Jacobian matrix in a chosen basis.
-Define $\Phi_{s,t}(x)$ to be the value at time $t$ of the solution of \eqref{eq:flowode} with $x_s=x$.
 
-Fixing the initial time $s$ and initial state $x$, write $x_t$ for this solution, so that $\Phi_{s,t}(x)=x_t$. Differentiating
-with respect to the terminal time $t$ and using \eqref{eq:flowode} gives
-\begin{equation}
-    \partial_t\Phi_{s,t}(x)=\dot x_t=v_t(x_t)=v_t(\Phi_{s,t}(x)),
-    \quad \Phi_{s,s}(x)=x_s=x.
-    \label{eq:flow-dynamics}
-\end{equation}
-Here $\partial_t$ differentiates only the terminal time, with $s$ and $x$ held fixed.
-Equation~\eqref{eq:flow-dynamics} is the original ODE expressed in terms of the flow, rather than an additional dynamical
-assumption: the ODE describes a single trajectory, while the flow organizes these trajectories into a family of maps indexed
-by the initial and terminal times. For the homogeneous linear field $v_t(y)=A_ty$, we have $\Phi_{s,t}(x)=U(t,s)x$, so
-\eqref{eq:flow-dynamics} reduces to the evolution-operator equation $\partial_t U(t,s)=A_tU(t,s)$ established in \eqref{eq:fundamental-U}.
+In the homogeneous linear case, the evolution operator induces the flow map $\Phi_{s,t}(x)=U(t,s)x$. We now extend this
+construction to a general time-dependent velocity field $v_t(x)$, for which the flow is not necessarily linear in the initial
+state. Under the standing assumptions of Section~\ref{subsubsec:ode-model}, the initial-value problem admits a unique global
+solution for every initial time $s$ and initial state $x\in V$. This follows from the Picard--Lindelöf theorem together
+with the growth control ensuring global existence. Denoting this solution by $x_t^{s,x}$, we define the associated two-time
+flow by
+\begin{equation*}
+    \Phi_{s,t}:V\to V,\quad x\mapsto\Phi_{s,t}(x):=x_t^{s,x}.
+\end{equation*}
 
-The next theorem establishes composition and invertibility; for a nonautonomous field, $\Phi_{0,t}$ is generally not a
-one-parameter semigroup.
+Figure~\ref{fig:flow-material-region} illustrates how the flow transports both an individual state and a material region.
+
+\begin{figure}[htbp]
+\centering
+% User-supplied schematic; the region, grid, and point share one smooth map.
+\definecolor{initialblue}{HTML}{2563B8}
+\definecolor{evolvedorange}{HTML}{C57710}
+\definecolor{flowgray}{HTML}{536477}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\small,
+  line cap=round,line join=round,
+  flow arrow/.style={-{Stealth[length=3mm,width=2.2mm]},
+                     draw=flowgray,line width=1.1pt},
+  region label/.style={align=center,font=\small},
+  point label/.style={font=\small,inner sep=3pt}
+]
+% This illustrative map is orientation preserving on [0,1]^2.
+\def\mapX#1#2{7.45+2.55*(#1)+0.72*(#2)+0.18*(#1)*(#2)}
+\def\mapY#1#2{0.10+0.25*(#1)+2.60*(#2)-0.58*(#1)*(#2)
+                 +0.28*sin(180*(#1))*(#2)}
+\def\mappedboundary{%
+  plot[domain=0:1,samples=41,variable=\q]
+    ({\mapX{\q}{0}},{\mapY{\q}{0}})
+  -- plot[domain=0:1,samples=41,variable=\q]
+    ({\mapX{1}{\q}},{\mapY{1}{\q}})
+  -- plot[domain=1:0,samples=41,variable=\q]
+    ({\mapX{\q}{1}},{\mapY{\q}{1}})
+  -- plot[domain=1:0,samples=41,variable=\q]
+    ({\mapX{0}{\q}},{\mapY{0}{\q}})
+  -- cycle
+}
+
+% Initial material region.
+\path[fill=initialblue!8] (0,0) rectangle (2.6,2.6);
+\foreach \a in {0.25,0.5,0.75}{
+  \draw[initialblue!55,line width=0.45pt]
+    ({2.6*\a},0) -- ({2.6*\a},2.6);
+  \draw[initialblue!55,line width=0.45pt]
+    (0,{2.6*\a}) -- (2.6,{2.6*\a});
+}
+\draw[initialblue,line width=1.2pt] (0,0) rectangle (2.6,2.6);
+\fill[initialblue] (1.3,1.3) circle[radius=2.3pt];
+\node[point label,anchor=south west,text=initialblue]
+  at (1.35,1.35) {$x_s$};
+
+% Image of the region, its grid, and its material point.
+\path[fill=evolvedorange!10] \mappedboundary;
+\foreach \a in {0.25,0.5,0.75}{
+  \draw[evolvedorange!65,line width=0.45pt]
+    plot[domain=0:1,samples=41,variable=\q]
+      ({\mapX{\a}{\q}},{\mapY{\a}{\q}});
+  \draw[evolvedorange!65,line width=0.45pt]
+    plot[domain=0:1,samples=41,variable=\q]
+      ({\mapX{\q}{\a}},{\mapY{\q}{\a}});
+}
+\draw[evolvedorange,line width=1.2pt] \mappedboundary;
+\coordinate (xt) at ({\mapX{0.5}{0.5}},{\mapY{0.5}{0.5}});
+\fill[evolvedorange] (xt) circle[radius=2.3pt];
+\node[point label,anchor=south west,text=evolvedorange]
+  at ([xshift=2pt,yshift=2pt]xt) {$x_t$};
+
+% Flow map and labels.
+\draw[flow arrow] (3.25,1.70)
+  .. controls (4.45,3.16) and (5.95,3.16) .. (6.93,2.02);
+\node[text=flowgray,font=\large] at (5.10,3.18) {$\Phi_{s,t}$};
+\node[region label] at (1.30,-0.63)
+  {Initial region $\Omega_s$\\[3pt]Time $s$};
+\node[region label] at (9.17,-0.63)
+  {Evolved region $\Omega_t$\\[3pt]Time $t$};
+\node at (5.45,-1.52)
+  {$\Omega_t=\Phi_{s,t}(\Omega_s),\qquad x_t=\Phi_{s,t}(x_s)$};
+\node[align=center,font=\footnotesize,text=black!70]
+  at (5.45,-2.02)
+  {A flow map deforms a material region; its area or volume may change.};
+\end{tikzpicture}
+\caption{Transport of a material region by the two-time flow $\Phi_{s,t}$. The initial region $\Omega_s$ (left) and
+    the marked state $x_s$ are mapped to $\Omega_t$ (right) and $x_t$. The grid shows the deformation under the same
+    smooth map; the area or volume need not be preserved.}
+\label{fig:flow-material-region}
+\end{figure}
+\FloatBarrier
+
+The following theorem establishes the existence and basic structural properties of this two-time flow.
 
 \begin{theorem}[Existence, composition, and reversibility of the flow]
 \label{thm:flow-group}
 \sourcecredit{9}{2}\phantomsection\label{src:p9q2}
 
-Under the standing assumptions, the following statements hold:
+Let $V=\mathbb R^d$. Assume that the velocity field $v:\mathbb R\times V\to V$ is jointly continuous, continuously
+differentiable in space with jointly continuous derivative, and globally Lipschitz in space uniformly on compact time intervals.
+Denote by $x_t^{s,x}$ the unique global solution of \eqref{eq:flowode} with $x_s^{s,x}=x$, and define the two-time flow
+\begin{equation*}
+    \Phi_{s,t}:V\to V,\quad
+    x\mapsto\Phi_{s,t}(x):=x_t^{s,x}.
+\end{equation*}
+Then the following statements hold:
+
 \begin{enumerate}
-    \item \textbf{Well-defined flow.} By Theorem~\ref{thm:picard-lindelof}, the two-time flow
-        $\Phi_{s,t}:V\to V$ is well-defined for every pair of times, including $t<s$.
+    \item \textbf{Well-defined flow.} By Theorem~\ref{thm:picard-lindelof} and the linear growth bound implied by the
+        assumptions, the two-time flow $\Phi_{s,t}:V\to V$ is well-defined for every pair of times, including $t<s$.
 
     \item \textbf{Composition and invertibility.} Without any ordering restriction on $r,s,t$, the flow
         satisfies
@@ -1234,12 +1315,9 @@ Under the standing assumptions, the following statements hold:
 \end{enumerate}
 \end{theorem}
 
-(Proof in Appendix~\ref{app:flow-proof}.) Uniqueness links the trajectories at an intermediate time; it is the same principle
-behind the composition identity for the homogeneous matrix $U$ in Example~\ref{ex:linear-inhomogeneous}. Differentiating
-the resulting trajectories leads to the next source problem.
-
-The constructed flow now satisfies the observable--measure identities \eqref{eq:flow-operator-duality-intro}; no separate
-duality proof is needed.
+\begin{proof}
+    (Proof in Appendix~\ref{app:flow-proof}.)
+\end{proof}
 
 Having established the existence, uniqueness, and algebraic properties of the flow, we now examine how its evolution depends
 on the initial state. In particular, the derivative of the flow with respect to the initial condition describes the evolution
@@ -1248,7 +1326,7 @@ satisfy the following evolution equations.
 
 \begin{proposition}[Variational equation and Jacobian evolution]
 \label{prop:variational}
-\sourcecredit{9}{3--4}\phantomsection\label{src:p9q3}
+\sourcecredit{9}{3--4}\phantomsection\label{src:p9q3}\label{src:p9q4}
 
 For the flow $\Phi_{s,t}$ under the standing assumptions, prove the following properties:
 \begin{itemize}
@@ -1259,8 +1337,10 @@ For the flow $\Phi_{s,t}$ under the standing assumptions, prove the following pr
         \end{equation*}
         satisfies
         \begin{equation}
-            \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x),
-            \quad M_{s,s}(x)=I_d.
+            \begin{cases}
+                \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x),\\
+                M_{s,s}(x)=I_d.
+            \end{cases}
             \label{eq:variational}
         \end{equation}
 
@@ -1269,7 +1349,7 @@ For the flow $\Phi_{s,t}$ under the standing assumptions, prove the following pr
         \begin{equation}
             J_{s,t}(x):=\det M_{s,t}(x) =
             \exp\left(
-                \int_s^t \operatorname{div}v_r(\Phi_{s,r}(x)) \,\dd r
+                \int_s^t \nabla\cdot v_r(\Phi_{s,r}(x)) \,\dd r
             \right).
             \label{eq:jacobian-determinant}
         \end{equation}
@@ -1277,14 +1357,11 @@ For the flow $\Phi_{s,t}$ under the standing assumptions, prove the following pr
 \end{proposition}
 
 \begin{proof}
-Fix an initial time $s$ and state $x$. By \eqref{eq:flow-dynamics}, the flow satisfies
-\begin{equation*}
-    \partial_t\Phi_{s,t}(x)
-    =v_t(\Phi_{s,t}(x)),
-    \quad \Phi_{s,s}(x)=x.
-\end{equation*}
-
-\paragraph{1. Variational equation.}
+Fix an initial time $s$ and state $x$. By the definition of the flow and \eqref{eq:flowode}, we have
+\begin{equation}
+    \partial_t\Phi_{s,t}(x) = v_t(\Phi_{s,t}(x)), \quad \Phi_{s,s}(x)=x.
+    \label{eq:flow-dynamics}
+\end{equation}
 By the continuous differentiability of the vector field in the state variable, the flow is differentiable with respect to
 its initial state. Differentiating the flow equation \eqref{eq:flow-dynamics} with respect to $x$ and applying the chain
 rule gives
@@ -1307,139 +1384,194 @@ Thus, we obtain the matrix initial-value problem \eqref{eq:variational}
     \end{cases}
 \end{equation*}
 
-\paragraph{2. Noncommutative matrix evolution.}
+\paragraph{Algebraic evolution in $\operatorname{End}(V)$.}
 
-For the fixed initial state $x$, define
+For a fixed initial state $x$, define
 \begin{equation*}
-    A_t:=Dv_t(\Phi_{s,t}(x)).
+    A_t:=Dv_t(\Phi_{s,t}(x))\in\operatorname{End}(V), \quad
+    M_t:=D_x\Phi_{s,t}(x)\in\operatorname{GL}(V).
 \end{equation*}
-Abbreviating $M_t:=M_{s,t}(x)$, the variational equation becomes the linear matrix initial-value problem
+The variational equation can then be written as an evolution equation in the associative algebra $\operatorname{End}(V)$:
 \begin{equation*}
-    \dot M_t=A_tM_t, \quad M_s=I_d.
+    \dot M_t=A_t\circ M_t, \quad M_s=I_V,
 \end{equation*}
-Its equivalent integral equation is
+where multiplication is given by composition of linear operators. Its equivalent integral equation is
 \begin{equation*}
-    M_t=I_d+\int_s^t A_rM_r\,\dd r.
+    M_t=I_V+\int_s^t A_r\circ M_r\,\dd r.
 \end{equation*}
-Successive substitution gives the Peano--Baker series
+Successive substitution yields the Peano--Baker series in $\operatorname{End}(V)$:
 \begin{equation*}
-    M_t = I_d+\int_s^t A_{r_1}\,\dd r_1 + \int_s^t\int_s^{r_1} A_{r_1}A_{r_2}\,\dd r_2\,\dd r_1 + \cdots.
+    M_t = I_V+\int_s^t A_{r_1}\,\dd r_1 + \int_s^t\int_s^{r_1} A_{r_1}\circ A_{r_2}\,\dd r_2\,\dd r_1 + \cdots.
 \end{equation*}
+More generally, its $n$-th order term is
+\begin{equation*}
+    \int_{s\leq r_n\leq\cdots\leq r_1\leq t} A_{r_1}\circ\cdots\circ A_{r_n}\,\dd r_n\cdots\dd r_1.
+\end{equation*}
+Under the continuity of $A_t$ on compact time intervals, this series converges absolutely in $\operatorname{End}(V)$.
 
-The matrix products retain their chronological order. Since matrices at different times need not commute, this series
-generally cannot be reduced to an ordinary matrix exponential.It is represented by the time-ordered exponential
+The operator products retain their chronological order. Since $\operatorname{End}(V)$ is generally noncommutative, operators
+at different times need not commute:
 \begin{equation*}
-    M_{s,t}(x) = \mathcal T \exp
-    \left(
-        \int_s^t Dv_r(\Phi_{s,r}(x))\,\dd r
-    \right).
+    A_{r_1}\circ A_{r_2} \neq A_{r_2}\circ A_{r_1}.
 \end{equation*}
-If the coefficient matrices commute pairwise at different times, the time ordering is unnecessary, and the ordinary exponential
-representation follows.
+Consequently, the evolution generally cannot be represented by an ordinary exponential. Instead, it is expressed through
+the time-ordered exponential in $\operatorname{End}(V)$:
+\begin{equation*}
+    M_{s,t}(x) = \mathcal T\exp_{\operatorname{End}(V)}
+        \left(
+            \int_s^t A_r\,\dd r
+        \right).
+\end{equation*}
+If the operators commute pairwise at different times, namely
+\begin{equation*}
+    A_t\circ A_r=A_r\circ A_t, \quad s\leq r,t,
+\end{equation*}
+the time ordering is unnecessary, and the evolution reduces to the ordinary exponential in the associative algebra:
+\begin{equation*}
+    M_{s,t}(x) = \exp_{\operatorname{End}(V)}
+        \left(
+            \int_s^t A_r\,\dd r
+        \right).
+\end{equation*}
+Furthermore, differentiating the flow composition identity
+\begin{equation*}
+    \Phi_{s,t}=\Phi_{r,t}\circ\Phi_{s,r}
+\end{equation*}
+with respect to the initial state gives
+\begin{equation*}
+    M_{s,t}(x) = M_{r,t}(\Phi_{s,r}(x))\circ M_{s,r}(x).
+\end{equation*}
+Thus, the induced linear evolution inherits the composition structure of the original flow, known as the cocycle property.
 
-\paragraph{3. Jacobian determinant.}
+\paragraph{Jacobian determinant and volume evolution.}
 
 The flow composition and inverse identities imply
 \begin{equation*}
-    \Phi_{t,s}\circ\Phi_{s,t} = \operatorname{id}_V.
+    \Phi_{t,s}\circ\Phi_{s,t}=\operatorname{id}_V.
 \end{equation*}
 Differentiating with respect to the initial state $x$ and applying the chain rule gives
 \begin{equation*}
-    D\Phi_{t,s}(\Phi_{s,t}(x))M_{s,t}(x)=I_d.
+    D\Phi_{t,s}(\Phi_{s,t}(x))\circ M_{s,t}(x)=I_V.
 \end{equation*}
-Since $M_{s,t}(x)$ is a square matrix, the existence of a left inverse implies that it is invertible. We can therefore apply
-Jacobi's formula to differentiate its determinant:
+Since $M_{s,t}(x)\in\operatorname{End}(V)$ and $V$ is finite-dimensional, the existence of a left inverse implies that
+$M_{s,t}(x)$ is invertible. Thus, $M_{s,t}(x)\in\operatorname{GL}(V)$. Define the scalar Jacobian
 \begin{equation*}
-    \partial_t\det M_{s,t}(x) = \det M_{s,t}(x)\operatorname{tr}
+    J_{s,t}(x):=\det M_{s,t}(x).
+\end{equation*}
+For a differentiable curve of invertible linear operators, Jacobi's formula gives
+\begin{equation*}
+    \partial_t J_{s,t}(x) = J_{s,t}(x)\operatorname{tr}
         \left(
-            M_{s,t}(x)^{-1}\partial_t M_{s,t}(x)
+            M_{s,t}(x)^{-1} \circ \partial_t M_{s,t}(x)
         \right).
 \end{equation*}
-
-Recall that the variational equation established above is
+Using the variational equation established above,
 \begin{equation*}
-    \partial_t M_{s,t}(x) = Dv_t(\Phi_{s,t}(x))M_{s,t}(x).
+    \partial_t M_{s,t}(x) = A_t\circ M_{s,t}(x),
 \end{equation*}
-Substituting this equation into Jacobi's formula and using the cyclic property of the trace, we obtain
+we obtain
 \begin{equation*}
     \begin{aligned}
-        \partial_t\det M_{s,t}(x) &= \det M_{s,t}(x) \operatorname{tr}
+        \partial_t J_{s,t}(x) &= J_{s,t}(x)\operatorname{tr}
             \left(
-                M_{s,t}(x)^{-1} Dv_t(\Phi_{s,t}(x)) M_{s,t}(x)
+                M_{s,t}(x)^{-1}\circ A_t\circ M_{s,t}(x)
             \right)\\
-        &= \det M_{s,t}(x) \operatorname{tr}
-            \left(
-                Dv_t(\Phi_{s,t}(x))
-            \right)\\
-        &= \det M_{s,t}(x) \nabla\!\cdot v_t(\Phi_{s,t}(x)).
+        &= J_{s,t}(x)\operatorname{tr}(A_t).
     \end{aligned}
 \end{equation*}
-Thus, the Jacobian determinant satisfies the scalar initial-value problem
+The second equality follows from the cyclic invariance of the trace. Since
+\begin{equation*}
+    A_t=Dv_t(\Phi_{s,t}(x)), \quad \operatorname{tr}(Dv_t(y))=\nabla\cdot v_t(y),
+\end{equation*}
+the Jacobian satisfies the scalar initial-value problem
 \begin{equation*}
     \begin{cases}
-        \displaystyle
-        \partial_t\det M_{s,t}(x) = \nabla\!\cdot v_t(\Phi_{s,t}(x))
-        \det M_{s,t}(x),\\[6pt]
-        \det M_{s,s}(x)=\det I_d=1.
+        \displaystyle \partial_t J_{s,t}(x) = \nabla\cdot v_t(\Phi_{s,t}(x))J_{s,t}(x),\\
+        J_{s,s}(x)=1.
     \end{cases}
 \end{equation*}
-Solving this scalar linear differential equation yields
+Solving this scalar linear equation yields
 \begin{equation*}
-    \det M_{s,t}(x) =
-    \exp\left(
-        \int_s^t \nabla\!\cdot v_r(\Phi_{s,r}(x))\,\dd r
+    J_{s,t}(x) = \exp
+    \left(
+        \int_s^t \nabla\cdot v_r(\Phi_{s,r}(x))\,\dd r
     \right)>0.
 \end{equation*}
-This establishes the Liouville--Jacobi formula. Substituting the variational equation yields
-\begin{equation*}
-    \partial_t\det M_{s,t} = \det M_{s,t} \operatorname{tr}
-        \left(
-            M_{s,t}^{-1} Dv_t(\Phi_{s,t}(x)) M_{s,t}
-        \right).
-\end{equation*}
-By the cyclic invariance of the trace,
-\begin{equation*}
-    \operatorname{tr}(M^{-1}AM) = \operatorname{tr}(A).
-\end{equation*}
-Since $\operatorname{div}v_t(y) = \operatorname{tr}(Dv_t(y))$, we obtain
-\begin{equation*}
-    \partial_t\det M_{s,t}(x) = \operatorname{div}v_t(\Phi_{s,t}(x)) \det M_{s,t}(x).
-\end{equation*}
-This is a scalar linear differential equation. Together with the initial condition
-\begin{equation*}
-    \det M_{s,s}(x)=1,
-\end{equation*}
-its unique solution is
-\begin{equation*}
-    \det M_{s,t}(x) =
-    \exp\left(
-        \int_s^t \operatorname{div}v_r(\Phi_{s,r}(x)) \,\dd r
-    \right).
-\end{equation*}
-
-Thus, \eqref{eq:jacobian-determinant} gives an ordinary exponential representation even when the Jacobian matrices at
-different times do not commute.
+This establishes the Liouville--Jacobi formula. In particular, the determinant evolution is governed by an ordinary scalar
+exponential, even when the operators $A_t$ at different times do not commute.
 \end{proof}
 
+Figure~\ref{fig:divergence-volume-change} summarizes the local volume interpretation of the determinant formula
+\eqref{eq:jacobian-determinant}.
 
-\begin{theorem}[Liouville--Jacobi formula]
-\label{thm:jacobian}
-\sourcecredit{9}{4}\phantomsection\label{src:p9q4}
+\begin{figure}[htbp]
+\centering
+% User-supplied schematic of instantaneous local volume change.
+\definecolor{expansiongreen}{HTML}{17824C}
+\definecolor{shearblue}{HTML}{586D86}
+\definecolor{contractionred}{HTML}{C23D3D}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\small,
+  line cap=round,line join=round,
+  panel/.style={draw=black!18,fill=black!1,
+                rounded corners=4pt,line width=0.45pt},
+  motion/.style={-{Stealth[length=2.3mm,width=1.7mm]},line width=1.1pt}
+]
+% Positive divergence: isotropic expansion.
+\begin{scope}
+  \path[panel] (0,0.35) rectangle (4.1,3.95);
+  \node[text=expansiongreen] at (2.05,3.56)
+    {$\nabla\!\cdot v_t(x_t)>0$};
+  \draw[draw=expansiongreen,fill=expansiongreen!9,
+        line width=1.15pt,rounded corners=2pt]
+    (1.18,1.18) rectangle (2.92,2.92);
+  \foreach \a/\b in {
+    {2.05,3.05}/{2.05,3.36},
+    {2.05,1.05}/{2.05,0.65},
+    {1.05,2.05}/{0.45,2.05},
+    {3.05,2.05}/{3.65,2.05}}
+    \draw[motion,expansiongreen] (\a) -- (\b);
+\end{scope}
 
-Under the preceding flow assumptions,
-\begin{equation*}
-    \det D\Phi_{s,t}(x) = \exp\left(\int_s^t\nabla\!\cdot v_r(\Phi_{s,r}(x))\dd r\right)>0.
-\end{equation*}
-\end{theorem}
+% Zero divergence: a simple shear, with determinant equal to one.
+\begin{scope}[xshift=4.35cm]
+  \path[panel] (0,0.35) rectangle (4.1,3.95);
+  \node[text=shearblue] at (2.05,3.56)
+    {$\nabla\!\cdot v_t(x_t)=0$};
+  % This parallelogram has the same area as a 1.5 x 1.5 square.
+  \draw[draw=shearblue,fill=shearblue!9,line width=1.15pt]
+    (0.95,1.30) -- (2.45,1.30) -- (3.15,2.80)
+    -- (1.65,2.80) -- cycle;
+  \draw[motion,shearblue] (1.55,3.03) -- (3.10,3.03);
+  \draw[motion,shearblue] (2.55,1.06) -- (1.00,1.06);
+\end{scope}
 
-\begin{proof}
-The identity is \eqref{eq:jacobian-determinant} from Proposition~\ref{prop:variational}, with $M_{s,t}(x)=D_x\Phi_{s,t}(x)$.
-Strict positivity follows from the exponential representation.
-\end{proof}
+% Negative divergence: isotropic contraction.
+\begin{scope}[xshift=8.70cm]
+  \path[panel] (0,0.35) rectangle (4.1,3.95);
+  \node[text=contractionred] at (2.05,3.56)
+    {$\nabla\!\cdot v_t(x_t)<0$};
+  \draw[draw=contractionred,fill=contractionred!9,
+        line width=1.15pt,rounded corners=2pt]
+    (1.49,1.49) rectangle (2.61,2.61);
+  \foreach \a/\b in {
+    {2.05,3.28}/{2.05,2.77},
+    {2.05,0.82}/{2.05,1.33},
+    {0.58,2.05}/{1.33,2.05},
+    {3.52,2.05}/{2.77,2.05}}
+    \draw[motion,contractionred] (\a) -- (\b);
+\end{scope}
+\end{tikzpicture}
+\caption{Divergence and instantaneous local volume change along $x_t=\Phi_{s,t}(x_s)$. From left to right,
+    outward arrows illustrate expansion, shear illustrates zero instantaneous volume change, and inward arrows
+    illustrate contraction. The Jacobian determinant gives the local volume ratio (area ratio in two dimensions);
+    its value over a finite time interval depends on the integral of divergence along the trajectory.}
+\label{fig:divergence-volume-change}
+\end{figure}
+\FloatBarrier
 
 %=======================================================================================================================
-\subsubsection{An explicit example of volume deformation}
-
 \begin{example}
 \label{ex:nonlinear-volume-deformation}
 Consider the autonomous system
@@ -1452,7 +1584,7 @@ Consider the autonomous system
 \end{equation*}
 The second equation couples the $y$-motion nonlinearly to the $x$-coordinate. The velocity field is smooth but is not globally
 Lipschitz on $\R^2$ because of its quadratic term. The explicit solution below nevertheless exists for every real time
-and defines a smooth complete flow. Thus this example verifies the identity of Theorem~\ref{thm:jacobian} for this explicitly
+and defines a smooth complete flow. Thus this example verifies the identity of Proposition~\ref{prop:variational} for this explicitly
 constructed flow, without asserting the global Lipschitz hypothesis used to guarantee existence in the preceding results.
 
 The first equation gives $x_t=e^{0.2t}x_0$. Substitution into the second equation and multiplication by the integrating
@@ -1469,14 +1601,18 @@ Consequently $y_t=e^{0.1t}y_0+x_0^2(e^{0.4t}-e^{0.1t})$, and the flow map is
             e^{0.1t}y_0+x_0^2(e^{0.4t}-e^{0.1t})
         \end{pmatrix}.
 \end{equation*}
-Differentiating with respect to the initial state $(x_0,y_0)$ gives
+Using the notation of Proposition~\ref{prop:variational} with $s=0$, differentiation with respect to the initial state
+$(x_0,y_0)$ gives
 \begin{equation*}
-    D_{(x_0,y_0)}\Phi_{0,t}(x_0,y_0)=
+    M_{0,t}(x_0,y_0)=D_{(x_0,y_0)}\Phi_{0,t}(x_0,y_0)=
         \begin{pmatrix}
             e^{0.2t}&0\\
             2x_0(e^{0.4t}-e^{0.1t})&e^{0.1t}
-        \end{pmatrix},
-    \quad \det D\Phi_{0,t}(x_0,y_0)=e^{0.3t}.
+        \end{pmatrix}.
+\end{equation*}
+Its determinant is therefore
+\begin{equation*}
+    J_{0,t}(x_0,y_0)=\det M_{0,t}(x_0,y_0)=e^{0.3t}>0.
 \end{equation*}
 For the velocity field and its divergence, we have
 \begin{equation*}
@@ -1485,21 +1621,22 @@ For the velocity field and its divergence, we have
 \end{equation*}
 The divergence integral therefore gives
 \begin{equation*}
-    \det D\Phi_{0,t}(x_0,y_0) = \exp\left(\int_0^t\nabla\cdot v(\Phi_{0,r}(x_0,y_0))\dd r\right) = e^{0.3t},
+    J_{0,t}(x_0,y_0) = \exp\left(\int_0^t\nabla\cdot v(\Phi_{0,r}(x_0,y_0))\dd r\right) = e^{0.3t},
 \end{equation*}
 in exact agreement with the direct determinant calculation.
 
-Take the initial rectangle $R=[-1,1]\times[-0.7,0.7]$, whose area is $|R|=2.8$. Since the flow is invertible, the change-of-variables
-formula gives
+\Needspace{7\baselineskip}
+Take the initial rectangle $R=[-1,1]\times[-0.7,0.7]$, whose area is $|R|=2.8$. Since the flow is invertible and its Jacobian
+determinant is positive, the change-of-variables formula gives
 \begin{equation*}
-    |\Phi_{0,t}(R)| = \int_R\bigl|\det D\Phi_{0,t}(x_0,y_0)\bigr|\dd x_0\dd y_0 = 2.8e^{0.3t}.
+    |\Phi_{0,t}(R)| = \int_R J_{0,t}(x_0,y_0)\dd x_0\dd y_0 = 2.8e^{0.3t}.
 \end{equation*}
 In particular, at $t=1.5$,
 \begin{equation*}
-    \det D\Phi_{0,1.5}(x_0,y_0)=e^{0.45}\approx1.568312,\quad |\Phi_{0,1.5}(R)|\approx4.391274.
+    J_{0,1.5}(x_0,y_0)=e^{0.45}\approx1.568312,\quad |\Phi_{0,1.5}(R)|\approx4.391274.
 \end{equation*}
 The area has therefore increased by approximately $56.83\%$. Figure~\ref{fig:liouville-jacobi-animation} visualizes this
-evolution from $t=0$ to $t=1.5$ using 61 frames.
+evolution from $t=0$ to $t=1.5$.
 
 \begin{figure}[htbp]
     \centering
@@ -1511,7 +1648,7 @@ evolution from $t=0$ to $t=1.5$ using 61 frames.
         poster=first
     ]{20}{figures/flow_deformation/flow_frame_}{0}{60}
     \caption{
-        Nonlinear deformation of the initial rectangle under $\Phi_{0,t}$. The Jacobian determinant is $e^{0.3t}$, in
+        Nonlinear deformation of the initial rectangle under $\Phi_{0,t}$. The Jacobian determinant is $J_{0,t}(x_0,y_0)=e^{0.3t}$, in
         agreement with the Liouville--Jacobi formula. The first frame is the static preview.}
     \label{fig:liouville-jacobi-animation}
 \end{figure}
@@ -1520,45 +1657,43 @@ evolution from $t=0$ to $t=1.5$ using 61 frames.
 The initially rectangular grid stretches and bends under the flow: the nonlinear term $0.3x^2$ changes its shape, while
 the divergence determines the instantaneous relative rate of local area change. Because $\nabla\cdot v=0.3$ is independent
 of position, every initial point has the same local area multiplier $e^{0.3t}$, even though the deformation depends nonlinearly
-on position. Shape change and area change are distinct features of the flow. The animation controls require a PDF viewer
-supporting embedded PDF animations; other viewers display the static first frame.
+on position. Shape change and area change are distinct features of the flow.
 \end{example}
 
 %=======================================================================================================================
-\subsubsection{Numerical flow Jacobians}
-\sourcecredit{9}{4} (Euler and higher-order solvers)\phantomsection\label{src:p9q4discrete}
+\paragraph{Numerical flow Jacobians (Euler and higher-order solvers)}
+\sourcecredit{9}{4}\phantomsection\label{src:p9q4discrete}
 
 \begin{Question}[Discrete Jacobian and convergence]
-Consider the differential equation
+Consider the differential equation\footnote{on time interval $[0,1]$, with initial state $x_0\in V=\R^d$. Assume $v$ is
+$C^2$ on a neighbourhood of $[0,1]\times B$, where $B$ is a compact convex set containing the exact trajectory and all
+sufficiently fine Euler trajectories. All derivative bounds below are uniform on this set; part (d) requires the additional
+regularity appropriate to the solver.}
 \begin{equation*}
     \dot x_t=v_t(x_t).
 \end{equation*}
-on time interval $[0,1]$, with initial state $x_0\in V=\R^d$.
-
-Assume $v$ is $C^2$ on a neighbourhood of
-$[0,1]\times B$, where $B$ is a compact convex set containing the exact trajectory and all sufficiently fine Euler trajectories.
-All derivative bounds below are uniform on this set; part (d) requires the additional regularity appropriate to the solver.
-On this unit interval $h=1/K$ and $t_k=kh$. For a fixed mesh, the notation $\widehat\Phi_{h,K}$ records the step size and
-final step count. Define
+Define
 \begin{equation*}
     \widehat x_{k+1}=V_k(\widehat x_k),\quad \widehat x_0=x_0,\quad V_k(x)=x+h v_{t_k}(x).
 \end{equation*}
+
 \begin{enumerate}[label=(\alph*)]
     \item \textbf{Single-step Jacobian.} Prove that
-    \begin{equation*}
-        \begin{aligned}
-            DV_k(x) &= I_d+hDv_{t_k}(x) \\
-            \det DV_k(x) &= 1+h\operatorname{div}v_{t_k}(x)+O(h^2).
-        \end{aligned}
-    \end{equation*}
-
+        \begin{equation*}
+            \begin{aligned}
+                DV_k(x) &= I_d+hDv_{t_k}(x) \\
+                \det DV_k(x) &= 1+h\nabla\cdot v_{t_k}(x)+O(h^2).
+            \end{aligned}
+        \end{equation*}
+        On this unit interval $h=1/K$ and $t_k=kh$.
     \item \textbf{Discrete flow Jacobian.} Define $\widehat\Phi_{h,K}=V_{K-1}\circ\cdots\circ V_0$ and
         $\widehat J_{h,K}(x_0)=\det D\widehat\Phi_{h,K}(x_0)$. Show that
         \begin{equation*}
             \widehat J_{h,K}(x_0)=\prod_{k=0}^{K-1} \det\bigl(I_d+hDv_{t_k}(\widehat x_k)\bigr).
         \end{equation*}
 
-    \item \textbf{Global convergence order.} With $J_1(x_0):=J_{0,1}(x_0)=\det D\Phi_{0,1}(x_0)$, use Theorem~\ref{thm:jacobian} to prove
+    \item \textbf{Global convergence order.} With $J_1(x_0):=J_{0,1}(x_0)=\det D\Phi_{0,1}(x_0)$, use Proposition
+        ~\ref{prop:variational} to prove
         \begin{equation*}
             E(h)=|\widehat J_{h,K}(x_0)-J_1(x_0)|=O(h).
         \end{equation*}
@@ -1571,280 +1706,284 @@ final step count. Define
 \end{Question}
 
 \begin{proof}
-Differentiating the Euler map gives $DV_k=I_d+hDv_{t_k}$; the determinant expansion follows from
-Appendix~\ref{app:euler-jacobian-estimates}. The chain rule and multiplicativity of determinants yield
+
+\paragraph{(a) Single-step Jacobian.}
+Recall that the forward Euler map is
+\begin{equation*}
+    V_k(x)=x+h v_{t_k}(x).
+\end{equation*}
+To compute its derivative with respect to the state variable $x$, we first write the velocity field in component form:
+\begin{equation*}
+    v_{t_k}(x)=
+        \begin{pmatrix}
+            v_{t_k}^{1}(x)\\
+            v_{t_k}^{2}(x)\\
+            \vdots\\
+            v_{t_k}^{d}(x)
+        \end{pmatrix}.
+\end{equation*}
+Consequently, the Euler map can be expressed componentwise as
+\begin{equation*}
+    V_k(x) =
+    \begin{pmatrix}
+        x^1+h v_{t_k}^{1}(x)\\
+        x^2+h v_{t_k}^{2}(x)\\
+        \vdots\\
+        x^d+h v_{t_k}^{d}(x)
+    \end{pmatrix}.
+\end{equation*}
+The Jacobian matrix is obtained by differentiating each component of $V_k$ with respect to each coordinate of $x$. Its
+$(i,j)$-th entry is
+\begin{equation*}
+    \frac{\partial V_k^i(x)}{\partial x^j} = \delta_{ij} + h\frac{\partial v_{t_k}^{i}(x)}{\partial x^j},
+\end{equation*}
+where $\delta_{ij}$ is the Kronecker delta, arising from $\partial x^i/\partial x^j=\delta_{ij}$. Therefore, the Jacobian
+matrix takes the form
+\begin{equation*}
+    DV_k(x)=
+    \begin{pmatrix}
+        1+h\frac{\partial v_{t_k}^{1}}{\partial x^1}
+        & h\frac{\partial v_{t_k}^{1}}{\partial x^2}
+        & \cdots
+        & h\frac{\partial v_{t_k}^{1}}{\partial x^d}
+        \\
+        h\frac{\partial v_{t_k}^{2}}{\partial x^1}
+        & 1+h\frac{\partial v_{t_k}^{2}}{\partial x^2}
+        & \cdots
+        & h\frac{\partial v_{t_k}^{2}}{\partial x^d}
+        \\
+        \vdots & \vdots & \ddots & \vdots
+        \\
+        h\frac{\partial v_{t_k}^{d}}{\partial x^1}
+        & h\frac{\partial v_{t_k}^{d}}{\partial x^2}
+        & \cdots
+        & 1+h\frac{\partial v_{t_k}^{d}}{\partial x^d}
+    \end{pmatrix}.
+\end{equation*}
+Recognizing the identity matrix and the Jacobian of the velocity field, we obtain
+\begin{equation*}
+    DV_k(x)=I_d+hDv_{t_k}(x).
+\end{equation*}
+
+To derive the determinant expansion, let $A = Dv_{t_k}(x) \in\operatorname{End}(V)$ have columns $a_1,\ldots,a_d$. By the
+multilinearity of the determinant,
+\begin{equation*}
+    \begin{aligned}
+        \det(I_d+hA) &= \det(e_1+ha_1,\ldots,e_d+ha_d)\\
+        &= 1 + h\sum_{j=1}^d \det(e_1,\ldots,a_j,\ldots,e_d) + R_A^{\det}(h)\\
+        &= 1 + h\operatorname{tr}(A)+R_A^{\det}(h),
+    \end{aligned}
+\end{equation*}
+where $R_A^{\det}(h)$ collects all terms containing at least two columns from $hA$. Substituting $A = Dv_{t_k}(x)$ and using
+$\operatorname{tr}(Dv_{t_k}(x))=\nabla\cdot v_{t_k}(x)$, we obtain
+\begin{equation*}
+    \det DV_k(x) = 1 + h\nabla\cdot v_{t_k}(x) + R_k^{\det}(h,x),
+\end{equation*}
+where $R_k^{\det}(h,x) := R_{Dv_{t_k}(x)}^{\det}(h)$. For the logarithmic expansion, define
+\begin{equation*}
+    u_k(h,x) := h\nabla\cdot v_{t_k}(x) + R_k^{\det}(h,x).
+\end{equation*}
+Then
+\begin{equation*}
+    \det DV_k(x)=1+u_k(h,x).
+\end{equation*}
+
+For sufficiently small $h$, the determinant $\det DV_k(x)$ is positive uniformly for $x\in B$ and $k=0,\ldots,K-1$, as
+established in Appendix~\ref{app:euler-jacobian-estimates}. Recall the determinant expansion
+\begin{equation*}
+    \det DV_k(x) = 1+h\nabla\cdot v_{t_k}(x)+R_k^{\det}(h,x),
+\end{equation*}
+where $R_k^{\det}(h,x)=O(h^2)$ uniformly. Consequently,
+\begin{equation*}
+    u_k(h,x):=\det DV_k(x)-1=O(h)
+\end{equation*}
+uniformly. We may therefore apply the scalar Taylor expansion
+$\log(1+u)=u+O(u^2)$ for sufficiently small $h$. More precisely, define
+\begin{equation*}
+    r_{\log}(u):=\log(1+u)-u.
+\end{equation*}
+The combined logarithmic remainder is then
+\begin{equation*}
+    r_k^{\log}(h,x)
+    :=R_k^{\det}(h,x)+r_{\log}(u_k(h,x)).
+\end{equation*}
+It follows that
+\begin{equation*}
+    \begin{aligned}
+        \log\det DV_k(x)
+        &=\log(1+u_k(h,x))\\
+        &=h\nabla\cdot v_{t_k}(x)+r_k^{\log}(h,x).
+    \end{aligned}
+\end{equation*}
+Since $u_k(h,x)=O(h)$ and $r_{\log}(u)=O(u^2)$, both contributions
+to the combined remainder are of order $h^2$. In particular, there
+exists a constant $C>0$, independent of $h$, $k$, and $x$, such that
+\begin{equation*}
+    \sup_{x\in B}|r_k^{\log}(h,x)|\leq Ch^2.
+\end{equation*}
+
+
+\paragraph{(b) Discrete flow Jacobian.}
+
+Recall that the forward Euler scheme is defined by
+\begin{equation*}
+    \widehat x_{k+1}=V_k(\widehat x_k), \quad V_k(x)=x+h v_{t_k}(x).
+\end{equation*}
+Starting from the initial state $x_0$, successive applications of the single-step maps give
+\begin{equation*}
+    \widehat x_K = V_{K-1}\circ\cdots\circ V_1\circ V_0(x_0).
+\end{equation*}
+\begin{equation*}
+    x_0=\widehat x_0
+    \xrightarrow{\,V_0\,}\widehat x_1
+    \xrightarrow{\,V_1\,}\cdots
+    \xrightarrow{\,V_{K-2}\,}\widehat x_{K-1}
+    \xrightarrow{\,V_{K-1}\,}\widehat x_K.
+\end{equation*}
+Thus, the discrete flow map is
+\begin{equation*}
+    \widehat\Phi_{h,K} = V_{K-1}\circ\cdots\circ V_1\circ V_0.
+\end{equation*}
+To determine how the final state depends on the initial state, we differentiate this composition with respect to $x_0$.
+
+By the chain rule, for the first two steps,
+\begin{equation*}
+    D(V_1\circ V_0)(x_0) = DV_1(\widehat x_1)DV_0(x_0),
+\end{equation*}
+where $\widehat x_1=V_0(x_0)$. Applying the chain rule successively yields
+\begin{equation*}
+    D\widehat\Phi_{h,K}(x_0) = DV_{K-1}(\widehat x_{K-1})\cdots DV_1(\widehat x_1)DV_0(x_0).
+\end{equation*}
+The order of matrix multiplication is essential, since Jacobian matrices at different steps need not commute.
+
+By definition, the Jacobian determinant of the discrete flow is
+\begin{equation*}
+    \widehat J_{h,K}(x_0) := \det D\widehat\Phi_{h,K}(x_0).
+\end{equation*}
+Using the multiplicative property of determinants, $\det(AB)=\det(A)\det(B)$, we obtain
+\begin{equation*}
+    \widehat J_{h,K}(x_0) = \prod_{k=0}^{K-1}\det DV_k(\widehat x_k).
+\end{equation*}
+From part (a), the Jacobian matrix of each single-step map is
+\begin{equation*}
+    DV_k(\widehat x_k)=I_d+hDv_{t_k}(\widehat x_k).
+\end{equation*}
+Substituting this expression gives
 \begin{equation}
-    \widehat J_{h,K}(x_0)=\prod_{k=0}^{K-1}\det\bigl(I_d+hDv_{t_k}(\widehat x_k)\bigr).
+    \widehat J_{h,K}(x_0)
+    =\prod_{k=0}^{K-1}\det DV_k(\widehat x_k)
+    =\prod_{k=0}^{K-1}
+    \det\bigl(I_d+hDv_{t_k}(\widehat x_k)\bigr).
     \label{eq:discrete-flow-jacobian}
 \end{equation}
-For sufficiently small $h$, taking logarithms in \eqref{eq:discrete-flow-jacobian} gives the Riemann sum of $\nabla\cdot v$
-along the Euler trajectory, with an accumulated $O(h)$ one-step remainder. The Euler trajectory error and
-the quadrature error are also $O(h)$ under the stated uniform bounds. Comparing with
-\eqref{eq:jacobian-determinant} and exponentiating therefore gives $E(h)=O(h)$.
-The scalar experiment below retains a numerical comparison with RK4; the longer higher-order discussion is deferred.
+Hence, the Jacobian determinant of the entire discrete flow equals the product of the Jacobian determinants of its individual
+Euler steps.
+
+
+\paragraph{(c) Global convergence order.}
+
+We estimate the global error between the discrete and exact Jacobian determinants. Since both determinants are positive
+for sufficiently small $h$, define the logarithmic error
+\begin{equation*}
+    \delta(h):= \log\widehat J_{h,K}(x_0)-\log J_1(x_0).
+\end{equation*}
+Our goal is to prove that $|\delta(h)|=O(h)$ and then transfer this estimate to the Jacobian determinants themselves.
+
+By the single-step expansion in part (a) and the product formula \eqref{eq:discrete-flow-jacobian} for the discrete Jacobian,
+\begin{equation*}
+    \log\widehat J_{h,K}(x_0) = h\sum_{k=0}^{K-1} \nabla\cdot v_{t_k}(\widehat x_k) + R_{\log}(h),
+    \quad |R_{\log}(h)|\leq Ch,
+\end{equation*}
+whereas the continuous-time formula gives
+\begin{equation*}
+    \log J_1(x_0) = \int_0^1\nabla\cdot v_t(x_t)\,\dd t.
+\end{equation*}
+
+To compare these expressions, decompose the logarithmic error as
+\begin{equation*}
+    \delta(h) = R_{\log}(h)+E_{\mathrm{traj}}(h)+E_{\mathrm{quad}}(h),
+\end{equation*}
+where
+\begin{equation*}
+    \begin{aligned}
+        E_{\mathrm{traj}}(h) &:= h\sum_{k=0}^{K-1}
+        \left[
+            \nabla\cdot v_{t_k}(\widehat x_k) - \nabla\cdot v_{t_k}(x_{t_k})
+        \right],\\
+        E_{\mathrm{quad}}(h) &:= h\sum_{k=0}^{K-1} \nabla\cdot v_{t_k}(x_{t_k}) - \int_0^1\nabla\cdot v_t(x_t)\,\dd t.
+    \end{aligned}
+\end{equation*}
+Thus, it suffices to estimate these three contributions.
+
+\begin{enumerate}
+    \item \textbf{Trajectory error.} By the uniform spatial Lipschitz bound $L_x$ for $\nabla\cdot v_t$ and the
+        standard Euler state estimate
+        \begin{equation*}
+            \max_{0\leq k\leq K} \|\widehat x_k-x_{t_k}\|\leq C_Eh,
+        \end{equation*}
+        we obtain
+        \begin{equation*}
+            |E_{\mathrm{traj}}(h)| \leq hK L_xC_Eh = L_xC_Eh.
+        \end{equation*}
+
+    \item \textbf{Quadrature error.} Let $g(t):=\nabla\cdot v_t(x_t)$. If $L_t$ bounds $|\partial_t\nabla\cdot v_t(x)|$
+        and $V_*$ bounds $\|v_t(x)\|$, then
+        \begin{equation*}
+            |g(t)-g(s)| \leq L_t|t-s| + L_x\|x_t-x_s\| \leq (L_t+L_xV_*)|t-s|.
+        \end{equation*}
+        Writing $L_g:=L_t+L_xV_*$, the Lipschitz estimate gives
+        \begin{equation*}
+            |E_{\mathrm{quad}}(h)| \leq \sum_{k=0}^{K-1} \int_{t_k}^{t_{k+1}} |g(t_k)-g(t)|\,\dd t \leq \frac{L_g}{2}Kh^2 = \frac{L_g}{2}h.
+        \end{equation*}
+        Together with $|R_{\log}(h)|\leq Ch$, these estimates yield
+        \begin{equation*}
+            |\delta(h)| \leq \left(C+L_xC_E+\frac{L_g}{2}\right)h = C_*h.
+        \end{equation*}
+\end{enumerate}
+
+By the continuous-time Jacobian formula and the uniform bound $|\nabla\cdot v_t(x)|\leq B_{\mathrm{div}}$,
+\begin{equation*}
+    0<J_1(x_0)\leq e^{B_{\mathrm{div}}}.
+\end{equation*}
+Since $\widehat J_{h,K}(x_0)=J_1(x_0)e^{\delta(h)}$, the mean value estimate $|e^z-1|\leq e^{|z|}|z|$ gives
+\begin{equation*}
+    |\widehat J_{h,K}(x_0)-J_1(x_0)| \leq J_1(x_0)e^{|\delta(h)|}|\delta(h)|
+\end{equation*}
+Therefore,
+\begin{equation*}
+    |\widehat J_{h,K}(x_0)-J_1(x_0)|=O(h).
+\end{equation*}
+Thus, the discrete Jacobian determinant converges to the exact continuous-time Jacobian determinant with first-order global
+accuracy.
+
+
+% Review
+\paragraph{(d) Higher-order solvers.}
+Consider the augmented initial-value problem
+\begin{equation*}
+    \begin{cases}
+        \dot x_t=v_t(x_t),&x_{t=0}=x_0,\\
+        \dot M_t=Dv_t(x_t)M_t,&M_0=I_d.
+    \end{cases}
+\end{equation*}
+Assume sufficient smoothness and stability for the chosen method to have order $p$ on this augmented system,
+with bounded exact and numerical solutions. Its matrix approximation then satisfies
+\begin{equation*}
+    \|\widehat M_{h,K}-M_1\|=O(h^p),\quad M_1:=M_{0,1}(x_0)=D\Phi_{0,1}(x_0).
+\end{equation*}
+To identify $\widehat M_{h,K}$ with $D\widehat\Phi_{h,K}(x_0)$, the variational update must be obtained by
+differentiating the same numerical state update. For Runge--Kutta methods, differentiating every stage
+produces exactly the corresponding Runge--Kutta method on the augmented system.
+The determinant is a polynomial in the matrix entries and is Lipschitz on bounded matrix sets, so
+\begin{equation*}
+    |\det\widehat M_{h,K}-\det M_1|
+    \le C\|\widehat M_{h,K}-M_1\|=O(h^p).
+\end{equation*}
+Thus classical RK4 gives fourth-order Jacobian and determinant convergence when its stage derivatives
+are computed consistently and the required regularity holds.
+State accuracy alone does not establish derivative accuracy; combining an RK4 state step
+with the Euler factor $I_d+hDv_{t_k}(\widehat x_k)$ does not generally give a fourth-order Jacobian.
 \end{proof}
-% ===== DEFERRED SOLUTION: Project 9, Question 4 (numerics), detailed error analysis =====
-% Original solution preserved below for future revision.
-% \begin{proof}
-%
-% \paragraph{(a) Single-step Jacobian.}
-% Recall that the forward Euler map is
-% \begin{equation*}
-%     V_k(x)=x+h v_{t_k}(x).
-% \end{equation*}
-% To compute its derivative with respect to the state variable $x$, we first write the velocity field in component form:
-% \begin{equation*}
-%     v_{t_k}(x)=
-%         \begin{pmatrix}
-%             v_{t_k}^{1}(x)\\
-%             v_{t_k}^{2}(x)\\
-%             \vdots\\
-%             v_{t_k}^{d}(x)
-%         \end{pmatrix}.
-% \end{equation*}
-% Consequently, the Euler map can be expressed componentwise as
-% \begin{equation*}
-%     V_k(x) =
-%     \begin{pmatrix}
-%         x^1+h v_{t_k}^{1}(x)\\
-%         x^2+h v_{t_k}^{2}(x)\\
-%         \vdots\\
-%         x^d+h v_{t_k}^{d}(x)
-%     \end{pmatrix}.
-% \end{equation*}
-% The Jacobian matrix is obtained by differentiating each component of $V_k$ with respect to each coordinate of $x$. Its
-% $(i,j)$-th entry is
-% \begin{equation*}
-%     \frac{\partial V_k^i(x)}{\partial x^j} = \delta_{ij} + h\frac{\partial v_{t_k}^{i}(x)}{\partial x^j},
-% \end{equation*}
-% where $\delta_{ij}$ is the Kronecker delta, arising from $\partial x^i/\partial x^j=\delta_{ij}$. Therefore, the Jacobian
-% matrix takes the form
-% \begin{equation*}
-%     DV_k(x)=
-%     \begin{pmatrix}
-%         1+h\frac{\partial v_{t_k}^{1}}{\partial x^1}
-%         & h\frac{\partial v_{t_k}^{1}}{\partial x^2}
-%         & \cdots
-%         & h\frac{\partial v_{t_k}^{1}}{\partial x^d}
-%         \\
-%         h\frac{\partial v_{t_k}^{2}}{\partial x^1}
-%         & 1+h\frac{\partial v_{t_k}^{2}}{\partial x^2}
-%         & \cdots
-%         & h\frac{\partial v_{t_k}^{2}}{\partial x^d}
-%         \\
-%         \vdots & \vdots & \ddots & \vdots
-%         \\
-%         h\frac{\partial v_{t_k}^{d}}{\partial x^1}
-%         & h\frac{\partial v_{t_k}^{d}}{\partial x^2}
-%         & \cdots
-%         & 1+h\frac{\partial v_{t_k}^{d}}{\partial x^d}
-%     \end{pmatrix}.
-% \end{equation*}
-% Recognizing the identity matrix and the Jacobian of the velocity field, we obtain
-% \begin{equation*}
-%     DV_k(x)=I_d+hDv_{t_k}(x).
-% \end{equation*}
-% To derive the determinant expansion, let $A = Dv_{t_k}(x) \in\operatorname{End}(V)$ have columns $a_1,\ldots,a_d$. By the
-% multilinearity of the determinant,
-% \begin{equation*}
-%     \begin{aligned}
-%         \det(I_d+hA) &= \det(e_1+ha_1,\ldots,e_d+ha_d)\\
-%         &= 1 + h\sum_{j=1}^d \det(e_1,\ldots,a_j,\ldots,e_d) + R_A^{\det}(h)\\
-%         &= 1 + h\operatorname{tr}(A)+R_A^{\det}(h),
-%     \end{aligned}
-% \end{equation*}
-% where $R_A^{\det}(h)$ collects all terms containing at least two columns from $hA$. Substituting $A = Dv_{t_k}(x)$ and using
-% $\operatorname{tr}(Dv_{t_k}(x))=\operatorname{div}v_{t_k}(x)$, we obtain
-% \begin{equation*}
-%     \det DV_k(x) = 1 + h\operatorname{div}v_{t_k}(x) + R_k^{\det}(h,x),
-% \end{equation*}
-% where $R_k^{\det}(h,x) := R_{Dv_{t_k}(x)}^{\det}(h)$. For the logarithmic expansion, define
-% \begin{equation*}
-%     u_k(h,x) := h\operatorname{div}v_{t_k}(x) + R_k^{\det}(h,x).
-% \end{equation*}
-% Then
-% \begin{equation*}
-%     \det DV_k(x)=1+u_k(h,x).
-% \end{equation*}
-%
-% For sufficiently small $h$, the determinant is positive, as established in Appendix~\ref{app:euler-jacobian-estimates}.
-% Using the scalar Taylor expansion of the logarithm, define
-% \begin{equation*}
-%     r_{\log}(u):=\log(1+u)-u.
-% \end{equation*}
-% The combined logarithmic remainder is
-% \begin{equation*}
-%     r_k^{\log}(h,x) := R_k^{\det}(h,x)+r_{\log}(u_k(h,x)).
-% \end{equation*}
-% Consequently,
-% \begin{equation*}
-%     \begin{aligned}
-%         \log\det DV_k(x)
-%         &=\log(1+u_k(h,x))\\
-%         &=h\operatorname{div}v_{t_k}(x) + r_k^{\log}(h,x).
-%     \end{aligned}
-% \end{equation*}
-% Both remainder functions are of order $h^2$, with uniform bounds established in Appendix~\ref{app:euler-jacobian-estimates}.
-%
-% \paragraph{(b) Discrete flow Jacobian.}
-%
-% Recall that the forward Euler scheme is defined by
-% \begin{equation*}
-%     \widehat x_{k+1}=V_k(\widehat x_k), \quad V_k(x)=x+h v_{t_k}(x).
-% \end{equation*}
-% Starting from the initial state $x_0$, successive applications of the single-step maps give
-% \begin{equation*}
-%     \widehat x_K = V_{K-1}\circ\cdots\circ V_1\circ V_0(x_0).
-% \end{equation*}
-% \begin{equation*}
-%     x_0=\widehat x_0
-%     \xrightarrow{\,V_0\,}\widehat x_1
-%     \xrightarrow{\,V_1\,}\cdots
-%     \xrightarrow{\,V_{K-2}\,}\widehat x_{K-1}
-%     \xrightarrow{\,V_{K-1}\,}\widehat x_K.
-% \end{equation*}
-% Thus, the discrete flow map is
-% \begin{equation*}
-%     \widehat\Phi_{h,K} = V_{K-1}\circ\cdots\circ V_1\circ V_0.
-% \end{equation*}
-% To determine how the final state depends on the initial state, we differentiate this composition with respect to $x_0$.
-%
-% By the chain rule, for the first two steps,
-% \begin{equation*}
-%     D(V_1\circ V_0)(x_0) = DV_1(\widehat x_1)DV_0(x_0),
-% \end{equation*}
-% where $\widehat x_1=V_0(x_0)$. Applying the chain rule successively yields
-% \begin{equation*}
-%     D\widehat\Phi_{h,K}(x_0) = DV_{K-1}(\widehat x_{K-1})\cdots DV_1(\widehat x_1)DV_0(x_0).
-% \end{equation*}
-% The order of matrix multiplication is essential, since Jacobian matrices at different steps need not commute.
-%
-% By definition, the Jacobian determinant of the discrete flow is
-% \begin{equation*}
-%     \widehat J_{h,K}(x_0) := \det D\widehat\Phi_{h,K}(x_0).
-% \end{equation*}
-% Using the multiplicative property of determinants, $\det(AB)=\det(A)\det(B)$, we obtain
-% \begin{equation*}
-%     \widehat J_{h,K}(x_0) = \prod_{k=0}^{K-1}\det DV_k(\widehat x_k).
-% \end{equation*}
-% From part (a), the Jacobian matrix of each single-step map is
-% \begin{equation*}
-%     DV_k(\widehat x_k)=I_d+hDv_{t_k}(\widehat x_k).
-% \end{equation*}
-% Substituting this expression gives
-% \begin{equation}
-%     \widehat J_{h,K}(x_0)
-%     =\prod_{k=0}^{K-1}\det DV_k(\widehat x_k)
-%     =\prod_{k=0}^{K-1}
-%     \det\bigl(I_d+hDv_{t_k}(\widehat x_k)\bigr).
-%     \label{eq:discrete-flow-jacobian}
-% \end{equation}
-% Hence, the Jacobian determinant of the entire discrete flow equals the product of the Jacobian determinants of its individual
-% Euler steps.
-%
-%
-% \paragraph{(c) Global convergence order.}
-%
-% We estimate the global error between the discrete and exact Jacobian determinants. Since both determinants are positive
-% for sufficiently small $h$, define the logarithmic error
-% \begin{equation*}
-%     \delta(h):= \log\widehat J_{h,K}(x_0)-\log J_1(x_0).
-% \end{equation*}
-% Our goal is to prove that $|\delta(h)|=O(h)$ and then transfer this estimate to the Jacobian determinants themselves.
-%
-% By the single-step expansion in part (a) and the product formula \eqref{eq:discrete-flow-jacobian} for the discrete Jacobian,
-% \begin{equation*}
-%     \log\widehat J_{h,K}(x_0) = h\sum_{k=0}^{K-1} \operatorname{div}v_{t_k}(\widehat x_k) + R_{\log}(h),
-%     \quad |R_{\log}(h)|\leq Ch,
-% \end{equation*}
-% whereas the continuous-time formula gives
-% \begin{equation*}
-%     \log J_1(x_0) = \int_0^1\operatorname{div}v_t(x_t)\,\dd t.
-% \end{equation*}
-%
-% To compare these expressions, decompose the logarithmic error as
-% \begin{equation*}
-%     \delta(h) = R_{\log}(h)+E_{\mathrm{traj}}(h)+E_{\mathrm{quad}}(h),
-% \end{equation*}
-% where
-% \begin{equation*}
-%     \begin{aligned}
-%         E_{\mathrm{traj}}(h) &:= h\sum_{k=0}^{K-1}
-%         \left[
-%             \operatorname{div}v_{t_k}(\widehat x_k) - \operatorname{div}v_{t_k}(x_{t_k})
-%         \right],\\
-%         E_{\mathrm{quad}}(h) &:= h\sum_{k=0}^{K-1} \operatorname{div}v_{t_k}(x_{t_k}) - \int_0^1\operatorname{div}v_t(x_t)\,\dd t.
-%     \end{aligned}
-% \end{equation*}
-% Thus, it suffices to estimate these three contributions.
-%
-% \begin{enumerate}
-%     \item \textbf{Trajectory error.} By the uniform spatial Lipschitz bound $L_x$ for $\operatorname{div}v_t$ and the
-%         standard Euler state estimate
-%         \begin{equation*}
-%             \max_{0\leq k\leq K} \|\widehat x_k-x_{t_k}\|\leq C_Eh,
-%         \end{equation*}
-%         we obtain
-%         \begin{equation*}
-%             |E_{\mathrm{traj}}(h)| \leq hK L_xC_Eh = L_xC_Eh.
-%         \end{equation*}
-%
-%     \item \textbf{Quadrature error.} Let $g(t):=\operatorname{div}v_t(x_t)$. If $L_t$ bounds $|\partial_t\operatorname{div}v_t(x)|$
-%         and $V_*$ bounds $\|v_t(x)\|$, then
-%         \begin{equation*}
-%             |g(t)-g(s)| \leq L_t|t-s| + L_x\|x_t-x_s\| \leq (L_t+L_xV_*)|t-s|.
-%         \end{equation*}
-%         Writing $L_g:=L_t+L_xV_*$, the Lipschitz estimate gives
-%         \begin{equation*}
-%             |E_{\mathrm{quad}}(h)| \leq \sum_{k=0}^{K-1} \int_{t_k}^{t_{k+1}} |g(t_k)-g(t)|\,\dd t \leq \frac{L_g}{2}Kh^2 = \frac{L_g}{2}h.
-%         \end{equation*}
-%         Together with $|R_{\log}(h)|\leq Ch$, these estimates yield
-%         \begin{equation*}
-%             |\delta(h)| \leq \left(C+L_xC_E+\frac{L_g}{2}\right)h = C_*h.
-%         \end{equation*}
-% \end{enumerate}
-%
-% By the continuous-time Jacobian formula and the uniform bound $|\operatorname{div}v_t(x)|\leq B_{\mathrm{div}}$,
-% \begin{equation*}
-%     0<J_1(x_0)\leq e^{B_{\mathrm{div}}}.
-% \end{equation*}
-% Since $\widehat J_{h,K}(x_0)=J_1(x_0)e^{\delta(h)}$, the mean value estimate $|e^z-1|\leq e^{|z|}|z|$ gives
-% \begin{equation*}
-%     |\widehat J_{h,K}(x_0)-J_1(x_0)| \leq J_1(x_0)e^{|\delta(h)|}|\delta(h)|
-% \end{equation*}
-% Therefore,
-% \begin{equation*}
-%     |\widehat J_{h,K}(x_0)-J_1(x_0)|=O(h).
-% \end{equation*}
-% Thus, the discrete Jacobian determinant converges to the exact continuous-time Jacobian determinant with first-order global
-% accuracy.
-% % Review
-% \paragraph{(d) Higher-order solvers.}
-% Consider the augmented initial-value problem
-% \begin{equation*}
-%     \begin{cases}
-%         \dot x_t=v_t(x_t),&x_{t=0}=x_0,\\
-%         \dot M_t=Dv_t(x_t)M_t,&M_0=I_d.
-%     \end{cases}
-% \end{equation*}
-% Assume sufficient smoothness and stability for the chosen method to have order $p$ on this augmented system,
-% with bounded exact and numerical solutions. Its matrix approximation then satisfies
-% \begin{equation*}
-%     \|\widehat M_{h,K}-M_1\|=O(h^p),\quad M_1:=M_{0,1}(x_0)=D\Phi_{0,1}(x_0).
-% \end{equation*}
-% To identify $\widehat M_{h,K}$ with $D\widehat\Phi_{h,K}(x_0)$, the variational update must be obtained by
-% differentiating the same numerical state update. For Runge--Kutta methods, differentiating every stage
-% produces exactly the corresponding Runge--Kutta method on the augmented system.
-% The determinant is a polynomial in the matrix entries and is Lipschitz on bounded matrix sets, so
-% \begin{equation*}
-%     |\det\widehat M_{h,K}-\det M_1|
-%     \le C\|\widehat M_{h,K}-M_1\|=O(h^p).
-% \end{equation*}
-% Thus classical RK4 gives fourth-order Jacobian and determinant convergence when its stage derivatives
-% are computed consistently and the required regularity holds.
-% State accuracy alone does not establish derivative accuracy; combining an RK4 state step
-% with the Euler factor $I_d+hDv_{t_k}(\widehat x_k)$ does not generally give a fourth-order Jacobian.
-% \end{proof}
 % ===== END DEFERRED SOLUTION =====
 
 
@@ -1877,179 +2016,179 @@ the following experiments:
 \end{enumerate}
 \end{Question}
 
-
 \begin{solution}
 
 For the scalar field $v(x)=x$, differentiation of the Euler and RK4 updates gives
 \begin{equation*}
-    \widehat J_{h,K}^{\mathrm{Euler}}=(1+h)^K,\qquad
+    \widehat J_{h,K}^{\mathrm{Euler}}=(1+h)^K,\quad
     \widehat J_{h,K}^{\mathrm{RK4}}=
     \left(1+h+\frac{h^2}{2}+\frac{h^3}{6}+\frac{h^4}{24}\right)^K.
 \end{equation*}
-Here $Kh=1$ and the exact Jacobian is $e$. The leading errors are $(e/2)h$ and $(e/120)h^4$,
-respectively. The existing high-precision validation is retained below.
-% ===== DEFERRED SOLUTION: Project 9, Question 4 (numerics), expanded scalar derivation =====
-% Original solution preserved below for future revision.
-% \paragraph{1. Construction of the numerical flow maps.}
-%
-% We first construct the numerical flow maps and differentiate them with respect to the initial state. For the given equation
-% $\dot x_t=x_t$, the exact flow is
-% \begin{equation*}
-%     \Phi_{0,t}(x)=e^t x,
-% \end{equation*}
-% and hence $J_1=\det D\Phi_{0,1}(x_0)=e$. Let $t_k=kh$, where $h=1/K$, and denote the numerical state at time $t_k$ by $X_k$,
-% starting from an arbitrary initial state $X_0=x$.
-% \begin{itemize}
-%     \item For the forward Euler method, the numerical update is
-%         \begin{equation*}
-%             X_{k+1}=X_k+hX_k=(1+h)X_k.
-%         \end{equation*}
-%         Iterating over $K$ time steps gives
-%         \begin{equation*}
-%             \widehat\Phi_{h,K}^{\mathrm{Euler}}(x) = (1+h)^Kx.
-%         \end{equation*}
-%         Differentiating with respect to the initial state yields
-%         \begin{equation*}
-%             \widehat J_{h,K}^{\mathrm{Euler}}
-%             = \det D\widehat\Phi_{h,K}^{\mathrm{Euler}}(x_0)
-%             = (1+h)^K.
-%         \end{equation*}
-%
-%     \item For the classical fourth-order Runge--Kutta method (RK4), the four intermediate stages are
-%         \begin{equation*}
-%             k_1=X_k,\quad
-%             k_2=X_k+\frac h2k_1,\quad
-%             k_3=X_k+\frac h2k_2,\quad
-%             k_4=X_k+hk_3.
-%         \end{equation*}
-%         Substituting the preceding stages successively gives
-%         \begin{equation*}
-%             \begin{aligned}
-%                 k_1 &=X_k,\\
-%                 k_2 &=\left(1+\frac h2\right)X_k,\\
-%                 k_3 &=\left(1+\frac h2+\frac{h^2}{4}\right)X_k,\\
-%                 k_4 &=\left(1+h+\frac{h^2}{2}+\frac{h^3}{4}\right)X_k.
-%             \end{aligned}
-%         \end{equation*}
-%         The RK4 update is
-%         \begin{equation*}
-%             X_{k+1} = X_k+\frac h6(k_1+2k_2+2k_3+k_4).
-%         \end{equation*}
-%         Substituting the four stages and collecting powers of $h$, we obtain
-%         \begin{equation*}
-%             X_{k+1} = \left(
-%                 1+h+\frac{h^2}{2} + \frac{h^3}{6}+\frac{h^4}{24}
-%             \right)X_k.
-%         \end{equation*}
-%         Define the one-step amplification factor
-%         \begin{equation*}
-%             R_4(h) = 1+h+\frac{h^2}{2} + \frac{h^3}{6}+\frac{h^4}{24}.
-%         \end{equation*}
-%         After $K$ steps, the numerical flow map is
-%         \begin{equation*}
-%             \widehat\Phi_{h,K}^{\mathrm{RK4}}(x) = R_4(h)^Kx.
-%         \end{equation*}
-%         Differentiating with respect to the initial state gives
-%         \begin{equation*}
-%             \widehat J_{h,K}^{\mathrm{RK4}} = \det D\widehat\Phi_{h,K}^{\mathrm{RK4}}(x_0) = R_4(h)^K.
-%         \end{equation*}
-% \end{itemize}
-% Thus, both discrete Jacobian determinants are obtained directly from the derivatives of their respective numerical flow
-% maps.
-%
-% \paragraph{2. Asymptotic error analysis.}
-%
-% We now determine the leading-order errors of the two numerical Jacobians. Since $Kh=1$, we have $K=h^{-1}$. For $h>0$, the
-% inequalities
-% \begin{equation*}
-%     1+h<e^h,\quad R_4(h)<e^h
-% \end{equation*}
-% follow from the exponential series. Raising both inequalities to the power $K$ gives
-% \begin{equation*}
-%     0<\widehat J_{h,K}^{\mathrm{Euler}}<e, \quad
-%     0<\widehat J_{h,K}^{\mathrm{RK4}}<e.
-% \end{equation*}
-% Therefore, the absolute errors can be written as
-% \begin{equation*}
-%     E(h)=e-\widehat J_{h,K}
-% \end{equation*}
-% for both methods.
-% \begin{enumerate}
-%     \item \textit{Euler method.}
-%         Taking the logarithm of the discrete Jacobian determinant gives
-%         \begin{equation*}
-%                 \log\widehat J_{h,K}^{\mathrm{Euler}} = \log(1+h)^K = \frac{1}{h}\log(1+h).
-%         \end{equation*}
-%         Using the Taylor expansion
-%         \begin{equation*}
-%             \log(1+h) = h-\frac{h^2}{2}+\frac{h^3}{3}+O(h^4),
-%         \end{equation*}
-%         we obtain
-%         \begin{equation*}
-%             \log\widehat J_{h,K}^{\mathrm{Euler}} = 1-\frac h2+\frac{h^2}{3}+O(h^3).
-%         \end{equation*}
-%         Exponentiating both sides and using $\exp(z)=1+z+O(z^2)$ as $z\to0$, we find
-%         \begin{equation*}
-%             \widehat J_{h,K}^{\mathrm{Euler}}
-%                 = e\exp\left(
-%                     -\frac h2+\frac{h^2}{3}+O(h^3)
-%                 \right)
-%                 = e\left(1-\frac h2+O(h^2)\right).
-%         \end{equation*}
-%         Subtracting from the exact Jacobian determinant yields
-%         \begin{equation*}
-%             E_{\mathrm{Euler}}(h) = \frac e2h+O(h^2).
-%         \end{equation*}
-%         Thus, the Euler approximation exhibits first-order convergence for the Jacobian determinant.
-%
-%     \item \textit{Classical RK4 method.}
-%         Similarly, taking the logarithm gives
-%         \begin{equation*}
-%             \log\widehat J_{h,K}^{\mathrm{RK4}} = \frac{1}{h}\log R_4(h).
-%         \end{equation*}
-%         To determine its leading-order error, we compare the RK4 amplification factor with the Taylor expansion of the exact
-%         exponential:
-%         \begin{equation*}
-%             \begin{aligned}
-%                 e^h &=1+h+\frac{h^2}{2}+\frac{h^3}{6} + \frac{h^4}{24}+\frac{h^5}{120} + O(h^6)\\
-%                 &=R_4(h)+\frac{h^5}{120}+O(h^6).
-%             \end{aligned}
-%         \end{equation*}
-%         Consequently,
-%         \begin{equation*}
-%             R_4(h) = e^h-\frac{h^5}{120}+O(h^6).
-%         \end{equation*}
-%         Factoring out $e^h$ gives
-%         \begin{equation*}
-%             R_4(h) =  e^h
-%                 \left(
-%                     1-\frac{h^5}{120}+O(h^6)
-%                 \right).
-%         \end{equation*}
-%         Taking logarithms and using $\log(1+z)=z+O(z^2)$ as $z\to0$, we obtain
-%         \begin{equation*}
-%             \log R_4(h) = h+\log\left( 1-\frac{h^5}{120}+O(h^6)\right) = h-\frac{h^5}{120}+O(h^6).
-%         \end{equation*}
-%         Dividing by $h$ yields
-%         \begin{equation*}
-%             \log\widehat J_{h,K}^{\mathrm{RK4}} = 1-\frac{h^4}{120}+O(h^5).
-%         \end{equation*}
-%         Exponentiating,
-%         \begin{equation*}
-%             \widehat J_{h,K}^{\mathrm{RK4}}
-%                 = e\exp\left(-\frac{h^4}{120}+O(h^5)\right)
-%                 = e\left( 1-\frac{h^4}{120}+O(h^5)\right).
-%         \end{equation*}
-%         Subtracting from the exact Jacobian determinant gives
-%         \begin{equation*}
-%             E_{\mathrm{RK4}}(h) = \frac e{120}h^4+O(h^5).
-%         \end{equation*}
-%         Thus, the RK4 approximation exhibits fourth-order convergence for the Jacobian determinant.
-% \end{enumerate}
-% The two asymptotic expansions predict that the limiting slopes of the corresponding log--log error curves are one for Euler
-% and four for RK4.
-%
-% ===== END DEFERRED SOLUTION =====
+Here $Kh=1$ and the exact Jacobian is $e$. The leading errors are $(e/2)h$ and $(e/120)h^4$, respectively. The existing
+high-precision validation is retained below.
+
+\paragraph{1. Construction of the numerical flow maps.}
+
+We first construct the numerical flow maps and differentiate them with respect to the initial state. For the given equation
+$\dot x_t=x_t$, the exact flow is
+\begin{equation*}
+    \Phi_{0,t}(x)=e^t x,
+\end{equation*}
+and hence
+\begin{equation*}
+    J_1=\det D\Phi_{0,1}(x_0)=e,
+\end{equation*}
+Let $t_k=kh$, where $h=1/K$, and denote the numerical state at time $t_k$ by $X_k$, starting from an arbitrary initial
+state $X_0=x$.
+\begin{itemize}
+    \item For the forward Euler method, the numerical update is
+        \begin{equation*}
+            X_{k+1}=X_k+hX_k=(1+h)X_k.
+        \end{equation*}
+        Iterating over $K$ time steps gives
+        \begin{equation*}
+            \widehat\Phi_{h,K}^{\mathrm{Euler}}(x) = (1+h)^Kx.
+        \end{equation*}
+        Differentiating with respect to the initial state yields
+        \begin{equation*}
+            \widehat J_{h,K}^{\mathrm{Euler}}
+            = \det D\widehat\Phi_{h,K}^{\mathrm{Euler}}(x_0)
+            = (1+h)^K.
+        \end{equation*}
+
+    \item For the classical fourth-order Runge--Kutta method (RK4), the four intermediate stages are
+        \begin{equation*}
+            k_1=X_k,\quad
+            k_2=X_k+\frac h2k_1,\quad
+            k_3=X_k+\frac h2k_2,\quad
+            k_4=X_k+hk_3.
+        \end{equation*}
+        Substituting the preceding stages successively gives
+        \begin{equation*}
+            \begin{aligned}
+                k_1 =X_k, &\quad k_2 =\left(1+\frac h2\right)X_k,\\
+                k_3 =\left(1+\frac h2+\frac{h^2}{4}\right)X_k, &\quad
+                k_4 =\left(1+h+\frac{h^2}{2}+\frac{h^3}{4}\right)X_k.
+            \end{aligned}
+        \end{equation*}
+        The RK4 update is
+        \begin{equation*}
+            X_{k+1} = X_k+\frac h6(k_1+2k_2+2k_3+k_4).
+        \end{equation*}
+        Substituting the four stages and collecting powers of $h$, we obtain
+        \begin{equation*}
+            X_{k+1} = \left(
+                1+h+\frac{h^2}{2} + \frac{h^3}{6}+\frac{h^4}{24}
+            \right)X_k.
+        \end{equation*}
+        Define the one-step amplification factor
+        \begin{equation*}
+            R_4(h) = 1+h+\frac{h^2}{2} + \frac{h^3}{6}+\frac{h^4}{24}.
+        \end{equation*}
+        After $K$ steps, the numerical flow map is
+        \begin{equation*}
+            \widehat\Phi_{h,K}^{\mathrm{RK4}}(x) = R_4(h)^Kx.
+        \end{equation*}
+        Differentiating with respect to the initial state gives
+        \begin{equation*}
+            \widehat J_{h,K}^{\mathrm{RK4}} = \det D\widehat\Phi_{h,K}^{\mathrm{RK4}}(x_0) = R_4(h)^K.
+        \end{equation*}
+\end{itemize}
+Thus, both discrete Jacobian determinants are obtained directly from the derivatives of their respective numerical flow
+maps.
+
+\paragraph{2. Asymptotic error analysis.}
+
+We now determine the leading-order errors of the two numerical Jacobians. Since $Kh=1$, we have $K=h^{-1}$. For $h>0$, the
+inequalities
+\begin{equation*}
+    1+h<e^h,\quad R_4(h)<e^h
+\end{equation*}
+follow from the exponential series. Raising both inequalities to the power $K$ gives
+\begin{equation*}
+    0<\widehat J_{h,K}^{\mathrm{Euler}}<e, \quad
+    0<\widehat J_{h,K}^{\mathrm{RK4}}<e.
+\end{equation*}
+Therefore, the absolute errors can be written as
+\begin{equation*}
+    E(h)=e-\widehat J_{h,K}
+\end{equation*}
+for both methods.
+\begin{enumerate}
+    \item \textit{Euler method.}
+        Taking the logarithm of the discrete Jacobian determinant gives
+        \begin{equation*}
+                \log\widehat J_{h,K}^{\mathrm{Euler}} = \log(1+h)^K = \frac{1}{h}\log(1+h).
+        \end{equation*}
+        Using the Taylor expansion
+        \begin{equation*}
+            \log(1+h) = h-\frac{h^2}{2}+\frac{h^3}{3}+O(h^4),
+        \end{equation*}
+        we obtain
+        \begin{equation*}
+            \log\widehat J_{h,K}^{\mathrm{Euler}} = 1-\frac h2+\frac{h^2}{3}+O(h^3).
+        \end{equation*}
+        Exponentiating both sides and using $\exp(z)=1+z+O(z^2)$ as $z\to0$, we find
+        \begin{equation*}
+            \widehat J_{h,K}^{\mathrm{Euler}}
+                = e\exp\left(
+                    -\frac h2+\frac{h^2}{3}+O(h^3)
+                \right)
+                = e\left(1-\frac h2+O(h^2)\right).
+        \end{equation*}
+        Subtracting from the exact Jacobian determinant yields
+        \begin{equation*}
+            E_{\mathrm{Euler}}(h) = \frac e2h+O(h^2).
+        \end{equation*}
+        Thus, the Euler approximation exhibits first-order convergence for the Jacobian determinant.
+
+    \item \textit{Classical RK4 method.}
+        Similarly, taking the logarithm gives
+        \begin{equation*}
+            \log\widehat J_{h,K}^{\mathrm{RK4}} = \frac{1}{h}\log R_4(h).
+        \end{equation*}
+        To determine its leading-order error, we compare the RK4 amplification factor with the Taylor expansion of the exact
+        exponential:
+        \begin{equation*}
+            \begin{aligned}
+                e^h &=1+h+\frac{h^2}{2}+\frac{h^3}{6} + \frac{h^4}{24}+\frac{h^5}{120} + O(h^6)\\
+                &=R_4(h)+\frac{h^5}{120}+O(h^6).
+            \end{aligned}
+        \end{equation*}
+        Consequently,
+        \begin{equation*}
+            R_4(h) = e^h-\frac{h^5}{120}+O(h^6).
+        \end{equation*}
+        Factoring out $e^h$ gives
+        \begin{equation*}
+            R_4(h) =  e^h
+                \left(
+                    1-\frac{h^5}{120}+O(h^6)
+                \right).
+        \end{equation*}
+        Taking logarithms and using $\log(1+z)=z+O(z^2)$ as $z\to0$, we obtain
+        \begin{equation*}
+            \log R_4(h) = h+\log\left( 1-\frac{h^5}{120}+O(h^6)\right) = h-\frac{h^5}{120}+O(h^6).
+        \end{equation*}
+        Dividing by $h$ yields
+        \begin{equation*}
+            \log\widehat J_{h,K}^{\mathrm{RK4}} = 1-\frac{h^4}{120}+O(h^5).
+        \end{equation*}
+        Exponentiating,
+        \begin{equation*}
+            \widehat J_{h,K}^{\mathrm{RK4}}
+                = e\exp\left(-\frac{h^4}{120}+O(h^5)\right)
+                = e\left( 1-\frac{h^4}{120}+O(h^5)\right).
+        \end{equation*}
+        Subtracting from the exact Jacobian determinant gives
+        \begin{equation*}
+            E_{\mathrm{RK4}}(h) = \frac e{120}h^4+O(h^5).
+        \end{equation*}
+        Thus, the RK4 approximation exhibits fourth-order convergence for the Jacobian determinant.
+\end{enumerate}
+The two asymptotic expansions predict that the limiting slopes of the corresponding log--log error curves are one for Euler
+and four for RK4.
+
 \paragraph{3. Numerical validation.}
 
 We now verify these predictions numerically. Choose
@@ -2134,68 +2273,121 @@ numbers.
 
 %=======================================================================================================================
 \subsubsection{Volume transport and minimum action}
-Let $\mathcal D_0\subset\R^d$ be a bounded measurable region and assume $\Phi_{0,t}$ is a smooth diffeomorphism. Its image
-$\mathcal D_t=\Phi_{0,t}(\mathcal D_0)$ has volume
+
+Let $\Omega_0\subset\mathbb R^d$ be a bounded Lebesgue-measurable region, and let $\Phi_t$ denote the flow map generated
+by the ODE~\eqref{eq:flowode}, with $\Phi_0=\mathrm{id}$. The deformed domain at time $t$ is defined by
 \begin{equation*}
-    |\mathcal D_t|=\int_{\mathcal D_0}\det D\Phi_{0,t}(x)\dd x.
+    \Omega_t:=\Phi_t(\Omega_0) = \left\{\Phi_t(x_0):x_0\in\Omega_0\right\}.
 \end{equation*}
-The Jacobian determinant describes the local expansion of a volume element, while the integral is the macroscopic volume
-of a material region.
+We define its volume by
+\begin{equation*}
+    A_t:=\operatorname{vol}(\Omega_t) := \lambda^d(\Omega_t)
+        = \int_{\mathbb R^d}\mathbf 1_{\Omega_t}(x)\,\mathrm dx,
+\end{equation*}
+where $\lambda^d$ denotes the $d$-dimensional Lebesgue measure and $\mathbf 1_{\Omega_t}$ is the indicator function of
+$\Omega_t$. Assume that $\Phi_t$ is a smooth diffeomorphism. By the change-of-variables formula,
+\begin{equation*}
+    A_t = \int_{\Omega_0} \left|\det D\Phi_t(x_0)\right|\,\mathrm dx_0.
+\end{equation*}
+For a flow generated by an ODE with $\Phi_0=\mathrm{id}$, the Jacobian determinant remains positive, so the absolute value
+can be omitted. Moreover, differentiating the volume with respect to time gives
+\begin{equation}
+    \dot A_t = \int_{\Omega_t}\nabla\cdot v_t(x)\,\mathrm dx.
+    \label{eq:volume-evolution}
+\end{equation}
+
 
 \begin{corollary}[Volume transport and divergence]
 \label{cor:volume}
 \sourcecredit{9}{5}\phantomsection\label{src:p9q5}
-If differentiation under the integral is legitimate, then
+Let $\mathcal D_0\subset\mathbb R^d$ be a bounded Lebesgue-measurable
+region, and let $\Phi_{0,t}$ denote the flow map generated by
+\eqref{eq:flowode}, with $\Phi_{0,0}=\mathrm{id}$. Define the
+deformed domain by
+\begin{equation*}
+    \mathcal D_t:=\Phi_{0,t}(\mathcal D_0)
+    =\left\{\Phi_{0,t}(x_0):x_0\in\mathcal D_0\right\}.
+\end{equation*}
+Its volume is defined as the $d$-dimensional Lebesgue measure
+\begin{equation*}
+    |\mathcal D_t| := \lambda^d(\mathcal D_t) = \int_{\mathbb R^d}
+    \mathbf 1_{\mathcal D_t}(y)\,\mathrm dy,
+\end{equation*}
+where $\lambda^d$ denotes the $d$-dimensional Lebesgue measure and $\mathbf 1_{\mathcal D_t}$ is the indicator function
+of $\mathcal D_t$. Assume that $\Phi_{0,t}$ is a smooth diffeomorphism and that differentiation under the integral is
+legitimate. Then the volume evolves according to
 \begin{equation}
-    \frac{\dd}{\dd t}|\mathcal D_t| = \int_{\mathcal D_t}\nabla\cdot v_t(y)\dd y.
+    \frac{\mathrm d}{\mathrm dt}|\mathcal D_t| = \int_{\mathcal D_t}\nabla\cdot v_t(y)\,\mathrm dy.
     \label{eq:volume-transport}
 \end{equation}
 \end{corollary}
 
 \begin{proof}
-Differentiate the change-of-variables formula, insert the determinant evolution from Theorem~\ref{thm:jacobian},
-and change variables to the transported region. This gives \eqref{eq:volume-transport}.
-\end{proof}
-% ===== DEFERRED SOLUTION: Project 9, Question 5, expanded volume argument =====
-% Original solution preserved below for future revision.
-% \begin{proof}
-% Differentiate the change-of-variables formula and use
-% \begin{equation*}
-%     \partial_t\det D\Phi_{0,t}(x) = \det D\Phi_{0,t}(x)\, \nabla\cdot v_t(\Phi_{0,t}(x)),
-% \end{equation*}
-% as established in Theorem~\ref{thm:jacobian}. A second change of variables from $x$ to $y=\Phi_{0,t}(x)$ gives
-% \eqref{eq:volume-transport}. No boundary-flux regularity is needed for this volume-based proof beyond the hypotheses already
-% stated. For smooth boundaries the same conclusion is the divergence-theorem form of Reynolds' transport identity.
-% \end{proof}
-% ===== END DEFERRED SOLUTION =====
+Let
+\begin{equation*}
+    M_{0,t}(x_0):=D\Phi_{0,t}(x_0), \quad
+    J_{0,t}(x_0):=\det M_{0,t}(x_0).
+\end{equation*}
+By the change-of-variables formula,
+\begin{equation*}
+    |\mathcal D_t| = \int_{\mathcal D_0}J_{0,t}(x_0)\,\mathrm dx_0,
+\end{equation*}
+where $J_{0,t}(x_0)>0$ because $\Phi_{0,t}$ is a flow starting from the identity map.
 
+Differentiating under the integral gives
+\begin{equation*}
+    \frac{\mathrm d}{\mathrm dt}|\mathcal D_t| = \int_{\mathcal D_0}
+    \frac{\partial}{\partial t}J_{0,t}(x_0)\,\mathrm dx_0.
+\end{equation*}
+The variational equation for the flow yields
+\begin{equation*}
+    \frac{\partial}{\partial t}M_{0,t}(x_0)
+    = Dv_t(\Phi_{0,t}(x_0))M_{0,t}(x_0).
+\end{equation*}
+Applying the Jacobi formula for the derivative of a determinant,
+we obtain
+\begin{equation*}
+    \begin{aligned}
+        \frac{\partial}{\partial t}J_{0,t}(x_0) &= J_{0,t}(x_0) \operatorname{tr}
+            \left(
+                M_{0,t}(x_0)^{-1}\frac{\partial M_{0,t}(x_0)}{\partial t}
+            \right)\\
+        &=J_{0,t}(x_0) \operatorname{tr}
+            \left(
+                Dv_t(\Phi_{0,t}(x_0))
+            \right)\\
+        &=J_{0,t}(x_0) \nabla\cdot v_t(\Phi_{0,t}(x_0)).
+    \end{aligned}
+\end{equation*}
+Consequently,
+\begin{equation*}
+    \frac{\mathrm d}{\mathrm dt}|\mathcal D_t|
+    = \int_{\mathcal D_0} J_{0,t}(x_0)\nabla\cdot v_t(\Phi_{0,t}(x_0)) \,\mathrm dx_0.
+\end{equation*}
+Finally, applying the change-of-variables formula $y=\Phi_{0,t}(x_0)$, we arrive at
+\begin{equation*}
+    \frac{\mathrm d}{\mathrm dt}|\mathcal D_t| = \int_{\mathcal D_t}\nabla\cdot v_t(y)\,\mathrm dy,
+\end{equation*}
+which completes the proof.
+\end{proof}
 
 \begin{example}[Minimum weighted kinetic action between two states]
 \label{ex:weightedaction}\label{src:p9q6}
 \sourcecredit{9}{6}
 
 \begin{Question}
-Let $w:[0,1]\to(0,\infty)$ be continuous, and fix two points
-$y,z\in\mathbb{R}^d$. Consider a time-dependent velocity field
-$v_t:\mathbb{R}^d\to\mathbb{R}^d$ generating a flow map
-$\Phi_{0,t}$ through
+Let $w:[0,1]\to(0,\infty)$ be continuous, and fix two points $y,z\in\mathbb{R}^d$. Consider a time-dependent velocity field
+$v_t:\mathbb{R}^d\to\mathbb{R}^d$ generating a flow map $\Phi_{0,t}$ through
 \begin{equation*}
-    \frac{\partial}{\partial t}\Phi_{0,t}(x)
-    =v_t(\Phi_{0,t}(x)),
-    \quad
+    \frac{\partial}{\partial t}\Phi_{0,t}(x) = v_t(\Phi_{0,t}(x)), \quad
     \Phi_{0,0}(x)=x.
 \end{equation*}
 Find an optimal velocity field $v_t^*$ that minimizes
 \begin{equation*}
-    I[v]=\int_0^1
-    w_t\|v_t(\Phi_{0,t}(y))\|_2^2\,\dd t,
+    I[v]=\int_0^1 w_t\|v_t(\Phi_{0,t}(y))\|_2^2\,\dd t,
 \end{equation*}
-subject to the endpoint constraint
-\begin{equation*}
-    \Phi_{0,1}(y)=z.
-\end{equation*}
-Determine the corresponding optimal flow map
-$\Phi_{0,t}^*(x)$ for $t\in[0,1]$.
+subject to the endpoint constraint $\Phi_{0,1}(y)=z$. Determine the corresponding optimal flow map $\Phi_{0,t}^*(x)$ for
+$t\in[0,1]$.
 \end{Question}
 
 % ===== DEFERRED SOLUTION: Project 9, Question 6, part 1 =====
@@ -2309,21 +2501,31 @@ $\Phi_{0,t}^*(x)$ for $t\in[0,1]$.
 % ===== END DEFERRED SOLUTION =====
 
 \noindent\textit{To be completed.}
-
 \end{example}
 
 %=======================================================================================================================
 \subsection{Observable evolution and probability transport}
+
 In the preceding discussion, we introduced the state flow $\Phi_{s,t}$ to describe how an individual state evolves over
 time. In statistical physics, however, our interest extends beyond individual trajectories to the evolution of probability
-ensembles consisting of a collection of possible states. This requires us to consider not only observables defined on the
-state space but also probability measures describing the statistical distribution of states.
+ensembles consisting of a collection of possible states. To formulate such ensembles mathematically, we first introduce
+a probability space $(\Omega,\mathcal F,\mathbb P)$, where $\Omega$ is the sample space, $\mathcal F$ is a $\sigma$-algebra
+of events, and $\mathbb P$ is a probability measure. Let $X_s:\Omega\to E$ be a measurable random variable taking values
+in the state space $(E,\mathcal S)$. Its probability law $\mu_s=(X_s)_\#\mathbb P$ is then a probability measure on the
+state space, describing the statistical distribution of the system's possible states at time $s$. The relationship between
+these mathematical objects and their evolution can be summarized as
+\begin{equation*}
+    \underbrace{(\Omega,\mathcal F,\mathbb P)}_{\text{Probability space}} \xrightarrow{\ X_s\ }
+    \underbrace{(E,\mathcal S,\mu_s)}_{\text{State space and law}} \xrightarrow{\ \Phi_{s,t}\ }
+    \underbrace{(E,\mathcal S,\mu_t)}_{\text{Evolved ensemble}}.
+\end{equation*}
 
 The same state flow naturally induces two complementary and mathematically dual descriptions of the dynamics. On the one
 hand, the evolution of states determines how observables change along dynamical trajectories, giving rise to observable
 evolution. On the other hand, the flow transports the initial probability distribution to later times, describing the
-evolution of probability measures through probability transport. These two descriptions are not independent; they are
-connected through the integral pairing between observables and probability measures.
+evolution of probability measures through probability transport. In particular, the random state evolves as
+$X_t=\Phi_{s,t}\circ X_s$, and its probability law is given by $\mu_t=(\Phi_{s,t})_\#\mu_s$. These two descriptions are
+not independent; they are connected through the integral pairing between observables and probability measures.
 
 The generator provides a unified description of these two perspectives at the infinitesimal level, establishing the dual
 relationship between observable evolution and probability transport. Furthermore, when the probability measure admits a
@@ -2335,17 +2537,17 @@ density with respect to the underlying volume measure, its evolution can be expr
 The observable--measure duality has a dynamical consequence that is central to statistical physics and Markov processes.
 Given a sufficiently smooth observable $f$, define the Koopman operator
 \begin{equation*}
-    (\mathsf U_{s,t}f)(x)=f(\Phi_{s,t}(x)).
+    (\mathcal{K}_{s,t}f)(x)=f(\Phi_{s,t}(x)).
 \end{equation*}
 It describes the evolution of observables induced by the state flow. Differentiating with respect to the terminal time and
 applying the chain rule gives
 \begin{equation*}
-    \partial_t(\mathsf U_{s,t}f) = \mathsf U_{s,t}\mathcal L_t f,\quad \mathcal L_t f=v_t\cdot\nabla f.
+    \partial_t(\mathcal{K}_{s,t}f) = \mathcal{K}_{s,t}\mathcal L_t f,\quad \mathcal L_t f=v_t\cdot\nabla f.
 \end{equation*}
 Here $\mathcal L_t$ is the infinitesimal generator induced by the velocity field. Differentiating instead with respect to
 the initial time, using the flow composition identity, yields the backward equation
 \begin{equation*}
-    \partial_s\mathsf U_{s,t}f = -\mathcal L_s(\mathsf U_{s,t}f).
+    \partial_s\mathcal{K}_{s,t}f = -\mathcal L_s(\mathcal{K}_{s,t}f).
 \end{equation*}
 The different operator orders reflect the distinction between terminal-time and initial-time differentiation.
 
@@ -2353,7 +2555,7 @@ The generator is a linear differential operator acting on a suitable domain of s
 field itself nor the finite-time flow, but describes their induced infinitesimal action. More precisely, for sufficiently
 regular $f$,
 \begin{equation*}
-    \mathcal L_t f = \lim_{h\downarrow0} \frac{\mathsf U_{t,t+h}f-f}{h}.
+    \mathcal L_t f = \lim_{h\downarrow0} \frac{\mathcal{K}_{t,t+h}f-f}{h}.
 \end{equation*}
 The existence of this limit depends on the chosen function space and topology; throughout, the differential expression is
 understood on the appropriate smooth test functions.
@@ -2365,11 +2567,8 @@ measurable observables:
 \begin{equation*}
     (\mathsf P_{s,t}f)(x) = \int_E f(y)\mathsf K_{s,t}(x,\mathrm dy).
 \end{equation*}
-The corresponding operators satisfy
-\begin{equation*}
-    \mathsf P_{s,r}\mathsf P_{r,t} = \mathsf P_{s,t}, \quad s\leq r\leq t.
-\end{equation*}
-Meanwhile, the probability law evolves according to
+The corresponding operators satisfy $\mathsf P_{s,r}\mathsf P_{r,t} = \mathsf P_{s,t},\ s\leq r\leq t$. Meanwhile, the
+probability law evolves according to
 \begin{equation*}
     \mu_t(B) = \int_E\mathsf K_{s,t}(x,B)\mu_s(\mathrm dx).
 \end{equation*}
@@ -2381,7 +2580,7 @@ A deterministic flow is recovered by taking
 \begin{equation*}
    \mathsf K_{s,t}(x,\mathrm dy) = \delta_{\Phi_{s,t}(x)}(\mathrm dy),
 \end{equation*}
-for which $\mathsf P_{s,t}=\mathsf U_{s,t}$.
+for which $\mathsf P_{s,t}=\mathcal{K}_{s,t}$.
 
 When the corresponding infinitesimal limit exists, the Markov evolution has a generator
 \begin{equation*}
@@ -2570,7 +2769,7 @@ If the initial law has Lebesgue density $\rho_0$ and $\Phi_{0,t}$ is a $C^1$ dif
 \end{proposition}
 \begin{proof}
 Apply change of variables to the pushforward identity. Positivity of the
-Jacobian is provided by Theorem~\ref{thm:jacobian}.
+Jacobian is provided by Proposition~\ref{prop:variational}.
 Combining the two formulas gives the source's exponential form,
 \begin{equation*}
 \rho_t(\Phi_{0,t}(x))=\rho_0(x)
@@ -5688,8 +5887,6 @@ Together, these results establish the existence and uniqueness of a global solut
 
 \begin{proof}
 
-The proof is divided into two parts.
-
 \paragraph{1. Local existence.}
 
 Fix an initial condition $(t_0,x_0)\in \mathbb R\times\mathbb R^d$. We seek a local solution by reformulating the initial-value
@@ -5706,20 +5903,11 @@ By the local Lipschitz assumption, there exists $L<\infty$ such that
 \begin{equation*}
     \|f(t,y)-f(t,z)\| \leq L\|y-z\|
 \end{equation*}
-for all $t\in[t_0-a,t_0+a]$ and $y,z\in\overline B_\rho(x_0)$.
-
-Choose $0<\delta\leq a$ sufficiently small such that
+for all $t\in[t_0-a,t_0+a]$ and $y,z\in\overline B_\rho(x_0)$. Choose $0<\delta\leq a$ sufficiently small such that
 \begin{equation*}
-    M\delta\leq\rho,
-    \qquad
-    L\delta<1.
+    M\delta\leq\rho, \quad L\delta<1.
 \end{equation*}
-Let
-\begin{equation*}
-    J_\delta=[t_0-\delta,t_0+\delta].
-\end{equation*}
-
-We now construct the space of candidate trajectories:
+Let $J_\delta=[t_0-\delta,t_0+\delta]$. We now construct the space of candidate trajectories:
 \begin{equation*}
     \mathcal C_\delta :=
     \left\{
@@ -5733,161 +5921,100 @@ equipped with the supremum norm
 Since $C(J_\delta,\mathbb R^d)$ is a Banach space and $\mathcal C_\delta$ is closed, $\mathcal C_\delta$ is complete under
 the supremum norm.
 
-For the fixed initial data, define the Picard operator
-\begin{equation*}
-    \mathsf Q:
-    \mathcal C_\delta\longrightarrow C(J_\delta,\mathbb R^d)
-\end{equation*}
+For the fixed initial data, define the Picard operator $\mathsf Q: \mathcal C_\delta\longrightarrow C(J_\delta,\mathbb R^d)$
 by
 \begin{equation*}
-    (\mathsf Q\gamma)_t
-    :=
-    x_0+\int_{t_0}^{t}f(r,\gamma_r)\,\mathrm dr.
+    (\mathsf Q\gamma)_t := x_0+\int_{t_0}^{t}f(r,\gamma_r)\,\mathrm dr.
 \end{equation*}
+\begin{itemize}
+    \item We first show that $\mathsf Q$ maps $\mathcal C_\delta$ into itself. For any $\gamma\in\mathcal C_\delta$,
+        \begin{equation*}
+            \|(\mathsf Q\gamma)_t-x_0\| =
+                \left\|
+                    \int_{t_0}^{t}f(r,\gamma_r)\,\mathrm dr
+                \right\|
+                \leq M|t-t_0|
+                \leq M\delta
+                \leq \rho.
+        \end{equation*}
+        Therefore, $\mathsf Q(\mathcal C_\delta) \subseteq\mathcal C_\delta$.
 
-We first show that $\mathsf Q$ maps
-$\mathcal C_\delta$ into itself. For any
-$\gamma\in\mathcal C_\delta$,
-\begin{equation*}
-    \begin{aligned}
-        \|(\mathsf Q\gamma)_t-x_0\|
-        &=
-        \left\|
-            \int_{t_0}^{t}f(r,\gamma_r)\,\mathrm dr
-        \right\|\\
-        &\leq M|t-t_0|\\
-        &\leq M\delta\\
-        &\leq\rho.
-    \end{aligned}
-\end{equation*}
-Therefore,
-\begin{equation*}
-    \mathsf Q(\mathcal C_\delta)
-    \subseteq\mathcal C_\delta.
-\end{equation*}
+    \item Next, we establish the contraction property. For any $\gamma,\eta\in\mathcal C_\delta$, the Lipschitz condition
+        gives
+        \begin{equation*}
+            \begin{aligned}
+                \|(\mathsf Q\gamma)_t-(\mathsf Q\eta)_t\| &=
+                \left\|
+                    \int_{t_0}^{t} \bigl(f(r,\gamma_r)-f(r,\eta_r)\bigr)\,\mathrm dr
+                \right\|\\
+                &\leq L|t-t_0|\|\gamma-\eta\|_\infty\\
+                &\leq L\delta\|\gamma-\eta\|_\infty.
+            \end{aligned}
+        \end{equation*}
+        Taking the supremum over $t\in J_\delta$, we obtain
+        \begin{equation*}
+            \|\mathsf Q\gamma-\mathsf Q\eta\|_\infty
+            \leq
+            L\delta\|\gamma-\eta\|_\infty.
+        \end{equation*}
+        Since $L\delta<1$, the Picard operator is a contraction on the complete metric space $\mathcal C_\delta$.
+\end{itemize}
 
-Next, we establish the contraction property. For any
-$\gamma,\eta\in\mathcal C_\delta$, the Lipschitz condition gives
-\begin{equation*}
-    \begin{aligned}
-        \|(\mathsf Q\gamma)_t-(\mathsf Q\eta)_t\|
-        &=
-        \left\|
-            \int_{t_0}^{t}
-            \bigl(f(r,\gamma_r)-f(r,\eta_r)\bigr)
-            \,\mathrm dr
-        \right\|\\
-        &\leq
-        L|t-t_0|\|\gamma-\eta\|_\infty\\
-        &\leq
-        L\delta\|\gamma-\eta\|_\infty.
-    \end{aligned}
-\end{equation*}
-Taking the supremum over $t\in J_\delta$, we obtain
-\begin{equation*}
-    \|\mathsf Q\gamma-\mathsf Q\eta\|_\infty
-    \leq
-    L\delta\|\gamma-\eta\|_\infty.
-\end{equation*}
-
-Since $L\delta<1$, the Picard operator is a contraction
-on the complete metric space $\mathcal C_\delta$.
-
-By the Banach fixed-point theorem, there exists a unique
-fixed point $\gamma^*\in\mathcal C_\delta$ satisfying
+By the Banach fixed-point theorem, there exists a unique fixed point $\gamma^*\in\mathcal C_\delta$ satisfying
 \begin{equation*}
     \mathsf Q\gamma^*=\gamma^*.
 \end{equation*}
 Equivalently,
 \begin{equation*}
-    \gamma_t^*
-    =
-    x_0+\int_{t_0}^{t}f(r,\gamma_r^*)\,\mathrm dr.
+    \gamma_t^* = x_0+\int_{t_0}^{t}f(r,\gamma_r^*)\,\mathrm dr.
 \end{equation*}
-
-Since $f$ and $\gamma^*$ are continuous, the fundamental
-theorem of calculus implies that $\gamma^*$ is continuously
+Since $f$ and $\gamma^*$ are continuous, the fundamental theorem of calculus implies that $\gamma^*$ is continuously
 differentiable and satisfies
 \begin{equation*}
-    \dot\gamma_t^*=f(t,\gamma_t^*),
-    \qquad
-    \gamma_{t_0}^*=x_0.
+    \dot\gamma_t^*=f(t,\gamma_t^*), \quad \gamma_{t_0}^*=x_0.
 \end{equation*}
 Thus, a local $C^1$ solution exists.
 
 \paragraph{2. Uniqueness.}
 
-Let $x(t)$ and $y(t)$ be any two solutions with the same
-initial condition, defined on a common interval containing
-$t_0$.
-
+Let $x(t)$ and $y(t)$ be any two solutions with the same initial condition, defined on a common interval containing $t_0$.
 We show that they agree throughout their common interval.
 
-Fix an arbitrary time $t$ in this interval. On the compact
-time interval between $t_0$ and $t$, both trajectories are
-continuous and therefore bounded. Hence, there exists
-$R>0$ such that
+Fix an arbitrary time $t$ in this interval. On the compact time interval between $t_0$ and $t$, both trajectories are
+continuous and therefore bounded. Hence, there exists $R>0$ such that
 \begin{equation*}
     x(\tau),y(\tau)\in\overline B_R(0)
 \end{equation*}
-throughout this interval.
-
-By the local Lipschitz assumption, there exists a constant
-$L<\infty$ such that
+throughout this interval. By the local Lipschitz assumption, there exists a constant $L<\infty$ such that
 \begin{equation*}
-    \|f(\tau,x)-f(\tau,y)\|
-    \leq L\|x-y\|.
+    \|f(\tau,x)-f(\tau,y)\| \leq L\|x-y\|.
 \end{equation*}
+Choose $\delta>0$ sufficiently small so that $L\delta<1$.
 
-Choose $\delta>0$ sufficiently small so that
+Consider any subinterval $[a,b]$ of length at most $\delta$ on which the two solutions agree at one endpoint. Their integral
+representations then give
 \begin{equation*}
-    L\delta<1.
-\end{equation*}
-
-Consider any subinterval $[a,b]$ of length at most
-$\delta$ on which the two solutions agree at one endpoint.
-Their integral representations then give
-\begin{equation*}
-    \begin{aligned}
-        \|x(t)-y(t)\|
-        &\leq
-        L\left|
+    \|x(t)-y(t)\| \leq L\left|
         \int_a^t\|x(r)-y(r)\|\,\mathrm dr
-        \right|\\
-        &\leq
-        L\delta
-        \|x-y\|_{C([a,b])}.
-    \end{aligned}
+    \right|
+    \leq L\delta \|x-y\|_{C([a,b])}.
 \end{equation*}
-The same estimate holds when the common endpoint is $b$
-rather than $a$.
-
-Taking the supremum over $t\in[a,b]$ yields
+The same estimate holds when the common endpoint is $b$ rather than $a$. Taking the supremum over $t\in[a,b]$ yields
 \begin{equation*}
-    \|x-y\|_{C([a,b])}
-    \leq
-    L\delta\|x-y\|_{C([a,b])}.
+    \|x-y\|_{C([a,b])} \leq L\delta\|x-y\|_{C([a,b])}.
 \end{equation*}
 Since $L\delta<1$, we conclude that
 \begin{equation*}
-    x(t)=y(t),
-    \qquad t\in[a,b].
+    x(t)=y(t), \quad t\in[a,b].
 \end{equation*}
 
-We can divide the compact interval between $t_0$ and the
-arbitrary time $t$ into finitely many subintervals of length
-at most $\delta$. Starting from the common initial condition,
-the preceding argument can be applied successively on each
-subinterval, in either time direction.
-
-Consequently,
+We can divide the compact interval between $t_0$ and the arbitrary time $t$ into finitely many subintervals of length at
+most $\delta$. Starting from the common initial condition, the preceding argument can be applied successively on each
+subinterval, in either time direction. Consequently,
 \begin{equation*}
     x(t)=y(t)
 \end{equation*}
-for every $t$ in their common interval of definition.
-
-This establishes uniqueness and completes the proof.
-
+for every $t$ in their common interval of definition.This establishes uniqueness and completes the proof.
 \end{proof}
 
 
@@ -5896,11 +6023,11 @@ This establishes uniqueness and completes the proof.
 \label{app:flow-proof}
 
 \begin{proof}
-It suffices to prove the claims on an arbitrary compact time window, which we write as $[0,T]$ after translating
-the time coordinate. Uniqueness makes the constructions agree on overlapping windows, giving the flow throughout $I$.
-By Theorem~\ref{thm:picard-lindelof}, each initial condition determines a unique solution on $[0,T]$, including evolution
-to times earlier than the initial time. The existence, uniqueness, and continuation arguments are given in Appendix
-~\ref{app:picard-proof}. We use this result to construct the flow and establish its properties.
+It suffices to prove the claims on an arbitrary compact time window, which we write as $[0,T]$ after translating the time
+coordinate. Uniqueness makes the constructions agree on overlapping windows, giving the flow throughout $I$. By Theorem
+~\ref{thm:picard-lindelof}, each initial condition determines a unique solution on $[0,T]$, including evolution to times
+earlier than the initial time. The existence, uniqueness, and continuation arguments are given in Appendix ~\ref{app:picard-proof}.
+We use this result to construct the flow and establish its properties.
 
 \paragraph{1. Construction of the flow and its algebraic properties.}
 
@@ -5915,7 +6042,6 @@ For each $r\in[0,T]$, define the evaluation map
 \begin{equation*}
     E_r:\mathcal S_v\to V, \quad E_r(\eta):=\eta_r.
 \end{equation*}
-
 By global existence, every initial state $x\in V$ determines a solution on $[0,T]$, so $E_r$ is surjective. By uniqueness,
 two solutions agreeing at time $r$ must coincide throughout the interval, so $E_r$ is injective. Hence $E_r$ is a bijection.
 We can therefore define the two-time flow by
@@ -5923,8 +6049,7 @@ We can therefore define the two-time flow by
     \Phi_{s,t}:=E_t\circ E_s^{-1}.
 \end{equation*}
 In other words, $E_s^{-1}$ assigns to an initial state its unique solution trajectory, while $E_t$ evaluates that trajectory
-at time $t$.
-Thus, writing $x_\cdot=E_s^{-1}(x)$, we recover $\Phi_{s,t}(x)=x_t$, whose terminal-time evolution and initial condition
+at time $t$. Thus, writing $x_\cdot=E_s^{-1}(x)$, we recover $\Phi_{s,t}(x)=x_t$, whose terminal-time evolution and initial condition
 are given by \eqref{eq:flow-dynamics}.
 
 The identity, composition, and reversibility properties now follow directly from the algebra of maps. First,
@@ -6313,19 +6438,19 @@ For a fixed bound $\|A\|\le L_v$, continuity on the compact matrix ball gives th
 The sum is zero when $d=1$. This constant depends only on $d$ and $L_v$, and is independent of $A$ and $h$.
 
 By the stated regularity on the compact set $[0,1]\times B$, fix $L_v$ bounding $\|Dv_t(x)\|$ there.
-Taking $A=Dv_{t_k}(x)$ and using $\operatorname{tr}(Dv_{t_k}(x))=\operatorname{div}v_{t_k}(x)$ gives
+Taking $A=Dv_{t_k}(x)$ and using $\operatorname{tr}(Dv_{t_k}(x))=\nabla\cdot v_{t_k}(x)$ gives
 \begin{equation*}
     \begin{aligned}
         R_k^{\det}(h,x)&:=R_{Dv_{t_k}(x)}^{\det}(h),\\
-        \det DV_k(x)&=1+h\operatorname{div}v_{t_k}(x)+R_k^{\det}(h,x),
+        \det DV_k(x)&=1+h\nabla\cdot v_{t_k}(x)+R_k^{\det}(h,x),
         \quad |R_k^{\det}(h,x)|\le C_{d,L_v}h^2.
     \end{aligned}
 \end{equation*}
 Thus the determinant expansion has an $O(h^2)$ remainder uniform in $k$ and $x\in B$.
-The same derivative bound gives $|\operatorname{div}v_t(x)|\le dL_v$; write $B_{\mathrm{div}}:=dL_v$.
+The same derivative bound gives $|\nabla\cdot v_t(x)|\le dL_v$; write $B_{\mathrm{div}}:=dL_v$.
 Set
 \begin{equation*}
-    u_k(h,x):=h\operatorname{div}v_{t_k}(x)+R_k^{\det}(h,x),
+    u_k(h,x):=h\nabla\cdot v_{t_k}(x)+R_k^{\det}(h,x),
     \quad h_0:=\min\left\{1,\frac{1}{2(1+B_{\mathrm{div}}+C_{d,L_v})}\right\}.
 \end{equation*}
 For $0<h<h_0$, uniformly in $k$ and $x\in B$,
@@ -6348,7 +6473,7 @@ Define the combined logarithmic remainder separately by
 Then
 \begin{equation*}
     \begin{aligned}
-        \log\det DV_k(x)&=h\operatorname{div}v_{t_k}(x)+r_k^{\log}(h,x),\\
+        \log\det DV_k(x)&=h\nabla\cdot v_{t_k}(x)+r_k^{\log}(h,x),\\
         |r_k^{\log}(h,x)|&\le\bigl[C_{d,L_v}+C_{\log}(B_{\mathrm{div}}+C_{d,L_v})^2\bigr]h^2=:Ch^2.
     \end{aligned}
 \end{equation*}

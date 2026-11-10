@@ -18,7 +18,7 @@
 
 在本笔记中，帽子通常表示数值近似或统计估计；横线通常表示已定义的约化/闭合模型；波浪号通常表示明确给出的变换或修正对象。这些是本笔记的常用约定，不是跨领域的绝对规则；例外必须就地定义（例如 Gaussian 上尾函数的横线）。精确解析公式的数值评价、从精确概率律抽样、模型近似和时间离散，不视为同一种近似。
 
-字形帮助区分对象，但不把全部矩阵改成粗体，也不声称所有花体字母都属于同一类型。保留正文已有的算子字形 `\mathsf U,\mathsf T,\mathsf P`，并通过定义域、值域和下标进一步确认类型。
+字形帮助区分对象，但不把全部矩阵改成粗体，也不声称所有花体字母都属于同一类型。保留正文已有的算子字形 `\mathcal{K},\mathsf T,\mathsf P`，并通过定义域、值域和下标进一步确认类型。
 
 ## 二、已发现的问题与处理决定
 
@@ -110,10 +110,10 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 | `\langle f,\mu\rangle` | 函数—测度积分配对 | `\int f\,\mathrm d\mu`，与 Euclidean 内积分开 |
 | `f,g,\varphi` | 可观测量/测试函数 | 定义域及可积性按所在结论声明；不是所有这些函数都属于 `B_b` |
 | `\mathcal A=B_b(V)` | 有界可测观测量代数 | 不再用这个符号表示其他算子 |
-| `\mathsf U_F,\mathsf U_{s,t}` | Koopman 算子 | 作用于函数；`\mathsf U_{s,t}f=f\circ\Phi_{s,t}` |
+| `\mathcal{K}_F,\mathcal{K}_{s,t}` | Koopman 算子 | 作用于函数；`\mathcal{K}_{s,t}f=f\circ\Phi_{s,t}` |
 | `\mathsf T_F,\mathsf T_{s,t}` | 推前作用 | 作用于概率律；`\mathsf T_{s,t}\mu=(\Phi_{s,t})_\#\mu` |
 | `\mathsf K_{s,t}(x,\mathrm dy)` | Markov 转移核 | 使用算子字形并保留两时下标，与裸 `K` 步数明确区分 |
-| `\mathsf P_{s,t}` | Markov 可观测量演化算子 | 确定性情形等于 `\mathsf U_{s,t}`；不改动现有复合顺序 |
+| `\mathsf P_{s,t}` | Markov 可观测量演化算子 | 确定性情形等于 `\mathcal{K}_{s,t}`；不改动现有复合顺序 |
 | `\mathcal L_t` | 可观测量生成元 | 定义域、值域、极限拓扑按具体结论声明；对确定性流、扩散和跳过程分别给表达式 |
 | `X_{\mathrm{obs}}` | 选择的观测量 Banach 空间 | 与轨迹空间 `\mathcal X` 分开；生成元定义域可写 `\operatorname{Dom}(\mathcal L_t)` |
 | `\boldsymbol j_t(x)` | 概率流密度 | 连续性形式为 `\partial_t\rho_t+\nabla\cdot\boldsymbol j_t=0`；只有在 `\rho_t(x)>0` 的区域定义 `v_t^{\mathrm{cur}}=\boldsymbol j_t/\rho_t` |
@@ -170,7 +170,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 | `L_v,L_x,L_t,B_{\mathrm{div}}` | 导数、Lipschitz 及散度界 | 用对象说明性下标；Euler 中 `B_{\mathrm{div}}=dL_v` 可作为可用上界 |
 | `\|x\|,\|A\|,\|A\|_{\mathrm F}` | Euclidean、诱导矩阵、Frobenius 范数 | 全文默认前两者，Frobenius 必须加 F；函数空间范数带空间或指数下标 |
 | `|a|,|A|` | 标量绝对值、集合体积 | 后者仅在已声明的物理可测区域使用；不再用同一竖线省略矩阵范数类型 |
-| `\nabla,\nabla^2,\Delta,\operatorname{div}` | 空间微分运算 | 梯度为列向量；`\operatorname{div}v=\nabla\cdot v`；PDE 的通量散度可保留标准点积写法 |
+| `\nabla,\nabla^2,\Delta,\nabla\cdot` | 空间微分运算 | 梯度为列向量；散度统一写作 `\nabla\cdot v`，PDE 的通量散度同样采用此符号 |
 | `\mathrm d,\partial_t,D_x,\delta` | 积分/SDE 微分、偏导、状态导数、变分 | 保留 `\dd` 宏，按对象说明导数意义 |
 | `^\top,\#,\mathbf1_A,\delta_x` | 转置、推前、示性函数、Dirac 概率律 | Dirac delta 的形式密度记号须明确是在积分下解释 |
 | `\ll,\sim` | 绝对连续、分布/测度等价 | `X\sim\mu` 与 `P\sim Q` 的意义按两侧对象分别说明 |
@@ -183,7 +183,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 这些符号不提升为全文同一数学对象，但在符号表中标明位置和用途：
 
 - 线性 ODE：`\mathcal X=C^1(I;V)`、`\mathcal Y=C(I;V)`、`\mathsf M_A`、`\mathsf D_A:=\partial_t-\mathsf M_A`、`\mathcal H=\ker\mathsf D_A`、评价映射 `E_t`、逆解算映射 `S_t`、零初值空间 `\mathcal K_s`、特解 `\gamma_{\mathrm p}`、齐次轨迹 `\eta` 和仿射解集。路径可在函数空间评价处写 `\gamma(t)`，与动力学式中的 `\gamma_t` 明确为同一取值，不混用时间与迭代指标。
-- 冷却例子：温度用 `T_t^{\mathrm{temp}}`、环境温度 `T_{\mathrm{env}}^{\mathrm{temp}}`，与终止时间 T 分开；局部衰减率 `\lambda` 仍保留。
+- 冷却例子：温度用 `T_t`、环境温度 `T_{\mathrm{env}}`，与终止时间 T 分开；局部衰减率 `\lambda` 仍保留。
 - 最小加权作用量：权重 `w_t`、作用量 `I[\gamma]`、累积重参数 `\Theta_w(t):=\int_0^t w_r^{-1}\mathrm dr`；后者替换 W(t)，避免与 Brownian 记号混淆。
 - 截断 Gaussian：标准密度 `\varphi`、上尾 `\bar\Phi`、阈值 b、条件律 `\mu_b`、逆 Mills 比 `m(b)` 和 `\mathcal J_\alpha(b)`。阈值 b 不是 SDE 漂移函数，标出该例的作用域即可。
 - 凸性证明：混合权重用 `\vartheta\in[0,1]`，将 `\theta` 留给学习参数；参考测度明确写出，不默认是 Lebesgue 测度。

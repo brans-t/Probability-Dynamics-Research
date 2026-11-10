@@ -41,7 +41,7 @@
 | Verlet 状态 `q_n,p_n,p_{n+1/2}` | `\widehat q_k,\widehat p_k,\widehat p_{k+1/2}` |
 | 数值能量 `H_n` | `\widehat H_k:=H(\widehat q_k,\widehat p_k)`；修正能量保留 `\widetilde H_h` |
 | 物理运动区域 `\Omega_t` | `\mathcal D_t`；样本空间保留 `\Omega` |
-| 冷却温度 `T(t)` | `T_t^{\mathrm{temp}}`；终止时间保留 T |
+| 冷却温度 `T(t)` | `T_t`；终止时间保留 T |
 | 加权作用量的累计函数 `W(t)` | `\Theta_w(t)`；Brownian 运动仍使用 `W_t` |
 | 散度上界 D、导数界 M | `B_{\mathrm{div}}`、`L_v`；相应统一常数变为 `C_{d,L_v}` |
 | 对数余项 `\rho_k` | `r_k^{\log}`；密度仍为 `\rho_t` |

@@ -27,6 +27,11 @@
             ]
         },
         {
+            "name": "publish-paper-pdf",
+            "command": "python",
+            "args": ["%WORKSPACE_FOLDER%/scripts/build.py", "--publish-only"]
+        },
+        {
             "name": "publish-slide-pdf",
             "command": "python",
             "args": ["%WORKSPACE_FOLDER%/scripts/build_slides.py", "--publish-only"]
@@ -45,7 +50,7 @@
     "latex-workshop.latex.recipes": [
         {
             "name": "XeLaTeX -> Biber -> XeLaTeX x2",
-            "tools": ["xelatex", "biber", "xelatex", "xelatex"]
+            "tools": ["xelatex", "biber", "xelatex", "xelatex", "publish-paper-pdf"]
         },
         {
             "name": "XeLaTeX x2 (Beamer)",

@@ -151,8 +151,9 @@ VS Code's LaTeX Workshop recipe is configured in
 [settings.json](../.vscode/settings.json). Use XeLaTeX because the manuscript uses
 `fontspec`; bibliography processing uses Biber. Build outputs and local snapshots
 are ignored under `output/` and `build/`. The output directory contains only
-the current slide PDF in `output/slides/`; all LaTeX auxiliary files stay in
-`build/`, and the manuscript PDF is generated at `build/paper/main.pdf`.
+the current manuscript PDF in `output/paper/` and slide PDF in `output/slides/`;
+all LaTeX auxiliary files stay in `build/`. The manuscript PDF is generated at
+`build/paper/main.pdf` and copied to `output/paper/main.pdf` after compilation.
 The manuscript and slide build scripts use the same directories as the
 workspace settings; global VS Code settings are not changed.
 

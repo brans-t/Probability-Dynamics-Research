@@ -8,6 +8,7 @@ coarse-graining, and learned probability flows.
 ```text
 paper/                  Manuscript, shared preamble, bibliography, and PDF figures
 slides/                 Editable Beamer sources and shared slide style
+output/paper/           Current manuscript PDF copy
 output/slides/          Current slide PDF only
 build/                  Regenerable build files, manuscript PDF, and previews
 src/probflow/           Reusable Gaussian dynamics, projection, and regression
@@ -57,7 +58,10 @@ Install XeLaTeX and Biber through TeX Live or MiKTeX, then run:
 python scripts/build.py
 ```
 
-Output: `build/paper/main.pdf`. Saved figures are included; training is not
+Output: `build/paper/main.pdf`, also copied to `output/paper/main.pdf` after
+successful compilation. Auxiliary files stay in `build/paper/`.
+Use `python scripts/build.py --publish-only` to copy an already compiled PDF.
+Saved figures are included; training is not
 required to compile. Run `python scripts/check_manuscript_audit.py` afterward
 to validate numbering, references, and PDF navigation.
 

@@ -58,13 +58,14 @@ python scripts/build_slides.py
 ```
 
 The script runs XeLaTeX twice and writes the PDF to
-`output/slides/project9_exercises1_2.pdf`. This is the only published output;
+`output/slides/project9_exercises1_2.pdf`. This is the only published slide output;
 auxiliary files stay in `build/slides/`. Biber is not needed.
 
 In VS Code LaTeX Workshop, select the **XeLaTeX x2 (Beamer)** recipe for this
 source. The recipe compiles into `build/slides/` and copies only the PDF to
 `output/slides/`. Use **XeLaTeX -> Biber -> XeLaTeX x2** for `paper/main.tex`;
-its outputs stay in `build/paper/`. These settings apply only to this project.
+its outputs stay in `build/paper/`, and the completed PDF is also copied to
+`output/paper/main.pdf`. These settings apply only to this project.
 
 For direct compilation, run `xelatex project9_exercises1_2.tex` twice from
 this source directory. Keep `template_style.tex` beside the main source,

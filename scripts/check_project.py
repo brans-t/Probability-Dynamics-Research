@@ -162,11 +162,16 @@ def check_repository():
     )
     output = ROOT / "output"
     if output.exists():
-        require({p.name for p in output.iterdir()} <= {"slides"}, "Only output/slides is retained")
         require(
-            all(p.is_file() and p.suffix.lower() == ".pdf" for p in (output / "slides").glob("*")),
-            "output/slides must contain only PDFs",
+            {p.name for p in output.iterdir()} <= {"paper", "slides"},
+            "Only output/paper and output/slides are retained",
         )
+        for directory in output.iterdir():
+            require(directory.is_dir(), f"Expected output directory: {directory}")
+            require(
+                all(p.is_file() and p.suffix.lower() == ".pdf" for p in directory.iterdir()),
+                f"{directory.relative_to(ROOT)} must contain only PDFs",
+            )
     print("Repository: Python syntax, documentation links, shared paths, saved data OK")
 
 
