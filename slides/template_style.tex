@@ -1,18 +1,14 @@
-% Style adapted from the user-provided output/presentations/main.tex.
+% Shared 4:3 serif Beamer style with the project's blue Madrid palette.
 \usetheme{Madrid}
 \usefonttheme{serif}
 
 \usepackage[english]{babel}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc}
+\usetikzlibrary{arrows.meta,calc}
 
 \definecolor{accent}{RGB}{55,55,180}
-\definecolor{diagramblue}{RGB}{48,103,166}
 \definecolor{diagramred}{RGB}{178,65,56}
-\definecolor{diagramgreen}{RGB}{47,128,92}
-\definecolor{softgray}{RGB}{118,118,118}
-\definecolor{lightgray}{RGB}{224,224,224}
 
 \setbeamercolor{structure}{fg=accent}
 \setbeamercolor{frametitle}{fg=white,bg=accent}
@@ -25,8 +21,60 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamersize{text margin left=0.68cm,text margin right=0.68cm}
 
-\newcommand{\eyebrow}[1]{%
-  {\color{accent}\bfseries #1}\par
-  \vspace{0.04cm}{\color{lightgray}\rule{\linewidth}{0.45pt}}\vspace{0.10cm}}
-\newcommand{\keyterm}[1]{\textcolor{accent}{\bfseries #1}}
-\newcommand{\dd}{\,\mathrm d}
+% Let Beamer manage the page furniture and body flow. Diagrams alone use TikZ.
+\setbeamertemplate{headline}{}
+\setbeamertemplate{frametitle}[default][left]
+\setbeamerfont{frametitle}{size=\fontsize{13}{15.5}\selectfont}
+\setbeamerfont{title}{size=\fontsize{20}{24}\selectfont}
+\setbeamerfont{subtitle}{size=\fontsize{11}{14}\selectfont}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{title page}{%
+  \vbox{}\vfill
+  \begin{centering}
+    {\usebeamerfont{title}\usebeamercolor[fg]{structure}\inserttitle\par}
+    \vspace{12pt}
+    {\usebeamerfont{subtitle}\insertsubtitle\par}
+    \vspace{22pt}
+    {\insertauthor\par}
+    \vspace{7pt}
+    {\small\insertdate\par}
+  \end{centering}
+  \vfill
+}
+\setbeamerfont{footline}{size=\fontsize{6}{7}\selectfont}
+\setbeamercolor{footline}{fg=white,bg=accent!85!black}
+\setbeamerfont{framesource}{size=\fontsize{5.8}{7}\selectfont}
+\setbeamercolor{framesource}{fg=gray,bg=white}
+\newcommand{\currentframesource}{}
+% Beamer records both totals at \appendix; keep the underlying frame counter
+% continuous so that navigation and animation destinations remain unique.
+\makeatletter
+\newcommand{\slidepagenumber}{%
+  \ifbeamer@inappendix
+    A-\insertframenumberinappendix\,/\,\insertappendixframenumber
+  \else
+    \insertframenumber\,/\,\insertmainframenumber
+  \fi}
+\makeatother
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=14pt,dp=4pt,leftskip=18pt,rightskip=18pt]{framesource}%
+    \usebeamerfont{framesource}\strut\currentframesource\strut
+  \end{beamercolorbox}%
+  \leavevmode\hbox{%
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=8pt,dp=3.5pt,leftskip=12pt]{footline}%
+      \usebeamerfont{footline}\strut H. Zhang
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.6\paperwidth,ht=8pt,dp=3.5pt,center]{footline}%
+      \usebeamerfont{footline}\strut\insertsectionhead
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=8pt,dp=3.5pt,right,rightskip=12pt]{footline}%
+      \usebeamerfont{footline}\strut\slidepagenumber
+    \end{beamercolorbox}%
+  }\vskip0pt%
+}
+\setbeamertemplate{itemize item}{\raise0.15ex\hbox{\scriptsize\textbullet}}
+\setbeamercolor{itemize item}{fg=black}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\newcommand{\heading}[1]{\par\smallskip{\color{accent}\bfseries #1}\par\smallskip}
+\newcommand{\slidecite}[1]{\gdef\currentframesource{#1}}

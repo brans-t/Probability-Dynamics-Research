@@ -1,0 +1,8 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\large]
+\node[anchor=east]at(-.2,1.2){$x_t$};\node[anchor=east]at(-.2,-.5){$y_t$};
+\draw[->,accent](0,1.2)--(7,1.2);\fill(0,1.2)circle(1.6pt)node[above]{$x_0$};\fill(6.7,1.2)circle(1.6pt)node[above]{$x_T$};
+\node[below]at(0,1.2){$0$};\node[below]at(6.7,1.2){$T$};
+\draw[->,diagramred](0,-.5)--(7,-.5);\fill(0,-.5)circle(1.6pt)node[above]{$x_T$};\fill(6.7,-.5)circle(1.6pt)node[above]{$x_0$};
+\node[below]at(0,-.5){$0$};\node[below]at(6.7,-.5){$T$};
+\node[font=\normalsize]at(3.3,-1.35){Same state-space path, opposite traversal};
+\end{tikzpicture}

@@ -7,6 +7,11 @@ The tables distinguish mathematical objects by type and scope. Global entries ap
 
 In these notes, hats usually indicate numerical approximations or statistical estimates, bars usually identify defined reduced models, and tildes usually indicate transformations or modified objects. These are common conventions within this manuscript, not universal rules. Every exception is defined locally. A change of model, a sample from an exact law, and a time-discretization error are distinct operations.
 
+Operators use upright symbols such as $\mathsf D_A$, $\mathsf M_A$, and $\mathsf Q$.
+Scalar functionals use ordinary letters: $S$ for differential entropy, $F$ for free energy,
+$H_{m_{\mathrm{ref}}}$ for negative entropy, and $L_{\mathrm{log}}$ for logistic risk.
+Calligraphic letters continue to denote the explicitly defined spaces and collections.
+
 \section*{Global Notation}
 \Needspace{12\baselineskip}
 \subsection*{States, time, and approximation}
@@ -81,7 +86,7 @@ $\mathsf T_F,\ \mathsf T_{s,t}$ & Law transport & $\mathsf T_F\mu=F_\#\mu$ and $
 $\mathsf K_{s,t}$ & Transition kernel & $\mathsf K_{s,t}(x,\dd y)$ is a Markov probability kernel. The typeface distinguishes it from the time-step count $K$.\\[3pt]
 $\mathsf P_{s,t}$ & Markov operator & $\mathsf P_{s,t}f(x)=\int f(y)\mathsf K_{s,t}(x,\dd y)$. For a deterministic flow it equals $\mathsf U_{s,t}$.\\[3pt]
 $\mathcal L_t$ & Generator & An infinitesimal operator on observables. Its domain and limit topology are specified locally; its differential expression depends on the underlying dynamics.\\[3pt]
-$\mathscr X_{\mathrm{obs}}$ & Observable space & A selected invariant Banach space for a norm-generator; it is not the trajectory space $\mathcal X$ used in the linear ODE example.\\[3pt]
+$X_{\mathrm{obs}}$ & Observable space & A selected invariant Banach space for a norm-generator; it is not the trajectory space $\mathcal X$ used in the linear ODE example.\\[3pt]
 \end{longtable}
 % These uncaptioned reference tables do not consume scientific table numbers.
 \addtocounter{table}{-1}
@@ -149,10 +154,10 @@ $C,\ L_x,\ L_t$ & Estimate constants & Constants are local unless identified exp
 \endhead
 \bottomrule
 \endfoot
-$b_t^{\mathrm{aff}}$ & Affine forcing & The continuous external term in $\dot x_t=A_tx_t+b_t^{\mathrm{aff}}$; see the linear inhomogeneous example.\\[3pt]
+$B_t$ & Affine forcing & The continuous vector-valued external term in $\dot x_t=A_tx_t+B_t$, with $B:I\to V$. Brownian motions use $W$ with a stated superscript when needed.\\[3pt]
 $\mathcal X,\ \mathcal Y$ & Trajectory spaces & $C^1(I;V)$ and $C(I;V)$ in the affine ODE example. Generic path evaluation $\gamma(t)$ is the same value as $\gamma_t$.\\[3pt]
-$\mathsf M_A,\ \mathscr D_A$ & Trajectory operators & $(\mathsf M_A\gamma)(t)=A_t\gamma(t)$ and $\mathscr D_A=\partial_t-\mathsf M_A$. Neither is the observable algebra or generator.\\[3pt]
-$\mathcal H,\ E_t,\ S_t$ & Homogeneous solutions & $\mathcal H=\ker\mathscr D_A$; $E_t$ evaluates a homogeneous trajectory, and $S_t=E_t^{-1}$ supplies its complete solution. $S_t$ is not a Hessian.\\[3pt]
+$\mathsf M_A,\ \mathsf D_A$ & Trajectory operators & $(\mathsf M_A\gamma)(t)=A_t\gamma(t)$ and $\mathsf D_A=\partial_t-\mathsf M_A$. Neither is the observable algebra or generator.\\[3pt]
+$\mathcal H,\ E_t,\ S_t$ & Homogeneous solutions & $\mathcal H=\ker\mathsf D_A$; $E_t$ evaluates a homogeneous trajectory, and $S_t=E_t^{-1}$ supplies its complete solution. $S_t$ is not a Hessian.\\[3pt]
 $\gamma_{\mathrm p},\ \mathcal K_s$ & Affine geometry & The chosen zero-initial-value particular solution and the space of paths vanishing at $s$. The affine solution set and initial-value slice are defined in the example.\\[3pt]
 $T_t^{\mathrm{temp}}$ & Temperature & Temperature in the cooling example, with environment value $T_{\mathrm{env}}^{\mathrm{temp}}$ and relaxation rate $\lambda$. It is not the terminal time $T$.\\[3pt]
 $\mathcal D_t,\ \Theta_w(t)$ & Volume and weighted action & $\mathcal D_t=\Phi_{0,t}(\mathcal D_0)$ is a moving region. For the weighted-path problem only, $\Theta_w(t)=\int_0^t w_r^{-1}\dd r$.\\[3pt]
@@ -162,7 +167,7 @@ $\mathbb J_n,\ \nabla^2H(z_t)$ & Symplectic geometry & $\mathbb J_n$ is the stan
 $\widehat q_k,\ \widehat p_k$ & Numerical mechanics & Computed position and momentum, including a hatted half-step momentum in Verlet. $\widehat H_k=H(\widehat q_k,\widehat p_k)$ is the computed true energy.\\[3pt]
 $V_h,\ \widetilde H_h$ & Verlet quantities & The locally defined Verlet update matrix and its modified energy; the latter is not a numerical approximation to the state.\\[3pt]
 $\delta x,\ \Delta_t(\delta x)$ & Initial-data sensitivity & The vector perturbation and difference of two exact flow trajectories in the differentiability proof; distinct from numerical error $e_k$.\\[3pt]
-$\mathscr P_{s,x},\ \mathscr P_\delta$ & Picard operators & The integral map for initial data $(s,x)$ and its restriction to the local trajectory set on $J_\delta$. With the interval fixed, the latter is abbreviated $\mathscr P$; it is distinct from the Markov operator $\mathsf P_{s,t}$.\\[3pt]
+$\mathsf Q_{s,x},\ \mathsf Q_\delta$ & Picard operators & The integral map for initial data $(s,x)$ and its restriction to the local trajectory set on $J_\delta$. With the interval fixed, the latter is abbreviated $\mathsf Q$; it is distinct from the Markov operator $\mathsf P_{s,t}$.\\[3pt]
 $P_n(t,s),\ U^{[n]}(t,s)$ & Ordered series & A Peano--Baker term and a Picard partial sum. $B_A(t,s)=\int_s^t A_r\dd r$ is an integrated coefficient matrix, not a Hamiltonian.\\[3pt]
 $\mathcal T$ & Time ordering & The forward ordering places later-time matrices on the left; backward intervals use the explicitly stated reversed ordering.\\[3pt]
 \end{longtable}
@@ -189,18 +194,18 @@ $\mathcal T$ & Time ordering & The forward ordering places later-time matrices o
 \endhead
 \bottomrule
 \endfoot
-$\mathscr S(\rho),\ \ell_t$ & Entropy and log density & $\mathscr S(\rho)=-\int\rho\log\rho\dd x$ when finite; $\ell_t=\log\rho_t$ requires positive density.\\[3pt]
+$S(\rho),\ \ell_t$ & Entropy and log density & $S(\rho)=-\int\rho\log\rho\dd x$ when finite; $\ell_t=\log\rho_t$ requires positive density.\\[3pt]
 $s_t^\rho,\ H_t^\rho$ & Score and log Hessian & $s_t^\rho=\nabla\log\rho_t$ and $H_t^\rho=\nabla^2\ell_t$. Neither is a solution map or the Hamiltonian.\\[3pt]
-$\mathscr F(\rho),\ \beta$ & Free energy & The diffusion free-energy functional and inverse temperature, under the local potential, integrability, and boundary assumptions. This functional is not the sigma-algebra $\mathcal F$.\\[3pt]
+$F(\rho),\ \beta$ & Free energy & The diffusion free-energy functional and inverse temperature, under the local potential, integrability, and boundary assumptions. This functional is not the sigma-algebra $\mathcal F$.\\[3pt]
 $P,Q,\ p,q$ & Information-theory laws & Locally, $P,Q$ are probability measures and $p,q$ their densities under a declared reference measure. These density symbols are not mechanical position and momentum.\\[3pt]
 $D_{\mathrm{KL}},\ D_f$ & Divergences & The directed relative entropy and the specified $f$-divergence. Density arguments are explicitly declared shorthand for measure arguments.\\[3pt]
 $r,\ f^*,\ \partial f$ & Convex duality & $r=\dd P/\dd Q$ is a density ratio; $f^*$ is the scalar convex conjugate and $\partial f$ its subdifferential. A star on an optimizer has a separate, locally stated role.\\[3pt]
 $\vartheta,\ m_{\mathrm{ref}}$ & Convex mixtures and base measure & The scalar mixing weight and the fixed reference measure. $\theta$ is instead used for model parameters.\\[3pt]
-$\mathscr H_{m_{\mathrm{ref}}}$ & Negative entropy & $\int p\log p\,\dd m_{\mathrm{ref}}$ on its declared density space; its Bregman representation is used only under the stated directional differentiability conditions.\\[3pt]
+$H_{m_{\mathrm{ref}}}$ & Negative entropy & $\int p\log p\,\dd m_{\mathrm{ref}}$ on its declared density space; its Bregman representation is used only under the stated directional differentiability conditions.\\[3pt]
 $c,\ Z_c,\ \nu_c$ & Gibbs tilt & $Z_c=\int e^{-c}\dd\nu$ and $\nu_c=Z_c^{-1}e^{-c}\nu$. An abstract tilt cost equals $\beta\mathcal V$ only when that identification is specified.\\[3pt]
 $\Lambda_Q,\ \Psi_Q$ & Partition functionals & The log-exponential integral and exponential integral, respectively; their natural conjugate domains differ.\\[3pt]
 $\mathcal J_\alpha,\ m(b)$ & Truncated Gaussian example & The constrained objective and inverse Mills ratio; $b$ is a threshold, $\varphi$ the standard Gaussian density and $\bar\Phi$ its upper tail. The bar here does not denote a reduced dynamical model.\\[3pt]
-$\mathscr L_{\mathrm{log}},\ \mathcal R$ & Risk and reward & The logistic population risk and the concave measure-valued reward functional. Neither is the generator $\mathcal L_t$.\\[3pt]
+$L_{\mathrm{log}},\ \mathcal R$ & Risk and reward & The logistic population risk and the concave measure-valued reward functional. Neither is the generator $\mathcal L_t$.\\[3pt]
 \end{longtable}
 % These uncaptioned reference tables do not consume scientific table numbers.
 \addtocounter{table}{-1}
@@ -230,7 +235,7 @@ $\mathcal M_z,\ G_\xi$ & Level geometry & $\mathcal M_z=\{x:\xi(x)=z\}$ and $G_\
 $J_\xi$ & Coarea factor & $\sqrt{\det G_\xi}$, positive under the stated full-rank assumption. It is not the square-flow derivative determinant $J_{s,t}$.\\[3pt]
 $F_\xi,\ B_i^\xi$ & Mean-force objects & $F_\xi=-\beta^{-1}\log p_\xi$ for the specified static Gibbs marginal. The lifting field satisfies $D\xi B_i^\xi=e_i$.\\[3pt]
 $Y_\sigma,\ \varphi_{\sigma,m}$ & Noisy observations & A noisy collective-variable observation and its Gaussian smoothing kernel. The observation noise parameter $\sigma$ is not a time index.\\[3pt]
-$W_t,\ B_t,\ d_W$ & Brownian motions & The full noise, a stated scalar reduced noise, and full noise dimension. Their coupling or independence is specified locally.\\[3pt]
+$W_t,\ W_t^{\mathrm{red}},\ d_W$ & Brownian motions & The full noise, a scalar reduced noise, and full noise dimension. The scalar noise $W_t^\xi$ is constructed in the projection argument. Coupling or independence is specified locally.\\[3pt]
 $b_t,\ \sigma_t,\ a_t$ & SDE coefficients & Full drift and noise matrix, or in the scalar projected model a conditional drift and conditional squared-gradient factor. Averaging a noise amplitude is not averaging its square.\\[3pt]
 $A_\xi,\ Z_t^0,\ \bar X_t$ & Projected models & The scalar projected drift before conditioning, the exact projected process, and a specified closure model. Matching marginals does not assert matching path laws.\\[3pt]
 $\boldsymbol j_t,\ v_t^{\mathrm{cur}}$ & Probability current & $v_t^{\mathrm{cur}}=\boldsymbol j_t/\rho_t$ only where $\rho_t>0$; no velocity is defined by this quotient at a zero of the density.\\[3pt]

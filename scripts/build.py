@@ -6,7 +6,7 @@ import shutil
 import subprocess
 
 PAPER = Path(__file__).resolve().parents[1] / "paper"
-OUTPUT = PAPER.parent / "output/paper"
+OUTPUT = PAPER.parent / "build/paper"
 
 
 def main() -> None:

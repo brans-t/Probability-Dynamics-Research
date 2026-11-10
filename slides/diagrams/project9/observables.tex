@@ -1,0 +1,7 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\Large]
+\node (x) at(0,0) {$x\in V$};
+\node (f) at(3.5,1.1) {$f(x)\in\mathbb R$}; \node (g) at(3.5,-1.1) {$g(x)\in\mathbb R$};
+\draw[->,accent](x)--node[above left] {$f$}(f);
+\draw[->,accent](x)--node[below left] {$g$}(g);
+\node[align=center,font=\normalsize] at(3.5,-2.25) {Multiply values at the same state:\\$(fg)(x)=f(x)g(x)$};
+\end{tikzpicture}

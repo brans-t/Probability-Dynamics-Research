@@ -50,7 +50,10 @@ def expand_notation(tex, read_text):
 def check_manuscript():
     main = (ROOT / "paper/main.tex").read_text(encoding="utf-8")
     require(main.count(r"\input{notation}") == 1, "Separate notation chapter not included")
-    tex = expand_notation(main, lambda name: (ROOT / name).read_text(encoding="utf-8"))
+    source_tex = expand_notation(main, lambda name: (ROOT / name).read_text(encoding="utf-8"))
+    # Deferred answers remain in line comments. Only live labels/references and
+    # source-index rows participate in compiled navigation checks.
+    tex = re.sub(r"(?<!\\)%[^\n]*", "", source_tex)
     preamble = (ROOT / "paper/preamble.tex").read_text(encoding="utf-8")
     labels = re.findall(r"\\label\{([^}]+)\}", tex)
     require(len(labels) == len(set(labels)), "Duplicate manuscript labels")
@@ -69,8 +72,9 @@ def check_manuscript():
     require(index[0] == ["project", "item", "label", "placement"], "Unexpected TSV columns")
     require([tuple(row) for row in index[1:]] == rows, "TSV differs from manuscript source index")
     figures = re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", tex)
-    require(len(figures) == 6, "Expected six manuscript figures")
-    for figure in figures:
+    preserved_figures = re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", source_tex)
+    require(len(preserved_figures) == 6, "Expected six preserved manuscript figures")
+    for figure in preserved_figures:
         require((ROOT / "paper" / figure).is_file(), f"Missing figure: {figure}")
     animation_frames = []
     animations = re.findall(
@@ -95,7 +99,7 @@ def check_manuscript():
     benchmark_figures = {"figures/jacobian_convergence.pdf"}
     require(
         {p.relative_to(ROOT / "paper").as_posix() for p in (ROOT / "paper/figures").rglob("*") if p.is_file()}
-        == set(figures + animation_frames) | benchmark_figures,
+        == set(preserved_figures + animation_frames) | benchmark_figures,
         "Unreferenced or missing files in paper/figures",
     )
     bib = (ROOT / "paper/ref.bib").read_text(encoding="utf-8")
@@ -114,10 +118,18 @@ def check_manuscript():
 
 
 def check_repository():
+    for directory in ("paper", "slides"):
+        for p in (ROOT / directory).rglob("*.tex"):
+            content = p.read_text(encoding="utf-8")
+            require(not re.search(r"\\mathscr\b|mathrsfs", content), f"Retired script font in {p}")
+            require(
+                not re.search(r"b(?:_\{?[^\s^]+)?\^\{\\mathrm\{aff\}\}", content),
+                f"Use B_t for affine forcing in {p}",
+            )
     for directory in ("src", "tests", "experiments", "scripts"):
         for p in (ROOT / directory).rglob("*.py"):
             ast.parse(p.read_text(encoding="utf-8"), filename=str(p))
-    for p in [ROOT / "README.md", *(ROOT / "docs").glob("*.md")]:
+    for p in [ROOT / "README.md", *(ROOT / "docs").glob("*.md"), *(ROOT / "slides").glob("*.md")]:
         for link in re.findall(r"\[[^\]\n]*\]\(([^)\n]+)\)", p.read_text(encoding="utf-8")):
             if re.match(r"[a-z]+://|mailto:|#", link):
                 continue
@@ -137,6 +149,24 @@ def check_repository():
     paths = runpy.run_path(str(ROOT / "experiments/_paths.py"))["OutputPaths"]()
     require(paths.figures == ROOT / "paper/figures", "Wrong experiment figure directory")
     require(paths.results == ROOT / "results/benchmarks", "Wrong experiment data directory")
+    slide_source = (ROOT / "slides/project9_exercises1_2.tex").read_text(encoding="utf-8")
+    used_diagrams = set(re.findall(r"\\input\{\\diagramroot\s+([^}]+)\}", slide_source))
+    used_diagrams.update(
+        name + ".tex"
+        for name in re.findall(r"\\flowdiagram(?:\[[^\]]+\])?\{([^}]+)\}", slide_source)
+    )
+    diagram_directory = ROOT / "slides/diagrams/project9"
+    require(
+        used_diagrams == {p.name for p in diagram_directory.glob("*.tex")},
+        "Missing or unused slide TikZ source",
+    )
+    output = ROOT / "output"
+    if output.exists():
+        require({p.name for p in output.iterdir()} <= {"slides"}, "Only output/slides is retained")
+        require(
+            all(p.is_file() and p.suffix.lower() == ".pdf" for p in (output / "slides").glob("*")),
+            "output/slides must contain only PDFs",
+        )
     print("Repository: Python syntax, documentation links, shared paths, saved data OK")
 
 

@@ -8,9 +8,8 @@ coarse-graining, and learned probability flows.
 ```text
 paper/                  Manuscript, shared preamble, bibliography, and PDF figures
 slides/                 Editable Beamer sources and shared slide style
-output/paper/           Generated manuscript PDF and LaTeX auxiliary files
-output/slides/          Generated slide PDFs and LaTeX auxiliary files
-output/presentations/   Supplied templates and previously exported presentations
+output/slides/          Current slide PDF only
+build/                  Regenerable build files, manuscript PDF, and previews
 src/probflow/           Reusable Gaussian dynamics, projection, and regression
 experiments/            Benchmark entry points and experiment-specific modules
 results/benchmarks/    Saved CSV/JSON results used by the manuscript
@@ -58,11 +57,12 @@ Install XeLaTeX and Biber through TeX Live or MiKTeX, then run:
 python scripts/build.py
 ```
 
-Output: `output/paper/main.pdf`. Saved figures are included; training is not
+Output: `build/paper/main.pdf`. Saved figures are included; training is not
 required to compile. Run `python scripts/check_manuscript_audit.py` afterward
 to validate numbering, references, and PDF navigation.
 
 Build the Beamer slides with `python scripts/build_slides.py`.
-The PDF and auxiliary files are written to `output/slides/`.
+Only the current PDF is published to `output/slides/`; auxiliary files stay
+in `build/slides/`. Slide source and TikZ diagrams are in `slides/`.
 VS Code LaTeX Workshop uses the same output directories through the
 project's `.vscode/settings.json`; global VS Code settings are unaffected.

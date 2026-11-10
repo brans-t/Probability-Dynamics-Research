@@ -1,5 +1,9 @@
 {
-    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/output/%RELATIVE_DIR%",
+    "latex-workshop.view.pdf.viewer": "external",
+    "latex-workshop.view.pdf.ref.viewer": "external",
+    "latex-workshop.view.pdf.external.viewer.command": "D:\\App\\Foxit\\Foxit PDF Reader\\FoxitPDFReader.exe",
+    "latex-workshop.view.pdf.external.viewer.args": ["%PDF%"],
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build/%RELATIVE_DIR%",
     "latex-workshop.latex.recipe.default": "first",
     "latex-workshop.latex.magic.args": [
         "-synctex=1",
@@ -23,6 +27,11 @@
             ]
         },
         {
+            "name": "publish-slide-pdf",
+            "command": "python",
+            "args": ["%WORKSPACE_FOLDER%/scripts/build_slides.py", "--publish-only"]
+        },
+        {
             "name": "biber",
             "command": "biber",
             "env": {"LC_ALL": "C"},
@@ -40,7 +49,7 @@
         },
         {
             "name": "XeLaTeX x2 (Beamer)",
-            "tools": ["xelatex", "xelatex"]
+            "tools": ["xelatex", "xelatex", "publish-slide-pdf"]
         }
     ]
 }

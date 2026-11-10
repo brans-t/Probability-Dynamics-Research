@@ -1,0 +1,6 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\Large]
+\node (x) at(0,0) {$x$}; \node (bx) at(3,0) {$Bx$}; \node (abx) at(6,0) {$A(Bx)$};
+\draw[->,accent] (x)--node[above] {$B$}(bx);
+\draw[->,accent] (bx)--node[above] {$A$}(abx);
+\draw[->,diagramred] (x.south) to[bend right=28] node[below] {$AB=A\circ B$}(abx.south);
+\end{tikzpicture}

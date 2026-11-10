@@ -1,8 +1,10 @@
 # 全文数学符号规范化实施报告（2026-11-08）
 
-修改对象：[LaTeX 原稿](../paper/main.tex)。生成文件：[完整 PDF](../output/paper/main.pdf)。本轮依据 [批准后的方案](notation-standardization-plan.md) 及作者的八项补充要求实施。
+2026-11-09 字形修订：仿射外加项恢复为 `B_t`，取消 RSFS 手写花体。算子改用 `\mathsf D_A`、`\mathsf Q`；标量泛函使用 `S`、`F`、`H_{m_{\mathrm{ref}}}`、`L_{\mathrm{log}}`，观测量 Banach 空间使用 `X_{\mathrm{obs}}`。标量布朗运动改记为 `W_t^{\mathrm{red}}`，投影构造使用 `W_t^\xi`。正文、符号表、附录、注释中暂缓的推导、幻灯片和 TikZ 图同步更新。
 
-后续文件整理及记号修订：符号章保存在 [notation.tex](../paper/notation.tex)，主文件通过 `\input{notation}` 引入，现位于正文及附录之后、参考文献之前。自定义乘法算子统一为 `\mathsf M_A`，Picard 算子统一为 `\mathscr P_{s,x}`，局部限制及其缩写为 `\mathscr P_\delta`、`\mathscr P`；正文、图示及符号表同步修改，标准数学记号保留。检查脚本同时读取符号子文件及其交叉引用。下文的前置安排及页码为初次实施记录，以本段和当前源码为准。
+修改对象：[LaTeX 原稿](../paper/main.tex)。完整 PDF 可通过 `python scripts/build.py` 生成到 `build/paper/main.pdf`。本轮依据 [批准后的方案](notation-standardization-plan.md) 及作者的八项补充要求实施。
+
+后续文件整理及记号修订：符号章保存在 [notation.tex](../paper/notation.tex)，主文件通过 `\input{notation}` 引入，现位于正文及附录之后、参考文献之前。自定义乘法算子统一为 `\mathsf M_A`，Picard 算子统一为 `\mathsf Q_{s,x}`，局部限制及其缩写为 `\mathsf Q_\delta`、`\mathsf Q`；正文、图示及符号表同步修改，标准数学记号保留。检查脚本同时读取符号子文件及其交叉引用。下文的前置安排及页码为初次实施记录，以本段和当前源码为准。
 
 ## 完成结果
 
@@ -27,11 +29,11 @@
 | coarea Jacobian `J_\xi` | 保留，定义为 `\sqrt{\det(D\xi D\xi^\top)}`，明确区别于流 Jacobian |
 | Markov 核 `K_{s,t}` | `\mathsf K_{s,t}` |
 | 线性系数 `A(t)` | `A_t`；常矩阵 A 仍按其局部定义使用 |
-| 仿射外加项 `B(t)` | `b_t^{\mathrm{aff}}` |
+| 仿射外加项 `B(t)` | `B_t` |
 | 基本解矩阵 `U(t,s)` | 保留传统“终止、起始”顺序，表中明确与 `\Phi_{s,t}` 对应 |
 | 轨迹空间上的乘法算子 `\mathcal A` | `\mathsf M_A`；观测量代数仍为 `\mathcal A=B_b(V)` |
-| 轨迹 ODE 算子 `\mathcal L` | `\mathscr D_A=\partial_t-\mathsf M_A`；生成元保留 `\mathcal L_t` |
-| 观测量 Banach 空间 `\mathcal X` | `\mathscr X_{\mathrm{obs}}`；轨迹空间保留 `\mathcal X` |
+| 轨迹 ODE 算子 `\mathcal L` | `\mathsf D_A=\partial_t-\mathsf M_A`；生成元保留 `\mathcal L_t` |
+| 观测量 Banach 空间 `\mathcal X` | `X_{\mathrm{obs}}`；轨迹空间保留 `\mathcal X` |
 | 物理势能 `V(x)`、条件几何势能 `U(x)` | `\mathcal V(x)`；状态空间保留 V |
 | 抽象 Gibbs 倾斜代价 U | c，及对应的 `Z_c,\nu_c`；不自动等同于物理势能 |
 | 辛矩阵 J | `\mathbb J_n`；构型维数为 n、相空间维数为 d=2n |
@@ -45,11 +47,11 @@
 | 对数余项 `\rho_k` | `r_k^{\log}`；密度仍为 `\rho_t` |
 | 数值参考矩阵 `\widetilde U` | `\widehat U_{\mathrm{ref}}`，保留原有求解容差说明 |
 | score `s_t`、log-density Hessian `S_t` | `s_t^\rho`、`H_t^\rho`；多密度时使用密度标记 |
-| 自由能泛函 `\mathcal F` | `\mathscr F`；概率空间的 sigma-algebra 保留 `\mathcal F` |
-| 负熵参考测度 m | `m_{\mathrm{ref}}`，负熵泛函记为 `\mathscr H_{m_{\mathrm{ref}}}` |
+| 自由能泛函 `\mathcal F` | `F`；概率空间的 sigma-algebra 保留 `\mathcal F` |
+| 负熵参考测度 m | `m_{\mathrm{ref}}`，负熵泛函记为 `H_{m_{\mathrm{ref}}}` |
 | 凸混合权重 `\theta` | `\vartheta`；模型参数仍使用 `\theta` |
 | 截断 Gaussian 目标 `J_\alpha` | `\mathcal J_\alpha` |
-| logistic 风险 `\mathcal L(g)` | `\mathscr L_{\mathrm{log}}(g)` |
+| logistic 风险 `\mathcal L(g)` | `L_{\mathrm{log}}(g)` |
 | 有限状态 minimax 正权重 s、鞍点函数 F | r、`\mathcal J_{\mathrm{saddle}}` |
 | 约化空间 Z | `\mathcal Z`；随机变量和过程仍为 `Z,Z_t` |
 | 条件几何全维数 n | d；约化维数仍为 m，Brownian 维数为 `d_W` |
@@ -71,7 +73,7 @@
 | 附录参考轨迹 `\xi_t` | `x_t=\Phi_{s,t}(x)`，集体变量专用 `\xi` |
 | 附录初值扰动 h、精确轨迹差 `e_t(h)` | `\delta x`、`\Delta_t(\delta x)` |
 | 附录 Taylor 余项 `R_t(h)` | `R_t^{\mathrm{lin}}(\delta x)` |
-| Picard 时间半径 h、积分映射 `\mathcal T` | `\delta_{\mathrm{loc}}`、`\mathscr P_{s,x}`；时间排序保留 `\mathcal T` |
+| Picard 时间半径 h、积分映射 `\mathcal T` | `\delta_{\mathrm{loc}}`、`\mathsf Q_{s,x}`；时间排序保留 `\mathcal T` |
 | Picard 序号 `\gamma_n,U_n` | `\gamma^{[n]},U^{[n]}`，不误读为时间步 |
 | 指数证明中的积分矩阵 `H(t)` | `B_A(t,s)`，不与 Hamiltonian 共用名称 |
 
@@ -111,4 +113,4 @@
 6. **视觉检查完成。** 逐页查看符号表 ii–ix 页，检查目录和 Introduction 的次序、重复表头、列宽、数学字形及分页；抽查 Hamiltonian、平均力、Markov 和 OU 页面。修正了符号表孤立标题和一处因记号变长造成的超宽公式。
 7. `paper/preamble.tex` 无需改动；原有 longtable、array、Needspace 和数学字体已经支持本轮排版。`scripts/check_manuscript_audit.py` 仅对明确标记的新增前置符号表作专门处理，继续检查全部原有数学陈述、科学图表、标签、来源入口和数据文件。
 
-本轮工作材料及各阶段的编译/检查结果保存在 `build/notation-audit/`。最终源码位置和符号规范以稿件中的 Notation and Conventions 为准，后续新增符号应先定义对象类型及作用范围，再检查冲突并按需补表。
+本轮工作材料及编译/检查结果曾保存在 `build/notation-audit/`，已在项目清理时移除。最终源码位置和符号规范以稿件中的 Notation and Conventions 为准，后续新增符号应先定义对象类型及作用范围，再检查冲突并按需补表。

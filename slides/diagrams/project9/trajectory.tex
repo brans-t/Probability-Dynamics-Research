@@ -1,0 +1,6 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\Large]
+\node (x) at(0,0){$\mathcal X$}; \node (y) at(5,0){$\mathcal Y$};
+\draw[->,accent](x) to[bend left=24] node[above]{$\partial_t$}(y);
+\draw[->,diagramred](x) to[bend right=24] node[below]{$\mathsf M_A$}(y);
+\node[font=\large]at(2.5,-1.7){$\mathsf D_A=\partial_t-\mathsf M_A$};
+\end{tikzpicture}

@@ -1,6 +1,6 @@
 """Reproduce the supplied 61-frame nonlinear-flow animation.
 
-Run from any directory; outputs default to output/flow_deformation/.
+Run from any directory; outputs default to build/flow_deformation/.
 The original PNG files embedded in the manuscript are left unchanged.
 """
 
@@ -21,7 +21,7 @@ from PIL import Image
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument(
     "--output-dir", type=Path,
-    default=Path(__file__).resolve().parents[1] / "output/flow_deformation",
+    default=Path(__file__).resolve().parents[1] / "build/flow_deformation",
     help="Directory for regenerated frames and the optional GIF.",
 )
 parser.add_argument("--skip-gif", action="store_true", help="Generate only the PNG frames.")

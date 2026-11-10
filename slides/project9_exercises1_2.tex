@@ -1,0 +1,656 @@
+% Build with python scripts/build_slides.py, or the Beamer recipe in VS Code.
+% !TeX encoding = UTF-8
+\RequirePackage{fix-cm}
+\documentclass[9pt]{beamer}
+\IfFileExists{template_style.tex}{\input{template_style}}{\input{slides/template_style}}
+\usepackage{lmodern}
+\usepackage{animate}
+\newcommand{\diagramroot}{diagrams/project9/}
+\IfFileExists{diagrams/project9/state.tex}{}{\renewcommand{\diagramroot}{slides/diagrams/project9/}}
+\newcommand{\flowdiagram}[2][\linewidth]{%
+  \begingroup\centering\resizebox{#1}{!}{\input{\diagramroot#2.tex}}\par\endgroup}
+\newcommand{\flowframeprefix}{paper/figures/flow_deformation/flow_frame_}
+\IfFileExists{paper/figures/flow_deformation/flow_frame_0.png}{}{%
+  \renewcommand{\flowframeprefix}{../paper/figures/flow_deformation/flow_frame_}}
+\title{State Spaces, Algebras, and Flows}
+\subtitle{Algebraic solutions of Projects 9.1 and 9.2}
+\author{Heze Zhang}
+\date{November 10, 2026}
+
+\begin{document}
+\begin{frame}[plain]
+\hypertarget{cover}{}
+  \slidecite{}
+  \titlepage
+\end{frame}
+
+\begin{frame}[t]{Contents}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.50\textwidth}
+    \heading{Main presentation}
+    \tableofcontents[lastsection=3,hideallsubsections]
+    \medskip
+    \hyperlink{app:algebras}{\textcolor{accent}{Appendix: derivations and supplementary results}}
+  \end{column}
+  \begin{column}{.45\textwidth}
+    \heading{Questions}
+    \begin{itemize}\setlength{\itemsep}{8pt}
+      \item How does the algebra of trajectories solve an affine ODE?
+      \item Which flow laws remain valid for nonlinear dynamics?
+    \end{itemize}
+    \medskip
+    Detailed arguments are linked from the main slides.
+  \end{column}
+\end{columns}
+\slidecite{Assessment, Project 9, items 1--2. Manuscript \S\S\,1.1--1.2 and Appendix A.}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{State space and algebra}
+
+% On the compact 12.8 cm Beamer canvas, 9 pt body text has approximately
+% the same relative size as 18 pt text on a standard 10-inch-wide slide.
+\begin{frame}[t]{State space and algebra}
+\hypertarget{main:states}{}
+\hypertarget{main:algebras}{}
+\fontsize{9}{11}\selectfont
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.50\textwidth}
+    \heading{Vector space}
+    \begin{equation*}
+      V=\mathbb R^d,\qquad x=(x_1,\ldots,x_d).
+    \end{equation*}
+    Addition and scalar multiplication:
+    \begin{equation*}
+      \begin{aligned}
+        (x+y)_i&=x_i+y_i,\\
+        (\lambda x)_i&=\lambda x_i.
+      \end{aligned}
+    \end{equation*}
+    \heading{Endomorphism algebra}
+    \begin{equation*}
+      \begin{aligned}
+        \operatorname{End}(V)&=\{A:V\to V:\ A\text{ linear}\}\\
+          &\cong M_d(\mathbb R).
+      \end{aligned}
+    \end{equation*}
+    \begin{equation*}
+      AB=A\circ B,\qquad I_Vx=x.
+    \end{equation*}
+    Associative composition; unit $I_V$.
+  \end{column}
+  \begin{column}{.45\textwidth}
+    \heading{Euclidean geometry}
+    \flowdiagram{state}
+    \begin{equation*}
+      \|x\|=\sqrt{x_1^2+\cdots+x_d^2}.
+    \end{equation*}
+    The norm defines distance, continuity and differentiability.
+  \end{column}
+\end{columns}
+\slidecite{Manuscript \S\,1.1 and \S\,1.2.1. \hyperlink{app:algebras}{Further algebra operations: Appendix A1.}}
+\end{frame}
+
+\begin{frame}[t]{From a velocity field to an ODE}
+\hypertarget{main:ode}{}
+\fontsize{9}{11}\selectfont
+A fluid element is carried by the local fluid velocity. Its position $x_t\in V$
+evolves from an initial position $x$ at time $s$ according to
+\begin{equation*}
+  \begin{cases}
+    \dot x_t=v_t(x_t),&t\in I,\\
+    x_s=x.
+  \end{cases}
+\end{equation*}
+Here $I\subseteq\mathbb R$ is an open time interval, with $(s,x)\in I\times V$.
+\heading{Velocity field}
+\begin{equation*}
+  \begin{aligned}
+    v &: I\times V\longrightarrow V,\qquad (t,z)\longmapsto v_t(z),\\
+    v_t &: V\longrightarrow V,\qquad z\longmapsto v_t(z).
+  \end{aligned}
+\end{equation*}
+At a fixed time $t$, $v_t$ assigns a velocity to every position $z$.
+\heading{Trajectory}
+\begin{equation*}
+  x_{\cdot}:I\longrightarrow V,\qquad t\longmapsto x_t,
+  \qquad x_{\cdot}\in C^1(I,V).
+\end{equation*}
+The solution traces one fluid element through time. Its tangent $\dot x_t$
+equals the field evaluated at the current position, $v_t(x_t)$.
+\slidecite{Manuscript \S\,1.2.1, fluid-motion background and ODE initial-value problems.}
+\end{frame}
+
+\section{Project 9.1: affine dynamics}
+
+\begin{frame}[t]{Project 9.1: the initial-value problem}
+\hypertarget{main:ivp}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.54\textwidth}
+    \heading{Given data}
+    An open interval $I\subseteq\mathbb R$, with
+    \begin{equation*}
+      \begin{aligned}
+        A&\in C(I,\operatorname{End}(V)),\\
+        B&\in C(I,V).
+      \end{aligned}
+    \end{equation*}
+    For $(s,x)\in I\times V$, solve
+    \begin{equation*}
+      \begin{cases}
+        \dot x_t=A_tx_t+B_t,&t\in I,\\
+        x_s=x.
+      \end{cases}
+    \end{equation*}
+    Continuous coefficients give a unique trajectory on all of $I$.
+  \end{column}
+  \begin{column}{.41\textwidth}
+    \heading{Trajectory formulation}
+    \flowdiagram{trajectory}
+    \begin{equation*}
+      \mathsf D_A\gamma=B,\qquad E_s\gamma=x.
+    \end{equation*}
+    The unknown is a complete trajectory.
+  \end{column}
+\end{columns}
+\begin{equation*}
+  \mathcal X=C^1(I,V),\qquad \mathcal Y=C(I,V),\qquad
+  (\mathsf M_A\gamma)_t=A_t\gamma_t.
+\end{equation*}
+\slidecite{Assessment 9.1; Manuscript Example 1.10. \hyperlink{app:existence}{Existence and uniqueness: Appendix A2.}}
+\end{frame}
+
+\begin{frame}[t]{Homogeneous evolution by evaluation}
+\hypertarget{main:homogeneous}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.54\textwidth}
+    \heading{The homogeneous kernel}
+    \begin{equation*}
+      \mathcal H=\ker\mathsf D_A.
+    \end{equation*}
+    Evaluation identifies a trajectory with its state:
+    \begin{equation*}
+      E_s:\mathcal H\to V,\qquad E_s(\eta)=\eta_s.
+    \end{equation*}
+    Existence and uniqueness make $E_s$ a linear isomorphism.
+    \begin{equation*}
+      S_s=E_s^{-1},\qquad U(t,s)=E_tS_s.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.41\textwidth}
+    \heading{Recover, then evaluate}
+    \flowdiagram{linear-evolution}
+    \medskip
+    \begin{equation*}
+      \begin{aligned}
+        \partial_t U(t,s)&=A_tU(t,s),\\
+        U(s,s)&=I_V.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10. \hyperlink{app:evaluation}{Evaluation isomorphism and composition: Appendix A3.}}
+\end{frame}
+
+\begin{frame}[t]{The affine solution and its flow}
+\hypertarget{main:affine}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.55\textwidth}
+    \heading{Homogeneous and forced response}
+    \begin{equation*}
+      \begin{aligned}
+        x_t&=U(t,s)x+a_{s,t},\\
+        a_{s,t}&=\int_s^t U(t,r)B_r\,\mathrm dr.
+      \end{aligned}
+    \end{equation*}
+    The initial value selects one trajectory from an affine family.
+    \heading{Initial-to-terminal state map}
+    \begin{equation*}
+      \Phi_{s,t}(x)=U(t,s)x+a_{s,t}.
+    \end{equation*}
+    For zero forcing, the map reduces to $U(t,s)x$.
+  \end{column}
+  \begin{column}{.40\textwidth}
+    \flowdiagram[.92\linewidth]{affine}
+    \begin{equation*}
+      \mathcal S_B=\gamma_{\mathrm p}+\mathcal H.
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10. \hyperlink{app:affine}{Affine family: A4}; \hyperlink{app:variation}{derivation: A5}; \hyperlink{app:verification}{verification: A6}.}
+\end{frame}
+
+\section{Project 9.2: general flows}
+
+\begin{frame}[t]{Project 9.2: general state flows}
+\hypertarget{main:general}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.55\textwidth}
+    \heading{Allow a nonlinear velocity field}
+    \begin{equation*}
+      \dot x_t=v_t(x_t),\qquad x_s=x,
+      \qquad \Phi_{s,t}(x)=x_t.
+    \end{equation*}
+    Assume continuous, locally Lipschitz dynamics with a unique trajectory on the same interval $I$ for every initial pair.
+    \heading{The algebraic construction remains}
+    \begin{equation*}
+      \Phi_{s,t}=E_t\circ E_s^{-1}.
+    \end{equation*}
+    Evaluation is a bijection of sets; linearity of the state map is unnecessary.
+  \end{column}
+  \begin{column}{.40\textwidth}
+    \vspace{8pt}
+    \flowdiagram{general-flow}
+  \end{column}
+\end{columns}
+\slidecite{Assessment 9.2; Manuscript Theorem 1.12. \hyperlink{app:general}{General evaluation construction: Appendix A7.}}
+\end{frame}
+
+\begin{frame}[t]{Composition, inverses, and reversal}
+\hypertarget{main:laws}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.54\textwidth}
+    \heading{Flow laws}
+    \begin{equation*}
+      \begin{aligned}
+        \Phi_{r,t}\circ\Phi_{s,r}&=\Phi_{s,t},\\
+        \Phi_{s,s}&=I_V,\\
+        \Phi_{s,t}^{-1}&=\Phi_{t,s}.
+      \end{aligned}
+    \end{equation*}
+    These identities hold for any $r,s,t\in I$.
+    \heading{Time reversal on a finite window}
+    \begin{equation*}
+      \begin{aligned}
+        y_t&=x_{T-t},\\
+        \dot y_t&=-v_{T-t}(y_t),\qquad y_0=x_T.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+  \begin{column}{.41\textwidth}
+    \heading{One trajectory, two routes}
+    \flowdiagram{flow-composition}
+    \medskip
+    Uniqueness identifies the trajectory through the intermediate state.
+    \par\medskip
+    Autonomy and completeness give a one-parameter group.
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Theorem 1.12. \hyperlink{app:general}{Composition: A7}; \hyperlink{app:autonomous}{autonomy: A8}; \hyperlink{app:reversal}{time reversal: A9}.}
+\end{frame}
+
+\begin{frame}[t]{A nonlinear flow with an explicit solution}
+\hypertarget{main:nonlinear}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.58\textwidth}
+    \heading{Triangular dynamics}
+    \begin{equation*}
+      \dot x_t=0.2x_t,\qquad
+      \dot y_t=0.1y_t+0.3x_t^2.
+    \end{equation*}
+    Solve $x$ first, then the forced equation for $y$.
+    \heading{Result for $\tau=t-s$}
+    \begin{equation*}
+      \begin{aligned}
+        x_t&=e^{0.2\tau}x,\\
+        y_t&=e^{0.1\tau}y+x^2(e^{0.4\tau}-e^{0.1\tau}).
+      \end{aligned}
+    \end{equation*}
+    The flow is nonlinear in the state and exists for every real elapsed time.
+  \end{column}
+  \begin{column}{.37\textwidth}
+    \vspace{7pt}
+    \flowdiagram{nonlinear}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.15. Curves evaluate the exact flow for three initial states.}
+\end{frame}
+
+\begin{frame}[t]{A nonlinear flow in motion}
+\hypertarget{main:animation}{}
+\begin{equation*}
+  R=[-1,1]\times[-0.7,0.7],\qquad 0\leq t\leq1.5.
+\end{equation*}
+\begin{center}
+  \animategraphics[
+    width=\linewidth,
+    autoplay,
+    autopause,
+    loop,
+    controls,
+    poster=first,
+    label=nonlinear-flow
+  ]{20}{\flowframeprefix}{0}{60}
+\end{center}
+\smallskip
+The same flow moves every grid point. The quadratic coupling bends the rectangle.
+\slidecite{Manuscript Example 1.15 and its accompanying 61-frame animation.}
+\end{frame}
+
+\begin{frame}[t]{Evolution on the observable algebra}
+\hypertarget{main:observables}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.55\textwidth}
+    \heading{Pull back the observable}
+    On the observable algebra $\mathcal A=B_b(V)$, define
+    \begin{equation*}
+      \mathsf U_{s,t}f=f\circ\Phi_{s,t}.
+    \end{equation*}
+    The state map may be nonlinear, while its induced action on functions is linear.
+    \begin{equation*}
+      \begin{aligned}
+        \mathsf U_{s,t}(fg)&=(\mathsf U_{s,t}f)(\mathsf U_{s,t}g),\\
+        \mathsf U_{s,t}1&=1.
+      \end{aligned}
+    \end{equation*}
+    \begin{equation*}
+      \mathsf U_{s,r}\mathsf U_{r,t}=\mathsf U_{s,t}.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.40\textwidth}
+    \vspace{7pt}
+    \flowdiagram{pullback}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript \S\,1.1, transformation and evolution operators. State maps are Borel measurable.}
+\end{frame}
+
+\appendix
+\section{Supplementary derivations}
+
+\begin{frame}[t]{Appendix A1: algebra operations}
+\hypertarget{app:algebras}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{The algebra $\operatorname{End}(V)$}
+    \begin{equation*}
+      \begin{aligned}
+        (A+B)x&=Ax+Bx,\\
+        (aA)x&=a(Ax),\\
+        (AB)x&=A(Bx).
+      \end{aligned}
+    \end{equation*}
+    Composition is associative, with unit $I_V$;
+    $AB$ and $BA$ can differ when $d\geq2$.
+    \par\medskip
+    \flowdiagram{composition}
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{The observable algebra $\mathcal A=B_b(V)$}
+    \begin{equation*}
+      \begin{aligned}
+        (af+bg)(x)&=af(x)+bg(x),\\
+        (fg)(x)&=f(x)g(x),\\
+        1(x)&=1.
+      \end{aligned}
+    \end{equation*}
+    Bounded Borel functions form a commutative unital algebra.
+    \par\medskip
+    \flowdiagram[.80\linewidth]{observables}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript \S\,1.1. \hyperlink{main:states}{Return to state space and algebra.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A2: existence and uniqueness}
+\hypertarget{app:existence}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.53\textwidth}
+    \heading{Bounds on a compact time window}
+    For $v_t(y)=A_ty+B_t$ and compact $J\subset I$, let
+    \begin{equation*}
+      L_J=\sup_{t\in J}\|A_t\|,\qquad
+      C_J=\sup_{t\in J}\|B_t\|.
+    \end{equation*}
+    Both constants are finite, and
+    \begin{equation*}
+      \begin{aligned}
+        \|v_t(y)-v_t(z)\|&\leq L_J\|y-z\|,\\
+        \|v_t(y)\|&\leq C_J+L_J\|y\|.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+  \begin{column}{.42\textwidth}
+    \heading{Continuation argument}
+    \begin{enumerate}\setlength{\itemsep}{7pt}
+      \item Local Lipschitz continuity gives a unique local solution.
+      \item Linear growth prevents finite-time escape on $J$.
+      \item Uniqueness joins the solutions on overlapping windows.
+    \end{enumerate}
+    The trajectory is therefore uniquely defined on all of $I$.
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10 and Appendix A.1. \hyperlink{main:ivp}{Return to the initial-value problem.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A3: evaluation and evolution}
+\hypertarget{app:evaluation}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.52\textwidth}
+    \heading{Homogeneous trajectories}
+    \begin{equation*}
+      \mathcal H=\{\eta\in C^1(I,V):\dot\eta_t=A_t\eta_t\}.
+    \end{equation*}
+    Evaluation $E_s(\eta)=\eta_s$ is linear.
+    \begin{itemize}\setlength{\itemsep}{4pt}
+      \item Existence makes it onto.
+      \item Uniqueness makes it one-to-one.
+    \end{itemize}
+    \begin{equation*}
+      S_s=E_s^{-1},\qquad \mathcal H\cong V,
+      \qquad\dim\mathcal H=d.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.43\textwidth}
+    \heading{Inverse evaluation}
+    \flowdiagram{evaluation}
+    \begin{equation*}
+      E_sS_s=I_V,\qquad S_sE_s=I_{\mathcal H}.
+    \end{equation*}
+  \end{column}
+\end{columns}
+\heading{Composition of the homogeneous evolution}
+\begin{equation*}
+  U(t,r)U(r,s)=E_tS_rE_rS_s=E_tS_s=U(t,s).
+\end{equation*}
+\slidecite{Manuscript Example 1.10. \hyperlink{main:homogeneous}{Return to homogeneous evolution.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A4: the affine solution family}
+\hypertarget{app:affine}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.52\textwidth}
+    \heading{A particular solution shifts the kernel}
+    Suppose $\mathsf D_A\gamma_{\mathrm p}=B$. Then
+    \begin{equation*}
+      \begin{aligned}
+        \mathsf D_A\gamma=B
+          &\iff\mathsf D_A(\gamma-\gamma_{\mathrm p})=0\\
+          &\iff\gamma-\gamma_{\mathrm p}\in\mathcal H.
+      \end{aligned}
+    \end{equation*}
+    Hence
+    \begin{equation*}
+      \mathcal S_B=\gamma_{\mathrm p}+\mathcal H.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.43\textwidth}
+    \heading{The initial condition selects one path}
+    Write $\gamma=\gamma_{\mathrm p}+\eta$. Then
+    \begin{equation*}
+      E_s\eta=x-\gamma_{\mathrm p}(s).
+    \end{equation*}
+    Since $E_s$ is an isomorphism,
+    \begin{equation*}
+      \gamma=\gamma_{\mathrm p}
+        +S_s\bigl(x-\gamma_{\mathrm p}(s)\bigr).
+    \end{equation*}
+    Taking $\gamma_{\mathrm p}(s)=0$ gives
+    \begin{equation*}
+      \gamma=\gamma_{\mathrm p}+S_sx.
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10. \hyperlink{main:affine}{Return to the affine solution.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A5: variation of constants}
+\hypertarget{app:variation}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{1. Vary the homogeneous coefficient}
+    \begin{equation*}
+      \gamma_{\mathrm p}(t)=U(t,s)c(t),\qquad c(s)=0.
+    \end{equation*}
+    \heading{2. Apply the trajectory operator}
+    \begin{equation*}
+      \begin{aligned}
+        \dot\gamma_{\mathrm p}-A_t\gamma_{\mathrm p}
+          &=U(t,s)\dot c(t),\\
+        \dot c(t)&=U(s,t)B_t.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{3. Integrate and compose}
+    \begin{equation*}
+      c(t)=\int_s^t U(s,r)B_r\,\mathrm dr.
+    \end{equation*}
+    Use $U(t,s)U(s,r)=U(t,r)$ to obtain
+    \begin{equation*}
+      \begin{aligned}
+        \gamma_{\mathrm p}(t)
+          &=U(t,s)\int_s^t U(s,r)B_r\,\mathrm dr\\
+          &=\int_s^t U(t,r)B_r\,\mathrm dr.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+\end{columns}
+\medskip
+\begin{equation*}
+  x_t=U(t,s)x+\int_s^t U(t,r)B_r\,\mathrm dr.
+\end{equation*}
+\slidecite{Manuscript Example 1.10. \hyperlink{main:affine}{Return to the solution formula.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A6: verification of the solution}
+\hypertarget{app:verification}{}
+\heading{Initial condition}
+\begin{equation*}
+  x_s=U(s,s)x+\int_s^s U(s,r)B_r\,\mathrm dr=x.
+\end{equation*}
+\heading{Differentiation}
+Since $\partial_tU(t,r)=A_tU(t,r)$, Leibniz's rule gives
+\begin{equation*}
+  \begin{aligned}
+    \dot x_t
+      &=A_tU(t,s)x+U(t,t)B_t+\int_s^t A_tU(t,r)B_r\,\mathrm dr\\
+      &=A_t\left(U(t,s)x+\int_s^t U(t,r)B_r\,\mathrm dr\right)+B_t\\
+      &=A_tx_t+B_t.
+  \end{aligned}
+\end{equation*}
+\heading{Uniqueness}
+The difference of two solutions lies in $\mathcal H$ and has zero value at $s$.
+Injectivity of $E_s$ makes that difference the zero trajectory.
+\slidecite{Manuscript Example 1.10. \hyperlink{main:affine}{Return to the solution and its flow map.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A7: general evaluation and composition}
+\hypertarget{app:general}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.49\textwidth}
+    \heading{Evaluation is a bijection}
+    \begin{equation*}
+      \mathcal S_v=\{\gamma\in C^1(I,V):\dot\gamma_t=v_t(\gamma_t)\}.
+    \end{equation*}
+    On the solution set, $E_s(\gamma)=\gamma_s$.
+    Existence gives surjectivity; uniqueness gives injectivity.
+    \begin{equation*}
+      \Phi_{s,t}=E_t\circ E_s^{-1}.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.46\textwidth}
+    \heading{Recover, then evaluate}
+    \flowdiagram{general-evaluation}
+  \end{column}
+\end{columns}
+\heading{Cancellation at an intermediate time}
+\begin{equation*}
+  \begin{aligned}
+    \Phi_{r,t}\circ\Phi_{s,r}
+      &=(E_t\circ E_r^{-1})\circ(E_r\circ E_s^{-1})\\
+      &=E_t\circ E_s^{-1}=\Phi_{s,t}.
+  \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \Phi_{s,s}=I_V,\qquad \Phi_{s,t}^{-1}=\Phi_{t,s}.
+\end{equation*}
+\slidecite{Manuscript Appendix A.2. \hyperlink{main:general}{Return to general flows}; \hyperlink{main:laws}{return to the flow laws}.}
+\end{frame}
+
+\begin{frame}[t]{Appendix A8: autonomy and completeness}
+\hypertarget{app:autonomous}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{Autonomous field}
+    \begin{equation*}
+      v_t=v,\qquad \Phi_{s,t}=\phi_{t-s}.
+    \end{equation*}
+    Uniqueness gives time-translation invariance.
+    If all trajectories exist for every real time,
+    \begin{equation*}
+      \begin{aligned}
+        \phi_{\tau+\sigma}&=\phi_\tau\circ\phi_\sigma,\\
+        \phi_0&=I_V,\\
+        \phi_{-\tau}&=\phi_\tau^{-1}.
+      \end{aligned}
+    \end{equation*}
+    The maps form a one-parameter group.
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{Time-dependent field}
+    \begin{equation*}
+      v_t=v(t,\cdot).
+    \end{equation*}
+    Both initial and terminal times matter. The valid composition law is
+    \begin{equation*}
+      \Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t}.
+    \end{equation*}
+    The family $\Phi_{0,t}$ generally does not have the same one-parameter group law.
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Theorem 1.12 and Appendix A.2. \hyperlink{main:laws}{Return to the main flow laws.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A9: time reversal}
+\hypertarget{app:reversal}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.54\textwidth}
+    \heading{Reverse a finite time window}
+    For a trajectory on $[0,T]$, set
+    \begin{equation*}
+      y_t=x_{T-t},\qquad0\leq t\leq T.
+    \end{equation*}
+    The chain rule gives
+    \begin{equation*}
+      \begin{aligned}
+        \dot y_t&=-\dot x_{T-t}\\
+          &=-v_{T-t}(x_{T-t})\\
+          &=-v_{T-t}(y_t).
+      \end{aligned}
+    \end{equation*}
+    Thus
+    \begin{equation*}
+      \widetilde v_t=-v_{T-t},\qquad y_0=x_T.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.41\textwidth}
+    \heading{Opposite traversal}
+    \flowdiagram{reversal}
+    \medskip
+    Both the sign of the velocity and its time argument reverse.
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Theorem 1.12 and Appendix A.2. \hyperlink{main:laws}{Return to composition and reversal.}}
+\end{frame}
+\end{document}

@@ -6,9 +6,7 @@ __pycache__/
 .venv/
 /build/
 /dist/
-/output/paper/
-/output/slides/
-/output/flow_deformation/
+/output/
 paper/*.aux
 paper/*.log
 paper/*.out

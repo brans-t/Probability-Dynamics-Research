@@ -80,7 +80,7 @@
 
 ## 文件与核验记录
 
-- 原稿及原编译 PDF 的本地备份位于 `build/review-2026-11-06/`，属于忽略的构建目录。
+- 原稿及原编译 PDF 曾备份到 `build/review-2026-11-06/`，该临时备份已在项目清理时移除。
 - 最终 PDF 由 `scripts/build.py` 使用 XeLaTeX、Biber 和两轮交叉引用编译生成。
 - `scripts/check_project.py` 检查题号 TSV、内部引用、文献键、图文件和文档链接。
 - `scripts/check_manuscript_audit.py` 检查 45 条题目链接的真实目标、定理编号、附录编号及编译警告；已删除对旧 HNN 附录七个链接的要求，改为检查它们确实不再存在。

@@ -1,0 +1,8 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\large]
+\draw[dashed,gray](.55,-.4)--(.55,3.7)node[above,black]{$s$};
+\draw[dashed,gray](5.4,-.4)--(5.4,3.7)node[above,black]{$t$};
+\foreach \a/\b in{.35/.75,1.45/2.7,2.65/3.3}{\draw[accent](.55,\a)..controls(2,\a+.9)and(3.8,\b-.7)..(5.4,\b);}
+\fill[diagramred](.55,1.45)circle(2.4pt)node[left,black]{$x$};
+\fill[diagramred](5.4,2.7)circle(2.4pt)node[right,black]{$\Phi_{s,t}(x)$};
+\draw[->,diagramred](1.5,-.65)--(4.5,-.65)node[midway,below]{$\Phi_{s,t}$};
+\end{tikzpicture}

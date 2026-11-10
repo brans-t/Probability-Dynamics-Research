@@ -1,0 +1,6 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\Large]
+\node(vs)at(0,0){$x_s$};\node(vr)at(3.9,1.7){$x_r$};\node(vt)at(7.8,0){$x_t$};
+\draw[->,accent](vs)--node[above left]{$\Phi_{s,r}$}(vr);
+\draw[->,accent](vr)--node[above right]{$\Phi_{r,t}$}(vt);
+\draw[->,diagramred](vs)--node[below]{$\Phi_{s,t}$}(vt);
+\end{tikzpicture}

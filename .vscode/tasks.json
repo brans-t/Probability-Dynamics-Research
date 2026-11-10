@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "用福昕打开幻灯片 PDF",
+            "type": "process",
+            "command": "D:\\App\\Foxit\\Foxit PDF Reader\\FoxitPDFReader.exe",
+            "args": ["${workspaceFolder}/output/slides/project9_exercises1_2.pdf"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "never",
+                "focus": false
+            }
+        }
+    ]
+}

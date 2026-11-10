@@ -1,0 +1,6 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\Large]
+\node(vs)at(0,0){$V$}; \node(s)at(3.8,1.8){$\mathcal S_v$}; \node(vt)at(7.6,0){$V$};
+\draw[->,accent](vs)--node[above left]{$E_s^{-1}$}(s);
+\draw[->,accent](s)--node[above right]{$E_t$}(vt);
+\draw[->,diagramred](vs)--node[below]{$\Phi_{s,t}$}(vt);
+\end{tikzpicture}

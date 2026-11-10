@@ -150,7 +150,9 @@ byte-identical. They are not appropriate for validating an editorial or mathemat
 VS Code's LaTeX Workshop recipe is configured in
 [settings.json](../.vscode/settings.json). Use XeLaTeX because the manuscript uses
 `fontspec`; bibliography processing uses Biber. Build outputs and local snapshots
-are ignored under `output/paper/`, `output/slides/`, and `build/`.
+are ignored under `output/` and `build/`. The output directory contains only
+the current slide PDF in `output/slides/`; all LaTeX auxiliary files stay in
+`build/`, and the manuscript PDF is generated at `build/paper/main.pdf`.
 The manuscript and slide build scripts use the same directories as the
 workspace settings; global VS Code settings are not changed.
 
@@ -164,7 +166,7 @@ To regenerate the frames and an optional GIF without changing the originals, run
 python scripts/flow_deformation_source.py
 ```
 
-The generator writes to `output/flow_deformation/`; use `--output-dir PATH`
+The generator writes to `build/flow_deformation/`; use `--output-dir PATH`
 to choose another destination, or `--skip-gif` to generate only the frames.
 It requires NumPy, Matplotlib, and Pillow. The GIF is a separate preview;
 the manuscript embeds the PNG sequence directly.

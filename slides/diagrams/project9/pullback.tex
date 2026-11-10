@@ -1,0 +1,6 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\Large]
+\node(vs)at(0,0){$V$};\node(vt)at(5.5,0){$V$};\node(r)at(5.5,-2.4){$\mathbb R$};
+\draw[->,accent](vs)--node[above]{$\Phi_{s,t}$}(vt);
+\draw[->,accent](vt)--node[right]{$f$}(r);
+\draw[->,diagramred](vs)--node[below left]{$\mathsf U_{s,t}f=f\circ\Phi_{s,t}$}(r);
+\end{tikzpicture}

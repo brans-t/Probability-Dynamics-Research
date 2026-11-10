@@ -1,12 +1,14 @@
 # 全文数学符号统一方案（2026-11-08 批准修订版）
 
+2026-11-09 更新：取消 RSFS 手写花体。仿射外加项恢复为 `B_t`；轨迹算子使用 `\mathsf D_A`，Picard 算子使用 `\mathsf Q`，标量泛函使用普通字母 `S`、`F`、`H_{m_{\mathrm{ref}}}`、`L_{\mathrm{log}}`，观测量 Banach 空间记为 `X_{\mathrm{obs}}`。标量布朗运动记为 `W_t^{\mathrm{red}}` 或投影构造中的 `W_t^\xi`，避免与外加项重名。以下映射及正文、符号表、幻灯片已同步。
+
 审阅范围：`paper/main.tex` 全文，包括正文五个主题节、ODE 附录的五节，以及 `paper/preamble.tex`。当前主文件共 5396 个物理行；它只加载共享导言区，没有其他正文子文件。以下行号仅用于定位本次审阅快照，实施后会改变。另检查了现有项目校验脚本及 Hamiltonian 绘图入口，以确定后续同步范围。
 
 本方案已纳入作者的八项补充要求。实施按主题分段，每段完成数学等价性、完整编译与引用检查后，再进入下一段；不得改变物理假设、结论、实验数据或证明逻辑。
 
 实施状态：已完成。最终前置符号表分 Global Notation 与 Topic-specific Notation 两层，共 99 个条目、6 张分组长表，位于 PDF 的 ii–ix 页；Introduction 位于 x 页。具体旧新映射、保留的局部约定及检查记录见 [实施报告](notation-standardization-report-2026-11-08.md)。以下保留经批准的规划依据。
 
-按后续修订要求，符号章保存在独立的 [paper/notation.tex](../paper/notation.tex)，由主文件 `\input{notation}` 引入，现移至正文及附录之后、参考文献之前。自定义乘法算子和 Picard 算子分别统一为 `\mathsf M_A` 和 `\mathscr P_{s,x}`；标准数学记号保留。下文的前置安排及页码为初次实施记录，以本段和当前源码为准。
+按后续修订要求，符号章保存在独立的 [paper/notation.tex](../paper/notation.tex)，由主文件 `\input{notation}` 引入，现移至正文及附录之后、参考文献之前。自定义乘法算子和 Picard 算子分别统一为 `\mathsf M_A` 和 `\mathsf Q_{s,x}`；标准数学记号保留。下文的前置安排及页码为初次实施记录，以本段和当前源码为准。
 
 ## 一、总体规则及理由
 
@@ -30,10 +32,10 @@
 | `h` 表示时间步长、空间格宽、重加权函数和初值扰动 | 分别用 `h`、`\Delta x`、`w(x)`、`\delta x` | 使误差估计中的极限参数及其量纲明确 |
 | `x_i` 同时表示空间分量、样本、格点 | 分量用 `x^i`，样本用 `x^{(\ell)}`，空间格点用 `x_i` | 消除同一数值公式里时间、坐标、样本编号之间的歧义；粒子编号另作局部说明 |
 | `\mathcal A` 是观测量代数，也是轨迹上的矩阵乘法算子，约 357、643 行 | 保留 `\mathcal A=B_b(V)`；乘法算子用 `\mathsf M_A` | 这两个对象连定义域和值域都不同，应分开命名 |
-| `\mathcal L` 是轨迹 ODE 算子、生成元、logistic 风险 | 生成元保留 `\mathcal L_t`；轨迹 ODE 算子用 `\mathscr D_A`；风险用 `\mathscr L_{\mathrm{log}}` | 区分“对轨迹作微分”“对观测量作演化”“给函数打分” |
-| `\mathcal X` 既是轨迹空间又是观测量 Banach 空间 | 轨迹空间保留 `\mathcal X`；观测量空间用 `\mathscr X_{\mathrm{obs}}` | 两类函数的自变量、值域及范数不同 |
+| `\mathcal L` 是轨迹 ODE 算子、生成元、logistic 风险 | 生成元保留 `\mathcal L_t`；轨迹 ODE 算子用 `\mathsf D_A`；风险用 `L_{\mathrm{log}}` | 区分“对轨迹作微分”“对观测量作演化”“给函数打分” |
+| `\mathcal X` 既是轨迹空间又是观测量 Banach 空间 | 轨迹空间保留 `\mathcal X`；观测量空间用 `X_{\mathrm{obs}}` | 两类函数的自变量、值域及范数不同 |
 | `D` 同时为状态导数、时间微分算子、散度上界、扩散常数 | 状态导数保留 `D_x`；轨迹时间导数用 `\partial_t`；散度上界用 `B_{\mathrm{div}}`；扩散常数用 `D_{\mathrm{diff}}` | 防止在同一误差/PDE 推导中出现同形而异类的量 |
-| `\mathcal F` 是概率空间的 sigma-algebra，又是自由能泛函 | sigma-algebra 保留 `\mathcal F`；自由能泛函用 `\mathscr F` | 该冲突原稿已用文字提醒，改名后不再需要读者反复记忆例外 |
+| `\mathcal F` 是概率空间的 sigma-algebra，又是自由能泛函 | sigma-algebra 保留 `\mathcal F`；自由能泛函用 `F` | 该冲突原稿已用文字提醒，改名后不再需要读者反复记忆例外 |
 | `F` 是一般状态变换，也是平均力势 | 一般变换保留 `F`；平均力势用 `F_\xi` | 标明自由能依赖于所选集体变量及参考体积 |
 | `\rho_t` 为密度，`\rho_k(h,x)` 却是对数余项 | 后者改为 `r_k^{\log}(h,x)` | 避免将余项误认为离散密度；保留此前已建立的余项分解 |
 | `\Sigma_t` 为协方差，`\Sigma_z` 为水平集 | 协方差保留 `\Sigma_t`；水平集用 `\mathcal M_z:=\xi^{-1}(\{z\})` | 条件 Gaussian 和 coarea 公式中会同时出现两者，应区分几何集合与矩阵 |
@@ -41,7 +43,7 @@
 | 附录 `e_t(h)` 是两条精确轨迹之差 | 改为 `\Delta_t(\delta x)` | `e_k` 专门表示数值状态误差；精确解的初值敏感性不是离散误差 |
 | `S_t` 同时为解算映射和 Hessian，`H(t)` 还表示积分矩阵 | 解算映射 `S_t` 保留局部定义；Hessian 使用带对象标记的记号；积分矩阵用 `B_A(t,s)` | 不让 Hamiltonian `H`、解算映射和二阶导数共享未经说明的名字 |
 | `\Omega` 是样本空间，也用于运动区域 `\Omega_t` | 样本空间保留 `\Omega`；运动区域用 `\mathcal D_t` | 将概率空间与物理积分区域分开 |
-| `\mathcal T` 既表示时间排序又表示 Picard 映射 | 时间排序保留 `\mathcal T`；Picard 映射用 `\mathscr P_{s,x}` | 两者在同一 ODE 附录中出现，运算性质不同 |
+| `\mathcal T` 既表示时间排序又表示 Picard 映射 | 时间排序保留 `\mathcal T`；Picard 映射用 `\mathsf Q_{s,x}` | 两者在同一 ODE 附录中出现，运算性质不同 |
 | 传输例子中 `T_1` 既为时刻 1 的映射又为三角映射第一分量 | 传输映射用 `F_{\mathrm{tr}}`，时间插值用 `F_t^{\mathrm{tr}}`，分量用 `F_{\mathrm{tr}}^i` | 同一例子内也必须区分时间指标与坐标指标 |
 
 ## 三、拟固定的符号清单
@@ -78,7 +80,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 | `b_t(x),\sigma_t(x)` | SDE 漂移及噪声矩阵 | `\mathrm dX_t=b_t(X_t)\mathrm dt+\sigma_t(X_t)\mathrm dW_t`；不能把漂移一律当作概率流速度 |
 | `\Phi_{s,t}` | 精确两时流映射 | 参数顺序固定为“起始、终止”；只在已明确的自治情形允许 `\phi_t=\Phi_{0,t}` |
 | `A_t` | 线性系统系数矩阵 | 将 `A(t)` 规范为 `A_t`；变分系统中明确 `A_t=D_xv_t(x_t)` |
-| `b_t^{\mathrm{aff}}` | 仿射系统的外加项 | 原 `B(t)`；与完整 SDE 漂移、Brownian `B_t` 和紧集 `B` 分开 |
+| `B_t` | 仿射系统的外加项 | 原 `B(t)`；与完整 SDE 漂移、Brownian `B_t` 和紧集 `B` 分开 |
 | `U(t,s)` | 线性基本解矩阵 | 保留既有传统参数顺序“终止、起始”；满足 `\Phi_{s,t}(x)=U(t,s)x`（齐次线性情形） |
 | `D_xF(x)` | 状态映射的导数矩阵 | `D` 省略 `x` 仅在自变量无歧义时允许；`(D_xF)_{ij}=\partial F^i/\partial x^j` |
 | `M_{s,t}(x)` | 精确流的 Jacobian 矩阵 | `D_x\Phi_{s,t}(x)`；矩阵初值为 `I_d` |
@@ -113,7 +115,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 | `\mathsf K_{s,t}(x,\mathrm dy)` | Markov 转移核 | 使用算子字形并保留两时下标，与裸 `K` 步数明确区分 |
 | `\mathsf P_{s,t}` | Markov 可观测量演化算子 | 确定性情形等于 `\mathsf U_{s,t}`；不改动现有复合顺序 |
 | `\mathcal L_t` | 可观测量生成元 | 定义域、值域、极限拓扑按具体结论声明；对确定性流、扩散和跳过程分别给表达式 |
-| `\mathscr X_{\mathrm{obs}}` | 选择的观测量 Banach 空间 | 与轨迹空间 `\mathcal X` 分开；生成元定义域可写 `\operatorname{Dom}(\mathcal L_t)` |
+| `X_{\mathrm{obs}}` | 选择的观测量 Banach 空间 | 与轨迹空间 `\mathcal X` 分开；生成元定义域可写 `\operatorname{Dom}(\mathcal L_t)` |
 | `\boldsymbol j_t(x)` | 概率流密度 | 连续性形式为 `\partial_t\rho_t+\nabla\cdot\boldsymbol j_t=0`；只有在 `\rho_t(x)>0` 的区域定义 `v_t^{\mathrm{cur}}=\boldsymbol j_t/\rho_t` |
 | `W_t,B_t` | 已说明维数的 Brownian 运动 | `W_t` 用于完整系统，`B_t` 用于标量约化；二者是否耦合必须明确，不能由字母推断 |
 
@@ -128,13 +130,13 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 | `\widetilde H_h` | 修正 Hamiltonian | Verlet 的确定性修正能量；波浪号不是数值状态帽子的替代品 |
 | `\beta` | 逆温度 | 全文同义；物理温度与终止时间 `T` 分开 |
 | `Z_{\beta,\mathcal V}` 等 | 配分/归一化常数 | 用说明性下标表明依赖对象；`Z_t` 作为随机约化过程时不读作配分常数 |
-| `\mathscr S(\rho)` | 微分熵 | 保留已有定义和符号 |
-| `\mathscr H_{m_{\mathrm{ref}}}` | 固定参考测度下的负熵泛函 | Bregman 段落明确参考测度；避免与 Hamiltonian `H` 及约化维数 `m` 混淆 |
+| `S(\rho)` | 微分熵 | 保留已有定义和符号 |
+| `H_{m_{\mathrm{ref}}}` | 固定参考测度下的负熵泛函 | Bregman 段落明确参考测度；避免与 Hamiltonian `H` 及约化维数 `m` 混淆 |
 | `D_{\mathrm{KL}}` | KL 散度 | 保留已有 `\KL` 宏及参数顺序；密度记法须声明为测度记法的缩写 |
 | `\ell_t,s_t^\rho` | 对数密度、score | `\ell_t=\log\rho_t,\ s_t^\rho=\nabla\ell_t`；与时间 s 通过对象标记区分 |
 | `H_t^\rho` | 对数密度 Hessian | `\nabla^2\ell_t`；Hamiltonian Hessian 直接写 `\nabla^2H(z_t)`，不引入 S 类别名 |
 | `F_\xi(z)` | 平均力势 | `-\beta^{-1}\log p_\xi(z)`，其中 `p_\xi` 是该小节指定的静态 Gibbs 边缘密度；注明参考体积及加法常数约定，不额外断言某个未指定动力学的不变性 |
-| `\mathscr F(\rho)` | 热力学自由能泛函 | 与 sigma-algebra `\mathcal F`、标量平均力势 `F_\xi` 分开 |
+| `F(\rho)` | 热力学自由能泛函 | 与 sigma-algebra `\mathcal F`、标量平均力势 `F_\xi` 分开 |
 | `G_\xi,J_\xi` | Gram 矩阵、coarea Jacobian | `G_\xi=D\xi D\xi^\top,\ J_\xi=\sqrt{\det G_\xi}`；这是满秩约化映射的体积因子，区别于方形流导数的行列式 `J_{s,t}` |
 | `B_i^\xi` | coarea/平均力公式的提升向量场 | `D\xi B_i^\xi=e_i`；不与 Brownian 运动 `B_t` 混淆 |
 | `\Sigma_t` | 协方差矩阵 | OU 平衡值 `\Sigma_\infty`；不再用于水平集 |
@@ -142,7 +144,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 | `I_t,\alpha_t,\lambda_t` | 随机插值及确定性系数 | `I_t=\alpha_tX_0+\lambda_tX_1`；单位矩阵始终写带维数的 `I_d` |
 | `g_{\theta,t}(z)` | 参数化回归函数族 | 可首次说明它等价于网络接口 `g_\theta(t,z)`；固定主文记法 |
 | `\widehat\theta,\widehat g_t,\widehat b_t` | 拟合参数及学习得到的函数 | `\widehat g_t=g_{\widehat\theta,t}`；参数族本身不因可用计算机评价就自动加帽子 |
-| `\mathscr L_{\mathrm{log}},\mathscr L_{\mathrm{reg}}` | logistic 风险、回归损失 | 只在确有需要时引入对应记号；与生成元 `\mathcal L_t` 分开 |
+| `L_{\mathrm{log}},L_{\mathrm{reg}}` | logistic 风险、回归损失 | 只在确有需要时引入对应记号；与生成元 `\mathcal L_t` 分开 |
 | `\mathcal R,\mathcal J,\mathcal E,\mathfrak L` | 奖励泛函、目标、终端代价、Lagrangian | 保留各自数学角色；截断 Gaussian 目标 `J_\alpha` 改为 `\mathcal J_\alpha` |
 | `f,f^*,\partial f` | f-divergence 的凸函数、共轭、次微分 | 局部明确 f 是标量凸函数；与一般观测量 f 的合法局部用法分开登记 |
 | `\Lambda_Q,\Psi_Q` | log-partition 及指数积分泛函 | 保留已建立的不同共轭对及其自然定义域 |
@@ -180,7 +182,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 
 这些符号不提升为全文同一数学对象，但在符号表中标明位置和用途：
 
-- 线性 ODE：`\mathcal X=C^1(I;V)`、`\mathcal Y=C(I;V)`、`\mathsf M_A`、`\mathscr D_A:=\partial_t-\mathsf M_A`、`\mathcal H=\ker\mathscr D_A`、评价映射 `E_t`、逆解算映射 `S_t`、零初值空间 `\mathcal K_s`、特解 `\gamma_{\mathrm p}`、齐次轨迹 `\eta` 和仿射解集。路径可在函数空间评价处写 `\gamma(t)`，与动力学式中的 `\gamma_t` 明确为同一取值，不混用时间与迭代指标。
+- 线性 ODE：`\mathcal X=C^1(I;V)`、`\mathcal Y=C(I;V)`、`\mathsf M_A`、`\mathsf D_A:=\partial_t-\mathsf M_A`、`\mathcal H=\ker\mathsf D_A`、评价映射 `E_t`、逆解算映射 `S_t`、零初值空间 `\mathcal K_s`、特解 `\gamma_{\mathrm p}`、齐次轨迹 `\eta` 和仿射解集。路径可在函数空间评价处写 `\gamma(t)`，与动力学式中的 `\gamma_t` 明确为同一取值，不混用时间与迭代指标。
 - 冷却例子：温度用 `T_t^{\mathrm{temp}}`、环境温度 `T_{\mathrm{env}}^{\mathrm{temp}}`，与终止时间 T 分开；局部衰减率 `\lambda` 仍保留。
 - 最小加权作用量：权重 `w_t`、作用量 `I[\gamma]`、累积重参数 `\Theta_w(t):=\int_0^t w_r^{-1}\mathrm dr`；后者替换 W(t)，避免与 Brownian 记号混淆。
 - 截断 Gaussian：标准密度 `\varphi`、上尾 `\bar\Phi`、阈值 b、条件律 `\mu_b`、逆 Mills 比 `m(b)` 和 `\mathcal J_\alpha(b)`。阈值 b 不是 SDE 漂移函数，标出该例的作用域即可。
@@ -189,7 +191,7 @@ Hamiltonian 部分用 `n` 表示构型自由度，`q,p\in\mathbb R^n`，相空�
 - 有限体积：`D_{\mathrm{diff}}`、转移率 `q_{i\to j}^{\Delta x}`、质量列向量的生成矩阵 `Q^{\Delta x}`、边通量 `j_{i+1/2}^{\Delta x}`、平衡质量 `\pi_i^{\Delta x}`。矩阵约定固定为 `\dot m=Q^{\Delta x}m`，其列和为零；可观测量生成矩阵是转置，不暗中更换行列约定。
 - 半离散质量 `m_i^{\Delta x}(t)` 是有限维连续时间系统的精确解；上标标明空间近似。它与原 PDE 的精确单元积分不是恒等关系。若再数值积分该系统，才写 `\widehat m_{k,i}^{\Delta x}`。原题 ghost-cell 记号作为引文保留并给出本文对应记号，不篡改原题边界条件。
 - OU：完整二维过程 `R_t`、正定矩阵 `A_{\mathrm{OU}}`、均值 `m_t^{\mathrm{OU}}`、协方差 `\Sigma_t`、闭合模型 `\bar X_t`、条件函数 `g_t`、完整/闭合自协方差 `C_{\mathrm{full}},C_{\mathrm{closure}}`。均值不与有限体积质量向量 m 共享裸记号。
-- ODE 附录：局部存在时间半径用 `\delta_{\mathrm{loc}}`（避免被误读为随 t 变化的函数）；Picard 映射用 `\mathscr P_{s,x}`，迭代用 `\gamma^{[n]}`；Peano--Baker 项用 `P_n(t,s)`，部分和用 `U^{[n]}(t,s)`；积分系数矩阵用 `B_A(t,s):=\int_s^t A_r\mathrm dr`；排序符号 `\mathcal T` 保留原有前向/后向区别。
+- ODE 附录：局部存在时间半径用 `\delta_{\mathrm{loc}}`（避免被误读为随 t 变化的函数）；Picard 映射用 `\mathsf Q_{s,x}`，迭代用 `\gamma^{[n]}`；Peano--Baker 项用 `P_n(t,s)`，部分和用 `U^{[n]}(t,s)`；积分系数矩阵用 `B_A(t,s):=\int_s^t A_r\mathrm dr`；排序符号 `\mathcal T` 保留原有前向/后向区别。
 
 ## 四、前置符号表的具体安排
 

@@ -1,0 +1,9 @@
+\begin{tikzpicture}[>=Stealth,thick,font=\large]
+\draw[->,gray] (-.2,0)--(4.5,0) node[right,black] {$q$};
+\draw[->,gray] (0,-.2)--(0,3.4) node[above,black] {$p$};
+\fill[accent] (2.1,1.55) circle(2.2pt) node[below right,xshift=3pt,yshift=-4pt,black] {$x=(q,p)$};
+\fill[diagramred] (3.2,2.45) circle(2.2pt) node[above,black] {$x+\delta x$};
+\draw[->,diagramred] (2.14,1.59)--(3.15,2.41) node[midway,above left] {$\delta x$};
+\draw[dashed,gray] (2.1,0) node[below,black] {$q$}--(2.1,1.55)--(0,1.55) node[left,black] {$p$};
+\node[anchor=west,font=\normalsize] at(.35,3.1) {Example: $V=\mathbb R^2$};
+\end{tikzpicture}
