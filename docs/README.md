@@ -75,16 +75,21 @@ before the subsequent code reorganization.
 
 ## Manuscript organization and sources
 
-The five main sections cover state/observable/probability language, deterministic
+The source retains five main sections covering state/observable/probability language, deterministic
 transport and entropy, conditional/effective dynamics, learned flows and numerical
-structure, and a coupled OU benchmark. HNN transfer is retained only as a short
+structure, and a coupled OU benchmark. Sections 1.3–1.5 are currently preserved
+as line comments, so the compiled draft contains Sections 1.1–1.2 and Appendix A.
+The Source Index retains the hidden-section entries; their links are unresolved
+until those sections are restored. A superscript star marks incomplete solutions,
+proofs, or extensions, including explicit proof-completion placeholders.
+HNN transfer is retained only as a short
 prospective paragraph beside the Hamiltonian application; its former appendix
 and supplementary navigation have been removed.
 
 Section 1.2 follows four themes: state-flow geometry; observable and probability
 transport; Hamiltonian mechanics as an application; entropy, variational principles,
 and free energy. Local derivation headings remain in the text. The main chapter
-contains 14 subsections, grouped as 3/4/2/3/2 across its five sections.
+retains 14 subsections in the full source, grouped as 3/4/2/3/2 across its five sections.
 
 The original assessment is kept locally as `docs/StudentAssessmentExercise_unlocked.pdf`
 and is excluded from Git. The [machine-readable source index](source_index.tsv)
@@ -135,6 +140,10 @@ local Markdown links, manuscript labels/citations, source-index consistency, and
 saved artifact locations. The PDF audit additionally requires Poppler tools
 (`pdfinfo`, `pdftotext`, and `pdftohtml`) on PATH.
 
+The strict manuscript checks currently report unresolved references in the partial
+draft, including labels in commented-out Sections 1.3–1.5. Successful compilation
+does not imply that these checks pass or that every proof is complete.
+
 For optional symbolic checks:
 
 ```bash
@@ -149,8 +158,9 @@ byte-identical. They are not appropriate for validating an editorial or mathemat
 
 VS Code's LaTeX Workshop recipe is configured in
 [settings.json](../.vscode/settings.json). Use XeLaTeX because the manuscript uses
-`fontspec`; bibliography processing uses Biber. Build outputs and local snapshots
-are ignored under `output/` and `build/`. The output directory contains only
+`fontspec`; bibliography processing uses Biber. Current PDFs in `output/paper/`
+and `output/slides/` are tracked in Git. Auxiliary files and local snapshots
+under `build/`, and other files under `output/`, are ignored. The output directory contains only
 the current manuscript PDF in `output/paper/` and slide PDF in `output/slides/`;
 all LaTeX auxiliary files stay in `build/`. The manuscript PDF is generated at
 `build/paper/main.pdf` and copied to `output/paper/main.pdf` after compilation.
