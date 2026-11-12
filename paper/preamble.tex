@@ -44,6 +44,7 @@
 \usepackage{appendix}
 \usepackage{animate}
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usetikzlibrary{arrows.meta}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -224,12 +225,12 @@
   \nobreak\noindent\ignorespaces
 }
 \newcommand{\sourcelink}[3]{\hyperref[#3]{Project #1 -- #2} & \hyperref[#3]{\pageref*{#3}}\\}
-% Mark pending entries and the two concise entries with explicit pending extensions.
+% Mark pending entries, incomplete core proofs, and explicit pending extensions.
 \def\sourceindexstatusmark#1:#2\relax{%
   \ifstrequal{#1}{Pending}{\textsuperscript{\ensuremath{\star}}}{}%
 }
 \newcommand{\sourceindexmark}[2]{%
-  \ifboolexpr{test {\ifstrequal{#1}{src:p9q11}} or test {\ifstrequal{#1}{src:p13q1}}}%
+  \ifboolexpr{test {\ifstrequal{#1}{src:p9q11}} or test {\ifstrequal{#1}{src:p11q6}} or test {\ifstrequal{#1}{src:p11q7}} or test {\ifstrequal{#1}{src:p13q1}}}%
     {\textsuperscript{\ensuremath{\star}}}%
     {\sourceindexstatusmark#2:\relax}%
 }
