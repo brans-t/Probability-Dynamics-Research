@@ -1,0 +1,397 @@
+% Focused framework presentation.
+\section{Supplementary derivations}
+
+\begin{frame}[t]{Appendix A1: algebra operations}
+\hypertarget{app:algebras}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{The algebra $\operatorname{End}(V)$}
+    \begin{equation*}
+      \begin{aligned}
+        (A+B)x&=Ax+Bx,\\
+        (aA)x&=a(Ax),\\
+        (AB)x&=A(Bx).
+      \end{aligned}
+    \end{equation*}
+    Composition is associative, with unit $I_V$;
+    $AB$ and $BA$ can differ when $d\geq2$.
+    \par\medskip
+    \flowdiagram{composition}
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{The observable algebra $\mathcal A=B_b(V)$}
+    \begin{equation*}
+      \begin{aligned}
+        (af+bg)(x)&=af(x)+bg(x),\\
+        (fg)(x)&=f(x)g(x),\\
+        1(x)&=1.
+      \end{aligned}
+    \end{equation*}
+    Bounded Borel functions form a commutative unital algebra.
+    \par\medskip
+    \flowdiagram[.80\linewidth]{observables}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript \S\,1.1. \hyperlink{main:states}{Return to state space and algebra.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A2: existence and uniqueness}
+\hypertarget{app:existence}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.53\textwidth}
+    \heading{Bounds on a compact time window}
+    For $v_t(y)=A_ty+B_t$ and compact $J\subset I$, let
+    \begin{equation*}
+      L_J=\sup_{t\in J}\|A_t\|,\qquad
+      C_J=\sup_{t\in J}\|B_t\|.
+    \end{equation*}
+    Both constants are finite, and
+    \begin{equation*}
+      \begin{aligned}
+        \|v_t(y)-v_t(z)\|&\leq L_J\|y-z\|,\\
+        \|v_t(y)\|&\leq C_J+L_J\|y\|.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+  \begin{column}{.42\textwidth}
+    \heading{Continuation argument}
+    \begin{enumerate}\setlength{\itemsep}{7pt}
+      \item Local Lipschitz continuity gives a unique local solution.
+      \item Linear growth prevents finite-time escape on $J$.
+      \item Uniqueness joins the solutions on overlapping windows.
+    \end{enumerate}
+    The trajectory is therefore uniquely defined on all of $I$.
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10 and Appendix A.1. \hyperlink{main:ivp}{Return to the initial-value problem.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A3: evaluation and evolution}
+\hypertarget{app:evaluation}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.52\textwidth}
+    \heading{Homogeneous trajectories}
+    \begin{equation*}
+      \mathcal H=\{\eta\in C^1(I,V):\dot\eta_t=A_t\eta_t\}.
+    \end{equation*}
+    Evaluation $E_s(\eta)=\eta_s$ is linear.
+    \begin{itemize}\setlength{\itemsep}{4pt}
+      \item Existence makes it onto.
+      \item Uniqueness makes it one-to-one.
+    \end{itemize}
+    \begin{equation*}
+      S_s=E_s^{-1},\qquad \mathcal H\cong V,
+      \qquad\dim\mathcal H=d.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.43\textwidth}
+    \heading{Inverse evaluation}
+    \flowdiagram{evaluation}
+    \begin{equation*}
+      E_sS_s=I_V,\qquad S_sE_s=I_{\mathcal H}.
+    \end{equation*}
+  \end{column}
+\end{columns}
+\heading{Composition of the homogeneous evolution}
+\begin{equation*}
+  U(t,r)U(r,s)=E_tS_rE_rS_s=E_tS_s=U(t,s).
+\end{equation*}
+\slidecite{Manuscript Example 1.10. \hyperlink{main:homogeneous}{Return to homogeneous evolution.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A4: the affine solution family}
+\hypertarget{app:affine}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.52\textwidth}
+    \heading{A particular solution shifts the kernel}
+    Suppose $\mathsf D_A\gamma_{\mathrm p}=B$. Then
+    \begin{equation*}
+      \begin{aligned}
+        \mathsf D_A\gamma=B
+          &\iff\mathsf D_A(\gamma-\gamma_{\mathrm p})=0\\
+          &\iff\gamma-\gamma_{\mathrm p}\in\mathcal H.
+      \end{aligned}
+    \end{equation*}
+    Hence
+    \begin{equation*}
+      \mathcal S_B=\gamma_{\mathrm p}+\mathcal H.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.43\textwidth}
+    \heading{The initial condition selects one path}
+    Write $\gamma=\gamma_{\mathrm p}+\eta$. Then
+    \begin{equation*}
+      E_s\eta=x-\gamma_{\mathrm p}(s).
+    \end{equation*}
+    Since $E_s$ is an isomorphism,
+    \begin{equation*}
+      \gamma=\gamma_{\mathrm p}
+        +S_s\bigl(x-\gamma_{\mathrm p}(s)\bigr).
+    \end{equation*}
+    Taking $\gamma_{\mathrm p}(s)=0$ gives
+    \begin{equation*}
+      \gamma=\gamma_{\mathrm p}+S_sx.
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10. \hyperlink{main:affine}{Return to the affine solution.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A5: variation of constants}
+\hypertarget{app:variation}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{1. Vary the homogeneous coefficient}
+    \begin{equation*}
+      \gamma_{\mathrm p}(t)=U(t,s)c(t),\qquad c(s)=0.
+    \end{equation*}
+    \heading{2. Apply the trajectory operator}
+    \begin{equation*}
+      \begin{aligned}
+        \dot\gamma_{\mathrm p}-A_t\gamma_{\mathrm p}
+          &=U(t,s)\dot c(t),\\
+        \dot c(t)&=U(s,t)B_t.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{3. Integrate and compose}
+    \begin{equation*}
+      c(t)=\int_s^t U(s,r)B_r\,\mathrm dr.
+    \end{equation*}
+    Composition gives $U(t,s)U(s,r)=U(t,r)$, hence
+    \begin{equation*}
+      \begin{aligned}
+        \gamma_{\mathrm p}(t)
+          &=\int_s^t U(t,r)B_r\,\mathrm dr.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+\end{columns}
+\medskip
+\begin{equation*}
+  x_t=U(t,s)x+\int_s^t U(t,r)B_r\,\mathrm dr.
+\end{equation*}
+\slidecite{Manuscript Example 1.10. \hyperlink{main:affine}{Return to the solution formula.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A6: verification of the solution}
+\hypertarget{app:verification}{}
+\heading{Initial condition}
+\begin{equation*}
+  x_s=U(s,s)x+\int_s^s U(s,r)B_r\,\mathrm dr=x.
+\end{equation*}
+\heading{Differentiation}
+Since $\partial_tU(t,r)=A_tU(t,r)$, Leibniz's rule gives
+\begin{equation*}
+  \begin{aligned}
+    \dot x_t
+      &=A_tU(t,s)x+U(t,t)B_t+\int_s^t A_tU(t,r)B_r\,\mathrm dr\\
+      &=A_t\left(U(t,s)x+\int_s^t U(t,r)B_r\,\mathrm dr\right)+B_t\\
+      &=A_tx_t+B_t.
+  \end{aligned}
+\end{equation*}
+\heading{Uniqueness}
+The difference of two solutions lies in $\mathcal H$ and has zero value at $s$.
+Injectivity of $E_s$ makes that difference the zero trajectory.
+\slidecite{Manuscript Example 1.10. \hyperlink{main:affine}{Return to the solution and its flow map.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A7: general evaluation and composition}
+\hypertarget{app:general}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.49\textwidth}
+    \heading{Evaluation is a bijection}
+    \begin{equation*}
+      \mathcal S_v=\{\gamma\in C^1(I,V):\dot\gamma_t=v_t(\gamma_t)\}.
+    \end{equation*}
+    On the solution set, $E_s(\gamma)=\gamma_s$.
+    Existence gives surjectivity; uniqueness gives injectivity.
+    \begin{equation*}
+      \Phi_{s,t}=E_t\circ E_s^{-1}.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.46\textwidth}
+    \heading{Recover, then evaluate}
+    \flowdiagram{general-evaluation}
+  \end{column}
+\end{columns}
+\heading{Cancellation at an intermediate time}
+\begin{equation*}
+  \begin{aligned}
+    \Phi_{r,t}\circ\Phi_{s,r}
+      &=(E_t\circ E_r^{-1})\circ(E_r\circ E_s^{-1})\\
+      &=E_t\circ E_s^{-1}=\Phi_{s,t}.
+  \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \Phi_{s,s}=I_V,\qquad \Phi_{s,t}^{-1}=\Phi_{t,s}.
+\end{equation*}
+\slidecite{Manuscript Appendix A.2. \hyperlink{main:general}{Return to general flows}; \hyperlink{main:laws}{return to the flow laws}.}
+\end{frame}
+
+\begin{frame}[t]{Appendix A8: the determinant equation}
+\hypertarget{app:jacobian}{}
+\heading{Invertibility from the inverse flow}
+\begin{equation*}
+  D\Phi_{t,s}(\Phi_{s,t}(x))M_{s,t}(x)=I_d.
+\end{equation*}
+Thus $M=M_{s,t}(x)$ is invertible. Set $A_t=Dv_t(\Phi_{s,t}(x))$.
+\heading{Jacobi's formula and cyclic invariance}
+\begin{equation*}
+  \begin{aligned}
+    \partial_t\det M
+      &=(\det M)\operatorname{tr}(M^{-1}\partial_tM)\\
+      &=(\det M)\operatorname{tr}(M^{-1}A_tM)\\
+      &=(\det M)\operatorname{tr}(A_t).
+  \end{aligned}
+\end{equation*}
+Since $\operatorname{tr}(Dv_t)=\nabla\cdot v_t$ and $\det M_{s,s}=1$,
+\begin{equation*}
+  J_{s,t}(x)=\exp\!\left(\int_s^t\nabla\cdot v_r(\Phi_{s,r}(x))\dd r\right).
+\end{equation*}
+The determinant equation is scalar even when the matrices at different times fail to commute.
+\slidecite{Manuscript \S\,1.2.1, variational matrices. \hyperlink{main:jacobian}{Return to local volume.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A9: derivatives of the Koopman operator}
+\hypertarget{app:generator}{}
+\heading{Terminal time}
+For a smooth observable, the chain rule gives
+\begin{equation*}
+  \partial_t[f(\Phi_{s,t}(x))]
+  =\nabla f(\Phi_{s,t}(x))\cdot v_t(\Phi_{s,t}(x))
+  =(\mathcal K_{s,t}\mathcal L_tf)(x).
+\end{equation*}
+\heading{Initial time}
+The composition law yields
+\begin{equation*}
+  \Phi_{s,t}=\Phi_{s+h,t}\circ\Phi_{s,s+h}.
+\end{equation*}
+Differentiate at $h=0$ to obtain
+\begin{equation*}
+  \partial_s\Phi_{s,t}(x)=-D_x\Phi_{s,t}(x)v_s(x).
+\end{equation*}
+Therefore,
+\begin{equation*}
+  \partial_s(\mathcal K_{s,t}f)(x)
+  =-v_s(x)\cdot\nabla_x[f(\Phi_{s,t}(x))]
+  =-\mathcal L_s(\mathcal K_{s,t}f)(x).
+\end{equation*}
+\slidecite{Manuscript \S\,1.2.2, generator identities. \hyperlink{main:generator}{Return to infinitesimal evolution.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A10: density change of variables}
+\hypertarget{app:density}{}
+For a Borel set $A$ and a $C^1$ diffeomorphism $\Phi=\Phi_{0,t}$,
+\begin{equation*}
+  \begin{aligned}
+    \mu_t(A)&=\mu_0(\Phi^{-1}(A))\\
+      &=\int_{\Phi^{-1}(A)}\rho_0(x_0)\dd x_0\\
+      &=\int_A\rho_0(\Phi^{-1}(y))|\det D\Phi^{-1}(y)|\dd y.
+  \end{aligned}
+\end{equation*}
+Thus $\rho_t(y)=\rho_0(\Phi^{-1}(y))|\det D\Phi^{-1}(y)|$ almost everywhere.
+\heading{The inverse Jacobian}
+\begin{equation*}
+  D\Phi^{-1}(\Phi(x_0))D\Phi(x_0)=I_d,\qquad
+  |\det D\Phi^{-1}(\Phi(x_0))|=J_{0,t}(x_0)^{-1}.
+\end{equation*}
+Substitution gives $\rho_t(\Phi(x_0))J_{0,t}(x_0)=\rho_0(x_0)$.
+Only integrability of $\rho_0$ is needed for this formula. A pointwise classical
+continuity equation requires the additional $C^1$ regularity of $\rho(t,x)$.
+\slidecite{Manuscript \S\,1.2.2, Assessment 9.7--8. \hyperlink{main:density}{Return to density transport.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A11: the measure-valued weak equation}
+\hypertarget{app:weak}{}
+For $\psi\in C_c^\infty((0,T)\times\mathbb R^d)$, define
+\begin{equation*}
+  F(t)=\int\psi(t,x)\mu_t(\dd x)
+  =\int\psi(t,\Phi_{0,t}(x_0))\mu_0(\dd x_0).
+\end{equation*}
+The chain rule along trajectories and local flux integrability give
+\begin{equation*}
+  F'(t)=\int[\partial_t\psi+v_t\cdot\nabla\psi](t,x)\mu_t(\dd x)
+\end{equation*}
+for almost every $t$. Integrating in time,
+\begin{equation*}
+  \int_0^T\int[\partial_t\psi+v_t\cdot\nabla\psi]\dd\mu_t\dd t=F(T)-F(0)=0.
+\end{equation*}
+The endpoint terms vanish because $\psi$ is supported away from $t=0,T$.
+\heading{Distributional interpretation}
+\begin{equation*}
+  \langle\partial_t\mu+\nabla\cdot(v\mu),\psi\rangle
+  =-\int_0^T\int[\partial_t\psi+v_t\cdot\nabla\psi]\dd\mu_t\dd t=0.
+\end{equation*}
+\slidecite{Manuscript \S\,1.2.2, weak continuity. \hyperlink{main:weak}{Return to probability transport without a density.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A12: symplecticity of the exact flow}
+\hypertarget{app:symplectic}{}
+Write $Q_t=\nabla^2H(z_t)=Q_t^\top$ and $\dot M_t=\mathbb J_nQ_tM_t$.
+Since $\mathbb J_n^\top=-\mathbb J_n$ and $\mathbb J_n^2=-I$,
+\begin{equation*}
+  \begin{aligned}
+    \frac{\dd}{\dd t}(M_t^\top\mathbb J_nM_t)
+    &=M_t^\top[(\mathbb J_nQ_t)^\top\mathbb J_n
+      +\mathbb J_n(\mathbb J_nQ_t)]M_t\\
+    &=M_t^\top[Q_t(-\mathbb J_n)\mathbb J_n+\mathbb J_n^2Q_t]M_t\\
+    &=M_t^\top(Q_t-Q_t)M_t=0.
+  \end{aligned}
+\end{equation*}
+The initial condition gives $M_t^\top\mathbb J_nM_t=\mathbb J_n$.
+\heading{Volume preservation}
+Taking determinants gives $(\det M_t)^2=1$. Continuity in time and $\det M_0=1$
+select $\det M_t=1$.
+\medskip
+Alternatively, $\operatorname{tr}(\mathbb J_nQ_t)=0$ because one factor is
+skew-symmetric and the other symmetric. The Jacobian formula gives the same result.
+\slidecite{Manuscript \S\,1.2.3, Assessment 10.4. \hyperlink{main:ham-conservation}{Return to geometric conservation.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A13: the entropy rate}
+\hypertarget{app:entropy}{}
+Under the smoothness, finiteness, and boundary assumptions of the entropy theorem,
+\begin{equation*}
+  \begin{aligned}
+    \frac{\dd}{\dd t}S(\rho_t)
+    &=-\int(1+\log\rho_t)\partial_t\rho_t\dd x\\
+    &=\int(1+\log\rho_t)\nabla\cdot(\rho_tv_t)\dd x\\
+    &=-\int\rho_tv_t\cdot\nabla\log\rho_t\dd x\\
+    &=-\int v_t\cdot\nabla\rho_t\dd x\\
+    &=\int\rho_t\nabla\cdot v_t\dd x.
+  \end{aligned}
+\end{equation*}
+\heading{Interpretation along the flow}
+The density formula gives $\log\rho_t(x_t)=\log\rho_0(x_0)-\log J_{0,t}(x_0)$.
+When these terms are integrable,
+\begin{equation*}
+  S(\rho_t)-S(\rho_0)=\mathbb E_{\rho_0}[\log J_{0,t}].
+\end{equation*}
+\slidecite{Manuscript \S\,1.2.4, Assessment 9.10. \hyperlink{main:entropy}{Return to differential entropy.}}
+\end{frame}
+
+\begin{frame}[t]{Appendix A14: the Gibbs variational identity}
+\hypertarget{app:gibbs}{}
+For bounded $U$, the laws $\nu_U=Z_U^{-1}e^{-U}\nu$ and $\nu$ are equivalent.
+If $\mu\ll\nu$, the Radon--Nikodym chain rule gives
+\begin{equation*}
+  \frac{\mathrm d\mu}{\mathrm d\nu_U}
+  =Z_Ue^U\frac{\mathrm d\mu}{\mathrm d\nu},\qquad
+  \log\frac{\mathrm d\mu}{\mathrm d\nu_U}
+  =\log\frac{\mathrm d\mu}{\mathrm d\nu}+U+\log Z_U.
+\end{equation*}
+Integrating under $\mu$ yields
+\begin{equation*}
+  \KL(\mu\Vert\nu_U)=\KL(\mu\Vert\nu)+\int U\dd\mu+\log Z_U.
+\end{equation*}
+If $\mu\not\ll\nu$, both relative entropies are infinite. Bounded $U$ keeps the
+identity meaningful in the extended-real sense.
+\heading{Minimization}
+\begin{equation*}
+  \KL(\mu\Vert\nu)+\int U\dd\mu\geq-\log Z_U,
+\end{equation*}
+with equality precisely when $\KL(\mu\Vert\nu_U)=0$, or $\mu=\nu_U$.
+\slidecite{Manuscript \S\,1.2.4, Assessment 11.5. \hyperlink{main:gibbs}{Return to Gibbs tilting.}}
+\end{frame}

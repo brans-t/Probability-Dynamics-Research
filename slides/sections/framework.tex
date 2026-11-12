@@ -1,0 +1,106 @@
+% Focused framework presentation.
+\section[Framework]{States, observables, and probability}
+
+\begin{frame}[t]{States, observables, and probability laws}
+\hypertarget{main:framework}{}
+\heading{A common language for dynamics and statistics}
+\begin{equation*}
+  x\in V,\qquad f\in\mathcal A=B_b(V),\qquad \mu\in\mathcal P(V).
+\end{equation*}
+The state specifies one configuration. An observable assigns a measured value
+to each state. A probability law describes an ensemble of configurations.
+\heading{The pairing connects measurements to ensembles}
+\begin{equation*}
+  \langle f,\mu\rangle=\int_V f(x)\mu(\dd x).
+\end{equation*}
+\heading{The framework question}
+Given an evolution of states, construct compatible evolutions of observables
+and probability laws, then identify the structures they preserve.
+\medskip
+The examples below use linear maps, composition, and duality to carry out this construction.
+\slidecite{Manuscript \S\S\,1.1--1.2, state--observable--probability framework.}
+\end{frame}
+
+\begin{frame}[t]{The algebraic structures of the framework}
+\hypertarget{main:states}{}\hypertarget{main:algebras}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.47\textwidth}
+    \heading{Linear maps on states}
+    \begin{equation*}
+      V=\mathbb R^d,\qquad \operatorname{End}(V)\cong M_d(\mathbb R).
+    \end{equation*}
+    \begin{equation*}
+      AB=A\circ B,\qquad I_Vx=x.
+    \end{equation*}
+    Composition is associative and generally noncommutative.
+    \heading{Linear equations on trajectories}
+    Kernels describe homogeneous solutions. A particular solution translates a kernel into an affine family.
+  \end{column}
+  \begin{column}{.48\textwidth}
+    \heading{The observable algebra}
+    Bounded Borel functions form $\mathcal A=B_b(V)$, with pointwise operations:
+    \begin{equation*}
+      (fg)(x)=f(x)g(x),\qquad 1(x)=1.
+    \end{equation*}
+    This algebra is commutative and unital.
+    \heading{Functions and measures}
+    The pairing $\langle f,\mu\rangle$ transfers an operator on observables to an evolution of laws.
+  \end{column}
+\end{columns}
+\medskip
+Each structure supplies a specific operation for solving or interpreting the dynamics.
+\slidecite{Manuscript \S\,1.1 and \S\,1.2.1. \hyperlink{app:algebras}{Algebra operations: Appendix A1.}}
+\end{frame}
+
+\begin{frame}[t]{From a velocity field to an ODE}
+\hypertarget{main:ode}{}
+\fontsize{9}{11}\selectfont
+A fluid element is carried by the local fluid velocity. Its position $x_t\in V$
+evolves from an initial position $x$ at time $s$ according to
+\begin{equation*}
+  \begin{cases}
+    \dot x_t=v_t(x_t),&t\in I,\\
+    x_s=x.
+  \end{cases}
+\end{equation*}
+Here $I\subseteq\mathbb R$ is an open time interval, with $(s,x)\in I\times V$.
+\heading{Velocity field}
+\begin{equation*}
+  \begin{aligned}
+    v &: I\times V\longrightarrow V,\qquad (t,z)\longmapsto v_t(z),\\
+    v_t &: V\longrightarrow V,\qquad z\longmapsto v_t(z).
+  \end{aligned}
+\end{equation*}
+At a fixed time $t$, $v_t$ assigns a velocity to every position $z$.
+\heading{Trajectory}
+\begin{equation*}
+  x_{\cdot}:I\longrightarrow V,\qquad t\longmapsto x_t,
+  \qquad x_{\cdot}\in C^1(I,V).
+\end{equation*}
+The solution traces one fluid element through time. Its tangent $\dot x_t$
+equals the field evaluated at the current position, $v_t(x_t)$.
+\slidecite{Manuscript \S\,1.2.1, fluid-motion background and ODE initial-value problems.}
+\end{frame}
+
+\begin{frame}[t]{One state flow induces compatible evolutions}
+\hypertarget{main:induced}{}
+\heading{State evolution}
+\begin{equation*}
+  x_t=\Phi_{s,t}(x_s),\qquad \Phi_{r,t}\circ\Phi_{s,r}=\Phi_{s,t}.
+\end{equation*}
+\heading{Pullback of observables and pushforward of laws}
+\begin{equation*}
+  \mathcal K_{s,t}f=f\circ\Phi_{s,t},\qquad
+  \mu_t=\mathcal K_{s,t}^*\mu_s:=(\Phi_{s,t})_\#\mu_s.
+\end{equation*}
+\begin{equation*}
+  \boxed{\langle\mathcal K_{s,t}f,\mu_s\rangle=\langle f,\mathcal K_{s,t}^*\mu_s\rangle.}
+\end{equation*}
+\heading{The algebra respects composition}
+\begin{equation*}
+  \mathcal K_{s,r}\mathcal K_{r,t}=\mathcal K_{s,t},\qquad
+  \mathcal K_{r,t}^*\mathcal K_{s,r}^*=\mathcal K_{s,t}^*.
+\end{equation*}
+This compatibility lets us pass between trajectories, measurements, and distributions.
+\slidecite{Manuscript \S\,1.1, transformation duality, and \S\,1.2.2, dynamical evolution.}
+\end{frame}

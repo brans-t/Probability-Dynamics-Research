@@ -8,7 +8,7 @@ coarse-graining, and learned probability flows.
 | Document | Compiled PDF | Editable source |
 |---|---|---|
 | Manuscript | [Read the manuscript](output/paper/main.pdf) | [paper/main.tex](paper/main.tex) |
-| Project 9.1–9.2 slides | [Read the slides](output/slides/project9_exercises1_2.pdf) | [slides/project9_exercises1_2.tex](slides/project9_exercises1_2.tex) |
+| Section 1.2 slides | [Read the slides](output/slides/project9_exercises1_2.pdf) | [slides/project9_exercises1_2.tex](slides/project9_exercises1_2.tex) |
 
 The PDFs in `output/paper/` and `output/slides/` are tracked in Git.
 LaTeX auxiliary files and previews remain under the ignored `build/` directory.
@@ -100,9 +100,13 @@ Use `python scripts/build.py --publish-only` to copy an already compiled PDF.
 Saved figures are included; running experiments or training is not required
 to compile.
 
-Build the Beamer slides with `python scripts/build_slides.py`.
+Build the Section 1.2 Beamer slides with `python scripts/build_slides.py`.
+The deck has 30 main slides and 14 appendix slides, organized around the
+state/observable/probability framework, selected algebraic solutions, and
+subsequent research directions. Pending proofs remain deferred.
 Only the current PDF is published to `output/slides/`; auxiliary files stay
 in `build/slides/`. Slide source and TikZ diagrams are in `slides/`.
+Continuation sources are grouped under `slides/sections/`.
 VS Code LaTeX Workshop uses the same output directories through the
 project's `.vscode/settings.json`; global VS Code settings are unaffected.
 

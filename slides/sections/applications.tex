@@ -1,0 +1,72 @@
+% Focused framework presentation.
+\section[Structural applications]{Conservation and variational solution}
+
+\begin{frame}[t]{Hamiltonian dynamics in phase space}
+\hypertarget{main:hamiltonian}{}
+For unit mass, let $z=(q,p)\in\mathbb R^{2n}$ and
+\begin{equation*}
+  H(q,p)=\tfrac12\|p\|^2+\mathcal V(q),\qquad \mathcal V\in C^2(\mathbb R^n).
+\end{equation*}
+\heading{Hamilton's equations}
+\begin{equation*}
+  \dot q_t=p_t,\qquad \dot p_t=-\nabla\mathcal V(q_t),\qquad
+  \dot z_t=\mathbb J_n\nabla H(z_t),
+\end{equation*}
+where
+\begin{equation*}
+  \mathbb J_n=\begin{pmatrix}0&I_n\\-I_n&0\end{pmatrix},\qquad
+  \mathbb J_n^\top=-\mathbb J_n,\qquad \mathbb J_n^2=-I_{2n}.
+\end{equation*}
+\heading{Canonical symplectic form}
+\begin{equation*}
+  \omega(u,w)=u^\top\mathbb J_nw=u_q^\top w_p-u_p^\top w_q.
+\end{equation*}
+We study the flow and its derivative on their interval of existence.
+\slidecite{Manuscript \S\,1.2.3, Hamiltonian phase-space dynamics; Assessment Project 10.}
+\end{frame}
+
+\begin{frame}[t]{Energy, symplecticity, and phase-space volume}
+\hypertarget{main:ham-conservation}{}
+Let $\phi_t$ be the Hamiltonian flow and $M_t=D\phi_t$.
+\heading{Energy conservation}
+\begin{equation*}
+  \frac{\dd}{\dd t}H(z_t)=\nabla H(z_t)^\top\mathbb J_n\nabla H(z_t)=0.
+\end{equation*}
+\heading{Preservation of the symplectic form}
+With $A_t=\mathbb J_n\nabla^2H(z_t)$, symmetry of the Hessian gives
+\begin{equation*}
+  A_t^\top\mathbb J_n+\mathbb J_nA_t=0,\qquad
+  \frac{\dd}{\dd t}(M_t^\top\mathbb J_nM_t)=0.
+\end{equation*}
+Since $M_0=I_{2n}$, we obtain $M_t^\top\mathbb J_nM_t=\mathbb J_n$.
+\heading{Liouville's theorem}
+\begin{equation*}
+  \nabla\cdot v=\operatorname{tr}(\mathbb J_n\nabla^2H)=0,
+  \qquad \det M_t=1.
+\end{equation*}
+The flow preserves phase-space volume and transports density without changing its value along trajectories.
+\slidecite{Manuscript \S\,1.2.3; Assessment 10.2 and 10.4. \hyperlink{app:symplectic}{Symplectic calculation: Appendix A12.}}
+\end{frame}
+
+\begin{frame}[t]{A variational problem solved by a change of measure}
+\hypertarget{main:gibbs}{}
+For a reference law $\nu$ and bounded measurable energy $U$, consider
+\begin{equation*}
+  \mathcal F_U(\mu)=\KL(\mu\Vert\nu)+\int U\dd\mu.
+\end{equation*}
+Here $\KL(\mu\Vert\nu)=\int\log(\mathrm d\mu/\mathrm d\nu)\dd\mu$ for $\mu\ll\nu$,
+and $+\infty$ otherwise. It is nonnegative, with equality exactly when $\mu=\nu$.
+\heading{Tilt the reference probability law}
+\begin{equation*}
+  Z_U=\int e^{-U}\dd\nu,\qquad \nu_U=Z_U^{-1}e^{-U}\nu.
+\end{equation*}
+The Radon--Nikodym chain rule rewrites the entire objective:
+\begin{equation*}
+  \boxed{\mathcal F_U(\mu)=\KL(\mu\Vert\nu_U)-\log Z_U.}
+\end{equation*}
+\begin{equation*}
+  \mu_*=\nu_U,\qquad \min_\mu\mathcal F_U(\mu)=-\log Z_U.
+\end{equation*}
+Changing the reference law turns minimization into the equality case of a nonnegative quantity.
+\slidecite{Manuscript \S\,1.2.4; Assessment 11.1 and 11.5. \hyperlink{app:gibbs}{Change-of-measure calculation: Appendix A14.}}
+\end{frame}

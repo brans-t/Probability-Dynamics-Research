@@ -1,0 +1,88 @@
+% Focused framework presentation.
+\section[Research directions]{Algebraic tools and subsequent research}
+
+\begin{frame}[t]{Algebraic tools supplied by the framework}
+\hypertarget{main:tools}{}
+\heading{A trajectory equation becomes a kernel and a translate}
+\begin{equation*}
+  \mathsf D_A\gamma=B\quad\Longrightarrow\quad
+  \mathcal S_B=\gamma_{\mathrm p}+\ker\mathsf D_A.
+\end{equation*}
+\heading{Evaluation turns uniqueness into composition}
+\begin{equation*}
+  \Phi_{s,t}=E_tE_s^{-1},\qquad
+  \Phi_{r,t}\Phi_{s,r}=E_tE_r^{-1}E_rE_s^{-1}.
+\end{equation*}
+\heading{Pullback turns state motion into a linear action}
+\begin{equation*}
+  \mathcal K_{s,t}f=f\circ\Phi_{s,t},\qquad
+  \langle\mathcal K_{s,t}f,\mu\rangle=\langle f,(\Phi_{s,t})_\#\mu\rangle.
+\end{equation*}
+\heading{Trace, determinant, and tilting simplify derived problems}
+The trace reduces local volume evolution to a scalar ODE.
+Gibbs tilting reduces a measure optimization problem to KL nonnegativity.
+\slidecite{Synthesis of the constructions in manuscript \S\S\,1.2.1--1.2.4.}
+\end{frame}
+
+\begin{frame}[t]{Research direction: projection to collective variables}
+\hypertarget{main:research-projection}{}
+Choose $\xi:V\to\mathcal Z$ and write $Z_t=\xi(X_t)$, $\nu_t=\xi_\#\mu_t$.
+\heading{Pullback embeds reduced observables}
+\begin{equation*}
+  C_\xi g=g\circ\xi.
+\end{equation*}
+On $L^2$, conditional expectation is an orthogonal projection onto functions of $Z_t$.
+\heading{A candidate reduced generator}
+For suitable test functions and integrable terms, define
+\begin{equation*}
+  (\overline{\mathcal L}_t g)(z)
+  =\mathbb E[(\mathcal L_t C_\xi g)(X_t)\mid Z_t=z].
+\end{equation*}
+This conditional projection matches the instantaneous evolution of reduced expectations.
+\heading{Research question}
+Determine when it defines a well-posed reduced process, and measure the information
+lost in temporal correlations. Matching one-time laws alone does not establish dynamical closure.
+\slidecite{Research direction based on manuscript \S\,1.3, collective variables and conditional effective dynamics.}
+\end{frame}
+
+\begin{frame}[t]{Research direction: conditional learning of flows}
+\hypertarget{main:research-learning}{}
+For a differentiable interpolation $I_t=\alpha_tX_0+\lambda_tX_1$, seek a velocity
+that transports its one-time laws.
+\heading{A projection supplies the population target}
+If $\dot I_t$ is square integrable, then
+\begin{equation*}
+  \begin{aligned}
+    u_t^*&=\operatorname*{arg\,min}_{u\in L^2(\operatorname{Law}(I_t))}
+      \mathbb E\|u(I_t)-\dot I_t\|^2,\\
+    u_t^*(x)&=\mathbb E[\dot I_t\mid I_t=x].
+  \end{aligned}
+\end{equation*}
+The conditional projection defines the target almost everywhere.
+\heading{Proposed extension}
+Fit a velocity or Hamiltonian in a class encoding the required structure.
+Compare induced operators and transported laws with the analytic baselines.
+\heading{What must be checked}
+Separate representation, sampling, optimization, and time-discretization errors.
+The population identity does not guarantee exact recovery by a finite model.
+\slidecite{Research direction: manuscript \S\,1.4, conditional learning and structural approximation.}
+\end{frame}
+
+\begin{frame}[t]{A research programme built on the framework}
+\hypertarget{main:research-programme}{}
+\heading{Mathematical foundation}
+Use the same state--observable--law pairing to formulate exact evolution,
+reduction, learning, and numerical approximation.
+\heading{Next validation tasks}
+\begin{enumerate}\setlength{\itemsep}{8pt}
+  \item Use affine flows and the coupled OU benchmark to compare exact and reduced generators.
+  \item Test both transported one-time laws and two-time correlations when assessing a learned reduction.
+  \item Check the relevant invariants under discretization: probability mass and positivity, or Hamiltonian symplecticity.
+\end{enumerate}
+\heading{The organizing question}
+Which algebraic identities survive each approximation, and what error appears when they fail?
+\par\medskip
+The proposed extensions use the exact constructions as references for measuring
+the errors introduced by reduction and learning.
+\slidecite{Research programme based on manuscript \S\S\,1.3--1.5 and the existing benchmark design.}
+\end{frame}

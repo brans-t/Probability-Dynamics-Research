@@ -1,0 +1,135 @@
+% Focused framework presentation.
+\section[Observable evolution]{Operators, duality, and statistical evolution}
+
+\begin{frame}[t]{Evolution on the observable algebra}
+\hypertarget{main:observables}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.55\textwidth}
+    \heading{Pull back the observable}
+    On the observable algebra $\mathcal A=B_b(V)$, define
+    \begin{equation*}
+      \mathcal{K}_{s,t}f=f\circ\Phi_{s,t}.
+    \end{equation*}
+    The state map may be nonlinear, while its induced action on functions is linear.
+    \begin{equation*}
+      \begin{aligned}
+        \mathcal{K}_{s,t}(fg)&=(\mathcal{K}_{s,t}f)(\mathcal{K}_{s,t}g),\\
+        \mathcal{K}_{s,t}1&=1.
+      \end{aligned}
+    \end{equation*}
+    \begin{equation*}
+      \mathcal{K}_{s,r}\mathcal{K}_{r,t}=\mathcal{K}_{s,t}.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.40\textwidth}
+    \vspace{7pt}
+    \flowdiagram{pullback}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript \S\,1.1, transformation and evolution operators. State maps are Borel measurable.}
+\end{frame}
+
+\begin{frame}[t]{Observable evolution and probability evolution}
+\hypertarget{main:duality}{}
+For a bounded Borel observable $f$, the pushforward identity gives
+\begin{equation*}
+  \boxed{\langle f,\mu_t\rangle
+  =\int f(\Phi_{s,t}(x))\mu_s(\dd x)
+  =\langle\mathcal K_{s,t}f,\mu_s\rangle.}
+\end{equation*}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{Schr\"odinger picture}
+    Keep the observable fixed and evolve the law:
+    \begin{equation*}
+      \mu_t=(\Phi_{s,t})_\#\mu_s.
+    \end{equation*}
+    Integrate $f$ over the current distribution.
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{Heisenberg picture}
+    Keep the initial law fixed and pull back the observable:
+    \begin{equation*}
+      \mathcal K_{s,t}f=f\circ\Phi_{s,t}.
+    \end{equation*}
+    Integrate the evolved observable over $\mu_s$.
+  \end{column}
+\end{columns}
+\medskip
+Both descriptions give the same expectation. These identities also hold for
+unbounded observables when the relevant integrals are finite.
+\slidecite{Manuscript \S\,1.2.2, observable--measure duality and dynamical pictures.}
+\end{frame}
+
+\begin{frame}[t]{Infinitesimal evolution of observables}
+\hypertarget{main:generator}{}
+\heading{The deterministic generator on smooth test functions}
+\begin{equation*}
+  \mathcal L_t f=v_t\cdot\nabla f
+  =\lim_{h\downarrow0}\frac{\mathcal K_{t,t+h}f-f}{h}.
+\end{equation*}
+The limit is understood on an appropriate smooth domain and in the chosen topology.
+\heading{Differentiating the two time arguments}
+For sufficiently regular $f$ and a smooth invertible flow,
+\begin{equation*}
+  \partial_t\mathcal K_{s,t}f=\mathcal K_{s,t}\mathcal L_t f,
+  \qquad
+  \partial_s\mathcal K_{s,t}f=-\mathcal L_s(\mathcal K_{s,t}f).
+\end{equation*}
+The terminal-time derivative acts on $f$ before pullback. The initial-time
+derivative acts on the already pulled-back function.
+\heading{Evolution of ensemble averages}
+Under integrable domination along trajectories,
+\begin{equation*}
+  \frac{\dd}{\dd t}\langle f,\mu_t\rangle=\langle\mathcal L_t f,\mu_t\rangle.
+\end{equation*}
+\slidecite{Manuscript \S\,1.2.2, generators and observable evolution. \hyperlink{app:generator}{Time derivatives: Appendix A9.}}
+\end{frame}
+
+\begin{frame}[t]{Markov evolution extends the operator framework}
+\hypertarget{main:markov}{}
+\heading{Average over a transition law}
+For a transition kernel $\mathsf K_{s,t}(x,\dd y)$, define
+\begin{equation*}
+  (\mathsf P_{s,t}f)(x)=\int f(y)\mathsf K_{s,t}(x,\dd y).
+\end{equation*}
+The same observable--measure pairing gives
+\begin{equation*}
+  \langle f,\mu_t\rangle=\langle\mathsf P_{s,t}f,\mu_s\rangle,\qquad
+  \mathsf P_{s,r}\mathsf P_{r,t}=\mathsf P_{s,t}.
+\end{equation*}
+\heading{Which algebraic properties survive?}
+Markov operators are linear, positive, and preserve the constant $1$.
+They generally do not preserve products of observables.
+\heading{Deterministic dynamics}
+\begin{equation*}
+  \mathsf K_{s,t}(x,\dd y)=\delta_{\Phi_{s,t}(x)}(\dd y)
+  \quad\Longrightarrow\quad\mathsf P_{s,t}=\mathcal K_{s,t}.
+\end{equation*}
+In this special case, pullback also satisfies $\mathcal K(fg)=(\mathcal Kf)(\mathcal Kg)$.
+\slidecite{Manuscript \S\,1.2.2, Markov kernels and deterministic evolution as a special case.}
+\end{frame}
+
+\begin{frame}[t]{Differential entropy under deterministic transport}
+\hypertarget{main:entropy}{}
+For a smooth positive density, define
+\begin{equation*}
+  S(\rho_t)=-\int\rho_t\log\rho_t\dd x,\qquad
+  s_t^\rho=\nabla\log\rho_t.
+\end{equation*}
+Assume a classical continuity equation, finite integrals, justified differentiation,
+and vanishing boundary terms.
+\heading{Entropy rate}
+\begin{equation*}
+  \boxed{\frac{\dd}{\dd t}S(\rho_t)
+  =\mathbb E_{\rho_t}[\nabla\cdot v_t]
+  =-\mathbb E_{\rho_t}[v_t\cdot s_t^\rho].}
+\end{equation*}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item Positive mean divergence increases differential entropy.
+  \item Negative mean divergence decreases it.
+  \item Hamiltonian transport preserves entropy under these assumptions.
+\end{itemize}
+For the triangular example, $S(\rho_t)=S(\rho_0)+0.3t$ when the entropies are finite.
+\slidecite{Manuscript \S\,1.2.4; Assessment 9.10. \hyperlink{app:entropy}{Entropy derivation: Appendix A13.}}
+\end{frame}

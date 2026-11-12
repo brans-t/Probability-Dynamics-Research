@@ -1,0 +1,174 @@
+% Focused framework presentation.
+\section[Geometry and transport]{From flow geometry to probability transport}
+
+\begin{frame}[t]{The derivative of a flow}
+\hypertarget{main:variational}{}
+\heading{Perturbing the initial state}
+For a $C^1$ state flow and a small displacement $\delta x$,
+\begin{equation*}
+  \Phi_{s,t}(x+\delta x)=\Phi_{s,t}(x)+M_{s,t}(x)\delta x+o(\|\delta x\|),
+  \qquad M_{s,t}(x)=D_x\Phi_{s,t}(x).
+\end{equation*}
+\heading{Variational equation}
+Differentiating $\partial_t\Phi_{s,t}(x)=v_t(\Phi_{s,t}(x))$ in $x$ gives
+\begin{equation*}
+  \begin{cases}
+    \partial_t M_{s,t}(x)=Dv_t(\Phi_{s,t}(x))M_{s,t}(x),\\
+    M_{s,s}(x)=I_d.
+  \end{cases}
+\end{equation*}
+The nonlinear trajectory determines the coefficients of a linear matrix ODE.
+\heading{Composition of derivatives}
+\begin{equation*}
+  M_{s,t}(x)=M_{r,t}(\Phi_{s,r}(x))M_{s,r}(x).
+\end{equation*}
+The intermediate matrix is evaluated at the transported state.
+\slidecite{Manuscript \S\,1.2.1, variational equation; Assessment 9.3--4.}
+\end{frame}
+
+\begin{frame}[t]{Time ordering in matrix evolution}
+\hypertarget{main:timeordering}{}
+Fix a trajectory and set $A_t=Dv_t(\Phi_{s,t}(x))$. Then
+\begin{equation*}
+  \dot M_t=A_tM_t,\qquad M_s=I_d.
+\end{equation*}
+\heading{Successive substitution, for $t\geq s$}
+\begin{equation*}
+  M_t=I_d+\int_s^t A_{r_1}\dd r_1
+  +\int_s^t\int_s^{r_1}A_{r_1}A_{r_2}\dd r_2\dd r_1+\cdots.
+\end{equation*}
+Later times appear on the left in each operator product.
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{General coefficients}
+    \begin{equation*}
+      M_t=\mathcal T\exp\!\left(\int_s^t A_r\dd r\right).
+    \end{equation*}
+    The order matters when $A_rA_u\ne A_uA_r$.
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \heading{Pairwise commuting coefficients}
+    If $A_rA_u=A_uA_r$ for every pair,
+    \begin{equation*}
+      M_t=\exp\!\left(\int_s^t A_r\dd r\right).
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript \S\,1.2.1, Peano--Baker series, and Appendix A.5.}
+\end{frame}
+
+\begin{frame}[t]{Jacobian determinant and local volume}
+\hypertarget{main:jacobian}{}
+\heading{Liouville--Jacobi formula}
+For a $C^1$ diffeomorphic flow, define $J_{s,t}(x)=\det M_{s,t}(x)$. Then
+\begin{equation*}
+  \partial_t J_{s,t}(x)
+  =\nabla\cdot v_t(\Phi_{s,t}(x))J_{s,t}(x),\qquad J_{s,s}(x)=1,
+\end{equation*}
+and therefore
+\begin{equation*}
+  \boxed{J_{s,t}(x)=\exp\!\left(\int_s^t\nabla\cdot v_r(\Phi_{s,r}(x))\dd r\right)>0.}
+\end{equation*}
+\heading{Geometric meaning}
+\begin{itemize}\setlength{\itemsep}{7pt}
+  \item $J_{s,t}$ is the local volume ratio of a transported material element.
+  \item Positive divergence gives instantaneous expansion. Negative divergence gives contraction.
+  \item A divergence-free field gives $J_{s,t}=1$, allowing shear and deformation.
+\end{itemize}
+\slidecite{Manuscript \S\,1.2.1; Assessment 9.3--4. \hyperlink{app:jacobian}{Jacobi's formula: Appendix A8.}}
+\end{frame}
+
+\begin{frame}[t]{Volume change in the nonlinear example}
+\hypertarget{main:nonlinear-jacobian}{}
+For $\dot x=0.2x$, $\dot y=0.1y+0.3x^2$, set $\tau=t-s$. The exact flow is
+\begin{equation*}
+  \Phi_{s,t}(x,y)=
+  \begin{pmatrix}e^{0.2\tau}x\\ e^{0.1\tau}y+x^2(e^{0.4\tau}-e^{0.1\tau})\end{pmatrix}.
+\end{equation*}
+\heading{Differentiate the explicit solution}
+\begin{equation*}
+  M_{s,t}(x,y)=
+  \begin{pmatrix}
+    e^{0.2\tau}&0\\
+    2x(e^{0.4\tau}-e^{0.1\tau})&e^{0.1\tau}
+  \end{pmatrix},\qquad J_{s,t}=e^{0.3\tau}.
+\end{equation*}
+\heading{Check against divergence}
+\begin{equation*}
+  \nabla\cdot v=0.2+0.1=0.3,\qquad
+  \exp\!\left(\int_s^t0.3\dd r\right)=e^{0.3\tau}.
+\end{equation*}
+The quadratic term changes shape while the area factor is independent of the initial state.
+The explicit solution guarantees completeness even though the field is not globally Lipschitz.
+\slidecite{Manuscript \S\,1.2.1, nonlinear volume-deformation example. \hyperlink{main:animation}{Return to the animation.}}
+\end{frame}
+
+\begin{frame}[t]{A nonlinear flow in motion}
+\hypertarget{main:animation}{}
+\begin{equation*}
+  R=[-1,1]\times[-0.7,0.7],\qquad 0\leq t\leq1.5.
+\end{equation*}
+\begin{center}
+  \animategraphics[
+    width=\linewidth,
+    autoplay,
+    autopause,
+    loop,
+    controls,
+    poster=first,
+    label=nonlinear-flow
+  ]{20}{\flowframeprefix}{0}{60}
+\end{center}
+\smallskip
+The same flow moves every grid point. The quadratic coupling bends the rectangle.
+\slidecite{Manuscript Example 1.15 and its accompanying 61-frame animation.}
+\end{frame}
+
+\begin{frame}[t]{Density transport by a diffeomorphism}
+\hypertarget{main:density}{}
+Assume $\mu_0(\dd x)=\rho_0(x)\dd x$ and a $C^1$ diffeomorphic flow.
+\heading{Change of variables}
+\begin{equation*}
+  \rho_t(y)=\rho_0(\Phi_{0,t}^{-1}(y))\left|\det D\Phi_{0,t}^{-1}(y)\right|.
+\end{equation*}
+Along $x_t=\Phi_{0,t}(x_0)$, the formula becomes
+\begin{equation*}
+  \boxed{\rho_t(x_t)J_{0,t}(x_0)=\rho_0(x_0).}
+\end{equation*}
+\heading{The divergence controls density along a trajectory}
+\begin{equation*}
+  \rho_t(x_t)=\rho_0(x_0)
+  \exp\!\left(-\int_0^t\nabla\cdot v_r(x_r)\dd r\right).
+\end{equation*}
+Expansion lowers density within a material element. Its probability mass is conserved:
+\begin{equation*}
+  \mu_t(\Phi_{0,t}(A))=\mu_0(A).
+\end{equation*}
+These density identities hold almost everywhere for $\rho_0\in L^1$.
+\slidecite{Manuscript \S\,1.2.2; Assessment 9.7--8. \hyperlink{app:density}{Change of variables: Appendix A10.}}
+\end{frame}
+
+\begin{frame}[t]{The classical continuity equation}
+\hypertarget{main:continuity}{}\hypertarget{main:weak}{}
+For the transport representative of the density, differentiation along almost every trajectory gives
+\begin{equation*}
+  \frac{\dd}{\dd t}\rho_t(x_t)=-\rho_t(x_t)\nabla\cdot v_t(x_t).
+\end{equation*}
+If $\rho(t,x)$ is also $C^1$, the chain rule yields
+\begin{equation*}
+  \partial_t\rho_t+v_t\cdot\nabla\rho_t=-\rho_t\nabla\cdot v_t,
+  \qquad \boxed{\partial_t\rho_t+\nabla\cdot(\rho_tv_t)=0.}
+\end{equation*}
+\heading{Generator and adjoint}
+For $\mathcal L_t f=v_t\cdot\nabla f$ and compactly supported smooth $f$,
+\begin{equation*}
+  \int(\mathcal L_t f)\rho\dd x
+  =-\int f\nabla\cdot(v_t\rho)\dd x,
+  \qquad \mathcal L_t^*\rho=-\nabla\cdot(v_t\rho).
+\end{equation*}
+Thus $\partial_t\rho_t=\mathcal L_t^*\rho_t$.
+\heading{Measure formulation}
+Without a density, use $\partial_t\mu_t+\nabla\cdot(v_t\mu_t)=0$ in distributions,
+under local flux integrability.
+\slidecite{Manuscript \S\,1.2.2. \hyperlink{app:weak}{Weak formulation: Appendix A11.}}
+\end{frame}

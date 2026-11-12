@@ -1,0 +1,154 @@
+% Focused framework presentation.
+\section[Algebraic solution]{Solving dynamics with evaluation and kernels}
+
+\begin{frame}[t]{An affine ODE as a linear operator equation}
+\hypertarget{main:ivp}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.54\textwidth}
+    \heading{Given data}
+    An open interval $I\subseteq\mathbb R$, with
+    \begin{equation*}
+      \begin{aligned}
+        A&\in C(I,\operatorname{End}(V)),\\
+        B&\in C(I,V).
+      \end{aligned}
+    \end{equation*}
+    For $(s,x)\in I\times V$, solve
+    \begin{equation*}
+      \begin{cases}
+        \dot x_t=A_tx_t+B_t,&t\in I,\\
+        x_s=x.
+      \end{cases}
+    \end{equation*}
+    Continuous coefficients give a unique trajectory on all of $I$.
+  \end{column}
+  \begin{column}{.41\textwidth}
+    \heading{Trajectory formulation}
+    \flowdiagram{trajectory}
+    \begin{equation*}
+      \mathsf D_A\gamma=B,\qquad E_s\gamma=x.
+    \end{equation*}
+    The unknown is a complete trajectory.
+  \end{column}
+\end{columns}
+\begin{equation*}
+  \mathcal X=C^1(I,V),\qquad \mathcal Y=C(I,V),\qquad
+  (\mathsf M_A\gamma)_t=A_t\gamma_t.
+\end{equation*}
+\slidecite{Assessment 9.1; Manuscript Example 1.10. \hyperlink{app:existence}{Existence and uniqueness: Appendix A2.}}
+\end{frame}
+
+\begin{frame}[t]{Homogeneous evolution by evaluation}
+\hypertarget{main:homogeneous}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.54\textwidth}
+    \heading{The homogeneous kernel}
+    \begin{equation*}
+      \mathcal H=\ker\mathsf D_A.
+    \end{equation*}
+    Evaluation identifies a trajectory with its state:
+    \begin{equation*}
+      E_s:\mathcal H\to V,\qquad E_s(\eta)=\eta_s.
+    \end{equation*}
+    Existence and uniqueness make $E_s$ a linear isomorphism.
+    \begin{equation*}
+      S_s=E_s^{-1},\qquad U(t,s)=E_tS_s.
+    \end{equation*}
+  \end{column}
+  \begin{column}{.41\textwidth}
+    \heading{Recover, then evaluate}
+    \flowdiagram{linear-evolution}
+    \medskip
+    Write $U_t=U(t,s)$. Then
+    \begin{equation*}
+      \begin{aligned}
+        \dot U_t&=A_tU_t,\\
+        U_s&=I_V.
+      \end{aligned}
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10. \hyperlink{app:evaluation}{Evaluation isomorphism and composition: Appendix A3.}}
+\end{frame}
+
+\begin{frame}[t]{The affine solution and its flow}
+\hypertarget{main:affine}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.55\textwidth}
+    \heading{Homogeneous and forced response}
+    \begin{equation*}
+      \begin{aligned}
+        x_t&=U(t,s)x+a_{s,t},\\
+        a_{s,t}&=\int_s^t U(t,r)B_r\,\mathrm dr.
+      \end{aligned}
+    \end{equation*}
+    The initial value selects one trajectory from an affine family.
+    \heading{Initial-to-terminal state map}
+    \begin{equation*}
+      \Phi_{s,t}(x)=U(t,s)x+a_{s,t}.
+    \end{equation*}
+    For zero forcing, the map reduces to $U(t,s)x$.
+  \end{column}
+  \begin{column}{.40\textwidth}
+    \flowdiagram[.92\linewidth]{affine}
+    \begin{equation*}
+      \mathcal S_B=\gamma_{\mathrm p}+\mathcal H.
+    \end{equation*}
+  \end{column}
+\end{columns}
+\slidecite{Manuscript Example 1.10. \hyperlink{app:affine}{Affine family: A4}; \hyperlink{app:variation}{derivation: A5}; \hyperlink{app:verification}{verification: A6}.}
+\end{frame}
+
+\begin{frame}[t]{Evaluation also constructs nonlinear flows}
+\hypertarget{main:general}{}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.55\textwidth}
+    \heading{Allow a nonlinear velocity field}
+    \begin{equation*}
+      \dot x_t=v_t(x_t),\qquad x_s=x,
+      \qquad \Phi_{s,t}(x)=x_t.
+    \end{equation*}
+    Assume continuous, locally Lipschitz dynamics with a unique trajectory on the same interval $I$ for every initial pair.
+    \heading{The algebraic construction remains}
+    \begin{equation*}
+      \Phi_{s,t}=E_t\circ E_s^{-1}.
+    \end{equation*}
+    Evaluation is a bijection of sets; linearity of the state map is unnecessary.
+  \end{column}
+  \begin{column}{.40\textwidth}
+    \vspace{8pt}
+    \flowdiagram{general-flow}
+  \end{column}
+\end{columns}
+\slidecite{Assessment 9.2; Manuscript Theorem 1.12. \hyperlink{app:general}{General evaluation construction: Appendix A7.}}
+\end{frame}
+
+\begin{frame}[t]{Flow laws by cancellation of evaluation maps}
+\hypertarget{main:laws}{}
+On the set $\mathcal S_v$ of complete solution trajectories, existence and
+uniqueness make each evaluation $E_s:\mathcal S_v\to V$ a bijection.
+\heading{Composition follows from an inverse identity}
+\begin{equation*}
+  \begin{aligned}
+    \Phi_{r,t}\circ\Phi_{s,r}
+      &=(E_t\circ E_r^{-1})\circ(E_r\circ E_s^{-1})\\
+      &=E_t\circ E_s^{-1}=\Phi_{s,t}.
+  \end{aligned}
+\end{equation*}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\textwidth}
+    \heading{Identity and inverse}
+    \begin{equation*}
+      \Phi_{s,s}=I_V,\qquad \Phi_{s,t}^{-1}=\Phi_{t,s}.
+    \end{equation*}
+    The identities hold on a common interval for all initial data.
+  \end{column}
+  \begin{column}{.47\textwidth}
+    \flowdiagram{flow-composition}
+  \end{column}
+\end{columns}
+\medskip
+The flow identities use composition and invertibility of evaluation.
+Linearity of the state map is unnecessary.
+\slidecite{Manuscript \S\,1.2.1; Assessment 9.2. \hyperlink{app:general}{Evaluation construction: Appendix A7.}}
+\end{frame}
