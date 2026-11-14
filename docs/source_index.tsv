@@ -1,4 +1,6 @@
 project	item	label	placement
+2	Main task	src:p2main	Concise: Proved finite-sampling PINN counterexample
+3	Main task	src:p3main	Pending: Committor operator learning and source ambiguities
 8	Main task	src:p8main	Concise: Boundary diagnosis and corrected no-flux Markov scheme
 8	1	src:p8q1	Pending: Printed ghost-cell stencil: positivity and mass failure
 9	1	src:p9q1	Core: Affine ODE and variation of constants

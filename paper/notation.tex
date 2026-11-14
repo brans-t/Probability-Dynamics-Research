@@ -258,5 +258,16 @@ $C_{\mathrm{full}},\ C_{\mathrm{closure}}$ & Time correlations & The locally def
 \addtocounter{table}{-1}
 \endgroup
 
-The principal definitions are developed in Sections~\ref{sec:physical-mathematical-setting}, \ref{sec:flows-transport}, \ref{sec:conditional-dynamics}, \ref{sec:learnedflows}, and \ref{sec:benchmark}; the ODE constructions are detailed in Appendix~\ref{app:ode-foundations}. A new symbol should be defined at first use, assigned an object type and scope, and checked against these tables. Standard local notations such as mechanical $p,q$ and information-theory densities $p,q$ are retained only with their scope made explicit.
+The principal definitions are developed in Sections~\ref{sec:physical-mathematical-setting} and~\ref{sec:flows-transport}; the ODE constructions are detailed in Appendix~\ref{app:ode-foundations}. Sections~\ref{sec:conditional-dynamics}--\ref{sec:benchmark} develop conditional and effective dynamics, learned flows, and the OU benchmark. The provisional extension is Chapter~\ref{ch:neural-pde}. A new symbol should be defined at first use, assigned an object type and scope, and checked against these tables. Standard local notations such as mechanical $p,q$ and information-theory densities $p,q$ are retained only with their scope made explicit.
+
+\paragraph{Neural PDE module (local conventions).}
+In Chapter~\ref{ch:neural-pde}, $\mathcal D=\mathbb T_L^d$ is the periodic physical domain, distinct from the
+probability sample space $\Omega$; $D$ is its region outside the absorbing sets. The parameter $\varepsilon>0$
+is diffusivity, equal to $\beta^{-1}$ when the Langevin conventions are identified.
+The observable generator $\mathcal L=b_f\cdot\nabla+\varepsilon\Delta$ and its Lebesgue adjoint $\mathcal L^*$
+act on observables and densities, respectively. The center $\boldsymbol b$ is distinct from the drift
+$b_f=-\nabla\mathcal V_f$. The committor $q_f$ is a scalar hitting probability, not a probability density;
+$\mathcal G$ maps input fields $f$ to these observables. Grid versions are $\mathcal L_h,q_h$.
+The symbols $\eta_k,H,\zeta$ denote the time cutoff, its polynomial profile, and the amplitude in the heat-equation
+counterexample only. Losses use $\mathcal J$; they are scalar functionals, not generators.
 % END GLOBAL NOTATION

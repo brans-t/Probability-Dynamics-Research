@@ -17,25 +17,32 @@ the static preview.
 
 ## Current manuscript scope
 
-The current PDF includes Sections 1.1–1.2 and Appendix A:
+The current PDF includes Chapter 1, a provisional Chapter 2, and Appendix A:
 
-- **1.1 — State Spaces, Observables, and Probability Evolution:** states,
+- **1.1 — State Algebra, Probability Spaces, and Observables:** states,
   measurable structures, observable algebras, probability laws, and duality.
-- **1.2 — Dynamical Flows and Probability Transport:** ODE flows, Jacobians,
+- **1.2 — Dynamical Equations, Flow Maps, and Probability Transport:** ODE flows, Jacobians,
   density transport and the continuity equation, Hamiltonian dynamics,
   entropy, and variational principles.
+- **1.3 — Conditional Probability and Effective Dynamics:** disintegration,
+  mean force, exact projection, and assumptions behind Markovian closure.
+- **1.4 — Learned Probability Flows and Structure-Preserving Approximation:**
+  conditional learning, variational transport, and Markov discretization.
+- **1.5 — A Coupled OU Benchmark: Exact, Numerical, and AI Results:** the
+  existing exact formulas, diagnostics, and saved numerical evidence.
+- **Chapter 2 — Neural PDE Solvers (provisional), Sections 2.1–2.6:** Fokker–Planck duality, committors,
+  a proved finite-sampling counterexample, FNO, and a computational roadmap.
 - **Appendix A:** ODE existence, uniqueness, continuation, and linear evolution.
 
-Sections **1.3–1.5** (conditional/effective dynamics, learned flows, and the
-coupled OU benchmark) are temporarily commented out in `paper/main.tex`.
-Their content is preserved for later restoration; the related experiment
-code and saved results remain available.
+Individual deferred proofs and solutions remain explicitly pending. The neural
+PDE module separates proved statements, executed integration checks, and planned
+accuracy/high-dimensional experiments. See its [research guide](docs/neural-pde-research.md).
 
 The opening Source Index links assessment questions to manuscript results.
 A superscript **⋆** marks an incomplete solution, proof, or extension,
 including entries whose proof reads *Proof to be completed.* The index
-retains entries for the hidden sections, so some links and cross-references
-are currently unresolved. This is a working draft with pending proofs.
+contains 47 live entries, including Assessment Projects 2 and 3.
+This is a working draft with pending proofs.
 
 ## Project layout
 
@@ -77,13 +84,15 @@ python experiments/hamiltonian_benchmark.py
 python experiments/project11_kl_benchmarks.py
 python experiments/scalar_jacobian.py
 python experiments/run_benchmarks.py
+python experiments/neural_pde_smoke.py
 ```
 
 The combined benchmark covers noncommuting matrix flows, coupled OU
 correlations, affine/neural conditional regression, and Markov discretization.
 Use `--skip-neural` to run it without PyTorch.
 
-Default runs update `results/benchmarks/` and `paper/figures/`.
+The neural PDE smoke test writes `results/neural_pde/smoke.json` and trains only
+a tiny 2D FNO. Other default runs update `results/benchmarks/` and `paper/figures/`.
 For an isolated rerun, append `--output-root build/rerun` to any command.
 
 ## Build the manuscript
@@ -122,9 +131,10 @@ numbering, and PDF navigation. The PDF audit also requires Poppler tools
 (`pdfinfo`, `pdftotext`, and `pdftohtml`) on PATH and a manuscript build in
 `build/paper/`.
 
-The current partial draft compiles, but these checks do not pass while
-unresolved labels remain, including targets in commented-out sections.
-They do not certify mathematical correctness or completion of the proofs.
+Source-index checks distinguish live links from explicitly omitted entries and
+verify that omitted source labels remain preserved in the commented source.
+The full checks also enforce repository and formatting conventions; successful
+compilation does not certify mathematical correctness or completion of the proofs.
 
 See the [technical guide](docs/README.md) for benchmark parameters,
 reproduction limits, and source provenance, and the [slide guide](slides/README.md)

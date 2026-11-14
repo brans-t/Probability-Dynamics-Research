@@ -238,6 +238,12 @@
   \hyperref[#3]{\textcolor{MidnightBlue}{Project~#1 -- #2\sourceindexmark{#3}{#4}}} &
   \hyperref[#3]{\textcolor{MidnightBlue}{\pageref*{#3}}} & #4\\%
 }
+% Preserve the full concordance without linking to material outside this draft.
+% The third argument retains the original source label for future restoration.
+\newcommand{\sourceindexomittedrow}[4]{%
+  \textcolor{DimGray}{Project~#1 -- #2\sourceindexmark{#3}{#4}} &
+  --- & \textit{Omitted from this draft.} #4\\%
+}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\footnotesize Probability Dynamics Lab}

@@ -15,7 +15,7 @@ import sys
 import xml.etree.ElementTree as ET
 import zipfile
 
-from check_project import ROOT, check_manuscript, check_repository, expand_notation, require
+from check_project import ROOT, ROW, OMITTED_ROW, check_manuscript, check_repository, expand_notation, require
 
 
 STATEMENTS = (
@@ -51,8 +51,9 @@ def groups(text):
     return values
 
 
-def labels_from_aux():
-    aux = (ROOT / "build/paper/main.aux").read_text(encoding="utf-8")
+def labels_from_aux(build=None):
+    build = build if build is not None else ROOT / "build/paper"
+    aux = (build / "main.aux").read_text(encoding="utf-8")
     result = {}
     for line in aux.splitlines():
         if line.startswith("\\newlabel{"):
@@ -105,7 +106,9 @@ def source_checks(tex):
         else:
             require(bool(stack) and stack.pop() == name, f"Unbalanced environment: {name}")
     require(not stack, f"Unclosed environments: {stack}")
-    first = tex.split(r"\section{State Spaces", 1)[1].split(r"\section{Dynamical Flows", 1)[0]
+    first = tex.split(r"\label{sec:physical-mathematical-setting}", 1)[1].split(
+        r"\label{sec:flows-transport}", 1
+    )[0]
     for forbidden in [
         r"\mathcal B(E)",
         r"\mathcal P(E)",
@@ -167,11 +170,12 @@ def preservation(tex, baseline):
         require(old_labels <= new_labels, f"Original labels removed: {old_labels-new_labels}")
         for pattern in [
             r"\\sourcecredit\{[^}]+\}\{[^}]+\}",
-            r"\\sourceindexrow\{[^}]+\}\{[^}]+\}\{[^}]+\}\{[^}]+\}",
+            r"\\sourceindex(?:omitted)?row\{[^}]+\}\{[^}]+\}\{[^}]+\}\{[^}]+\}",
             r"\\cite\{[^}]+\}",
         ]:
             require(
-                Counter(re.findall(pattern, old)) == Counter(re.findall(pattern, tex)),
+                Counter(m.replace(r"\sourceindexomittedrow", r"\sourceindexrow") for m in re.findall(pattern, old))
+                == Counter(m.replace(r"\sourceindexomittedrow", r"\sourceindexrow") for m in re.findall(pattern, tex)),
                 f"Original citations/source identifiers changed: {pattern}",
             )
         for env in [*STATEMENTS, "proof", "solution", "figure", "table", "longtable"]:
@@ -222,9 +226,12 @@ def preservation(tex, baseline):
     }
 
 
-def pdf_checks(tex):
-    pdf = ROOT / "build/paper/main.pdf"
-    aux = labels_from_aux()
+def pdf_checks(tex, build=None):
+    build = build if build is not None else ROOT / "build/paper"
+    pdf = build / "main.pdf"
+    aux = labels_from_aux(build)
+    live_tex = re.sub(r"(?<!\\)%[^\n]*", "", tex)
+    live_labels = set(re.findall(r"\\label\{([^}]+)\}", live_tex))
     destinations = subprocess.check_output(
         ["pdfinfo", "-dests", str(pdf)], encoding="utf-8", errors="replace"
     )
@@ -244,6 +251,9 @@ def pdf_checks(tex):
         "subsec:numerical",
         "subsec:hamiltonian-application",
     ]:
+        # Only included sections have PDF destinations in a partial draft.
+        if label not in live_labels:
+            continue
         require(label in aux, f"Unresolved hierarchy label: {label}")
         expected = "subsection." if label.startswith("subsec:") else "section."
         require(
@@ -253,6 +263,9 @@ def pdf_checks(tex):
         ("src:p9q6", "ex:weightedaction"),
         ("src:p9q13", "thm:flow-kl-variation"),
     ]:
+        if source not in live_labels:
+            require(statement not in live_labels, f"Included statement lost source label: {source}")
+            continue
         require(
             aux[source][3] == aux[statement][3],
             f"Cross-page source target detached from statement heading: {source}",
@@ -264,8 +277,10 @@ def pdf_checks(tex):
     source_links = [
         a for a in document.findall(".//a") if "".join(a.itertext()).startswith("Project ")
     ]
-    rows = re.findall(r"\\sourceindexrow\{[^}]+\}\{[^}]+\}\{([^}]+)\}\{[^}]+\}", tex)
-    require(len(source_links) == len(rows) == 45, "PDF source-entry link count is not 45")
+    rows = [row[2] for row in ROW.findall(live_tex)]
+    omitted_rows = OMITTED_ROW.findall(live_tex)
+    require(len(rows) + len(omitted_rows) == 47, "Expected 47 assessment source entries")
+    require(len(source_links) == len(rows), "PDF source-entry link count differs from included entries")
     for label, link in zip(rows, source_links):
         require(label in aux and aux[label][3] in dest, f"No live PDF destination for {label}")
         require(
@@ -314,7 +329,7 @@ def pdf_checks(tex):
         set(counts) == expected_numbers and all(n == 1 for n in counts.values()),
         f"Statement numbers not unique/complete: missing={expected_numbers-set(counts)}, duplicates={[k for k,v in counts.items() if v>1]}",
     )
-    log = (ROOT / "build/paper/main.log").read_text(errors="replace")
+    log = (build / "main.log").read_text(errors="replace")
     require(
         not re.search(
             r"Overfull|undefined|LaTeX Warning:|multiply defined|Missing character:", log
@@ -323,12 +338,14 @@ def pdf_checks(tex):
     )
     require("??" not in text, "Unresolved markers in PDF text")
     print(
-        f"PDF: {len(headings)} unique chapter-based statements, 45 assessment links, hierarchy and references OK"
+        f"PDF: {len(headings)} unique chapter-based statements, {len(rows)} assessment links, "
+        f"{len(omitted_rows)} omitted entries, hierarchy and references OK"
     )
     return {
         "pdf_pages": len(document.findall("page")),
         "statements": len(headings),
-        "assessment_links": 45,
+        "assessment_links": len(rows),
+        "omitted_assessment_entries": len(omitted_rows),
         "supplementary_links": 0,
         "underfull_boxes": log.count("Underfull"),
     }

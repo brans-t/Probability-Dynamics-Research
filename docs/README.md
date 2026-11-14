@@ -10,6 +10,8 @@ the [root README](../README.md).
 | `src/probflow/gaussian.py` | Exact coupled OU moments, Gaussian conditionals, projected drift, and correlations |
 | `src/probflow/projected.py` | Projected moment ODE and equilibrium free-energy closure |
 | `src/probflow/learning.py` | Affine conditional regression and drift conversion |
+| `src/probflow/neural_pde_solver.py` | Fourier inputs, potential/drift, committor AD residual, sparse 2D reference, FNO, sampling counterexample |
+| `experiments/neural_pde_smoke.py` | Reproducible 2D integration check; separate output in `results/neural_pde/` |
 | `experiments/run_benchmarks.py` | Combined benchmark orchestration and summary JSON |
 | `experiments/matrix_flow.py` | Noncommuting matrix IVP and determinant convergence |
 | `experiments/conditional_regression.py` | OU comparison, sampling, affine baseline, and optional neural training |
@@ -26,6 +28,10 @@ Every entry point supports `--output-root PATH`. Outputs mirror the repository:
 `PATH/results/benchmarks/` and `PATH/paper/figures/`. With no argument,
 `PATH` is the repository root. Paths are resolved independently of the current
 working directory.
+
+The provisional neural PDE entry point uses `PATH/results/neural_pde/smoke.json`
+and produces no manuscript figures. Its conventions, run commands, executed
+checks, and unresolved research questions are in the [neural PDE guide](neural-pde-research.md).
 
 ## Experiments and outputs
 
@@ -75,12 +81,11 @@ before the subsequent code reorganization.
 
 ## Manuscript organization and sources
 
-The source retains five main sections covering state/observable/probability language, deterministic
-transport and entropy, conditional/effective dynamics, learned flows and numerical
-structure, and a coupled OU benchmark. Sections 1.3–1.5 are currently preserved
-as line comments, so the compiled draft contains Sections 1.1–1.2 and Appendix A.
-The Source Index retains the hidden-section entries; their links are unresolved
-until those sections are restored. A superscript star marks incomplete solutions,
+The manuscript includes all five original sections covering state/observable/probability language,
+deterministic transport and entropy, conditional/effective dynamics, learned
+flows and numerical structure, and a coupled OU benchmark. Chapter 2 adds
+the provisional neural PDE research module; Appendix A retains the ODE foundations.
+The Source Index links all included sections. A superscript star marks incomplete solutions,
 proofs, or extensions, including explicit proof-completion placeholders.
 HNN transfer is retained only as a short
 prospective paragraph beside the Hamiltonian application; its former appendix
@@ -89,12 +94,14 @@ and supplementary navigation have been removed.
 Section 1.2 follows four themes: state-flow geometry; observable and probability
 transport; Hamiltonian mechanics as an application; entropy, variational principles,
 and free energy. Local derivation headings remain in the text. The main chapter
-retains 14 subsections in the full source, grouped as 3/4/2/3/2 across its five sections.
+retains the original 14 subsections, grouped as 3/4/2/3/2 across Sections 1.1–1.5,
+and adds six provisional research sections (2.1–2.6) in Chapter 2.
 
 The original assessment is kept locally as `docs/StudentAssessmentExercise_unlocked.pdf`
 and is excluded from Git. The [machine-readable source index](source_index.tsv)
 preserves Project/item provenance in the repository.
-The manuscript's Source Index provides 45 clickable entries, including all 13
+The manuscript's Source Index provides 47 clickable entries, including Projects
+2–3 and all 13
 Project 11 items. It is the single question-to-location table. Source numbers
 are independent of manuscript section numbers. A linked entry need not be an
 unrestricted solution: the [current review](manuscript-review-2026-11-06.md)
@@ -140,8 +147,9 @@ local Markdown links, manuscript labels/citations, source-index consistency, and
 saved artifact locations. The PDF audit additionally requires Poppler tools
 (`pdfinfo`, `pdftotext`, and `pdftohtml`) on PATH.
 
-The strict manuscript checks currently report unresolved references in the partial
-draft, including labels in commented-out Sections 1.3–1.5. Successful compilation
+The source-index check validates live links separately from explicitly omitted
+entries, whose original labels must remain preserved in the source. The full
+checks also enforce repository and formatting conventions. Successful compilation
 does not imply that these checks pass or that every proof is complete.
 
 For optional symbolic checks:

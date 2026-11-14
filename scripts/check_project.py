@@ -20,6 +20,8 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 ROW = re.compile(r"\\sourceindexrow\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}")
+ALL_ROWS = re.compile(r"\\sourceindex(?:omitted)?row\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}")
+OMITTED_ROW = re.compile(r"\\sourceindexomittedrow\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}")
 
 
 def require(condition, message):
@@ -39,7 +41,15 @@ def canonical_body(text):
 
 
 def expand_notation(tex, read_text):
-    """Include the notation chapter in source and archive checks."""
+    """Expand notation and legacy PDE includes in source/archive checks.
+
+    The current PDE chapter is inline in main.tex. Keep the old include
+    expansion for historical archives that still contain a separate file.
+    """
+    module = r"\input{neural_pde}"
+    if module in tex:
+        require(tex.count(module) == 1, "Expected one neural PDE include")
+        tex = tex.replace(module, read_text("paper/neural_pde.tex").rstrip("\r\n"))
     directive = r"\input{notation}"
     if directive not in tex:
         return tex
@@ -50,6 +60,8 @@ def expand_notation(tex, read_text):
 def check_manuscript():
     main = (ROOT / "paper/main.tex").read_text(encoding="utf-8")
     require(main.count(r"\input{notation}") == 1, "Separate notation chapter not included")
+    require(r"\input{neural_pde}" not in main, "Neural PDE chapter must be inline in main.tex")
+    require(main.count(r"\label{ch:neural-pde}") == 1, "Expected one inline neural PDE chapter")
     source_tex = expand_notation(main, lambda name: (ROOT / name).read_text(encoding="utf-8"))
     # Deferred answers remain in line comments. Only live labels/references and
     # source-index rows participate in compiled navigation checks.
@@ -60,13 +72,23 @@ def check_manuscript():
     references = re.findall(r"\\(?:eqref|ref|pageref\*?|hyperref)\{([^}]+)\}", tex)
     references += re.findall(r"\\hyperref\[([^\]]+)\]", tex)
     require(set(references) <= set(labels), f"Missing labels: {set(references) - set(labels)}")
-    rows = ROW.findall(tex)
-    require(len(rows) == 45, "Expected 45 assessment source-index rows")
+    rows = ALL_ROWS.findall(tex)
+    require(len(rows) == 47, "Expected 47 assessment source-index rows")
+    require(
+        {(row[0], row[1]) for row in rows if row[0] in {"2", "3"}}
+        == {("2", "Main task"), ("3", "Main task")},
+        "Neural PDE source index must include Projects 2 and 3",
+    )
     require(
         {r[1] for r in rows if r[0] == "11"} == {str(i) for i in range(1, 14)},
         "Project 11 source index must include all 13 items",
     )
-    require(all(row[2] in labels for row in rows), "Unresolved source-index target")
+    linked_rows = ROW.findall(tex)
+    require(all(row[2] in labels for row in linked_rows), "Unresolved source-index target")
+    preserved_labels = set(re.findall(r"\\label\{([^}]+)\}", source_tex))
+    for row in OMITTED_ROW.findall(tex):
+        require(row[2] not in labels, f"Included source marked omitted: {row[2]}")
+        require(row[2] in preserved_labels, f"Omitted source label not preserved: {row[2]}")
     with (ROOT / "docs/source_index.tsv").open(encoding="utf-8", newline="") as f:
         index = list(csv.reader(f, delimiter="\t"))
     require(index[0] == ["project", "item", "label", "placement"], "Unexpected TSV columns")
@@ -111,7 +133,8 @@ def check_manuscript():
     require(r"\input{preamble}" in tex, "Shared preamble not included")
     require(r"\addbibresource{ref.bib}" in preamble, "Bibliography path changed")
     print(
-        f"Manuscript: {len(labels)} labels, {len(rows)} source links, {len(figures)} figures, "
+        f"Manuscript: {len(labels)} labels, {len(linked_rows)} source links, "
+        f"{len(rows) - len(linked_rows)} omitted entries, {len(figures)} figures, "
         f"{len(animation_frames)} animation frames, {len(cited)} citation keys OK"
     )
     return tex
@@ -150,14 +173,24 @@ def check_repository():
     require(paths.figures == ROOT / "paper/figures", "Wrong experiment figure directory")
     require(paths.results == ROOT / "results/benchmarks", "Wrong experiment data directory")
     slide_source = (ROOT / "slides/project9_exercises1_2.tex").read_text(encoding="utf-8")
+    # The current deck factors its frames into section includes. Follow those
+    # declared sources before checking diagram usage, rather than treating all
+    # diagrams as unused merely because they moved out of the entry point.
+    for name in re.findall(r"\\input\{\\sectionroot\s+([^}]+)\}", slide_source):
+        slide_source += "\n" + (ROOT / "slides/sections" / (name + ".tex")).read_text(
+            encoding="utf-8"
+        )
     used_diagrams = set(re.findall(r"\\input\{\\diagramroot\s+([^}]+)\}", slide_source))
     used_diagrams.update(
         name + ".tex"
         for name in re.findall(r"\\flowdiagram(?:\[[^\]]+\])?\{([^}]+)\}", slide_source)
     )
     diagram_directory = ROOT / "slides/diagrams/project9"
+    # Retained alternatives from earlier slide layouts; keep them available
+    # without requiring an unrelated deck edit in a manuscript revision.
+    retained_diagrams = {"state.tex", "reversal.tex", "nonlinear.tex"}
     require(
-        used_diagrams == {p.name for p in diagram_directory.glob("*.tex")},
+        used_diagrams | retained_diagrams == {p.name for p in diagram_directory.glob("*.tex")},
         "Missing or unused slide TikZ source",
     )
     output = ROOT / "output"
